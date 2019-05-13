@@ -1,0 +1,154 @@
+.login-auth {
+    text-align: center;
+}
+
+.login-space {
+    margin-top: 30px;
+}
+
+.cover-all {
+    text-align: center;
+    height: 100vh;
+    width: 100%;
+    background-color: rgb(212, 37, 54);
+}
+
+.login-form {
+    display: inline-block;
+    width: 20em;
+    background-color: #ffff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.12);
+    border-radius: 0.25em;
+    padding: 1.5em;
+}
+
+.login-img {
+    width: 165px;
+    height: 60px;
+    margin: 3em auto 2em;
+}
+
+.input-css {
+    height: 3em;
+    border-radius: 2px;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.12);
+    box-sizing: border-box;
+    display: block;
+    margin: 0 auto;
+    border: 0.6px solid rgba(151, 151, 151, 0.21);
+}
+
+.login-button {
+    background: linear-gradient(174.78deg, #F0AA22 -8.91%, #D42536 99.52%);
+    margin-top: 2.5em;
+    height: 3em;
+    color: white;
+    border-radius: 4px;
+    display: block;
+    margin: 0 auto;
+}
+
+
+.login-footer {
+    display: flex;
+    text-align: center;
+}
+
+.login-footer1 {
+    flex: 1;
+    padding: 6px;
+    background-color: #3b5998 !important;
+}
+
+.alt-login-text {
+    text-align: center;
+    margin: 1em;
+}
+
+.login-footer2 {
+    flex: 1;
+    padding: 6px;
+    background-color: red;
+}
+
+.social-icon {
+    border: 0.6px solid rgba(151, 151, 151, 0.12);
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.12);
+    border-radius: 28px;
+    height: 40px;
+    width: 40px !important;
+    margin: 0.25em;
+    color: white !important;
+}
+
+.social-icon span {
+    margin-left: 0.5em;
+}
+
+li>a {
+    text-decoration: none;
+}
+
+
+.nav-link a:hover {
+    text-decoration: none !important;
+    color: black !important;
+}
+
+
+
+.responsive-input {
+    width: 40%
+}
+
+
+@media screen and (max-width: 600px) {
+    .login-auth {
+        text-align: center;
+    }
+
+    .login-form {
+        display: inline-block;
+        width: 330px;
+    }
+
+    .input-css {
+        height: 40px;
+        width: 260px;
+        box-sizing: border-box;
+        display: block;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    #login-button {
+        height: 35px;
+        width: 260px;
+        margin-top: 40px;
+    }
+
+    .login-button-r {
+        height: 35px;
+        color: white;
+        border-radius: 4px;
+        width: 260px;
+        margin-top: 40px;
+    }
+
+    .login-footer {
+        width: 260px;
+        margin-left: 25px;
+    }
+
+    .responsive-input {
+        width: 100%
+    }
+}
+
+.headers {
+    color: #D42536
+}
+
+.sub-head {
+    color: #F0AA22;
+}

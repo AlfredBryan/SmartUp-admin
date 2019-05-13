@@ -1,0 +1,11 @@
+#account-settings {
+    background-color: white;
+    padding: 2em;
+    border-radius: 5px;
+}
+
+.btn-submit {
+    background: linear-gradient(174.78deg, #F0AA22 -8.91%, #D42536 99.52%);
+    color: white;
+    font-weight: 700;
+}

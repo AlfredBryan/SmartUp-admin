@@ -1,0 +1,162 @@
+.ward-form {
+    margin-left: 1rem;
+    padding: 1.5em;
+    background-color: white;
+    box-shadow: 0 0.3px 0.3px 0 rgba(0, 0, 0, 0.2);
+}
+
+.ward-input {
+    width: 29em;
+    padding: 0.4rem;
+}
+
+.ward-button {
+    width: 10rem;
+    margin-left: 1rem;
+    background: linear-gradient(174.78deg, #F0AA22 -8.91%, #D42536 99.52%);
+    color: #ffffff;
+}
+
+.user-list {
+    width: 43em;
+    margin-top: 4rem;
+    margin-left: 1rem;
+    box-shadow: 0 0.3px 0.3px 0 rgba(0, 0, 0, 0.2);
+}
+
+.user-list li {
+    background-color: #ffffff;
+    padding: 0.5em;
+    list-style: none;
+    overflow: auto;
+}
+
+.user-list li div {
+    float: left;
+}
+
+.user-list li .user-names {
+    padding: 0.5em;
+    width: 70%;
+}
+
+.user-list .btn {
+    width: 5rem;
+    margin: 0 0.25em;
+    color: white;
+}
+
+.family-member-info {}
+
+#fadeOut {
+    display: none;
+}
+
+.family-member-info i {
+    margin-top: 30px;
+    font-size: 40px;
+    color: #0a306d;
+}
+
+.family-member-info h6 {
+    margin-top: 10px;
+}
+
+.family-member-info p {
+    font-size: 12px;
+    color: grey;
+}
+
+
+
+.no-wards {
+    display: inline-block !important;
+    margin-top: 0.25rem;
+}
+
+.no-wards h6 {
+    color: grey;
+    margin-left: 250px;
+}
+
+.wards-cover {
+    display: inline-block;
+    text-align: left;
+    width: 43em;
+    box-shadow: 0 0.3px 0.3px 0 rgba(0, 0, 0, 0.2);
+    padding: 3rem;
+    background-color: #ffffff;
+    margin-top: 2rem;
+}
+
+.wards-cover h5 {
+    font-weight: 600;
+    color: rgb(75, 70, 70);
+}
+
+.wards-cover p {
+    font-weight: 200;
+    color: gray;
+}
+
+#family-card {
+    margin: 0em 0em 0.3em 1em;
+}
+
+@media screen and (max-width: 500px) {
+    .wards-cover {
+        width: 100%;
+    }
+
+    .ward-form {
+        margin-left: 0.5rem !important;
+    }
+
+    .no-wards h6 {
+        text-align: center;
+        margin-left: 0
+    }
+
+    .ward-input {
+        width: 15em !important;
+        padding: 0.2rem;
+        margin-left: 0 !important;
+    }
+
+    .ward-button {
+        width: 4rem !important;
+    }
+
+    #family-card {
+        margin: 0em 0em 1em 0em;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .wards-cover {
+        width: 100%;
+    }
+
+    .ward-form {
+        margin-left: 1rem !important;
+    }
+
+    .no-wards h6 {
+        text-align: center;
+        margin-left: 0
+    }
+
+    .ward-input {
+        width: 19em !important;
+        padding: 0.4rem;
+        margin-left: 0 !important;
+    }
+
+    .ward-button {
+        width: 5rem !important;
+    }
+
+    #family-card {
+        margin: 0em 0em 1em 0em;
+    }
+}
