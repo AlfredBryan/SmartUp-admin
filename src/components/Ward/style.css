@@ -111,6 +111,13 @@
         margin-left: 0.5rem !important;
     }
 
+    .family-member-info i {
+        margin-top: 30px;
+        font-size: 40px;
+        color: #0a306d;
+        margin-left: 4em !important;
+    }
+
     .no-wards h6 {
         text-align: center;
         margin-left: 0
