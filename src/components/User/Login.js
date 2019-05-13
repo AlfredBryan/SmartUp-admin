@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import "./style.css";
 import Spinner from "../hoc/spinner";
+import { Tab, Tabs, TabList } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
 
 class UserAuth extends Component {
   constructor(props) {
@@ -11,7 +13,8 @@ class UserAuth extends Component {
       email: "",
       password: "",
       loading: false,
-      errorMessage: ""
+      errorMessage: "",
+      value: 0
     };
   }
 
@@ -61,8 +64,12 @@ class UserAuth extends Component {
     }
   };
 
+  handleTabChange = (event, value) => {
+    this.setState({ value });
+  };
+
   render() {
-    let { loading, errorMessage } = this.state;
+    let { loading, errorMessage, value } = this.state;
     const token = localStorage.getItem("token");
 
     if (token) {
@@ -81,20 +88,16 @@ class UserAuth extends Component {
           </Link>
           <div className="container login-auth">
             <div className="login-form">
-              <div className="container">
-                <ul className="nav nav-tabs">
-                  <li className="nav-item">
-                    <Link className="nav-link active user-nav" to="/login">
-                      Login
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link user-nav" to="/register">
-                      Register
-                    </Link>
-                  </li>
-                </ul>
-              </div>
+              <Tabs>
+                <TabList>
+                  <Link to="/login">
+                    <Tab aria-selected="true">Login</Tab>
+                  </Link>
+                  <Link selected to="/register">
+                    <Tab>Register</Tab>
+                  </Link>{" "}
+                </TabList>
+              </Tabs>
               <form
                 onSubmit={this.submitHandler}
                 className="login-space center-block"
@@ -140,12 +143,12 @@ class UserAuth extends Component {
               <p className="alt-login-text">You can also sign in via</p>
               <div className="login-footer">
                 <div className="login-footer1 social-icon">
-                  <i className="fa fa-facebook-square">
+                  <i className="fa fa-facebook-square icon">
                     <span>Facebook</span>
                   </i>
                 </div>
                 <div className="login-footer2 social-icon">
-                  <i className="fa fa-google">
+                  <i className="fa fa-google icon">
                     <span>Google</span>
                   </i>
                 </div>

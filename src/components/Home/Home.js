@@ -1,12 +1,11 @@
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink
-} from "reactstrap";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+
+import { Link } from "react-router-dom";
+
 import React, { Component } from "react";
 import { Helmet } from "react-helmet";
 import Typed from "react-typed";
@@ -36,29 +35,33 @@ class Home extends Component {
           <title>Home</title>
         </Helmet>
         <div id="home-section">
-          <Navbar dark expand="md" fixed="top" className="nav-home nav-change">
-            <NavbarBrand className="nav-header" href="/">
-              <img
-                className="logo-header"
-                src={require("../../images/logo_white.png")}
-                alt="SmartUp Logo"
-              />
-            </NavbarBrand>
-            <NavbarToggler onClick={this.toggle} />
-            <Collapse isOpen={this.state.isOpen} navbar>
-              <Nav className="ml-5" navbar>
-                <NavItem>
-                  <NavLink href="/login" className="continue">
-                    <div className="goto-page">Continue</div>
-                  </NavLink>
-                </NavItem>
-              </Nav>
-            </Collapse>
-          </Navbar>{" "}
+          <div className="root">
+            <AppBar className="special-header" position="fixed">
+              <Toolbar>
+                <IconButton
+                  className="menuButton"
+                  color="inherit"
+                  aria-label="Menu"
+                />
+                <Typography variant="h6" color="inherit" className="grow">
+                  <img
+                    className="logo-header"
+                    src={require("../../images/logo_white.png")}
+                    alt="SmartUp Logo"
+                  />
+                </Typography>
+                <Link to="/login">
+                  <Button className="continue" color="inherit">
+                    Continue
+                  </Button>
+                </Link>
+              </Toolbar>
+            </AppBar>
+          </div>
           <section className="main-header main-2">
             <h1 className="intro">Learn anything, anywhere....</h1>
             <div className="container">
-              <div className="row text-center">
+              <div className="row align-text text-center">
                 <div>
                   <Typed
                     strings={[
@@ -69,7 +72,7 @@ class Home extends Component {
                     ]}
                     typeSpeed={40}
                     backSpeed={50}
-                    className="typed-info text-center"
+                    className="typed-info text-center, align-text"
                     loop
                   />
                 </div>

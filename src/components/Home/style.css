@@ -13,6 +13,24 @@ body {
     height: 100%;
 }
 
+* {
+    box-sizing: none !important;
+}
+
+.fa {
+    width: 0% !important;
+    display: block !important
+}
+
+.fa {
+    margin-left: 10px;
+    padding: 4px;
+}
+
+.fa span {
+    padding: 7px;
+}
+
 
 .main-header {
     background: linear-gradient(360deg, #F0AA22 -8.91%, #D42536 99.52%) !important;
@@ -23,8 +41,23 @@ body {
     color: white;
 }
 
+.special-header {
+    background: linear-gradient(174.78deg, #D42536 100%, #D42536 100%) !important;
+}
+
 .main-header .container {
     padding-left: 15%;
+}
+
+.align-text {
+    padding-right: 100px;
+}
+
+.continue {
+    border: 1px solid white !important;
+    border-radius: 0.5rem;
+    padding: 0.5em 1em !important;
+    font-size: 15px !important;
 }
 
 .main-header .intro {
@@ -92,45 +125,32 @@ body {
 }
 
 
-
-nav.nav-home.nav-change {
-    background: linear-gradient(174.78deg, #D42536 100%, #D42536 100%) !important;
-}
-
-.continue {
-    border: 1px solid white;
-    border-radius: 0.5rem;
-    padding: 0% !important;
-    height: 5px;
-    width: 10px;
-}
-
-nav.nav-home .nav-item:hover {
-    opacity: 0.5;
-    padding: 0% !important;
-}
-
-
-nav.fixed-top {
-    margin-bottom: 0px;
-    padding: 0% !important;
-
-}
-
-.nav-item {
-    margin-left: 900px;
-
-}
-
 .logo-header {
     height: 2.5em;
 }
 
-.nav-header {
-    padding: 0 1rem;
+.root {
+    flex-grow: 1;
 }
 
+.grow {
+    flex-grow: 1;
+}
 
+.menuButton {
+    margin-left: -12;
+    margin-right: 20;
+}
+
+a {
+    text-decoration: none;
+    color: #fff
+}
+
+a:hover {
+    text-decoration: none;
+    color: #fff
+}
 
 
 @media screen and (max-width: 600px) {
@@ -150,5 +170,9 @@ nav.fixed-top {
     .main-header .main-image {
         margin-top: 1rem;
         height: 7rem;
+    }
+
+    .align-text {
+        padding-right: 35px;
     }
 }
