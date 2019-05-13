@@ -60,6 +60,15 @@
     background-color: #3b5998 !important;
 }
 
+.nav-tabs li {
+    width: 50%;
+}
+
+.nav-tabs li a {
+    text-decoration: none;
+    color: black
+}
+
 .alt-login-text {
     text-align: center;
     margin: 1em;

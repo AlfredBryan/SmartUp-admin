@@ -19,6 +19,11 @@
     height: 140px;
     width: 220px;
     background: #ffffff;
+    text-align: center !important;
+}
+
+.card i {
+    margin-left: 90px;
 }
 
 .card:hover {
@@ -112,7 +117,12 @@
     }
 
     .card {
-        width: 100%
+        width: 100%;
+        padding: 0.5em;
+    }
+
+    .card i {
+        margin-left: 5em;
     }
 
     .card-below {

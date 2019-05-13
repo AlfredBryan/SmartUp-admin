@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import "./style.css";
 import Spinner from "../hoc/spinner";
-import { Tab, Tabs, TabList } from "react-tabs";
-import "react-tabs/style/react-tabs.css";
 
 class UserAuth extends Component {
   constructor(props) {
@@ -88,16 +86,18 @@ class UserAuth extends Component {
           </Link>
           <div className="container login-auth">
             <div className="login-form">
-              <Tabs>
-                <TabList>
-                  <Link to="/login">
-                    <Tab aria-selected="true">Login</Tab>
+              <ul class="nav nav-tabs">
+                <li class="active">
+                  <Link to="/login" data-toggle="tab">
+                    Login
                   </Link>
-                  <Link selected to="/register">
-                    <Tab>Register</Tab>
-                  </Link>{" "}
-                </TabList>
-              </Tabs>
+                </li>
+                <li>
+                  <Link to="/register" data-toggle="tab">
+                    Register
+                  </Link>
+                </li>
+              </ul>
               <form
                 onSubmit={this.submitHandler}
                 className="login-space center-block"

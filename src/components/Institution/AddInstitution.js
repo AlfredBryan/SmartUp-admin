@@ -142,7 +142,7 @@ class AddInstitution extends Component {
                   </div>
                 </div>
                 <div className="form-group">
-                  <div className="col-lg-8">
+                  <div className="col-lg-12">
                     <button
                       onClick={this.handleSubmit}
                       className="form-control btn-submit"

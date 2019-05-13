@@ -9,3 +9,7 @@
     color: white;
     font-weight: 700;
 }
+
+.react-datepicker__input-container {
+    width: 20px !important;
+}

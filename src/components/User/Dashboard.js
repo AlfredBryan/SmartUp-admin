@@ -80,7 +80,7 @@ class Dashboard extends Component {
             <div className="row">
               <div className="col-xs-12 col-sm-8 col-md-8">
                 <div className="flex-div">
-                  <div style={{ textAlign: "center" }} className="card">
+                  <div className="card">
                     <i
                       style={{
                         marginTop: "30px",
@@ -94,7 +94,7 @@ class Dashboard extends Component {
                       1:1 mentorship session
                     </p>
                   </div>
-                  <div style={{ textAlign: "center" }} className="card left">
+                  <div className="card left">
                     <i
                       style={{
                         marginTop: "30px",

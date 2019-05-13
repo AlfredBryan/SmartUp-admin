@@ -46,8 +46,6 @@
     color: white;
 }
 
-.family-member-info {}
-
 #fadeOut {
     display: none;
 }
@@ -56,6 +54,7 @@
     margin-top: 30px;
     font-size: 40px;
     color: #0a306d;
+    margin-left: 75px !important;
 }
 
 .family-member-info h6 {

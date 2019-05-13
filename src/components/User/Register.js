@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import "./style.css";
 import axios from "axios";
 import Spinner from "../hoc/spinner";
-import { Tab, Tabs, TabList } from "react-tabs";
-import "react-tabs/style/react-tabs.css";
 
 class Register extends Component {
   constructor(props) {
@@ -106,20 +104,18 @@ class Register extends Component {
           </Link>
           <div className="container login-auth">
             <div className="login-form">
-              <Tabs>
-                <TabList>
-                <Link to="/login">
-                  <Tab>
+              <ul class="nav nav-tabs">
+                <li>
+                  <Link to="/login" data-toggle="tab">
                     Login
-                  </Tab>
                   </Link>
-                  <Link to="/register">
-                  <Tab>
-                  Register
-                  </Tab>
-                  </Link>{" "}
-                </TabList>
-              </Tabs>
+                </li>
+                <li class="active">
+                  <Link to="/register" data-toggle="tab">
+                    Register
+                  </Link>
+                </li>
+              </ul>
               <form
                 onSubmit={this.submitHandler}
                 className="login-space center-block"
@@ -172,12 +168,12 @@ class Register extends Component {
               <p className="alt-login-text">You can also register via</p>
               <div className="login-footer">
                 <div className="login-footer1 social-icon">
-                  <i className="fa fa-facebook-square">
+                  <i className="fa fa-facebook-square icon">
                     <span>Facebook</span>
                   </i>
                 </div>
                 <div className="login-footer2 social-icon">
-                  <i className="fa fa-google">
+                  <i className="fa fa-google icon">
                     <span>Google</span>
                   </i>
                 </div>

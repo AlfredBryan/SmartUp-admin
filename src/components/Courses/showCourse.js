@@ -7,7 +7,6 @@ import AdminNavbar from "../Navbars/AdminNavbar";
 
 import routes from "../../routes";
 
-const user = JSON.parse(localStorage.getItem("user"));
 
 class showCourse extends Component {
   constructor(props) {
