@@ -87,6 +87,7 @@ class Dashboard extends Component {
   render() {
     const { classes } = this.props;
     const { open } = this.state;
+    const user = JSON.parse(localStorage.getItem("user"));
     return (
       <React.Fragment>
         <Sidebar
@@ -110,7 +111,7 @@ class Dashboard extends Component {
           }}
           message={
             <span id="snackbar-fab-message-id popup-text">
-              Welcome to SmartUp
+              {`Welcome to SmartUp ${user.first_name}`}
             </span>
           }
           action={

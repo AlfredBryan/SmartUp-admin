@@ -41,10 +41,14 @@ class UserAuth extends Component {
         )
         .then(res => {
           console.log(res);
-          if (res.status === 201) {
+          if (res.status === 201 && res.data.completed_at !== null) {
             localStorage.setItem("token", res.data.authentication_token);
             localStorage.setItem("user", JSON.stringify(res.data));
             this.props.history.replace("/profile");
+          } else {
+            localStorage.setItem("token", res.data.authentication_token);
+            localStorage.setItem("user", JSON.stringify(res.data));
+            this.props.history.replace("/update_profile");
           }
           this.setState({
             errorMessage: res.data.message,

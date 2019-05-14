@@ -8,15 +8,15 @@ import Sidebar from "../Sidebar/Sidebar";
 import AdminNavbar from "../Navbars/AdminNavbar";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import FormControl from "@material-ui/core/FormControl";
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
-import TextField from "@material-ui/core/TextField";
-import MenuItem from "@material-ui/core/MenuItem";
+
+//popup notification
+import Button from "@material-ui/core/Button";
+import Snackbar from "@material-ui/core/Snackbar";
 
 import routes from "../../routes";
 
 import "./userupdate.css";
+import Spinner from "components/hoc/spinner";
 
 const styles = theme => ({
   container: {
@@ -40,9 +40,25 @@ class UpdateUser extends Component {
       image_url: "",
       date_of_birth: new Date(),
       sex: "other",
-      level: ""
+      level: "1",
+      open: false,
+      loading: false
     };
   }
+
+  // popup notification functions
+  handleClick = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
+  componentDidMount() {
+    this.handleClick();
+  }
+
   componentDidMount() {
     this.forceUpdate();
   }
@@ -91,11 +107,18 @@ class UpdateUser extends Component {
           headers: {
             Authorization: token
           }
-        }
+        },
+        this.setState({
+          loading: true
+        })
       )
       .then(res => {
+        console.log(res);
         if (res.status === 200) {
-          this.props.history.replace("/profile");
+          this.setState({
+            loading: false
+          });
+          this.handleClick();
         }
       });
   };
@@ -151,7 +174,7 @@ class UpdateUser extends Component {
       "Zamfara"
     ];
     const { classes } = this.props;
-    console.log(this.state.date_of_birth);
+    const { open, loading } = this.state;
     return (
       <div>
         <Sidebar
@@ -165,6 +188,26 @@ class UpdateUser extends Component {
             brandText={this.getBrandText(this.props.location.pathname)}
           />
         </div>
+        <Snackbar
+          open={open}
+          autoHideDuration={4000}
+          onClose={this.handleClose}
+          ContentProps={{
+            "aria-describedby": "snackbar-fab-message-id",
+            className: classes.snackbarContent
+          }}
+          message={
+            <span id="snackbar-fab-message-id popup-text">
+              Profile Updated Successfully
+            </span>
+          }
+          action={
+            <Button color="inherit" size="small" onClick={this.handleClose}>
+              close
+            </Button>
+          }
+          className={classes.snackbar}
+        />
         <div className="container">
           <div className="main-content">
             <h4>Account Settings</h4>
@@ -271,14 +314,19 @@ class UpdateUser extends Component {
                     showYearDropdown
                     dropdownMode="select"
                     dateFormat="dd/MM/yyyy"
-                    calendarClassName="form-control"
                   />
                 </div>
               </div>
               <div className="form-group">
                 <label className="col-lg-3 control-label">Level:</label>
                 <div className="col-lg-8">
-                  <select className="form-control" name="" id="">
+                  <select
+                    className="form-control"
+                    name="level"
+                    value={this.state.level}
+                    onChange={this.handleChange}
+                    id=""
+                  >
                     {Array.from(new Array(12), (val, index) => index + 1).map(
                       l => (
                         <option value={l}> Grade {l}</option>
@@ -303,7 +351,7 @@ class UpdateUser extends Component {
                     onClick={this.handleSubmit}
                     className="form-control btn-submit"
                   >
-                    Confirm
+                    {loading ? <Spinner /> : "Confirm"}
                   </button>
                 </div>
               </div>

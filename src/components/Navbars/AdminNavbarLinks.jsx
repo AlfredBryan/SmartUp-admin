@@ -28,13 +28,14 @@ class AdminNavbarLinks extends Component {
       });
   };
   render() {
+    const user = JSON.parse(localStorage.getItem("user"));
     return (
       <div>
         <Nav pullRight>
           <NavItem eventKey={1} href="#">
             <div className="user-info">
               <i className="fa fa-user-circle nav-icon">
-                <span className="remove-font">Account</span>
+                <span className="remove-font">{user.first_name}</span>
               </i>
             </div>
           </NavItem>

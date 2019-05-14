@@ -82,8 +82,9 @@ form button {
 }
 
 .navbar-default .navbar-nav>li {
-    width: 9em !important;
-    padding: 0% !important
+    width: 10em !important;
+    padding: 0% !important;
+    overflow: hidden !important;
 }
 
 .navbar-default .navbar-nav>li:hover {
