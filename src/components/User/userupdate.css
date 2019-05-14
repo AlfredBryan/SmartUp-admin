@@ -13,3 +13,9 @@
 .react-datepicker__input-container {
     width: 20px !important;
 }
+
+@media screen and (max-width: 600px) {
+    .react-datepicker__input-container {
+        width: 16px !important;
+    }
+}
