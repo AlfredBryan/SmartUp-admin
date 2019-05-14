@@ -97,6 +97,10 @@
     margin-top: 0px;
 }
 
+.MuiTypography-body1-52 {
+    font-size: 1.5em !important;
+}
+
 @media screen and (max-width: 600px) {
     .main-content {
         margin-left: 3px !important;

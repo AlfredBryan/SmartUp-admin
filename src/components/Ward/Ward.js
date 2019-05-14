@@ -237,7 +237,7 @@ class AddWard extends Component {
                     </li>
                   ))}
                 </div>
-                <form className="ward-form form-none" onSubmit={this.addWard}>
+                <form className="ward-form" onSubmit={this.addWard}>
                   <div className="d-flex">
                     <input
                       className="ward-input"

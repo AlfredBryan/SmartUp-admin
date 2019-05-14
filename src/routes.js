@@ -14,19 +14,19 @@ const dashboardRoutes = [
   {
     path: "/update_profile",
     name: "Settings",
-    icon: "fa fa-gear",
+    icon: "pe-7s-config",
     component: UpdateUser
   },
   {
     path: "/family",
     name: "Wards",
-    icon: "fa fa-users",
+    icon: "pe-7s-users",
     component: AddWard
   },
   {
     path: "/institution",
     name: "Institution",
-    icon: "fa fa-university",
+    icon: "pe-7s-culture",
     component: Institution
   },
   {

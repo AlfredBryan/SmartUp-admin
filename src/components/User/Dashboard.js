@@ -5,17 +5,59 @@ import axios from "axios";
 import Sidebar from "../Sidebar/Sidebar";
 import routes from "../../routes";
 import AdminNavbar from "../Navbars/AdminNavbar";
+import classNames from "classnames";
+
+//popup notification
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import Snackbar from "@material-ui/core/Snackbar";
 
 const token = localStorage.getItem("token");
+
+const styles = theme => ({
+  root: {
+    position: "relative",
+    overflow: "hidden"
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20
+  },
+  button: {
+    marginBottom: theme.spacing.unit
+  },
+  snackbar: {
+    position: "absolute"
+  },
+  snackbarContent: {
+    width: 360
+  }
+});
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: ""
+      email: "",
+      open: false
     };
   }
 
+  // popup notification functions
+  handleClick = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
+  componentDidMount() {
+    this.handleClick();
+  }
+
+  // Getting path name from location
   getBrandText = path => {
     for (let i = 0; i < routes.length; i++) {
       if (this.props.location.pathname.indexOf(routes[i].path) !== -1) {
@@ -25,26 +67,7 @@ class Dashboard extends Component {
     return "Brand";
   };
 
-  logOut = () => {
-    axios
-      .delete("https://smart-up.herokuapp.com/api/v1/session", {
-        headers: {
-          Authorization: token
-        }
-      })
-      .then(res => {
-        if (res.statusText === "OK") {
-          console.log(res);
-          localStorage.clear("token");
-          localStorage.clear("user");
-          this.props.history.replace("/");
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-
+  //Add ward function
   addWard = e => {
     e.preventDefault();
     const { email } = this.state;
@@ -62,6 +85,8 @@ class Dashboard extends Component {
   };
 
   render() {
+    const { classes } = this.props;
+    const { open } = this.state;
     return (
       <React.Fragment>
         <Sidebar
@@ -75,6 +100,26 @@ class Dashboard extends Component {
             brandText={this.getBrandText(this.props.location.pathname)}
           />
         </div>
+        <Snackbar
+          open={open}
+          autoHideDuration={4000}
+          onClose={this.handleClose}
+          ContentProps={{
+            "aria-describedby": "snackbar-fab-message-id",
+            className: classes.snackbarContent
+          }}
+          message={
+            <span id="snackbar-fab-message-id popup-text">
+              Welcome to SmartUp
+            </span>
+          }
+          action={
+            <Button color="inherit" size="small" onClick={this.handleClose}>
+              close
+            </Button>
+          }
+          className={classes.snackbar}
+        />
         <div className="main-content">
           <div className="container">
             <div className="row">
@@ -150,4 +195,8 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+Dashboard.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(Dashboard);

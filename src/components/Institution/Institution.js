@@ -4,18 +4,38 @@ import axios from "axios";
 
 import Sidebar from "../Sidebar/Sidebar";
 import AdminNavbar from "../Navbars/AdminNavbar";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import AddIcon from "@material-ui/icons/Add";
+import Fab from "@material-ui/core/Fab";
+import Tooltip from "@material-ui/core/Tooltip";
 
 import routes from "../../routes";
 
 import "./style.css";
 
+const styles = theme => ({
+  fab: {
+    margin: theme.spacing.unit * 2
+  },
+  absolute: {
+    position: "absolute",
+    bottom: theme.spacing.unit * 2,
+    right: theme.spacing.unit * 3
+  }
+});
+
 class Institution extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      universities: "",
+      universities: [],
       loading: false
     };
+  }
+
+  componentDidMount() {
+    this.fetchUniversity();
   }
 
   getBrandText = path => {
@@ -27,6 +47,22 @@ class Institution extends Component {
     return "Brand";
   };
 
+  fetchUniversity = () => {
+    const token = localStorage.getItem("token");
+    axios
+      .get("https://smart-up.herokuapp.com/api/v1/institutions", {
+        headers: {
+          Authorization: token
+        }
+      })
+      .then(res => {
+        console.log(res);
+        this.setState({
+          universities: res.data
+        });
+      });
+  };
+
   handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
@@ -36,6 +72,8 @@ class Institution extends Component {
   render() {
     const user = JSON.parse(localStorage.getItem("user"));
     const { universities } = this.state;
+
+    const { classes } = this.props;
     return (
       <div>
         <Sidebar
@@ -66,9 +104,11 @@ class Institution extends Component {
               </div>
             </div>
             <Link to="/institutions/new">
-              <button className="btn btn-success btn-circle">
-                <i className="fa fa-plus" />
-              </button>
+              <Tooltip title="Add" aria-label="Add">
+                <Fab color="primary" className={classes.fab}>
+                  <AddIcon />
+                </Fab>
+              </Tooltip>
             </Link>
           </div>
         </div>
@@ -77,4 +117,8 @@ class Institution extends Component {
   }
 }
 
-export default Institution;
+Institution.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(Institution);

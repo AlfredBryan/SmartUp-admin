@@ -6,27 +6,45 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import Sidebar from "../Sidebar/Sidebar";
 import AdminNavbar from "../Navbars/AdminNavbar";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import FormControl from "@material-ui/core/FormControl";
+import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel";
+import TextField from "@material-ui/core/TextField";
+import MenuItem from "@material-ui/core/MenuItem";
 
 import routes from "../../routes";
 
 import "./userupdate.css";
 
+const styles = theme => ({
+  container: {
+    display: "flex",
+    flexWrap: "wrap"
+  },
+  formControl: {
+    margin: theme.spacing.unit
+  }
+});
+
 class UpdateUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {
-        first_name: "",
-        surname: "",
-        address: "",
-        phone: "",
-        state: "",
-        image_url: "",
-        date_of_birth: new Date(),
-        sex: "other",
-        level: ""
-      }
+      first_name: "",
+      surname: "",
+      address: "",
+      phone: "",
+      state: "",
+      image_url: "",
+      date_of_birth: new Date(),
+      sex: "other",
+      level: ""
     };
+  }
+  componentDidMount() {
+    this.forceUpdate();
   }
 
   getBrandText = path => {
@@ -53,8 +71,7 @@ class UpdateUser extends Component {
       date_of_birth,
       level,
       sex
-    } = this.state.user;
-    console.log(this.state.user);
+    } = this.state;
     axios
       .put(
         "https://smart-up.herokuapp.com/api/v1/registration",
@@ -84,15 +101,7 @@ class UpdateUser extends Component {
   };
 
   handleChange = event => {
-    const { name, value } = event.target;
-    let user = { ...this.state.user, [name]: value };
-    this.setState({ user });
-  };
-
-  handleImageChange = e => {
-    e.preventDefault();
-    let imageFile = e.target.files[0];
-    this.setState({ [e.target.name]: imageFile });
+    this.setState({ [event.target.name]: event.target.value });
   };
 
   handleDateChange = date => {
@@ -141,7 +150,8 @@ class UpdateUser extends Component {
       "Yobe",
       "Zamfara"
     ];
-    console.log(this.state.user.date_of_birth);
+    const { classes } = this.props;
+    console.log(this.state.date_of_birth);
     return (
       <div>
         <Sidebar
@@ -158,150 +168,146 @@ class UpdateUser extends Component {
         <div className="container">
           <div className="main-content">
             <h4>Account Settings</h4>
-            <div className="col-md-9" id="account-settings">
-              <div className="row">
-                <div className="col-md-3">
-                  <div className="text-center">
-                    <img
-                      src="//placehold.it/100"
-                      className="avatar img-circle"
-                      alt="avatar"
-                    />
+            <div className="row">
+              <div className="col-md-12">
+                <div className="text-center form-horizontal">
+                  <img
+                    src="//placehold.it/100"
+                    className="avatar img-circle"
+                    alt="avatar"
+                  />
 
-                    <input
-                      type="file"
-                      name="image_url"
-                      onChange={this.handleImageChange}
-                      className="form-control"
-                    />
-                  </div>
+                  <input
+                    type="file"
+                    name="image_url"
+                    onChange={this.handleImageChange}
+                    className="form-control"
+                  />
                 </div>
               </div>
-              <form onSubmit={this.handleSubmit} className="form-horizontal">
-                <div className="form-group">
-                  <label className="col-lg-3 control-label">First name:</label>
-                  <div className="col-lg-8">
-                    <input
+            </div>
+            <form onSubmit={this.handleSubmit} className="form-horizontal">
+              <div className="form-group">
+                <label className="col-lg-3 control-label">First name:</label>
+                <div className="col-lg-8">
+                  <input
+                    className="form-control"
+                    type="text"
+                    name="first_name"
+                    value={this.state.first_name}
+                    placeholder="First Name ..."
+                    onChange={this.handleChange}
+                  />
+                </div>
+              </div>
+              <div className="form-group">
+                <label className="col-lg-3 control-label">Surname:</label>
+                <div className="col-lg-8">
+                  <input
+                    className="form-control"
+                    name="surname"
+                    type="text"
+                    value={this.state.surname}
+                    placeholder="Surname ..."
+                    onChange={this.handleChange}
+                  />
+                </div>
+              </div>
+              <div className="form-group">
+                <label className="col-lg-3 control-label">Address:</label>
+                <div className="col-lg-8">
+                  <input
+                    className="form-control"
+                    name="address"
+                    type="text"
+                    value={this.state.address}
+                    placeholder="Address ..."
+                    onChange={this.handleChange}
+                  />
+                </div>
+              </div>
+              <div className="form-group">
+                <label className="col-lg-3 control-label">State:</label>
+                <div className="col-lg-8">
+                  <div className="ui-select">
+                    <select
+                      id="user_time_zone"
+                      name="state"
                       className="form-control"
-                      type="text"
-                      name="first_name"
-                      value={this.state.user.first_name}
-                      placeholder="First Name ..."
+                      value={this.state.state}
                       onChange={this.handleChange}
-                    />
-                  </div>
-                </div>
-                <div className="form-group">
-                  <label className="col-lg-3 control-label">Surname:</label>
-                  <div className="col-lg-8">
-                    <input
-                      className="form-control"
-                      name="surname"
-                      type="text"
-                      value={this.state.user.surname}
-                      placeholder="Surname ..."
-                      onChange={this.handleChange}
-                    />
-                  </div>
-                </div>
-                <div className="form-group">
-                  <label className="col-lg-3 control-label">Address:</label>
-                  <div className="col-lg-8">
-                    <input
-                      className="form-control"
-                      name="address"
-                      type="text"
-                      value={this.state.user.address}
-                      placeholder="Address ..."
-                      onChange={this.handleChange}
-                    />
-                  </div>
-                </div>
-                <div className="form-group">
-                  <label className="col-lg-3 control-label">State:</label>
-                  <div className="col-lg-8">
-                    <div className="ui-select">
-                      <select
-                        id="user_time_zone"
-                        name="state"
-                        className="form-control"
-                        value={this.state.user.state}
-                        onChange={this.handleChange}
-                      >
-                        <option value="" disabled selected>
-                          --Select--
-                        </option>
-                        {states.map(s => (
-                          <option value={s}>{s}</option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div className="form-group">
-                  <label className="col-lg-3 control-label">Phone:</label>
-                  <div className="col-lg-8">
-                    <input
-                      className="form-control"
-                      name="phone"
-                      type="text"
-                      value={this.state.user.phone}
-                      placeholder="Phone Number ..."
-                      onChange={this.handleChange}
-                    />
-                  </div>
-                </div>
-                <div className="form-group">
-                  <label className="col-lg-3 control-label">
-                    Date of Birth:
-                  </label>
-                  <div className="col-lg-8">
-                    <DatePicker
-                      selected={this.state.user.date_of_birth}
-                      onChange={this.handleDateChange}
-                      peekNextMonth
-                      showMonthDropdown
-                      showYearDropdown
-                      dropdownMode="select"
-                      dateFormat="dd/MM/yyyy"
-                      calendarClassName="form-date"
-                    />
-                  </div>
-                </div>
-                <div className="form-group">
-                  <label className="col-lg-3 control-label">Level:</label>
-                  <div className="col-lg-8">
-                    <select className="form-control" name="" id="">
-                      {Array.from(new Array(12), (val, index) => index + 1).map(
-                        l => (
-                          <option value={l}> Grade {l}</option>
-                        )
-                      )}
-                    </select>
-                  </div>
-                </div>
-                <div className="form-group">
-                  <label className="col-lg-3 control-label">Level:</label>
-                  <div className="col-lg-8">
-                    <select className="form-control" name="" id="">
-                      {["male", "female", "other"].map(sx => (
-                        <option value={sx}>{this.Capitalize(sx)}</option>
+                    >
+                      <option value="" disabled selected>
+                        --Select--
+                      </option>
+                      {states.map(s => (
+                        <option value={s}>{s}</option>
                       ))}
                     </select>
                   </div>
                 </div>
-                <div className="form-group">
-                  <div className="col-lg-12">
-                    <button
-                      onClick={this.handleSubmit}
-                      className="form-control btn-submit"
-                    >
-                      Confirm
-                    </button>
-                  </div>
+              </div>
+              <div className="form-group">
+                <label className="col-lg-3 control-label">Phone:</label>
+                <div className="col-lg-8">
+                  <input
+                    className="form-control"
+                    name="phone"
+                    type="text"
+                    value={this.state.phone}
+                    placeholder="Phone Number ..."
+                    onChange={this.handleChange}
+                  />
                 </div>
-              </form>
-            </div>
+              </div>
+              <div className="form-group">
+                <label className="col-lg-3 control-label">Date of Birth:</label>
+                <div className="col-lg-8">
+                  <DatePicker
+                    selected={this.state.date_of_birth}
+                    onChange={this.handleDateChange}
+                    peekNextMonth
+                    showMonthDropdown
+                    showYearDropdown
+                    dropdownMode="select"
+                    dateFormat="dd/MM/yyyy"
+                    calendarClassName="form-control"
+                  />
+                </div>
+              </div>
+              <div className="form-group">
+                <label className="col-lg-3 control-label">Level:</label>
+                <div className="col-lg-8">
+                  <select className="form-control" name="" id="">
+                    {Array.from(new Array(12), (val, index) => index + 1).map(
+                      l => (
+                        <option value={l}> Grade {l}</option>
+                      )
+                    )}
+                  </select>
+                </div>
+              </div>
+              <div className="form-group">
+                <label className="col-lg-3 control-label">Level:</label>
+                <div className="col-lg-8">
+                  <select className="form-control" name="" id="">
+                    {["male", "female", "other"].map(sx => (
+                      <option value={sx}>{this.Capitalize(sx)}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              <div className="form-group">
+                <div className="col-lg-12">
+                  <button
+                    onClick={this.handleSubmit}
+                    className="form-control btn-submit"
+                  >
+                    Confirm
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
@@ -309,4 +315,8 @@ class UpdateUser extends Component {
   }
 }
 
-export default UpdateUser;
+UpdateUser.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(UpdateUser);

@@ -102,45 +102,13 @@
     margin: 0em 0em 0.3em 1em;
 }
 
-@media screen and (max-width: 500px) {
-    .wards-cover {
-        width: 100%;
-    }
-
-    .ward-form {
-        margin-left: 0.5rem !important;
-    }
-
-    .family-member-info i {
-        margin-top: 30px;
-        font-size: 40px;
-        color: #0a306d;
-        margin-left: 3.7em !important;
-    }
-
-    .no-wards h6 {
-        text-align: center;
-        margin-left: 0
-    }
-
-    .ward-input {
-        width: 15em !important;
-        padding: 0.2rem;
-        margin-left: 0 !important;
-    }
-
-    .ward-button {
-        width: 4rem !important;
-    }
-
-    #family-card {
-        margin: 0em 0em 1em 0em;
-    }
-}
-
 @media screen and (max-width: 600px) {
     .wards-cover {
         width: 100%;
+    }
+
+    .user-list {
+        width: 13em;
     }
 
     .ward-form {
@@ -153,16 +121,21 @@
     }
 
     .ward-input {
-        width: 19em !important;
+        width: 15em !important;
         padding: 0.4rem;
         margin-left: 0 !important;
     }
 
     .ward-button {
-        width: 5rem !important;
+        width: 8rem !important;
+    }
+
+    .family-member-info i {
+        margin-left: 3.9em !important;
     }
 
     #family-card {
         margin: 0em 0em 1em 0em;
+        width: 100% !important;
     }
 }

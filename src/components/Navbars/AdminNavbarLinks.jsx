@@ -32,10 +32,14 @@ class AdminNavbarLinks extends Component {
       <div>
         <Nav pullRight>
           <NavItem eventKey={1} href="#">
-            Account
+            <div className="user-info">
+              <i className="fa fa-user-circle nav-icon">
+                <span className="remove-font">Account</span>
+              </i>
+            </div>
           </NavItem>
           <NavItem onClick={this.logOut} eventKey={3} href="#">
-            Log out
+            <span className="span-logout"> Log out</span>
           </NavItem>
         </Nav>
       </div>

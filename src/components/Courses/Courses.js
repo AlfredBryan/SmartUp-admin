@@ -5,8 +5,42 @@ import axios from "axios";
 
 import Sidebar from "../Sidebar/Sidebar";
 import AdminNavbar from "../Navbars/AdminNavbar";
+import { withStyles } from "@material-ui/core/styles";
+import PropTypes from "prop-types";
+import AddIcon from "@material-ui/icons/Add";
+import Fab from "@material-ui/core/Fab";
+import Tooltip from "@material-ui/core/Tooltip";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListSubheader from "@material-ui/core/ListSubheader";
 
 import routes from "../../routes";
+
+const styles = theme => ({
+  root: {
+    width: "100%",
+    backgroundColor: theme.palette.background.paper,
+    position: "relative",
+    overflow: "auto",
+    maxHeight: 300
+  },
+  listSection: {
+    backgroundColor: "inherit"
+  },
+  ul: {
+    backgroundColor: "inherit",
+    padding: 0
+  },
+  fab: {
+    margin: theme.spacing.unit * 2
+  },
+  absolute: {
+    position: "absolute",
+    bottom: theme.spacing.unit * 2,
+    right: theme.spacing.unit * 3
+  }
+});
 
 class Courses extends Component {
   constructor(props) {
@@ -60,51 +94,98 @@ class Courses extends Component {
 
   render() {
     const { course_list, topics } = this.state;
+    const { classes } = this.props;
 
-    return (
-      <div>
-        <Sidebar
-          {...this.props}
-          routes={routes}
-          hasImage={this.state.hasImage}
-        />
-        <div id="main-panel" className="main-panel" ref="mainPanel">
-          <AdminNavbar
+    if (course_list.length < 0) {
+      return (
+        <div>
+          <Sidebar
             {...this.props}
-            brandText={this.getBrandText(this.props.location.pathname)}
+            routes={routes}
+            hasImage={this.state.hasImage}
           />
-        </div>
-        <div className="main-content">
-          <div className="container">
-            <div className="row">
-              <div className="container">
-                <div className="no-wards">
-                  <Link to="/courses/new">
-                    <button className="btn btn-success btn-circle pull-right">
-                      <i className="fa fa-plus" />
-                    </button>
-                  </Link>
-                  <h5>Courses</h5>
-                  <div className="wards-cover text-center">
-                    <br />
-                    <p>No Courses yet.</p>
+          <div id="main-panel" className="main-panel" ref="mainPanel">
+            <AdminNavbar
+              {...this.props}
+              brandText={this.getBrandText(this.props.location.pathname)}
+            />
+          </div>
+          <div className="main-content">
+            <div className="container">
+              <div className="row">
+                <div className="container">
+                  <div className="no-wards">
+                    <Link to="/courses/new">
+                      <Tooltip title="Add" aria-label="Add">
+                        <Fab color="primary" className={classes.fab}>
+                          <AddIcon />
+                        </Fab>
+                      </Tooltip>
+                    </Link>
+                    <h5>Courses</h5>
+                    <div className="wards-cover text-center">
+                      <br />
+                      <p>No Courses yet.</p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div className="course-list">
-            {course_list.map(course => (
-              <li className="list-course" key={course.id}>
-                <div className="course-name">{course.name}</div>
-                <div className="topics">{topics}</div>
-              </li>
-            ))}
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <Sidebar
+            {...this.props}
+            routes={routes}
+            hasImage={this.state.hasImage}
+          />
+          <div id="main-panel" className="main-panel" ref="mainPanel">
+            <AdminNavbar
+              {...this.props}
+              brandText={this.getBrandText(this.props.location.pathname)}
+            />
+          </div>
+          <div className="main-content">
+            <div className="container">
+              <div className="row">
+                <div className="container">
+                  <div className="no-wards">
+                    <Link to="/courses/new">
+                      <Tooltip title="Add" aria-label="Add">
+                        <Fab color="primary" className={classes.fab}>
+                          <AddIcon />
+                        </Fab>
+                      </Tooltip>
+                    </Link>
+                    <h5>Courses</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="course-list">
+              <List className={classes.root} subheader={<li />}>
+                {course_list.map(course => (
+                  <li className={classes.listSection}>
+                    <ListSubheader>Course</ListSubheader>
+                    <ListItem key={course.id}>
+                      <ListItemText primary={course.name} />
+                    </ListItem>
+                  </li>
+                ))}
+              </List>
+            </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
 }
 
-export default Courses;
+Courses.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(Courses);

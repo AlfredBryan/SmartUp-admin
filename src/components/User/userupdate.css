@@ -14,8 +14,46 @@
     width: 20px !important;
 }
 
+.MuiInputBase-root-38 {
+    width: 100% !important;
+    margin-top: 2em !important
+}
+
+.MuiFormControl-root-3 {
+    width: 100% !important;
+}
+
+.MuiFormLabel-root-18 {
+    font-size: 15px !important;
+}
+
+.MuiInputBase-input-48 {
+    margin-top: 2em !important;
+    font-size: 1.5em !important;
+}
+
+.control-text {
+    text-align: left !important;
+    margin-right: 5px !important;
+}
+
 @media screen and (max-width: 600px) {
     .react-datepicker__input-container {
         width: 16px !important;
     }
+
+    .form-horizontal {
+        width: 25em !important;
+        margin-left: 0% !important;
+
+    }
+
+    .main-content {
+        margin-left: 0% !important;
+    }
+
+    .container {
+        margin-left: 0% !important;
+    }
+
 }

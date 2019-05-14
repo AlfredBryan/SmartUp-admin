@@ -129,6 +129,19 @@ class AddInstitution extends Component {
                   </div>
                 </div>
                 <div className="form-group">
+                  <label className="col-lg-3 control-label">Motto:</label>
+                  <div className="col-lg-8">
+                    <input
+                      className="form-control"
+                      type="text"
+                      name="motto"
+                      value={this.state.motto}
+                      placeholder="Motto ..."
+                      onChange={this.handleChange}
+                    />
+                  </div>
+                </div>
+                <div className="form-group">
                   <label className="col-lg-3 control-label">Phone:</label>
                   <div className="col-lg-8">
                     <input
