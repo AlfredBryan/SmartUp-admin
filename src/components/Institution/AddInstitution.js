@@ -6,8 +6,33 @@ import Spinner from "../hoc/spinner";
 
 import Sidebar from "../Sidebar/Sidebar";
 import AdminNavbar from "../Navbars/AdminNavbar";
+//popup notification
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import Snackbar from "@material-ui/core/Snackbar";
 
 import routes from "../../routes";
+
+const styles = theme => ({
+  root: {
+    position: "relative",
+    overflow: "hidden"
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20
+  },
+  button: {
+    marginBottom: theme.spacing.unit
+  },
+  snackbar: {
+    position: "absolute"
+  },
+  snackbarContent: {
+    width: 360
+  }
+});
 
 class AddInstitution extends Component {
   constructor(props) {
@@ -17,7 +42,8 @@ class AddInstitution extends Component {
       motto: "",
       email: "",
       phone: "",
-      loading: false
+      loading: false,
+      response: ""
     };
   }
 
@@ -28,6 +54,15 @@ class AddInstitution extends Component {
       }
     }
     return "Brand";
+  };
+
+  // popup notification functions
+  handleClick = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
   };
 
   handleSubmit = e => {
@@ -58,8 +93,10 @@ class AddInstitution extends Component {
         console.log(res);
         if (res) {
           this.setState({
-            loading: false
+            loading: false,
+            response: res.data
           });
+          this.handleClick();
         }
       })
       .catch(err => {
@@ -79,7 +116,8 @@ class AddInstitution extends Component {
   };
 
   render() {
-    const { loading } = this.state;
+    const { loading, open, response } = this.state;
+    const { classes } = this.props;
     return (
       <div>
         <Sidebar
@@ -93,6 +131,27 @@ class AddInstitution extends Component {
             brandText={this.getBrandText(this.props.location.pathname)}
           />
         </div>
+        <Snackbar
+          open={open}
+          autoHideDuration={4000}
+          onClose={this.handleClose}
+          ContentProps={{
+            "aria-describedby": "snackbar-fab-message-id",
+            className: classes.snackbarContent
+          }}
+          message={
+            <span id="snackbar-fab-message-id popup-text">
+              <span className="user-popup">{response.name}</span> Added
+              Successfully
+            </span>
+          }
+          action={
+            <Button color="inherit" size="small" onClick={this.handleClose}>
+              close
+            </Button>
+          }
+          className={classes.snackbar}
+        />
         <div className="main-content">
           <div className="container">
             <h2>Create Institution</h2>
@@ -173,4 +232,8 @@ class AddInstitution extends Component {
   }
 }
 
-export default AddInstitution;
+AddInstitution.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(AddInstitution);

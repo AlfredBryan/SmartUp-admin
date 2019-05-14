@@ -89,20 +89,45 @@ class Institution extends Component {
         </div>
         <div className="main-content">
           <div className="container">
-            <div className="row">
-              <div className="col-xs-12 col-sm-8 col-md-8">
+            <Link>
+              <div className="container">
                 <div className="row">
-                  <div
-                    className="card family-member-info text-center col-xs-12 col-sm-3 col-md-3"
-                    id="family-card"
-                  >
-                    <i className="fa fa-vcard-o" />
-                    <h6>test</h6>
-                    <p>email</p>
-                  </div>
+                  {universities.map(uni => (
+                    <div
+                      key={uni.id}
+                      className="col-xs-12 col-sm-4 col-lg-4 col-md-4 family-member-info text-center card"
+                      id="family-card"
+                    >
+                      <i className="fa fa-vcard-o" />
+                      <h6>{uni.name}</h6>
+                      <div className="uni-text">
+                        <span style={{ display: "flex" }}>
+                          <p
+                            style={{
+                              fontWeight: "900",
+                              fontSize: "15px",
+                              paddingRight: "3px"
+                            }}
+                          >
+                            Motto:
+                          </p>
+                          <p
+                            style={{
+                              fontWeight: "100",
+                              fontSize: "15px",
+                              paddingRight: "3px"
+                            }}
+                          >
+                            {uni.motto}
+                          </p>
+                        </span>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
-            </div>
+            </Link>
+
             <Link to="/institutions/new">
               <Tooltip title="Add" aria-label="Add">
                 <Fab color="primary" className={classes.fab}>

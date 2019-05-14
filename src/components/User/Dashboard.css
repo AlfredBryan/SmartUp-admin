@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display');
+
 .nav-menu {
     background: #ffffff !important;
     width: 170px !important;
@@ -11,6 +13,11 @@
 .main-content {
     margin-left: 175px;
     padding-top: 3rem;
+}
+
+.user-popup {
+    color: rgb(241, 155, 97) !important;
+    font-weight: 800 !important;
 }
 
 .card {
@@ -98,7 +105,8 @@
 }
 
 .MuiTypography-body1-52 {
-    font-size: 1.5em !important;
+    font-size: 1em !important;
+    font-family: 'Playfair Display', serif !important;
 }
 
 @media screen and (max-width: 600px) {

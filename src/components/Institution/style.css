@@ -8,9 +8,17 @@
 }
 
 
+.uni-text {
+    margin-left: 0.0065em !important
+}
+
 
 @media screen and (max-width: 600px) {
     #institution-settings {
         padding: 2em;
+    }
+
+    .uni-text {
+        margin-left: 5em !important
     }
 }

@@ -111,7 +111,8 @@ class Dashboard extends Component {
           }}
           message={
             <span id="snackbar-fab-message-id popup-text">
-              {`Welcome to SmartUp ${user.first_name}`}
+              Welcome to your profile{" "}
+              <span className="user-popup">{user.first_name}</span>
             </span>
           }
           action={
