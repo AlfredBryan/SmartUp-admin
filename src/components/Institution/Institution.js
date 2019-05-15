@@ -16,7 +16,9 @@ import "./style.css";
 
 const styles = theme => ({
   fab: {
-    margin: theme.spacing.unit * 2
+    margin: theme.spacing.unit * 2,
+    background:
+      "linear-gradient(174.78deg, #3394AB -8.91%, #64DAF6 99.52%) !important"
   },
   absolute: {
     position: "absolute",
@@ -88,53 +90,44 @@ class Institution extends Component {
           />
         </div>
         <div className="main-content">
+          <Link to="/institutions/new" className="button-area">
+            <Tooltip title="Add" aria-label="Add">
+              <Fab color="primary" className={classes.fab}>
+                <AddIcon />
+              </Fab>
+            </Tooltip>
+          </Link>
           <div className="container">
-            <Link>
-              <div className="container">
-                <div className="row">
-                  {universities.map(uni => (
-                    <div
-                      key={uni.id}
-                      className="col-xs-12 col-sm-4 col-lg-4 col-md-4 family-member-info text-center card"
-                      id="family-card"
-                    >
-                      <i className="fa fa-vcard-o" />
-                      <h6>{uni.name}</h6>
-                      <div className="uni-text">
-                        <span style={{ display: "flex" }}>
-                          <p
-                            style={{
-                              fontWeight: "900",
-                              fontSize: "15px",
-                              paddingRight: "3px"
-                            }}
-                          >
-                            Motto:
-                          </p>
-                          <p
-                            style={{
-                              fontWeight: "100",
-                              fontSize: "15px",
-                              paddingRight: "3px"
-                            }}
-                          >
-                            {uni.motto}
-                          </p>
-                        </span>
+            <div>
+              <div className="row push-down">
+                <div className="col-xs-12 col-sm-8 col-md-8">
+                  <div className="row">
+                    {universities.map(uni => (
+                      <div
+                        key={uni.id}
+                        className="card family-member-info text-center col-xs-12 col-sm-3 col-md-3"
+                        id="family-card"
+                      >
+                        <Link
+                          to={`/institutions/${uni.slug}`}
+                          className="display-uni"
+                        >
+                          <div>
+                            <i className="fa fa-university" />
+                            <h5>{uni.name}</h5>
+                            <div className="uni-text">
+                              <span>
+                                <p>Motto: {uni.motto}</p>
+                              </span>
+                            </div>
+                          </div>
+                        </Link>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </div>
-            </Link>
-
-            <Link to="/institutions/new">
-              <Tooltip title="Add" aria-label="Add">
-                <Fab color="primary" className={classes.fab}>
-                  <AddIcon />
-                </Fab>
-              </Tooltip>
-            </Link>
+            </div>
           </div>
         </div>
       </div>

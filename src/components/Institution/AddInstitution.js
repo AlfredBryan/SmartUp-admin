@@ -30,7 +30,8 @@ const styles = theme => ({
     position: "absolute"
   },
   snackbarContent: {
-    width: 360
+    width: 360,
+    fontSize: "1em"
   }
 });
 
@@ -53,7 +54,7 @@ class AddInstitution extends Component {
         return routes[i].name;
       }
     }
-    return "Brand";
+    return "Institution";
   };
 
   // popup notification functions

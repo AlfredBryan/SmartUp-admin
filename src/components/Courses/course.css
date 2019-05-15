@@ -6,6 +6,10 @@
     line-height: 1.42857;
 }
 
+.add-icon {
+    margin-left: 37em
+}
+
 .btn-circle:hover {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
@@ -14,20 +18,9 @@
     padding: 2em;
     background-color: white;
     box-shadow: 0 0.3px 0.3px 0 rgba(0, 0, 0, 0.2);
-    width: 49rem;
+    width: 49em;
 }
 
-form input,
-form textarea {
-    width: 20em;
-    padding: 0.7rem;
-}
-
-form button {
-    width: 29rem;
-    background: linear-gradient(174.78deg, #64DAF6 0%, #3394AB 86.22%);
-    color: white !important;
-}
 
 .Courses-ul-3 {
     width: 100% !important;
@@ -37,20 +30,61 @@ form button {
     width: 100% !important;
 }
 
-.course-list {
-    width: 43em;
-    margin-top: 4rem;
-    margin-left: 1rem;
-    box-shadow: 0 0.3px 0.3px 0 rgba(0, 0, 0, 0.2);
+.center-div {
+    margin-top: 4em;
+}
 
+.button-area {
+    right: 24%;
+    top: 8.5%;
+    position: fixed;
+    z-index: 1000;
+}
+
+.main-content .pr-20 {
+    padding-right: 2em !important;
+}
+
+.course-listed {
+    width: 49em;
+    padding: 0;
+    height: 35em;
+    overflow: scroll;
+    /* background-color: rgba(0, 0, 0, 0.1); */
+    /* box-shadow: 0 0.3px 0.3px 0 rgba(0, 0, 0, 0.2); */
+}
+
+.course-listed li {
+    list-style: none;
+    background-color: white;
+    padding: 1.25em;
+    margin-bottom: 0.1em;
+    text-transform: capitalize;
+}
+
+.course-listed li:last-child {
+    margin-bottom: 0;
+}
+
+.course-listed li:hover {
+    filter: brightness(70%);
+}
+
+
+.course-list {
+    width: 49em;
+    margin-top: 1rem;
+    margin-left: 2rem;
+    box-shadow: 0 0.3px 0.3px 0 rgba(0, 0, 0, 0.2);
+    height: 100% !important;
 }
 
 .course-list li {
     background-color: #ffffff !important;
-    padding: 0.5em;
+    padding: 0.5em 0 !important;
     list-style: none;
     overflow: auto;
-    box-shadow: 0 0.3px 0.3px 0 rgba(0, 0, 0, 0.2)
+    box-shadow: 0 0.3px 0.3px 0 rgba(0, 0, 0, 0.2);
 }
 
 .list-course {
@@ -98,6 +132,48 @@ form button {
     height: 2em !important;
 }
 
+.Courses-root-1 {
+    width: 100%;
+    position: relative;
+    overflow: auto;
+    max-height: 400px !important;
+    background-color: #fff;
+    height: 100% !important;
+}
+
+.topic_count {
+    margin-left: 0em !important;
+}
+
+.topic-text {
+    margin-left: 30em !important;
+    font-size: 0px !important
+}
+
+.MuiListSubheader-root-101 {
+    color: rgba(240, 17, 17, 0.54) !important;
+    font-size: 1rem !important;
+    box-sizing: border-box;
+    list-style: none;
+    line-height: 50px !important;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 800 !important;
+}
+
+.MuiListItemText-root-59 {
+    flex: 1 1 !important;
+    padding: 0 16px;
+    min-width: 0;
+}
+
+
+.MuiTypography-subheading-72 {
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 1.5rem !important;
+    font-weight: 800 !important;
+    line-height: 1.5em;
+}
+
 .remove-font {
     font-family: 'Roboto', sans-serif !important;
     font-size: 0.6em !important;
@@ -121,12 +197,31 @@ form button {
         width: 5%;
     }
 
-    .form-horizontal {
-        width: 30rem;
+    .course-list {
+        width: 95%;
+        height: 100%
     }
 
-    .course-list {
-        width: 100%;
+    .add-icon {
+        margin-left: 19.3em
+    }
+
+
+    .course-listed {
+        width: 25em;
+        padding: 0;
+        height: 35em;
+        overflow: scroll;
+        /* background-color: rgba(0, 0, 0, 0.1); */
+        /* box-shadow: 0 0.3px 0.3px 0 rgba(0, 0, 0, 0.2); */
+    }
+
+    .button-area {
+        right: 0% !important;
+        left: 80%;
+        top: 6.5%;
+        position: fixed;
+        z-index: 1000;
     }
 
 }

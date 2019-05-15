@@ -3,10 +3,11 @@ import "./course.css";
 import axios from "axios";
 import Spinner from "../hoc/spinner";
 import Checkbox from "@material-ui/core/Checkbox";
-
+import AdminNavbar from "../Navbars/AdminNavbar";
+import Sidebar from "components/Sidebar/Sidebar";
 import routes from "../../routes";
 
-class CreateCourses extends Component {
+class newCourse extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,7 +24,7 @@ class CreateCourses extends Component {
         return routes[i].name;
       }
     }
-    return "Brand";
+    return "Create Course";
   };
 
   postCourse = e => {
@@ -88,13 +89,22 @@ class CreateCourses extends Component {
 
   render() {
     const { loading } = this.state;
-    console.log(this.state.active);
     return (
       <div>
-        <div className="center">
-          <div className="container">
-            <div className="main-content adjust-create">
-              <h4>Create Course</h4>
+        <Sidebar
+          {...this.props}
+          routes={routes}
+          hasImage={this.state.hasImage}
+        />
+        <div id="main-panel" className="main-panel" ref="mainPanel">
+          <AdminNavbar
+            {...this.props}
+            brandText={this.getBrandText(this.props.location.pathname)}
+          />
+        </div>
+        <div>
+          <div className="main-content">
+            <div className="container">
               <div className="center-div">
                 <form onSubmit={this.handleSubmit} className="form-horizontal">
                   <div className="form-group">
@@ -161,4 +171,4 @@ class CreateCourses extends Component {
   }
 }
 
-export default CreateCourses;
+export default newCourse;

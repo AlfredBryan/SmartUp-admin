@@ -6,8 +6,34 @@ import Spinner from "../hoc/spinner";
 
 import Sidebar from "../Sidebar/Sidebar";
 import AdminNavbar from "../Navbars/AdminNavbar";
+//popup notification
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import Snackbar from "@material-ui/core/Snackbar";
 
 import routes from "../../routes";
+
+const styles = theme => ({
+  root: {
+    position: "relative",
+    overflow: "hidden"
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20
+  },
+  button: {
+    marginBottom: theme.spacing.unit
+  },
+  snackbar: {
+    position: "absolute"
+  },
+  snackbarContent: {
+    width: 360,
+    fontSize: "1em"
+  }
+});
 
 class AddWard extends Component {
   constructor(props) {
@@ -20,9 +46,19 @@ class AddWard extends Component {
       family_details: [],
       loading: false,
       visible: false,
-      errMessage: ""
+      errMessage: "",
+      open: false
     };
   }
+
+  // popup notification functions
+  handleClick = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
 
   getBrandText = path => {
     for (let i = 0; i < routes.length; i++) {
@@ -36,6 +72,7 @@ class AddWard extends Component {
   componentDidMount() {
     this.getList();
     this.getFamily();
+    this.handleClick();
   }
 
   getList = e => {
@@ -188,22 +225,44 @@ class AddWard extends Component {
 
   render() {
     const user = JSON.parse(localStorage.getItem("user"));
-    let { loading, details, family_details, visible } = this.state;
+    let { loading, details, family_details, visible, open } = this.state;
+    const { classes } = this.props;
 
-    if (family_details.length === 0) {
-      return (
-        <div>
-          <Sidebar
+    return (
+      <div>
+        <Sidebar
+          {...this.props}
+          routes={routes}
+          hasImage={this.state.hasImage}
+        />
+        <div id="main-panel" className="main-panel" ref="mainPanel">
+          <AdminNavbar
             {...this.props}
-            routes={routes}
-            hasImage={this.state.hasImage}
+            brandText={this.getBrandText(this.props.location.pathname)}
           />
-          <div id="main-panel" className="main-panel" ref="mainPanel">
-            <AdminNavbar
-              {...this.props}
-              brandText={this.getBrandText(this.props.location.pathname)}
-            />
-          </div>
+        </div>
+        <Snackbar
+          open={open}
+          autoHideDuration={4000}
+          onClose={this.handleClose}
+          ContentProps={{
+            "aria-describedby": "snackbar-fab-message-id",
+            className: classes.snackbarContent
+          }}
+          message={
+            <span id="snackbar-fab-message-id popup-text">
+              No family yet
+              <span className="user-popup">{user.status}</span>
+            </span>
+          }
+          action={
+            <Button color="inherit" size="small" onClick={this.handleClose}>
+              close
+            </Button>
+          }
+          className={classes.snackbar}
+        />
+        {family_details < 1 ? (
           <div className="main-content">
             <div className="container">
               <div className="row">
@@ -247,7 +306,10 @@ class AddWard extends Component {
                       placeholder="Email ..."
                       onChange={this.handleChange}
                     />
-                    <button onClick={this.addWard} className="ward-button">
+                    <button
+                      onClick={this.addWard}
+                      className="ward-button btn-submit"
+                    >
                       {loading ? <Spinner /> : "Confirm"}
                     </button>
                   </div>
@@ -255,80 +317,92 @@ class AddWard extends Component {
               </div>
             </div>
           </div>
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          <Sidebar
-            {...this.props}
-            routes={routes}
-            hasImage={this.state.hasImage}
-          />
-          <div id="main-panel" className="main-panel" ref="mainPanel">
-            <AdminNavbar
-              {...this.props}
-              brandText={this.getBrandText(this.props.location.pathname)}
+        ) : (
+          <div>
+            <Snackbar
+              open={open}
+              autoHideDuration={4000}
+              onClose={this.handleClose}
+              ContentProps={{
+                "aria-describedby": "snackbar-fab-message-id",
+                className: classes.snackbarContent
+              }}
+              message={
+                <span id="snackbar-fab-message-id popup-text">
+                  Welcome to family section
+                  <span className="user-popup">{user.status}</span>
+                </span>
+              }
+              action={
+                <Button color="inherit" size="small" onClick={this.handleClose}>
+                  close
+                </Button>
+              }
+              className={classes.snackbar}
             />
-          </div>
-          <div className="main-content">
-            <div className="container">
-              <div className="row">
-                <div className="container">
-                  <div className="row">
-                    <div className="col-xs-12 col-sm-8 col-md-8">
-                      <div className="row">
-                        {family_details.map(d => (
-                          <div
-                            key={d.id}
-                            className="card family-member-info text-center col-xs-12 col-sm-3 col-md-3"
-                            id="family-card"
-                          >
-                            <i className="fa fa-vcard-o" />
-                            <h6>{d.full_name}</h6>
-                            <p>{d.email}</p>
-                          </div>
-                        ))}
+            <div className="main-content">
+              <div className="container">
+                <div className="row">
+                  <div className="container">
+                    <div className="row">
+                      <div className="col-xs-12 col-sm-8 col-md-8">
+                        <div className="row">
+                          {family_details.map(d => (
+                            <div
+                              key={d.id}
+                              className="card family-member-info text-center col-xs-12 col-sm-3 col-md-3"
+                              id="family-card"
+                            >
+                              <i className="fa fa-vcard-o" />
+                              <h6>{d.full_name}</h6>
+                              <p>{d.email}</p>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div className="user-list" id={visible ? "fadeOut" : ""}>
-                  {details.map(d => (
-                    <li key={d.id}>
-                      <div className="user-names">
-                        {d.user.full_name}
-                        {d.user.email}
-                      </div>
-                      <div className="actions">
-                        {this.declineReqButton(user, d.id)}
-                        {this.acceptReqButton(user, d.id)}
-                      </div>
-                    </li>
-                  ))}
-                </div>
-                <form className="ward-form" onSubmit={this.addWard}>
-                  <div className="d-flex">
-                    <input
-                      className="ward-input"
-                      type="text"
-                      name="email"
-                      value={this.state.ward_request.email}
-                      placeholder="Email ..."
-                      onChange={this.handleChange}
-                    />
-                    <button onClick={this.addWard} className="ward-button">
-                      {loading ? <Spinner /> : "Confirm"}
-                    </button>
+                  <div className="user-list" id={visible ? "fadeOut" : ""}>
+                    {details.map(d => (
+                      <li key={d.id}>
+                        <div className="user-names">
+                          {d.user.full_name}
+                          {d.user.email}
+                        </div>
+                        <div className="actions">
+                          {this.declineReqButton(user, d.id)}
+                          {this.acceptReqButton(user, d.id)}
+                        </div>
+                      </li>
+                    ))}
                   </div>
-                </form>{" "}
+                  <form className="ward-form" onSubmit={this.addWard}>
+                    <div className="d-flex">
+                      <input
+                        className="ward-input"
+                        type="text"
+                        name="email"
+                        value={this.state.ward_request.email}
+                        placeholder="Email ..."
+                        onChange={this.handleChange}
+                      />
+                      <button onClick={this.addWard} className="ward-button">
+                        {loading ? <Spinner /> : "Confirm"}
+                      </button>
+                    </div>
+                  </form>{" "}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      );
-    }
+        )}
+      </div>
+    );
   }
 }
 
-export default AddWard;
+AddWard.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(AddWard);

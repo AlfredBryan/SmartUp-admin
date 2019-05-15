@@ -25,6 +25,24 @@ const styles = theme => ({
   },
   formControl: {
     margin: theme.spacing.unit
+  },
+  root: {
+    position: "relative",
+    overflow: "hidden"
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20
+  },
+  button: {
+    marginBottom: theme.spacing.unit
+  },
+  snackbar: {
+    position: "absolute"
+  },
+  snackbarContent: {
+    width: 360,
+    fontSize: "1em"
   }
 });
 
@@ -208,12 +226,11 @@ class UpdateUser extends Component {
           }
           className={classes.snackbar}
         />
-        <div className="container">
-          <div className="main-content">
-            <h4>Account Settings</h4>
+        <div className="main-content">
+          <div className="container">
             <div className="row">
               <div className="col-md-12">
-                <div className="text-center form-horizontal">
+                <div className="text-center form-horizontal-user">
                   <img
                     src="//placehold.it/100"
                     className="avatar img-circle"
@@ -229,7 +246,10 @@ class UpdateUser extends Component {
                 </div>
               </div>
             </div>
-            <form onSubmit={this.handleSubmit} className="form-horizontal">
+            <form
+              onSubmit={this.handleSubmit}
+              className="form-horizontal form-horizontal-info"
+            >
               <div className="form-group">
                 <label className="col-lg-3 control-label">First name:</label>
                 <div className="col-lg-8">
@@ -336,7 +356,7 @@ class UpdateUser extends Component {
                 </div>
               </div>
               <div className="form-group">
-                <label className="col-lg-3 control-label">Level:</label>
+                <label className="col-lg-3 control-label">Sex:</label>
                 <div className="col-lg-8">
                   <select className="form-control" name="" id="">
                     {["male", "female", "other"].map(sx => (
@@ -346,7 +366,8 @@ class UpdateUser extends Component {
                 </div>
               </div>
               <div className="form-group">
-                <div className="col-lg-12">
+              <div className="col-lg-3"/>
+                <div className="col-lg-8">
                   <button
                     onClick={this.handleSubmit}
                     className="form-control btn-submit"

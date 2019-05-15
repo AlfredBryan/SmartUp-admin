@@ -3,6 +3,7 @@
     padding: 1.5em;
     background-color: white;
     box-shadow: 0 0.3px 0.3px 0 rgba(0, 0, 0, 0.2);
+    width: 45em
 }
 
 .ward-input {
@@ -13,8 +14,11 @@
 .ward-button {
     width: 10rem;
     margin-left: 1rem;
-    background: linear-gradient(174.78deg, #F0AA22 -8.91%, #D42536 99.52%);
+    background: linear-gradient(174.78deg, #64daf6 -8.91%, #3394ab 99.52%) !important;
     color: #ffffff;
+    border: none;
+    border-radius: 3px;
+    padding: 0.5rem 0.4rem;
 }
 
 .user-list {
@@ -81,7 +85,7 @@
 .wards-cover {
     display: inline-block;
     text-align: left;
-    width: 43em;
+    width: 44.7em;
     box-shadow: 0 0.3px 0.3px 0 rgba(0, 0, 0, 0.2);
     padding: 3rem;
     background-color: #ffffff;
@@ -112,7 +116,8 @@
     }
 
     .ward-form {
-        margin-left: 1rem !important;
+        margin-left: 0em !important;
+        width: 26.7em
     }
 
     .no-wards h6 {

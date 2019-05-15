@@ -4,7 +4,7 @@
     bottom: 0;
     left: 0;
     display: block;
-    width: 180px;
+    width: 220.5px;
     z-index: 1;
     font-weight: 200;
 
@@ -12,7 +12,7 @@
         position: relative;
         height: calc(100vh - 75px);
         overflow: auto;
-        width: 180px;
+        width: 220px;
         z-index: 4;
         padding-bottom: 30px;
     }
@@ -229,7 +229,7 @@ body>.navbar-collapse {
     background: rgba(203, 203, 210, .15);
     position: relative;
     float: right;
-    width: 86%;
+    width: 82.7%;
     margin-bottom: 30px;
 
     >.content {

@@ -5,36 +5,31 @@
 }
 
 .btn-submit {
-    background: linear-gradient(174.78deg, #F0AA22 -8.91%, #D42536 99.52%);
+    background: linear-gradient(174.78deg, #64daf6 -8.91%, #3394ab 99.52%) !important;
     color: white;
     font-weight: 700;
+    border: none;
 }
 
 .react-datepicker__input-container {
     width: 20px !important;
 }
 
-.MuiInputBase-root-38 {
-    width: 100% !important;
-    margin-top: 2em !important
-}
-
-.MuiFormControl-root-3 {
-    width: 100% !important;
-}
-
-.MuiFormLabel-root-18 {
-    font-size: 15px !important;
-}
-
-.MuiInputBase-input-48 {
-    margin-top: 2em !important;
-    font-size: 1.5em !important;
-}
-
 .control-text {
     text-align: left !important;
     margin-right: 5px !important;
+}
+
+.form-horizontal-info {
+    width: 49em;
+}
+
+.form-horizontal-user {
+    padding: 2em;
+    background-color: white;
+    box-shadow: 0 0.3px 0.3px 0 rgba(0, 0, 0, 0.2);
+    width: 49em;
+    margin-bottom: 2em;
 }
 
 @media screen and (max-width: 600px) {
@@ -43,6 +38,12 @@
     }
 
     .form-horizontal {
+        width: 25em !important;
+        margin-left: 0% !important;
+
+    }
+
+    .form-horizontal-user {
         width: 25em !important;
         margin-left: 0% !important;
 

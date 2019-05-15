@@ -24,8 +24,8 @@ const dashboardRoutes = [
     component: AddWard
   },
   {
-    path: "/institution",
-    name: "Institution",
+    path: "/institutions",
+    name: "Institutions",
     icon: "pe-7s-culture",
     component: Institution
   },

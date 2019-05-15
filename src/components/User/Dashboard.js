@@ -5,7 +5,6 @@ import axios from "axios";
 import Sidebar from "../Sidebar/Sidebar";
 import routes from "../../routes";
 import AdminNavbar from "../Navbars/AdminNavbar";
-import classNames from "classnames";
 
 //popup notification
 import PropTypes from "prop-types";
@@ -31,7 +30,8 @@ const styles = theme => ({
     position: "absolute"
   },
   snackbarContent: {
-    width: 360
+    width: 360,
+    fontSize: "1em"
   }
 });
 
@@ -125,49 +125,86 @@ class Dashboard extends Component {
         <div className="main-content">
           <div className="container">
             <div className="row">
+              <div className="col-xs-12 col-sm-4 col-md-4">
+                <div className="newcard card-user">
+                  <div className="image">
+                    <img src={require("../../images/bgimg.jpg")} alt="..." />
+                  </div>
+                  <div className="content">
+                    <div className="author">
+                      <a href="#pablo">
+                        <img
+                          className="avatar border-gray"
+                          src={require("../../images/dfimg.png")}
+                          alt="..."
+                        />
+                        <h4 className="title">
+                          {user.full_name}
+                          <br />
+                          <small>{user.status}</small>
+                        </h4>
+                      </a>
+                    </div>
+                    <p className="description text-center">
+                      {user.address}
+                      <br />
+                      {user.email}
+                    </p>
+                  </div>
+                  <hr />
+                  <div className="text-center footer-social">
+                    <i className="fa fa-facebook footer-user" />
+                    <i className="fa fa-google footer-user" />
+                    <i className="fa fa-twitter footer-user" />
+                    <i className="fa fa-instagram footer-user" />
+                  </div>
+                </div>
+              </div>
               <div className="col-xs-12 col-sm-8 col-md-8">
-                <div className="flex-div">
-                  <div className="card">
-                    <i
-                      style={{
-                        marginTop: "30px",
-                        fontSize: "40px",
-                        color: "#0a306d"
-                      }}
-                      className="fa fa-vcard-o"
-                    />
-                    <h6 style={{ marginTop: "10px" }}>Get live help</h6>
-                    <p style={{ fontSize: "12px", color: "grey" }}>
-                      1:1 mentorship session
-                    </p>
-                  </div>
-                  <div className="card left">
-                    <i
-                      style={{
-                        marginTop: "30px",
-                        fontSize: "40px",
-                        color: "#0a306d"
-                      }}
-                      className="fa fa-empire"
-                    />
-                    <h6 style={{ marginTop: "10px" }}>Get freelance help</h6>
-                    <p style={{ fontSize: "12px", color: "grey" }}>
-                      Pay with escrow
-                    </p>
-                  </div>
-                  <div style={{ textAlign: "center" }} className="card left">
-                    <i
-                      style={{
-                        marginTop: "30px",
-                        fontSize: "40px",
-                        color: "#0a306d"
-                      }}
-                      className="fa fa-gg"
-                    />
-                    <h6 style={{ marginTop: "10px" }}>Get code reviewed</h6>
-                    <p style={{ fontSize: "12px", color: "grey" }}>
-                      Pay with escrow
-                    </p>
+                <div className="card-length">
+                  <div className="flex-div">
+                    <div className="card">
+                      <i
+                        style={{
+                          marginTop: "30px",
+                          fontSize: "40px",
+                          color: "#0a306d"
+                        }}
+                        className="fa fa-vcard-o"
+                      />
+                      <h6 style={{ marginTop: "10px" }}>Get live help</h6>
+                      <p style={{ fontSize: "12px", color: "grey" }}>
+                        1:1 mentorship session
+                      </p>
+                    </div>
+                    <div className="card left">
+                      <i
+                        style={{
+                          marginTop: "30px",
+                          fontSize: "40px",
+                          color: "#0a306d"
+                        }}
+                        className="fa fa-empire"
+                      />
+                      <h6 style={{ marginTop: "10px" }}>Get freelance help</h6>
+                      <p style={{ fontSize: "12px", color: "grey" }}>
+                        Pay with escrow
+                      </p>
+                    </div>
+                    <div style={{ textAlign: "center" }} className="card left">
+                      <i
+                        style={{
+                          marginTop: "30px",
+                          fontSize: "40px",
+                          color: "#0a306d"
+                        }}
+                        className="fa fa-gg"
+                      />
+                      <h6 style={{ marginTop: "10px" }}>Get code reviewed</h6>
+                      <p style={{ fontSize: "12px", color: "grey" }}>
+                        Pay with escrow
+                      </p>
+                    </div>
                   </div>
                 </div>
                 <div className="ward-section">
@@ -184,10 +221,6 @@ class Dashboard extends Component {
                     <h6 style={{ marginLeft: "20px" }}>Educator</h6>
                   </div>
                 </div>
-              </div>
-              <div className="col-xs-12 col-sm-4 col-md-4">
-                <div className="card-length" />
-                <div className="card-below" />
               </div>
             </div>
           </div>

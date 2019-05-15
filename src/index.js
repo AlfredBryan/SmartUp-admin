@@ -9,7 +9,6 @@ import "./assets/sass/light-bootstrap-dashboard-react.scss?v=1.3.0";
 import "./assets/css/demo.css";
 import "./assets/css/pe-icon-7-stroke.css";
 
-import AdminLayout from "layouts/Admin.jsx";
 import Home from "components/Home/Home";
 import UserAuth from "components/User/Login";
 import Register from "components/User/Register";
@@ -21,7 +20,8 @@ import AddInstitution from "components/Institution/AddInstitution";
 import UpdateUser from "components/User/UpdateUser";
 import Dashboard from "components/User/Dashboard";
 import AuthRoute from "components/hoc/AuthRoute";
-import CreateCourses from "components/Courses/CreateCourses";
+import showInstitution from "components/Institution/showInstitution";
+import newCourse from "components/Courses/newCourse";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -31,12 +31,12 @@ ReactDOM.render(
       <Route exact path="/register" component={Register} />
       <AuthRoute>
         <Route exact path="/family" component={AddWard} />
-        <Route exact path="/courses/:slug" component={showCourse} />
-        <Route exact path="/courses/new" component={CreateCourses} />
         <Route exact path="/courses" component={Courses} />
-        <Route exact path="/institution" component={Institution} />
-        <Route exact path="/institutions/new" component={AddInstitution} />
-        <Route exact path="/institutions/:slug/courses" component={Courses} />
+        <Route exact path="/courses/:slug" component={showCourse} />
+        <Route exact path="/new_course" component={newCourse} />
+        <Route exact path="/institutions" component={Institution} />
+        <Route exact path="/new_institution" component={AddInstitution} />
+        <Route exact path="/institutions/:slug" component={showInstitution} />
         <Route
           exact
           path="/institutions/:institution_slug/courses/:slug"

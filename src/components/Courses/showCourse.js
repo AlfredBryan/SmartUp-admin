@@ -60,7 +60,6 @@ class showCourse extends Component {
         <div className="center">
           <h2>{course.name}</h2>
           <hr />
-          <div className="center-div" />
         </div>
       </div>
     );

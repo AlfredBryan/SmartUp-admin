@@ -12,6 +12,74 @@
     margin-left: 0.0065em !important
 }
 
+.course-list-uni {
+    width: 40em;
+    margin-top: 4rem;
+    margin-left: 2rem;
+    box-shadow: 0 0.3px 0.3px 0 rgba(0, 0, 0, 0.2);
+    height: 100% !important;
+}
+
+.margin-top {
+    margin-top: 5%;
+}
+
+
+.course-list-uni li {
+    background-color: #ffffff !important;
+    padding: 0.5em;
+    list-style: none;
+    overflow: auto;
+    box-shadow: 0 0.3px 0.3px 0 rgba(0, 0, 0, 0.2);
+}
+
+.course-list-uni li div {
+    float: left;
+}
+
+.add-icon-uni {
+    margin-left: 40em;
+    padding: 1em
+}
+
+.display-uni {
+    text-decoration: none;
+    color: black;
+}
+
+.display-uni:hover {
+    text-decoration: none;
+    color: black;
+}
+
+.unicard {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    text-align: center;
+    margin-top: 5em;
+    margin-left: 1em;
+}
+
+.price {
+    color: grey;
+    font-size: 22px;
+}
+
+.unicard button {
+    border: none;
+    outline: 0;
+    padding: 12px;
+    color: white;
+    background-color: #000;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+}
+
+.unicard button:hover {
+    opacity: 0.7;
+}
+
 
 @media screen and (max-width: 600px) {
     #institution-settings {
@@ -20,5 +88,14 @@
 
     .uni-text {
         margin-left: 5em !important
+    }
+
+    .add-icon-uni {
+        margin-left: 17.3em;
+        padding: 1em
+    }
+
+    .push-down {
+        margin-top: 10em;
     }
 }

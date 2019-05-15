@@ -10,10 +10,7 @@ import PropTypes from "prop-types";
 import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
 import Tooltip from "@material-ui/core/Tooltip";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListSubheader from "@material-ui/core/ListSubheader";
+
 
 import routes from "../../routes";
 
@@ -33,7 +30,9 @@ const styles = theme => ({
     padding: 0
   },
   fab: {
-    margin: theme.spacing.unit * 2
+    margin: theme.spacing.unit * 2,
+    background:
+      "linear-gradient(174.78deg, #3394AB -8.91%, #64DAF6 99.52%) !important"
   },
   absolute: {
     position: "absolute",
@@ -115,14 +114,13 @@ class Courses extends Component {
               <div className="row">
                 <div className="container">
                   <div className="no-wards">
-                    <Link to="/courses/new">
+                    <Link to="/courses/new" className="pull-right">
                       <Tooltip title="Add" aria-label="Add">
                         <Fab color="primary" className={classes.fab}>
                           <AddIcon />
                         </Fab>
                       </Tooltip>
                     </Link>
-                    <h5>Courses</h5>
                     <div className="wards-cover text-center">
                       <br />
                       <p>No Courses yet.</p>
@@ -149,33 +147,22 @@ class Courses extends Component {
             />
           </div>
           <div className="main-content">
+          <Link to="/new_course" className="button-area">
+                <Tooltip title="Add" aria-label="Add">
+                  <Fab color="primary" className={classes.fab}>
+                    <AddIcon />
+                  </Fab>
+                </Tooltip>
+              </Link>
             <div className="container">
-              <div className="row">
-                <div className="container">
-                  <div className="no-wards">
-                    <Link to="/courses/new">
-                      <Tooltip title="Add" aria-label="Add">
-                        <Fab color="primary" className={classes.fab}>
-                          <AddIcon />
-                        </Fab>
-                      </Tooltip>
-                    </Link>
-                    <h5>Courses</h5>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="course-list">
-              <List className={classes.root} subheader={<li />}>
+              <ul className="course-listed">
                 {course_list.map(course => (
-                  <li className={classes.listSection}>
-                    <ListSubheader>Course</ListSubheader>
-                    <ListItem key={course.id}>
-                      <ListItemText primary={course.name} />
-                    </ListItem>
+                  <li className="">
+                    {course.name}
+                    <span className="pull-right">{course.topics.length}</span>
                   </li>
                 ))}
-              </List>
+              </ul>
             </div>
           </div>
         </div>
