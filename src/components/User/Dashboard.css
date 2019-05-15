@@ -420,4 +420,16 @@
         width: 0px !important;
     }
 
+    .newcard {
+        width: 20em
+    }
+
+    .footer-user {
+        margin: 0em 1em 0.2em 0em !important;
+        font-size: 15px !important;
+        padding: 0.5em !important;
+        width: 2em;
+        border-radius: 4px;
+    }
+
 }
