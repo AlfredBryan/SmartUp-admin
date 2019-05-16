@@ -14,7 +14,8 @@ class newCourse extends Component {
       name: "",
       description: "",
       active: false,
-      loading: false
+      loading: false,
+      institution_id: this.props.match.params.slug
     };
   }
 
@@ -29,14 +30,15 @@ class newCourse extends Component {
 
   postCourse = e => {
     e.preventDefault();
-    const institution = this.props.match.params.id;
     const token = localStorage.getItem("token");
     const { name, description, active } = this.state;
 
+    let Id = this.state.institution_id;
+
     let Url = "https://smart-up.herokuapp.com/api/v1/courses";
 
-    if (institution) {
-      Url += `?institution_id=${institution.id}`;
+    if (Id) {
+      Url += `?institution_id=${Id}`;
     }
     axios
       .post(
@@ -65,7 +67,11 @@ class newCourse extends Component {
         });
 
         if (res.data.id !== null) {
-          this.props.history.replace(`/courses/${res.data.slug}`);
+          if (res.data.institution_id) {
+            this.props.history.replace(`/institution/${Id}/course/${res.data.slug}`);
+          } else {
+            this.props.history.replace(`/course/${res.data.slug}`);
+          }
         }
       })
       .catch(err => {
@@ -83,8 +89,8 @@ class newCourse extends Component {
     });
   };
 
-  handleCheckChange = name => event => {
-    this.setState({ [name]: event.target.checked });
+  handleChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
   };
 
   render() {

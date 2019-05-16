@@ -11,7 +11,6 @@ import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
 import Tooltip from "@material-ui/core/Tooltip";
 
-
 import routes from "../../routes";
 
 const styles = theme => ({
@@ -48,7 +47,7 @@ class Courses extends Component {
       loading: false,
       visible: false,
       course_list: [],
-      topics: []
+      slug: ""
     };
   }
 
@@ -85,14 +84,13 @@ class Courses extends Component {
         console.log(res);
         this.setState({
           course_list: res.data,
-          topics: res.data.topics,
           visible: res.data.length > 0
         });
       });
   };
 
   render() {
-    const { course_list, topics } = this.state;
+    const { course_list } = this.state;
     const { classes } = this.props;
 
     if (course_list.length < 0) {
@@ -147,20 +145,27 @@ class Courses extends Component {
             />
           </div>
           <div className="main-content">
-          <Link to="/new_course" className="button-area">
+            <div className="action-buttons">
+              <Link to="/new_course" className="button-area">
                 <Tooltip title="Add" aria-label="Add">
                   <Fab color="primary" className={classes.fab}>
                     <AddIcon />
                   </Fab>
                 </Tooltip>
               </Link>
+            </div>
+
             <div className="container">
               <ul className="course-listed">
                 {course_list.map(course => (
-                  <li className="">
-                    {course.name}
-                    <span className="pull-right">{course.topics.length}</span>
-                  </li>
+                  <Link key={course.id} to={`/courses/${course.slug}`}>
+                    <li>
+                      {course.name}
+                      <span className="pull-right">
+                        <span>Topics</span>({course.topics.length})
+                      </span>
+                    </li>
+                  </Link>
                 ))}
               </ul>
             </div>

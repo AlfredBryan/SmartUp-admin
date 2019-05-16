@@ -54,11 +54,20 @@
     /* box-shadow: 0 0.3px 0.3px 0 rgba(0, 0, 0, 0.2); */
 }
 
+.course-listed a {
+    text-decoration: none !important;
+    color: black;
+}
+
+.continue span {
+    color: white !important;
+}
+
 .course-listed li {
     list-style: none;
     background-color: white;
-    padding: 1.25em;
-    margin-bottom: 0.1em;
+    padding: 1.25em !important;
+    margin-bottom: 0.2em !important;
     text-transform: capitalize;
 }
 
@@ -66,7 +75,34 @@
     margin-bottom: 0;
 }
 
-.course-listed li:hover {
+.edit-button {
+    font-size: 0.65em;
+    padding: 0.3em;
+    background: rgb(104, 2, 2);
+    color: white;
+    border-radius: 5px;
+    position: relative;
+    left: 0px;
+    visibility: hidden;
+    margin-top: 7px;
+}
+
+.edit-area:hover .edit-button {
+    visibility: visible;
+}
+
+.edit-area {
+    top: 10.5%;
+    left: 18%;
+    position: fixed;
+    z-index: 1000;
+}
+
+.edit-fa {
+    font-size: 50px;
+}
+
+.course-listed a>li:hover {
     filter: brightness(70%);
 }
 
@@ -130,6 +166,16 @@
 
 .navbar-default {
     height: 2em !important;
+}
+
+a {
+    text-decoration: none !important;
+    color: black;
+}
+
+a:hover {
+    text-decoration: none;
+    color: black;
 }
 
 .Courses-root-1 {

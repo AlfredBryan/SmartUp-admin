@@ -32,8 +32,12 @@ ReactDOM.render(
       <AuthRoute>
         <Route exact path="/family" component={AddWard} />
         <Route exact path="/courses" component={Courses} />
-        <Route exact path="/courses/:slug" component={showCourse} />
         <Route exact path="/new_course" component={newCourse} />
+        <Route
+          exact
+          path="/institutions/:slug/new_course"
+          component={newCourse}
+        />
         <Route exact path="/institutions" component={Institution} />
         <Route exact path="/new_institution" component={AddInstitution} />
         <Route exact path="/institutions/:slug" component={showInstitution} />
@@ -42,8 +46,13 @@ ReactDOM.render(
           path="/institutions/:institution_slug/courses/:slug"
           component={showCourse}
         />
-        <Route exact path="/profile" component={Dashboard} />
-        <Route exact path="/update_profile" component={UpdateUser} />
+        <Route exact path="/courses/:slug" component={showCourse} />
+        <Route exact path="/profile/:first_name" component={Dashboard} />
+        <Route
+          exact
+          path="/update_profile/:first_name"
+          component={UpdateUser}
+        />
       </AuthRoute>
     </Switch>
   </BrowserRouter>,

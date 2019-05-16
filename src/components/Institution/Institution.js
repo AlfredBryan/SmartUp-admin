@@ -58,7 +58,6 @@ class Institution extends Component {
         }
       })
       .then(res => {
-        console.log(res);
         this.setState({
           universities: res.data
         });

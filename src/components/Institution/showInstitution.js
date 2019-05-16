@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import AdminNavbar from "../Navbars/AdminNavbar";
+import { Link } from "react-router-dom";
 
 import routes from "../../routes";
 import Sidebar from "components/Sidebar/Sidebar";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListSubheader from "@material-ui/core/ListSubheader";
+import AddIcon from "@material-ui/icons/Add";
+import Fab from "@material-ui/core/Fab";
+import Tooltip from "@material-ui/core/Tooltip";
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import axios from "axios";
@@ -50,11 +50,10 @@ class showInstitution extends Component {
 
   fetchCourses = () => {
     const token = localStorage.getItem("token");
+    let { slug } = this.state;
     axios
       .get(
-        `https://smart-up.herokuapp.com/api/v1/courses/?institution_id=${
-          this.state.slug
-        }`,
+        `https://smart-up.herokuapp.com/api/v1/courses/?institution_id=${slug}`,
         {
           headers: {
             Authorization: token
@@ -101,7 +100,7 @@ class showInstitution extends Component {
   render() {
     console.log(this.state.slug);
     const { classes } = this.props;
-    const { course_list, university } = this.state;
+    const { course_list, university, slug } = this.state;
     return (
       <div>
         <Sidebar
@@ -119,6 +118,15 @@ class showInstitution extends Component {
           <div className="container">
             <div className="row margin-top">
               <div className="col-sm-12 col-md-4">
+                <Link to="/update_institution/:slug" className="edit-area">
+                  <i
+                    class="fa fa-edit edit-fa"
+                    style={{
+                      color: "#3394AB"
+                    }}
+                  />
+                  <p className="edit-button">Edit</p>
+                </Link>
                 <div className="newcard card-user">
                   <div className="image">
                     <img src={require("../../images/bgimg.jpg")} alt="..." />
@@ -155,6 +163,16 @@ class showInstitution extends Component {
                 <div>
                   <div className="no-wards">
                     <h5>No Courses Yet</h5>
+                    <Link
+                      to={`/institutions/${slug}/new_course`}
+                      className="button-area"
+                    >
+                      <Tooltip title="Add" aria-label="Add">
+                        <Fab color="primary" className={classes.fab}>
+                          <AddIcon />
+                        </Fab>
+                      </Tooltip>
+                    </Link>
                     <div className="wards-cover">
                       <h5>What is this section for? </h5>
                       <br />

@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 import AdminNavbarLinks from "../Navbars/AdminNavbarLinks.jsx";
-
-import logo from "assets/img/reactlogo.png";
 
 class Sidebar extends Component {
   constructor(props) {
@@ -38,11 +36,13 @@ class Sidebar extends Component {
           <div className="sidebar-background" style={sidebarBackground} />
         ) : null}
         <div className="logo">
-          <img
-            className="logo-header"
-            src={require("../../images/logo_color.png")}
-            alt="SmartUp Logo"
-          />
+          <Link to="/">
+            <img
+              className="logo-header"
+              src={require("../../images/logo_color.png")}
+              alt="SmartUp Logo"
+            />
+          </Link>
         </div>
         <div className="sidebar-wrapper">
           <ul className="nav">
