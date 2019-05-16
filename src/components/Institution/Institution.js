@@ -90,7 +90,7 @@ class Institution extends Component {
           />
         </div>
         <div className="main-content">
-          <Link to="/institutions/new" className="button-area">
+          <Link to="/new_institution" className="button-area">
             <Tooltip title="Add" aria-label="Add">
               <Fab color="primary" className={classes.fab}>
                 <AddIcon />

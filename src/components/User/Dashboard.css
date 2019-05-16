@@ -380,10 +380,11 @@
     color: white;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
     .main-content {
         margin-left: 0% !important;
         padding-top: 5em !important;
+        width: 50% !important
     }
 
     .flex-div {
@@ -400,16 +401,26 @@
     }
 
     .card {
-        width: 100%;
+        width: 20em !important;
         padding: 0.5em;
+        margin-left: 0.7em !important;
     }
 
     .card i {
-        margin-left: 3.5em;
+        margin-left: 2.7em !important;
+    }
+
+    #family-card i {
+        margin-left: 2.7em !important;
     }
 
     .card-below {
         margin-top: 30px;
+    }
+
+    .ward-section {
+        width: 20em !important;
+        margin-left: 0.7em !important;
     }
 
     .card-length {
@@ -421,7 +432,9 @@
     }
 
     .newcard {
-        width: 20em
+        width: 20em;
+        padding: 0% !important;
+        margin-left: 0.7em !important
     }
 
     .footer-user {

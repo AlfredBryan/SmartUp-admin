@@ -32,21 +32,55 @@
     margin-bottom: 2em;
 }
 
-@media screen and (max-width: 600px) {
+/* mobile phone design */
+@media screen and (max-width: 768px) {
     .react-datepicker__input-container {
         width: 16px !important;
     }
 
     .form-horizontal {
-        width: 21em !important;
-        margin-left: 0% !important;
+        width: 20em !important;
+        margin-left: 1.2em !important;
 
     }
 
-    .form-horizontal-user {
-        width: 21em !important;
-        margin-left: 0% !important;
+    .row {
+        padding: 0% !important;
+        margin: 0% !important;
+    }
 
+    #family-card {
+        width: 21em !important;
+    }
+
+    .main-panel {
+        position: static !important;
+        clear: both !important;
+        width: 100% !important;
+    }
+
+    h2 {
+        font-size: 1em !important;
+    }
+
+    #institution-settings {
+        padding: 0% !important;
+        margin-left: 0.8em !important;
+    }
+
+    .container {
+        padding: 0% !important;
+        margin: 0% !important;
+    }
+
+    .form-horizontal-user {
+        width: 20em !important;
+        margin-left: 0.2em !important;
+    }
+
+    .text-center {
+        width: 20em !important;
+        margin-left: 0em !important;
     }
 
     .main-content {
@@ -57,4 +91,15 @@
         margin-left: 0% !important;
     }
 
+}
+
+@media only screen and (min-width: 600px) {
+    /* For tablets: */
+}
+
+/* landscape design */
+@media only screen and (orientation: landscape) {
+    body {
+        background-color: lightblue;
+    }
 }

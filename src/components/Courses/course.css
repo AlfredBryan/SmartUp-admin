@@ -192,7 +192,7 @@
     background-color: #ffffff !important;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
     .course-list li .course-name {
         width: 5%;
     }
@@ -212,16 +212,15 @@
         padding: 0;
         height: 35em;
         overflow: scroll;
+        margin-left: 1em !important;
         /* background-color: rgba(0, 0, 0, 0.1); */
         /* box-shadow: 0 0.3px 0.3px 0 rgba(0, 0, 0, 0.2); */
     }
 
     .button-area {
         right: 0% !important;
-        left: 80%;
-        top: 6.5%;
-        position: fixed;
-        z-index: 1000;
+        left: 75%;
+        top: 5.5%;
     }
 
 }
