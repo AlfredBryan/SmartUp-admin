@@ -5,9 +5,6 @@ import { Link } from "react-router-dom";
 
 import Sidebar from "../Sidebar/Sidebar";
 import AdminNavbar from "../Navbars/AdminNavbar";
-import AddIcon from "@material-ui/icons/Add";
-import Fab from "@material-ui/core/Fab";
-import Tooltip from "@material-ui/core/Tooltip";
 
 import routes from "../../routes";
 
@@ -16,6 +13,7 @@ class showCourse extends Component {
     super(props);
     this.state = {
       course: "",
+      topics: [],
       course_slug: this.props.match.params.slug
     };
   }
@@ -30,34 +28,29 @@ class showCourse extends Component {
   };
 
   componentDidMount() {
-    if (!this.state.course) {
-      this.fetchCourse()
-        .then(course => {
-          this.setState({ course: course });
-          console.log(course);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
+    this.fetchCourse();
   }
 
-  async fetchCourse() {
+  fetchCourse = () => {
     const token = localStorage.getItem("token");
     let { course_slug } = this.state;
-    const res = await axios.get(
-      `https://smart-up.herokuapp.com/api/v1/courses/${course_slug}/`,
-      {
+    axios
+      .get(`https://smart-up.herokuapp.com/api/v1/courses/${course_slug}/`, {
         headers: {
           Authorization: token
         }
-      }
-    );
-    return await res.data;
-  }
+      })
+      .then(res => {
+        console.log(res);
+        this.setState({
+          course: res.data,
+          topics: res.data.topics
+        });
+      });
+  };
 
   render() {
-    const { course } = this.state;
+    const { course, topics, course_slug } = this.state;
     return (
       <div>
         {" "}
@@ -73,31 +66,46 @@ class showCourse extends Component {
           />
         </div>
         <div className="main-content">
-          <div className="action-buttons">
-            <Link to={`/course/${course.id}`} className="button-area">
-              <Tooltip title="Add" aria-label="Add">
-                <Fab
-                  color="primary"
-                  style={{
-                    background:
-                      "linear-gradient(174.78deg, #3394AB -8.91%, #64DAF6 99.52%) !important"
-                  }}
-                >
-                  <AddIcon />
-                </Fab>
-              </Tooltip>
-            </Link>
-          </div>
-          <div className="wards-cover">
-            <h5>{course.name}</h5>
-            <li>
-              {course.name}
-              <span className="pull-right">
-                {course.topics == 0
-                  ? "No topics yet"
-                  : "Topics" + course.topics}
-              </span>
-            </li>
+          <div className="course_n_topics">
+            <div className="align-course">
+              <div>
+                <h3 className="course-name">{course.name}</h3>
+                <span className="pull-right">
+                  <Link to={`/new_topic/${course_slug}`}>
+                    <button className="topics-button">Add Topic</button>
+                  </Link>
+                  <Link to={`/update_course/${course_slug}`}>
+                    <button className="topics-button">Edit Course</button>
+                  </Link>
+                </span>
+              </div>
+              <div className="topics-cover">
+                <ul>
+                  <li>
+                    <span>
+                      {course.topics < 1 ? (
+                        <span className="topics-span">No topics yet</span>
+                      ) : (
+                        <span className="topics-span">
+                          Topics:{topics.length}
+                        </span>
+                      )}
+                    </span>
+                  </li>
+                  <li>
+                    <span>Description</span>
+                    <span style={{ display: "flex" }}>
+                      <hr id="line-colored" /> <hr id="line-gray" />
+                    </span>
+                  </li>
+                  <li>
+                    <p style={{ textTransform: "capitalize" }}>
+                      {course.description}
+                    </p>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>

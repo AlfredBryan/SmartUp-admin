@@ -10,8 +10,98 @@
     margin-left: 37em
 }
 
-.btn-circle:hover {
+.course-name {
+    text-transform: capitalize;
+    margin-left: 2em;
+}
+
+.topics-cover {
+    display: inline-block;
+    text-align: left;
+    width: 44.7em;
+    box-shadow: 0 0.3px 0.3px 0 rgba(0, 0, 0, 0.2);
+    padding: 3rem;
+    background-color: #ffffff;
+    margin-top: 2rem;
+    margin-left: 3em;
+}
+
+
+
+#line-colored {
+    height: 3px;
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    width: 30em;
+    border: none;
+    background: linear-gradient(174.78deg, #64daf6 -8.91%, #3394ab 99.52%) !important;
+}
+
+#line-gray {
+    height: 3px;
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    width: 40em;
+    border: none;
+    background-color: grey;
+}
+
+.course_n_topics {
+    text-align: center;
+}
+
+.topics-button {
+    padding: 0.6em;
+    background: linear-gradient(174.78deg, #64daf6 -8.91%, #3394ab 99.52%) !important;
+    border-radius: 5px;
+    margin: 0px 0px 4px 6px;
+    color: #ffffff;
+    border: none;
+    box-shadow: 0 0.3px 0.3px 0 rgba(0, 0, 0, 0.2);
+}
+
+.topics-button:hover {
+    opacity: 0.8;
+    background: linear-gradient(174.78deg, #64daf6 -8.91%, #3394ab 99.52%) !important;
+
+}
+
+.align-course {
+    display: inline-block;
+}
+
+.align-course h3 {
+    text-align: left
+}
+
+.topics-cover li {
+    list-style: none;
+}
+
+.topics-cover li:nth-child(2) {
+    padding-top: 2em;
+    font-size: 2.2em;
+}
+
+.topics-cover ul {
+    padding: 0% !important;
+    margin: 0% !important;
+}
+
+.topics-span {
+    background: gray;
+    padding: 0.5em;
+    border-radius: 4px;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    color: white;
 }
 
 .form-horizontal {
@@ -92,10 +182,7 @@
 }
 
 .edit-area {
-    top: 10.5%;
-    left: 18%;
-    position: fixed;
-    z-index: 1000;
+    margin-left: 5em;
 }
 
 .edit-fa {
@@ -132,7 +219,7 @@
     float: left;
 }
 
-.course-list li .course-name {
+.course-list li {
     padding: 0.5em;
     width: 30%;
 }
@@ -239,7 +326,7 @@ a:hover {
 }
 
 @media screen and (max-width: 768px) {
-    .course-list li .course-name {
+    .course-list li {
         width: 5%;
     }
 

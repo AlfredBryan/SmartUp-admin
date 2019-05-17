@@ -7,7 +7,7 @@ import AdminNavbar from "../Navbars/AdminNavbar";
 import Sidebar from "components/Sidebar/Sidebar";
 import routes from "../../routes";
 
-class newCourse extends Component {
+class EditCourse extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,7 +25,7 @@ class newCourse extends Component {
         return routes[i].name;
       }
     }
-    return "Create Course";
+    return "Edit Course";
   };
 
   postCourse = e => {
@@ -41,7 +41,7 @@ class newCourse extends Component {
       Url += `?institution_id=${Id}`;
     }
     axios
-      .post(
+      .put(
         Url,
         {
           course: {
@@ -68,7 +68,9 @@ class newCourse extends Component {
 
         if (res.data.id !== null) {
           if (res.data.institution_id) {
-            this.props.history.replace(`/institution/${Id}/courses/${res.data.slug}`);
+            this.props.history.replace(
+              `/institution/${Id}/courses/${res.data.slug}`
+            );
           } else {
             this.props.history.replace(`/courses/${res.data.slug}`);
           }
@@ -177,4 +179,4 @@ class newCourse extends Component {
   }
 }
 
-export default newCourse;
+export default EditCourse;

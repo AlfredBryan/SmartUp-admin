@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "./course.css";
 import axios from "axios";
 import Spinner from "../hoc/spinner";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -7,15 +6,16 @@ import AdminNavbar from "../Navbars/AdminNavbar";
 import Sidebar from "components/Sidebar/Sidebar";
 import routes from "../../routes";
 
-class newCourse extends Component {
+class AddTopic extends Component {
   constructor(props) {
     super(props);
     this.state = {
       name: "",
       description: "",
+      rank: "",
       active: false,
       loading: false,
-      institution_id: this.props.match.params.slug
+      course_id: this.props.match.params.slug
     };
   }
 
@@ -28,25 +28,21 @@ class newCourse extends Component {
     return "Create Course";
   };
 
-  postCourse = e => {
+  postTopic = e => {
     e.preventDefault();
     const token = localStorage.getItem("token");
-    const { name, description, active } = this.state;
+    const { name, description, rank, active } = this.state;
 
-    let Id = this.state.institution_id;
+    const course_slug = this.state.course_id;
 
-    let Url = "https://smart-up.herokuapp.com/api/v1/courses";
-
-    if (Id) {
-      Url += `?institution_id=${Id}`;
-    }
     axios
       .post(
-        Url,
+        `https://smart-up.herokuapp.com/api/v1/courses/${course_slug}/topics`,
         {
           course: {
             name,
             description,
+            rank,
             active
           }
         },
@@ -68,9 +64,8 @@ class newCourse extends Component {
 
         if (res.data.id !== null) {
           if (res.data.institution_id) {
-            this.props.history.replace(`/institution/${Id}/courses/${res.data.slug}`);
+            this.props.history.replace(`/topic/${res.data.slug}`);
           } else {
-            this.props.history.replace(`/courses/${res.data.slug}`);
           }
         }
       })
@@ -158,6 +153,27 @@ class newCourse extends Component {
                     </div>
                   </div>
                   <div className="form-group">
+                    <label className="col-lg-8 adjust-input control-label">
+                      Rank:
+                    </label>
+                    <div className="col-lg-12">
+                      <select
+                        className="form-control"
+                        name="level"
+                        value={this.state.rank}
+                        onChange={this.handleChange}
+                        id=""
+                      >
+                        {Array.from(
+                          new Array(12),
+                          (val, index) => index + 1
+                        ).map(rank => (
+                          <option value={rank}> Rank {rank}</option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                  <div className="form-group">
                     <div className="col-lg-12">
                       <button
                         onClick={this.postCourse}
@@ -177,4 +193,4 @@ class newCourse extends Component {
   }
 }
 
-export default newCourse;
+export default AddTopic;

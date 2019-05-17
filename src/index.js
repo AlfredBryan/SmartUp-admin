@@ -22,6 +22,9 @@ import Dashboard from "components/User/Dashboard";
 import AuthRoute from "components/hoc/AuthRoute";
 import showInstitution from "components/Institution/showInstitution";
 import newCourse from "components/Courses/newCourse";
+import AddTopic from "components/Topics/AddTopics";
+import EditCourse from "components/Courses/EditCourse";
+import EditInstitution from "components/Institution/EditInstitution";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -33,6 +36,7 @@ ReactDOM.render(
         <Route exact path="/family" component={AddWard} />
         <Route exact path="/courses" component={Courses} />
         <Route exact path="/new_course" component={newCourse} />
+        <Route exact path="/new_topic/:slug" component={AddTopic} />
         <Route
           exact
           path="/institutions/:slug/new_course"
@@ -43,9 +47,15 @@ ReactDOM.render(
         <Route exact path="/institutions/:slug" component={showInstitution} />
         <Route
           exact
+          path="/update_institution/:slug"
+          component={EditInstitution}
+        />
+        <Route
+          exact
           path="/institutions/:institution_slug/courses/:slug"
           component={showCourse}
         />
+        <Route exact path="/update_course/:slug" component={EditCourse} />
         <Route exact path="/courses/:slug" component={showCourse} />
         <Route exact path="/profile/:first_name" component={Dashboard} />
         <Route

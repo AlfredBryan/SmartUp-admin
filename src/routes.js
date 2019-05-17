@@ -8,20 +8,18 @@ const user = JSON.parse(localStorage.getItem("user"));
 
 let Ward_user;
 // Checking User status before Display
-switch (user.status !== "educator") {
-  case user.status === "guardian":
-    Ward_user = "Wards";
-    break;
-  case user.status === "student":
-    Ward_user = "Guardians";
-    break;
-  case user.status === "educator":
-    Ward_user = "null";
-    break;
-  default:
-    Ward_user = "null";
+if (user) {
+  switch (user.status !== "educator") {
+    case user.status === "guardian":
+      Ward_user = "Wards";
+      break;
+    case user.status === "student":
+      Ward_user = "Guardians";
+      break;
+    default:
+      Ward_user = "null";
+  }
 }
-
 const dashboardRoutes = [
   {
     path: `/profile/${user.first_name}`,

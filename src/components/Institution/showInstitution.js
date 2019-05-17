@@ -101,6 +101,7 @@ class showInstitution extends Component {
     console.log(this.state.slug);
     const { classes } = this.props;
     const { course_list, university, slug } = this.state;
+
     return (
       <div>
         <Sidebar
@@ -118,15 +119,6 @@ class showInstitution extends Component {
           <div className="container">
             <div className="row margin-top">
               <div className="col-sm-12 col-md-4">
-                <Link to="/update_institution/:slug" className="edit-area">
-                  <i
-                    class="fa fa-edit edit-fa"
-                    style={{
-                      color: "#3394AB"
-                    }}
-                  />
-                  <p className="edit-button">Edit</p>
-                </Link>
                 <div className="newcard card-user">
                   <div className="image">
                     <img src={require("../../images/bgimg.jpg")} alt="..." />
@@ -147,7 +139,18 @@ class showInstitution extends Component {
                       </a>
                     </div>
                     <p className="description text-center">
-                      <br />
+                      <Link
+                        to={`/update_institution/${slug}`}
+                        className="edit-area"
+                      >
+                        <i
+                          class="fa fa-edit edit-fa"
+                          style={{
+                            color: "#3394AB"
+                          }}
+                        />
+                        <p className="edit-button">Edit</p>
+                      </Link>
                     </p>
                   </div>
                   <hr />
