@@ -25,7 +25,7 @@ class AddTopic extends Component {
         return routes[i].name;
       }
     }
-    return "Create Course";
+    return "Add Topic";
   };
 
   postTopic = e => {
