@@ -20,7 +20,7 @@ const dashboardRoutes = [
   },
   {
     path: `/family`,
-    name: Wards,
+    name: "Wards",
     icon: "pe-7s-users",
     component: AddWard
   },
