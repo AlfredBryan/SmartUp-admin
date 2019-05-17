@@ -57,10 +57,10 @@ ReactDOM.render(
         />
         <Route exact path="/update_course/:slug" component={EditCourse} />
         <Route exact path="/courses/:slug" component={showCourse} />
-        <Route exact path="/profile/:first_name" component={Dashboard} />
+        <Route exact path="/profile" component={Dashboard} />
         <Route
           exact
-          path="/update_profile/:first_name"
+          path="/update_profile"
           component={UpdateUser}
         />
       </AuthRoute>

@@ -44,12 +44,12 @@ class UserAuth extends Component {
           if (res.status === 201 && res.data.completed_at !== null) {
             localStorage.setItem("token", res.data.authentication_token);
             localStorage.setItem("user", JSON.stringify(res.data));
-            this.props.history.replace(`/profile/${res.data.first_name}`);
+            this.props.history.replace(`/profile`);
           } else {
             localStorage.setItem("token", res.data.authentication_token);
             localStorage.setItem("user", JSON.stringify(res.data));
             this.props.history.replace(
-              `/update_profile/${res.data.first_name}`
+              `/update_profile`
             );
           }
           localStorage.setItem("user", JSON.stringify(res.data));
