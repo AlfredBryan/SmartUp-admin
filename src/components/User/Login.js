@@ -48,9 +48,7 @@ class UserAuth extends Component {
           } else {
             localStorage.setItem("token", res.data.authentication_token);
             localStorage.setItem("user", JSON.stringify(res.data));
-            this.props.history.replace(
-              `/update_profile`
-            );
+            this.props.history.replace(`/update_profile`);
           }
           localStorage.setItem("user", JSON.stringify(res.data));
           this.setState({
@@ -80,7 +78,7 @@ class UserAuth extends Component {
     const user = JSON.parse(localStorage.getItem("user"));
 
     if (token) {
-      this.props.history.replace(`/profile/${user.first_name}`);
+      this.props.history.replace("/profile");
     }
 
     return (

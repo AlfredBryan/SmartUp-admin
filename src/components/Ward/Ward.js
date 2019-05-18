@@ -60,15 +60,6 @@ class AddWard extends Component {
     this.setState({ open: false });
   };
 
-  getBrandText = path => {
-    for (let i = 0; i < routes.length; i++) {
-      if (this.props.location.pathname.indexOf(routes[i].path) !== -1) {
-        return routes[i].name;
-      }
-    }
-    return "Brand";
-  };
-
   componentDidMount() {
     this.getList();
     this.getFamily();
@@ -225,20 +216,17 @@ class AddWard extends Component {
 
   render() {
     const user = JSON.parse(localStorage.getItem("user"));
-    let { loading, details, family_details, visible, open } = this.state;
+    const { loading, details, family_details, visible, open } = this.state;
     const { classes } = this.props;
 
     return (
       <div>
         <Sidebar
-          {...this.props}
           routes={routes}
-          hasImage={this.state.hasImage}
         />
         <div id="main-panel" className="main-panel" ref="mainPanel">
           <AdminNavbar
             {...this.props}
-            brandText={this.getBrandText(this.props.location.pathname)}
           />
         </div>
         <Snackbar

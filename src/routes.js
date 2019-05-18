@@ -4,7 +4,6 @@ import UpdateUser from "components/User/UpdateUser";
 import AddWard from "components/Ward/Ward";
 import Courses from "components/Courses/Courses";
 
-
 const dashboardRoutes = [
   {
     path: `/profile`,
@@ -20,8 +19,8 @@ const dashboardRoutes = [
   },
   {
     path: `/family`,
-    name: "Wards",
-    icon: "pe-7s-users",
+    name: "Status",
+    icon: "pe-7s-medal",
     component: AddWard
   },
   {
