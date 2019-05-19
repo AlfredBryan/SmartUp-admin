@@ -227,7 +227,7 @@ a:focus {
 }
 
 a:focus,
-a:active,
+a:active:not(.not_active),
 button::-moz-focus-inner,
 input::-moz-focus-inner,
 input[type="reset"]::-moz-focus-inner,
