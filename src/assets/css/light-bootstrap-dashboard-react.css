@@ -237,6 +237,11 @@ select::-moz-focus-inner,
 input[type="file"]>input[type="button"]::-moz-focus-inner {
   outline: 0;
 }
+.side_logout {
+  margin-left: 5em !important;
+  color: #F5F5F5 !important;
+
+}
 
 .ui-slider-handle:focus,
 .navbar-toggle,

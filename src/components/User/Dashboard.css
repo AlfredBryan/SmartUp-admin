@@ -15,6 +15,13 @@
     padding-top: 3rem;
 }
 
+.side_logout {
+    color: white;
+    margin: 0.2em 2em 0.2em;
+    cursor: pointer;
+    
+}
+
 .user-popup {
     color: rgb(241, 155, 97) !important;
     font-weight: 800 !important;
