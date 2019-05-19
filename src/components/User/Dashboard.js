@@ -3,7 +3,6 @@ import "./Dashboard.css";
 import axios from "axios";
 
 import Sidebar from "../Sidebar/Sidebar";
-import routes from "../../routes";
 import AdminNavbar from "../Navbars/AdminNavbar";
 
 //popup notification
@@ -57,16 +56,6 @@ class Dashboard extends Component {
     this.handleClick();
   }
 
-  // Getting path name from location
-  getBrandText = path => {
-    for (let i = 0; i < routes.length; i++) {
-      if (this.props.location.pathname.indexOf(routes[i].path) !== -1) {
-        return routes[i].name;
-      }
-    }
-    return "Brand";
-  };
-
   //Add ward function
   addWard = e => {
     e.preventDefault();
@@ -90,16 +79,9 @@ class Dashboard extends Component {
     const user = JSON.parse(localStorage.getItem("user"));
     return (
       <React.Fragment>
-        <Sidebar
-          {...this.props}
-          routes={routes}
-          hasImage={this.state.hasImage}
-        />
+        <Sidebar />
         <div id="main-panel" className="main-panel" ref="mainPanel">
-          <AdminNavbar
-            {...this.props}
-            brandText={this.getBrandText(this.props.location.pathname)}
-          />
+          <AdminNavbar />
         </div>
         <Snackbar
           open={open}

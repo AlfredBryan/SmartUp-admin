@@ -48,15 +48,6 @@ class EditInstitution extends Component {
     };
   }
 
-  getBrandText = path => {
-    for (let i = 0; i < routes.length; i++) {
-      if (this.props.location.pathname.indexOf(routes[i].path) !== -1) {
-        return routes[i].name;
-      }
-    }
-    return "Institution";
-  };
-
   // popup notification functions
   handleClick = () => {
     this.setState({ open: true });
@@ -121,16 +112,9 @@ class EditInstitution extends Component {
     const { classes } = this.props;
     return (
       <div>
-        <Sidebar
-          {...this.props}
-          routes={routes}
-          hasImage={this.state.hasImage}
-        />
+        <Sidebar />
         <div id="main-panel" className="main-panel" ref="mainPanel">
-          <AdminNavbar
-            {...this.props}
-            brandText={this.getBrandText(this.props.location.pathname)}
-          />
+          <AdminNavbar />
         </div>
         <Snackbar
           open={open}

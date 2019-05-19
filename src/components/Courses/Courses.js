@@ -51,15 +51,6 @@ class Courses extends Component {
     };
   }
 
-  getBrandText = path => {
-    for (let i = 0; i < routes.length; i++) {
-      if (this.props.location.pathname.indexOf(routes[i].path) !== -1) {
-        return routes[i].name;
-      }
-    }
-    return "Brand";
-  };
-
   componentDidMount() {
     this.fetchCourses();
   }
@@ -96,16 +87,9 @@ class Courses extends Component {
     if (course_list.length < 0) {
       return (
         <div>
-          <Sidebar
-            {...this.props}
-            routes={routes}
-            hasImage={this.state.hasImage}
-          />
+          <Sidebar />
           <div id="main-panel" className="main-panel" ref="mainPanel">
-            <AdminNavbar
-              {...this.props}
-              brandText={this.getBrandText(this.props.location.pathname)}
-            />
+            <AdminNavbar />
           </div>
           <div className="main-content">
             <div className="container">
@@ -133,16 +117,9 @@ class Courses extends Component {
     } else {
       return (
         <div>
-          <Sidebar
-            {...this.props}
-            routes={routes}
-            hasImage={this.state.hasImage}
-          />
+          <Sidebar />
           <div id="main-panel" className="main-panel" ref="mainPanel">
-            <AdminNavbar
-              {...this.props}
-              brandText={this.getBrandText(this.props.location.pathname)}
-            />
+            <AdminNavbar />
           </div>
           <div className="main-content">
             <div className="action-buttons">

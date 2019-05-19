@@ -222,11 +222,9 @@ class AddWard extends Component {
     return (
       <div>
         <Sidebar
-          routes={routes}
         />
         <div id="main-panel" className="main-panel" ref="mainPanel">
           <AdminNavbar
-            {...this.props}
           />
         </div>
         <Snackbar
