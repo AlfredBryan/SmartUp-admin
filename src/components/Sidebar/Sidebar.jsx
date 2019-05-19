@@ -101,7 +101,7 @@ class Sidebar extends Component {
             {ward_button}
             <hr />
             <li>
-              <NavLink onClick={this.logOut} activeClassName="active">
+              <NavLink onClick={this.logOut}>
                 <i class="pe-7s-power" />
                 <p>Log Out </p>
               </NavLink>
