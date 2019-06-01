@@ -4,7 +4,6 @@ import Spinner from "../hoc/spinner";
 import Checkbox from "@material-ui/core/Checkbox";
 import AdminNavbar from "../Navbars/AdminNavbar";
 import Sidebar from "components/Sidebar/Sidebar";
-import routes from "../../routes";
 
 class AddTopic extends Component {
   constructor(props) {
@@ -18,15 +17,6 @@ class AddTopic extends Component {
       course_id: this.props.match.params.slug
     };
   }
-
-  getBrandText = path => {
-    for (let i = 0; i < routes.length; i++) {
-      if (this.props.location.pathname.indexOf(routes[i].path) !== -1) {
-        return routes[i].name;
-      }
-    }
-    return "Add Topic";
-  };
 
   postTopic = e => {
     e.preventDefault();
@@ -92,16 +82,9 @@ class AddTopic extends Component {
     const { loading } = this.state;
     return (
       <div>
-        <Sidebar
-          {...this.props}
-          routes={routes}
-          hasImage={this.state.hasImage}
-        />
+        <Sidebar />
         <div id="main-panel" className="main-panel" ref="mainPanel">
-          <AdminNavbar
-            {...this.props}
-            brandText={this.getBrandText(this.props.location.pathname)}
-          />
+          <AdminNavbar />
         </div>
         <div>
           <div className="main-content">
@@ -110,7 +93,7 @@ class AddTopic extends Component {
                 <form onSubmit={this.handleSubmit} className="form-horizontal">
                   <div className="form-group">
                     <label className="col-lg-8 adjust-input control-label">
-                      Course name:
+                      Topic name:
                     </label>
                     <div className="col-lg-12">
                       <input
@@ -118,7 +101,7 @@ class AddTopic extends Component {
                         type="text"
                         name="name"
                         value={this.state.name}
-                        placeholder="Course Name ..."
+                        placeholder="Topic Name ..."
                         onChange={this.handleChange}
                       />
                     </div>
