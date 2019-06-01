@@ -237,6 +237,7 @@ select::-moz-focus-inner,
 input[type="file"]>input[type="button"]::-moz-focus-inner {
   outline: 0;
 }
+
 .side_logout {
   margin-left: 5em !important;
   color: #F5F5F5 !important;
@@ -4211,10 +4212,6 @@ fieldset[disabled] .form-control {
 
   .dropdown-menu {
     display: none;
-  }
-
-  .navbar-fixed-top {
-    -webkit-backface-visibility: hidden;
   }
 
   #bodyClick {

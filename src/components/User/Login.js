@@ -41,20 +41,20 @@ class UserAuth extends Component {
         )
         .then(res => {
           console.log(res);
-          if (res.status === 201 && res.data.completed_at !== null) {
+          if (res.statusText === "Created" && res.data.completed_at !== null) {
             localStorage.setItem("token", res.data.authentication_token);
             localStorage.setItem("user", JSON.stringify(res.data));
-            this.props.history.replace(`/profile`);
+            this.props.history.replace("/profile");
+          } else if (res.data.completed_at === null) {
+            localStorage.setItem("token", res.data.authentication_token);
+            localStorage.setItem("user", JSON.stringify(res.data));
+            this.props.history.replace("/update_profile");
           } else {
-            localStorage.setItem("token", res.data.authentication_token);
-            localStorage.setItem("user", JSON.stringify(res.data));
-            this.props.history.replace(`/update_profile`);
+            this.setState({
+              errorMessage: res.data.message,
+              loading: false
+            });
           }
-          localStorage.setItem("user", JSON.stringify(res.data));
-          this.setState({
-            errorMessage: res.data.message,
-            loading: false
-          });
         })
         .catch(err => {
           if (err) {
@@ -72,11 +72,9 @@ class UserAuth extends Component {
   };
 
   render() {
-    let { loading, errorMessage, value } = this.state;
+    let { loading, errorMessage } = this.state;
+
     const token = localStorage.getItem("token");
-
-    const user = JSON.parse(localStorage.getItem("user"));
-
     if (token) {
       this.props.history.replace("/profile");
     }
