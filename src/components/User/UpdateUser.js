@@ -122,6 +122,7 @@ class UpdateUser extends Component {
             this.setState({
               loading: false
             });
+            localStorage.setItem("user", JSON.stringify(res.data));
             this.handleClick();
           }
         });
