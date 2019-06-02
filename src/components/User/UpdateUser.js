@@ -3,9 +3,6 @@ import swal from "sweetalert";
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
-import Sidebar from "../Sidebar/Sidebar";
-import AdminNavbar from "../Navbars/AdminNavbar";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 
@@ -13,10 +10,9 @@ import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 
-import routes from "../../routes";
-
 import "./userupdate.css";
 import Spinner from "components/hoc/spinner";
+import Navigation from "components/Navigation/Navigation";
 
 const styles = theme => ({
   container: {
@@ -60,7 +56,8 @@ class UpdateUser extends Component {
       sex: "other",
       level: "1",
       open: false,
-      loading: false
+      loading: false,
+      errorMessage: ""
     };
   }
 
@@ -73,22 +70,6 @@ class UpdateUser extends Component {
     this.setState({ open: false });
   };
 
-  componentDidMount() {
-    this.handleClick();
-  }
-
-  componentDidMount() {
-    this.forceUpdate();
-  }
-
-  getBrandText = path => {
-    for (let i = 0; i < routes.length; i++) {
-      if (this.props.location.pathname.indexOf(routes[i].path) !== -1) {
-        return routes[i].name;
-      }
-    }
-    return "Brand";
-  };
   Capitalize = str => {
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
@@ -106,39 +87,45 @@ class UpdateUser extends Component {
       level,
       sex
     } = this.state;
-    axios
-      .put(
-        "https://smart-up.herokuapp.com/api/v1/registration",
-        {
-          user: {
-            first_name,
-            surname,
-            address,
-            phone,
-            state,
-            date_of_birth,
-            sex,
-            level
-          }
-        },
-        {
-          headers: {
-            Authorization: token
-          }
-        },
-        this.setState({
-          loading: true
-        })
-      )
-      .then(res => {
-        console.log(res);
-        if (res.status === 200) {
-          this.setState({
-            loading: false
-          });
-          this.handleClick();
-        }
+    if (first_name.length < 3 || surname.length < 3) {
+      this.setState({
+        errorMessage: "Fields Can't be Empty"
       });
+    } else {
+      axios
+        .put(
+          "https://smart-up.herokuapp.com/api/v1/registration",
+          {
+            user: {
+              first_name,
+              surname,
+              address,
+              phone,
+              state,
+              date_of_birth,
+              sex,
+              level
+            }
+          },
+          {
+            headers: {
+              Authorization: token
+            }
+          },
+          this.setState({
+            loading: true
+          })
+        )
+        .then(res => {
+          console.log(res);
+          if (res.status === 200) {
+            this.setState({
+              loading: false
+            });
+            this.handleClick();
+          }
+        });
+    }
   };
 
   handleChange = event => {
@@ -192,20 +179,10 @@ class UpdateUser extends Component {
       "Zamfara"
     ];
     const { classes } = this.props;
-    const { open, loading } = this.state;
+    const { open, loading, errorMessage } = this.state;
     return (
       <div>
-        <Sidebar
-          {...this.props}
-          routes={routes}
-          hasImage={this.state.hasImage}
-        />
-        <div id="main-panel" className="main-panel" ref="mainPanel">
-          <AdminNavbar
-            {...this.props}
-            brandText={this.getBrandText(this.props.location.pathname)}
-          />
-        </div>
+        <Navigation />
         <Snackbar
           open={open}
           autoHideDuration={4000}
@@ -365,8 +342,18 @@ class UpdateUser extends Component {
                   </select>
                 </div>
               </div>
+              <p
+                style={{
+                  marginTop: "20px",
+                  marginLeft: "200px",
+                  color: "red",
+                  fontSize: "18px"
+                }}
+              >
+                {errorMessage}
+              </p>
               <div className="form-group">
-              <div className="col-lg-3"/>
+                <div className="col-lg-3" />
                 <div className="col-lg-8">
                   <button
                     onClick={this.handleSubmit}

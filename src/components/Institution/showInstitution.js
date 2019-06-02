@@ -1,15 +1,13 @@
 import React, { Component } from "react";
-import AdminNavbar from "../Navbars/AdminNavbar";
 import { Link } from "react-router-dom";
-
-import routes from "../../routes";
-import Sidebar from "components/Sidebar/Sidebar";
 import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
 import Tooltip from "@material-ui/core/Tooltip";
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import axios from "axios";
+
+import Navigation from "components/Navigation/Navigation";
 
 const styles = theme => ({
   root: {
@@ -95,13 +93,7 @@ class showInstitution extends Component {
 
     return (
       <div>
-        <Sidebar
-        />
-        <div id="main-panel" className="main-panel" ref="mainPanel">
-          <AdminNavbar
-          
-          />
-        </div>
+        <Navigation />
         <div className="main-content">
           <div className="container">
             <div className="row margin-top">

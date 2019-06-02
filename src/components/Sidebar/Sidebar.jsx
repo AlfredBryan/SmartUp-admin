@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, withRouter } from "react-router-dom";
 import axios from "axios";
 
 import AdminNavbarLinks from "../Navbars/AdminNavbarLinks.jsx";
@@ -19,25 +19,26 @@ class Sidebar extends Component {
     window.addEventListener("resize", this.updateDimensions.bind(this));
   }
 
-  logOut = e => {
-    e.preventDefault();
+  logOut = async () => {
     const token = localStorage.getItem("token");
-    axios
-      .delete("https://smart-up.herokuapp.com/api/v1/session", {
-        headers: {
-          Authorization: token
+    try {
+      const res = await axios.delete(
+        "https://smart-up.herokuapp.com/api/v1/session",
+        {
+          headers: {
+            Authorization: token
+          }
         }
-      })
-      .then(res => {
-        if (res.statusText === "OK") {
-          localStorage.clear("token");
-          localStorage.clear("user");
-          this.props.history.replace("/");
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      });
+      );
+      return res;
+    } catch (e) {
+      console.log(e);
+      return e.message;
+    } finally {
+      localStorage.clear("token");
+      localStorage.clear("user");
+      this.props.history.push("/");
+    }
   };
 
   render() {
@@ -113,4 +114,4 @@ class Sidebar extends Component {
   }
 }
 
-export default Sidebar;
+export default withRouter(Sidebar);

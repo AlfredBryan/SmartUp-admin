@@ -3,10 +3,7 @@ import "./course.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-import Sidebar from "../Sidebar/Sidebar";
-import AdminNavbar from "../Navbars/AdminNavbar";
-
-import routes from "../../routes";
+import Navigation from "components/Navigation/Navigation";
 
 class showCourse extends Component {
   constructor(props) {
@@ -44,15 +41,7 @@ class showCourse extends Component {
     const { course, topics, course_slug } = this.state;
     return (
       <div>
-        {" "}
-        <Sidebar
-
-        />
-        <div id="main-panel" className="main-panel" ref="mainPanel">
-          <AdminNavbar
-           
-          />
-        </div>
+        <Navigation />
         <div className="main-content">
           <div className="course_n_topics">
             <div className="align-course">

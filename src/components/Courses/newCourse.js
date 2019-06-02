@@ -3,9 +3,7 @@ import "./course.css";
 import axios from "axios";
 import Spinner from "../hoc/spinner";
 import Checkbox from "@material-ui/core/Checkbox";
-import AdminNavbar from "../Navbars/AdminNavbar";
-import Sidebar from "components/Sidebar/Sidebar";
-import routes from "../../routes";
+import Navigation from "components/Navigation/Navigation";
 
 class newCourse extends Component {
   constructor(props) {
@@ -59,7 +57,9 @@ class newCourse extends Component {
 
         if (res.data.id !== null) {
           if (res.data.institution_id) {
-            this.props.history.replace(`/institution/${Id}/courses/${res.data.slug}`);
+            this.props.history.replace(
+              `/institution/${Id}/courses/${res.data.slug}`
+            );
           } else {
             this.props.history.replace(`/courses/${res.data.slug}`);
           }
@@ -88,14 +88,7 @@ class newCourse extends Component {
     const { loading } = this.state;
     return (
       <div>
-        <Sidebar
-       
-        />
-        <div id="main-panel" className="main-panel" ref="mainPanel">
-          <AdminNavbar
-        
-          />
-        </div>
+        <Navigation />
         <div>
           <div className="main-content">
             <div className="container">

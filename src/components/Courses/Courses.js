@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import "./course.css";
 import axios from "axios";
 
-import Sidebar from "../Sidebar/Sidebar";
-import AdminNavbar from "../Navbars/AdminNavbar";
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import AddIcon from "@material-ui/icons/Add";
@@ -12,6 +10,7 @@ import Fab from "@material-ui/core/Fab";
 import Tooltip from "@material-ui/core/Tooltip";
 
 import routes from "../../routes";
+import Navigation from "components/Navigation/Navigation";
 
 const styles = theme => ({
   root: {
@@ -87,10 +86,7 @@ class Courses extends Component {
     if (course_list.length < 0) {
       return (
         <div>
-          <Sidebar />
-          <div id="main-panel" className="main-panel" ref="mainPanel">
-            <AdminNavbar />
-          </div>
+          <Navigation />
           <div className="main-content">
             <div className="container">
               <div className="row">
@@ -117,10 +113,7 @@ class Courses extends Component {
     } else {
       return (
         <div>
-          <Sidebar />
-          <div id="main-panel" className="main-panel" ref="mainPanel">
-            <AdminNavbar />
-          </div>
+          <Navigation />
           <div className="main-content">
             <div className="action-buttons">
               <Link to="/new_course" className="button-area">

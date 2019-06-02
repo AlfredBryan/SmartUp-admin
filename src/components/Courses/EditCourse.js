@@ -3,9 +3,7 @@ import "./course.css";
 import axios from "axios";
 import Spinner from "../hoc/spinner";
 import Checkbox from "@material-ui/core/Checkbox";
-import AdminNavbar from "../Navbars/AdminNavbar";
-import Sidebar from "components/Sidebar/Sidebar";
-import routes from "../../routes";
+import Navigation from "components/Navigation/Navigation";
 
 class EditCourse extends Component {
   constructor(props) {
@@ -90,75 +88,66 @@ class EditCourse extends Component {
     const { loading } = this.state;
     return (
       <div>
-        <Sidebar
-        
-        />
-        <div id="main-panel" className="main-panel" ref="mainPanel">
-          <AdminNavbar
-           
-          />
-        </div>
-        <div>
-          <div className="main-content">
-            <div className="container">
-              <div className="center-div">
-                <form onSubmit={this.handleSubmit} className="form-horizontal">
-                  <div className="form-group">
-                    <label className="col-lg-8 adjust-input control-label">
-                      Course name:
-                    </label>
-                    <div className="col-lg-12">
-                      <input
-                        className="form-control"
-                        type="text"
-                        name="name"
-                        value={this.state.name}
-                        placeholder="Course Name ..."
-                        onChange={this.handleChange}
-                      />
-                    </div>
+        <Navigation />
+        <div className="main-content">
+          <div className="container">
+            <div className="center-div">
+              <form onSubmit={this.handleSubmit} className="form-horizontal">
+                <div className="form-group">
+                  <label className="col-lg-8 adjust-input control-label">
+                    Course name:
+                  </label>
+                  <div className="col-lg-12">
+                    <input
+                      className="form-control"
+                      type="text"
+                      name="name"
+                      value={this.state.name}
+                      placeholder="Course Name ..."
+                      onChange={this.handleChange}
+                    />
                   </div>
-                  <div className="form-group">
-                    <label className="col-lg-8 adjust-input control-label">
-                      Description:
-                    </label>
-                    <div className="col-lg-12">
-                      <textarea
-                        rows="6"
-                        className="form-control"
-                        name="description"
-                        type="text"
-                        value={this.state.description}
-                        placeholder="Description ..."
-                        onChange={this.handleChange}
-                      />
-                    </div>
+                </div>
+                <div className="form-group">
+                  <label className="col-lg-8 adjust-input control-label">
+                    Description:
+                  </label>
+                  <div className="col-lg-12">
+                    <textarea
+                      rows="6"
+                      className="form-control"
+                      name="description"
+                      type="text"
+                      value={this.state.description}
+                      placeholder="Description ..."
+                      onChange={this.handleChange}
+                    />
                   </div>
-                  <div className="form-group">
-                    <label className="col-lg-8 adjust-input control-label">
-                      Active:
-                    </label>
-                    <div className="col-lg-12">
-                      <Checkbox
-                        checked={this.state.active}
-                        onChange={this.toggle}
-                        value={this.state.active}
-                        name="active"
-                      />
-                    </div>
+                </div>
+                <div className="form-group">
+                  <label className="col-lg-8 adjust-input control-label">
+                    Active:
+                  </label>
+                  <div className="col-lg-12">
+                    <Checkbox
+                      checked={this.state.active}
+                      onChange={this.toggle}
+                      value={this.state.active}
+                      name="active"
+                    />
                   </div>
-                  <div className="form-group">
-                    <div className="col-lg-12">
-                      <button
-                        onClick={this.postCourse}
-                        className="form-control btn-submit"
-                      >
-                        {loading ? <Spinner /> : "Create"}
-                      </button>
-                    </div>
+                </div>
+                <div className="form-group">
+                  <div className="col-lg-12">
+                    <button
+                      onClick={this.postCourse}
+                      className="form-control btn-submit"
+                    >
+                      {loading ? <Spinner /> : "Create"}
+                    </button>
                   </div>
-                </form>
-              </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>

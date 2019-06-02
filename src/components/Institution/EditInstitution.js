@@ -3,16 +3,13 @@ import axios from "axios";
 
 import "./style.css";
 import Spinner from "../hoc/spinner";
-
-import Sidebar from "../Sidebar/Sidebar";
-import AdminNavbar from "../Navbars/AdminNavbar";
 //popup notification
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 
-import routes from "../../routes";
+import Navigation from "components/Navigation/Navigation";
 
 const styles = theme => ({
   root: {
@@ -112,10 +109,7 @@ class EditInstitution extends Component {
     const { classes } = this.props;
     return (
       <div>
-        <Sidebar />
-        <div id="main-panel" className="main-panel" ref="mainPanel">
-          <AdminNavbar />
-        </div>
+        <Navigation />
         <Snackbar
           open={open}
           autoHideDuration={4000}

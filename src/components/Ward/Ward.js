@@ -3,16 +3,13 @@ import React, { Component } from "react";
 import "./style.css";
 import axios from "axios";
 import Spinner from "../hoc/spinner";
-
-import Sidebar from "../Sidebar/Sidebar";
-import AdminNavbar from "../Navbars/AdminNavbar";
 //popup notification
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 
-import routes from "../../routes";
+import Navigation from "components/Navigation/Navigation";
 
 const styles = theme => ({
   root: {
@@ -81,19 +78,25 @@ class AddWard extends Component {
       });
   };
 
-  getFamily = e => {
+  getFamily = async () => {
     const token = localStorage.getItem("token");
-    axios
-      .get("https://smart-up.herokuapp.com/api/v1/registration/family", {
-        headers: {
-          Authorization: token
+    try {
+      const res = await axios.get(
+        "https://smart-up.herokuapp.com/api/v1/registration/family",
+        {
+          headers: {
+            Authorization: token
+          }
         }
-      })
-      .then(res => {
-        this.setState({
-          family_details: res.data
-        });
+      );
+      this.setState({
+        family_details: res.data
       });
+      return res;
+    } catch (e) {
+      console.log(e);
+      return e.message;
+    }
   };
 
   acceptGuardian = id => {
@@ -221,12 +224,7 @@ class AddWard extends Component {
 
     return (
       <div>
-        <Sidebar
-        />
-        <div id="main-panel" className="main-panel" ref="mainPanel">
-          <AdminNavbar
-          />
-        </div>
+        <Navigation />
         <Snackbar
           open={open}
           autoHideDuration={4000}

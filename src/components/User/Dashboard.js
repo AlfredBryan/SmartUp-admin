@@ -2,14 +2,12 @@ import React, { Component } from "react";
 import "./Dashboard.css";
 import axios from "axios";
 
-import Sidebar from "../Sidebar/Sidebar";
-import AdminNavbar from "../Navbars/AdminNavbar";
-
 //popup notification
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
+import Navigation from "components/Navigation/Navigation";
 
 const token = localStorage.getItem("token");
 
@@ -79,10 +77,7 @@ class Dashboard extends Component {
     const user = JSON.parse(localStorage.getItem("user"));
     return (
       <React.Fragment>
-        <Sidebar />
-        <div id="main-panel" className="main-panel" ref="mainPanel">
-          <AdminNavbar />
-        </div>
+        <Navigation />
         <Snackbar
           open={open}
           autoHideDuration={4000}

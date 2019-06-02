@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Spinner from "../hoc/spinner";
 import Checkbox from "@material-ui/core/Checkbox";
-import AdminNavbar from "../Navbars/AdminNavbar";
-import Sidebar from "components/Sidebar/Sidebar";
+import Navigation from "components/Navigation/Navigation";
 
 class AddTopic extends Component {
   constructor(props) {
@@ -82,10 +81,7 @@ class AddTopic extends Component {
     const { loading } = this.state;
     return (
       <div>
-        <Sidebar />
-        <div id="main-panel" className="main-panel" ref="mainPanel">
-          <AdminNavbar />
-        </div>
+        <Navigation />
         <div>
           <div className="main-content">
             <div className="container">

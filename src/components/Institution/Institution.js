@@ -2,17 +2,14 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-import Sidebar from "../Sidebar/Sidebar";
-import AdminNavbar from "../Navbars/AdminNavbar";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
 import Tooltip from "@material-ui/core/Tooltip";
 
-import routes from "../../routes";
-
 import "./style.css";
+import Navigation from "components/Navigation/Navigation";
 
 const styles = theme => ({
   fab: {
@@ -62,20 +59,12 @@ class Institution extends Component {
   };
 
   render() {
-    const user = JSON.parse(localStorage.getItem("user"));
     const { universities } = this.state;
 
     const { classes } = this.props;
     return (
       <div>
-        <Sidebar
-         
-        />
-        <div id="main-panel" className="main-panel" ref="mainPanel">
-          <AdminNavbar
-          
-          />
-        </div>
+        <Navigation />
         <div className="main-content">
           <Link to="/new_institution" className="button-area">
             <Tooltip title="Add" aria-label="Add">
