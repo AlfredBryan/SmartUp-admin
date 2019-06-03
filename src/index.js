@@ -25,6 +25,7 @@ import newCourse from "components/Courses/newCourse";
 import AddTopic from "components/Topics/AddTopics";
 import EditCourse from "components/Courses/EditCourse";
 import EditInstitution from "components/Institution/EditInstitution";
+import showTopic from "components/Topics/showTopic";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -37,6 +38,11 @@ ReactDOM.render(
         <Route exact path="/courses" component={Courses} />
         <Route exact path="/new_course" component={newCourse} />
         <Route exact path="/new_topic/:slug" component={AddTopic} />
+        <Route
+          exact
+          path="/courses/:course_slug/topics/:id"
+          component={showTopic}
+        />
         <Route
           exact
           path="/institutions/:slug/new_course"
@@ -58,11 +64,7 @@ ReactDOM.render(
         <Route exact path="/update_course/:slug" component={EditCourse} />
         <Route exact path="/courses/:slug" component={showCourse} />
         <Route exact path="/profile" component={Dashboard} />
-        <Route
-          exact
-          path="/update_profile"
-          component={UpdateUser}
-        />
+        <Route exact path="/update_profile" component={UpdateUser} />
       </AuthRoute>
     </Switch>
   </BrowserRouter>,

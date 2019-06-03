@@ -80,6 +80,22 @@ class showCourse extends Component {
                       {course.description}
                     </p>
                   </li>
+                  <span className="topic-head">Topics</span>
+                  <span style={{ display: "flex" }}>
+                    <hr id="line-colored" /> <hr id="line-gray" />
+                  </span>
+                  <li className="topic-listed">
+                    {topics.map(topic => (
+                      <Link to={`/courses/${course_slug}/topics/${topic.id}`} key={topic.id}>
+                        <div className="topic-card">
+                          <span className="topic_name">Name:{topic.name}</span>
+                          <span className="pull-right lecture_type">
+                            Type:{topic.lecture_type}
+                          </span>
+                        </div>
+                      </Link>
+                    ))}
+                  </li>
                 </ul>
               </div>
             </div>

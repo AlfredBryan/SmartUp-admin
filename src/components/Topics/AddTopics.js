@@ -13,14 +13,19 @@ class AddTopic extends Component {
       rank: "",
       active: false,
       loading: false,
-      course_id: this.props.match.params.slug
+      course_id: this.props.match.params.slug,
+      lecture_type: "text"
     };
   }
+
+  Capitalize = str => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
 
   postTopic = e => {
     e.preventDefault();
     const token = localStorage.getItem("token");
-    const { name, description, rank, active } = this.state;
+    const { name, description, rank, active, lecture_type } = this.state;
 
     const course_slug = this.state.course_id;
 
@@ -28,11 +33,12 @@ class AddTopic extends Component {
       .post(
         `https://smart-up.herokuapp.com/api/v1/courses/${course_slug}/topics`,
         {
-          course: {
+          topic: {
             name,
             description,
             rank,
-            active
+            active,
+            lecture_type
           }
         },
         {
@@ -46,17 +52,18 @@ class AddTopic extends Component {
       )
       .then(res => {
         console.log(res);
-        this.setState({
-          loading: false,
-          course: res.data
-        });
+        // console.log(res);
+        // this.setState({
+        //   loading: false,
+        //   course: res.data
+        // });
 
-        if (res.data.id !== null) {
-          if (res.data.institution_id) {
-            this.props.history.replace(`/topic/${res.data.slug}`);
-          } else {
-          }
-        }
+        // if (res.data.id !== null) {
+        //   if (res.data.institution_id) {
+        //     this.props.history.replace(`/topic/${res.data.slug}`);
+        //   } else {
+        //   }
+        // }
       })
       .catch(err => {
         if (err) {
@@ -133,12 +140,24 @@ class AddTopic extends Component {
                   </div>
                   <div className="form-group">
                     <label className="col-lg-8 adjust-input control-label">
+                      Lecture Type:
+                    </label>
+                    <div className="col-lg-12">
+                      <select className="form-control" name="" id="">
+                        {["text", "video"].map(lt => (
+                          <option value={lt}>{this.Capitalize(lt)}</option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <label className="col-lg-8 adjust-input control-label">
                       Rank:
                     </label>
                     <div className="col-lg-12">
                       <select
                         className="form-control"
-                        name="level"
+                        name="rank"
                         value={this.state.rank}
                         onChange={this.handleChange}
                         id=""
@@ -155,7 +174,7 @@ class AddTopic extends Component {
                   <div className="form-group">
                     <div className="col-lg-12">
                       <button
-                        onClick={this.postCourse}
+                        onClick={this.postTopic}
                         className="form-control btn-submit"
                       >
                         {loading ? <Spinner /> : "Create"}
