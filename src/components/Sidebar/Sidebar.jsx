@@ -84,7 +84,7 @@ class Sidebar extends Component {
             <li>
               <NavLink activeClassName="active" to="/update_profile">
                 <i class="pe-7s-config" />
-                <p>Settings</p>
+                <p>My Profile</p>
               </NavLink>
             </li>
             <li>

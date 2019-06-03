@@ -53,7 +53,7 @@ class UpdateUser extends Component {
       state: "",
       image_url: "",
       date_of_birth: new Date(),
-      sex: "other",
+      sex: "male",
       level: "1",
       open: false,
       loading: false,
@@ -337,7 +337,7 @@ class UpdateUser extends Component {
                 <label className="col-lg-3 control-label">Sex:</label>
                 <div className="col-lg-8">
                   <select className="form-control" name="" id="">
-                    {["male", "female", "other"].map(sx => (
+                    {["male", "female"].map(sx => (
                       <option value={sx}>{this.Capitalize(sx)}</option>
                     ))}
                   </select>

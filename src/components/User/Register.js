@@ -62,11 +62,11 @@ class Register extends Component {
             !res.data.authentication_token === null &&
             res.data.completed_at === null
           ) {
+            this.props.history.replace("/profile");
+          } else {
             localStorage.setItem("token", res.data.authentication_token);
             localStorage.setItem("user", JSON.stringify(res.data));
             this.props.history.replace("/update_profile");
-          } else {
-            this.props.history.replace("/profile");
           }
           localStorage.setItem("token", res.data.authentication_token);
           localStorage.setItem("user", JSON.stringify(res.data));
