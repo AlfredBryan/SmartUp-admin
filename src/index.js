@@ -26,6 +26,7 @@ import AddTopic from "components/Topics/AddTopics";
 import EditCourse from "components/Courses/EditCourse";
 import EditInstitution from "components/Institution/EditInstitution";
 import showTopic from "components/Topics/showTopic";
+import EditTopic from "components/Topics/EditTopic";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -42,6 +43,11 @@ ReactDOM.render(
           exact
           path="/courses/:course_slug/topics/:id"
           component={showTopic}
+        />
+        <Route
+          exact
+          path="/update_topic/:course_slug/topics/:id"
+          component={EditTopic}
         />
         <Route
           exact

@@ -55,6 +55,18 @@ class Sidebar extends Component {
         </li>
       );
     }
+
+    let question_button;
+    if (user.status !== "guardian" && "wards") {
+      ward_button = (
+        <li>
+          <NavLink to="/questions">
+            <i className="pe-7s-server" />
+            <p>Questions</p>
+          </NavLink>
+        </li>
+      );
+    }
     return (
       <div
         id="sidebar"
@@ -100,6 +112,7 @@ class Sidebar extends Component {
               </NavLink>
             </li>
             {ward_button}
+            {question_button}
             <hr />
             <li onClick={this.logOut} className="side_logout">
               <div>

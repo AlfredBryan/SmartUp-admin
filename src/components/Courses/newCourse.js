@@ -13,7 +13,8 @@ class newCourse extends Component {
       description: "",
       active: false,
       loading: false,
-      institution_id: this.props.match.params.slug
+      institution_id: this.props.match.params.slug,
+      errorMessage: ""
     };
   }
 
@@ -22,56 +23,62 @@ class newCourse extends Component {
     const token = localStorage.getItem("token");
     const { name, description, active } = this.state;
 
-    let Id = this.state.institution_id;
-
-    let Url = "https://smart-up.herokuapp.com/api/v1/courses";
-
-    if (Id) {
-      Url += `?institution_id=${Id}`;
-    }
-    axios
-      .post(
-        Url,
-        {
-          course: {
-            name,
-            description,
-            active
-          }
-        },
-        {
-          headers: {
-            Authorization: token
-          }
-        },
-        this.setState({
-          loading: true
-        })
-      )
-      .then(res => {
-        console.log(res);
-        this.setState({
-          loading: false,
-          course: res.data
-        });
-
-        if (res.data.id !== null) {
-          if (res.data.institution_id) {
-            this.props.history.replace(
-              `/institution/${Id}/courses/${res.data.slug}`
-            );
-          } else {
-            this.props.history.replace(`/courses/${res.data.slug}`);
-          }
-        }
-      })
-      .catch(err => {
-        if (err) {
-          this.setState({
-            loading: false
-          });
-        }
+    if (name.length < 4 || description.length < 10) {
+      this.setState({
+        errorMessage: "Please Enter all fields"
       });
+    } else {
+      let Id = this.state.institution_id;
+
+      let Url = "https://smart-up.herokuapp.com/api/v1/courses";
+
+      if (Id) {
+        Url += `?institution_id=${Id}`;
+      }
+      axios
+        .post(
+          Url,
+          {
+            course: {
+              name,
+              description,
+              active
+            }
+          },
+          {
+            headers: {
+              Authorization: token
+            }
+          },
+          this.setState({
+            loading: true
+          })
+        )
+        .then(res => {
+          console.log(res);
+          this.setState({
+            loading: false,
+            course: res.data
+          });
+
+          if (res.data.id !== null) {
+            if (res.data.institution_id) {
+              this.props.history.replace(
+                `/institution/${Id}/courses/${res.data.slug}`
+              );
+            } else {
+              this.props.history.replace(`/courses/${res.data.slug}`);
+            }
+          }
+        })
+        .catch(err => {
+          if (err) {
+            this.setState({
+              loading: false
+            });
+          }
+        });
+    }
   };
 
   toggle = e => {
@@ -85,7 +92,7 @@ class newCourse extends Component {
   };
 
   render() {
-    const { loading } = this.state;
+    const { loading, errorMessage } = this.state;
     return (
       <div>
         <Navigation />
@@ -138,6 +145,7 @@ class newCourse extends Component {
                       />
                     </div>
                   </div>
+                  <p style={{ color: "red" }}>{errorMessage}</p>
                   <div className="form-group">
                     <div className="col-lg-12">
                       <button

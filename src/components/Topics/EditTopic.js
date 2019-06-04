@@ -4,7 +4,7 @@ import Spinner from "../hoc/spinner";
 import Checkbox from "@material-ui/core/Checkbox";
 import Navigation from "components/Navigation/Navigation";
 
-class AddTopic extends Component {
+class EditTopic extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,7 +13,8 @@ class AddTopic extends Component {
       rank: "",
       active: false,
       loading: false,
-      course_id: this.props.match.params.slug,
+      course_slug: this.props.match.params.course_slug,
+      topic_id: this.props.match.params.id,
       lecture_type: "text",
       errorMessage: ""
     };
@@ -23,21 +24,27 @@ class AddTopic extends Component {
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
 
-  postTopic = e => {
+  editTopic = e => {
     e.preventDefault();
     const token = localStorage.getItem("token");
-    const { name, description, rank, active, lecture_type } = this.state;
+    const {
+      name,
+      description,
+      rank,
+      active,
+      lecture_type,
+      course_slug,
+      topic_id
+    } = this.state;
 
     if (name.length < 4 || description.length < 10) {
       this.setState({
-        errorMessage: "Enter all fields"
+        errorMessage: "Please Enter all fields"
       });
     } else {
-      const course_slug = this.state.course_id;
-
       axios
-        .post(
-          `https://smart-up.herokuapp.com/api/v1/courses/${course_slug}/topics`,
+        .put(
+          `https://smart-up.herokuapp.com/api/v1/courses/${course_slug}/topics/${topic_id}`,
           {
             topic: {
               name,
@@ -62,7 +69,7 @@ class AddTopic extends Component {
             this.setState({
               loading: false
             });
-            alert("Topic Added Successfully");
+            alert("Topic Edited Successfully");
           }
         })
         .catch(err => {
@@ -94,7 +101,7 @@ class AddTopic extends Component {
           <div className="main-content">
             <div className="container">
               <div className="center-div">
-                <form onSubmit={this.handleSubmit} className="form-horizontal">
+                <form onSubmit={this.editTopic} className="form-horizontal">
                   <div className="form-group">
                     <label className="col-lg-8 adjust-input control-label">
                       Topic name:
@@ -176,7 +183,7 @@ class AddTopic extends Component {
                   <div className="form-group">
                     <div className="col-lg-12">
                       <button
-                        onClick={this.postTopic}
+                        onClick={this.editTopic}
                         className="form-control btn-submit"
                       >
                         {loading ? <Spinner /> : "Create"}
@@ -193,4 +200,4 @@ class AddTopic extends Component {
   }
 }
 
-export default AddTopic;
+export default EditTopic;

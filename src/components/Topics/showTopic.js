@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 import Navigation from "components/Navigation/Navigation";
+import { error } from "util";
 
 class showTopic extends Component {
   constructor(props) {
@@ -38,8 +39,32 @@ class showTopic extends Component {
       });
   };
 
+  deleteTopic = () => {
+    const token = localStorage.getItem("token");
+    let { course_slug, topic_id } = this.state;
+    axios
+      .delete(
+        `https://smart-up.herokuapp.com/api/v1/courses/${course_slug}/topics/${topic_id}`,
+        {
+          headers: {
+            Authorization: token
+          }
+        }
+      )
+      .then(res => {
+        console.log(res);
+        if (res.status === 204) {
+          alert("Topic Deleted successfully");
+          this.props.history.replace("/profile");
+        }
+      })
+      .catch(error => {
+        console.log(error.message);
+      });
+  };
+
   render() {
-    const { topic, topics, course_slug } = this.state;
+    const { topic, course_slug, topic_id } = this.state;
     return (
       <div>
         <Navigation />
@@ -49,7 +74,10 @@ class showTopic extends Component {
               <div>
                 <h3 className="course-name">{topic.name}</h3>
                 <span className="pull-right">
-                  <Link to={`#`}>
+                  <button onClick={this.deleteTopic} className="topics-button">
+                    Delete
+                  </button>
+                  <Link to={`/update_topic/${course_slug}/topics/${topic_id}`}>
                     <button className="topics-button">Edit Topic</button>
                   </Link>
                 </span>
@@ -57,7 +85,6 @@ class showTopic extends Component {
               <div className="topics-cover">
                 <ul>
                   <li>
-                    <span>Description</span>
                     <span style={{ display: "flex" }}>
                       <hr id="line-colored" /> <hr id="line-gray" />
                     </span>
