@@ -60,6 +60,7 @@ class showTopic extends Component {
       })
       .catch(error => {
         console.log(error.message);
+        alert("Course Creator Needed");
       });
   };
 
