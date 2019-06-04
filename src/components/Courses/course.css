@@ -23,6 +23,7 @@
 
 .topic_name {
     text-transform: uppercase;
+    font-size: 1.5em
 }
 
 .lecture_type {
