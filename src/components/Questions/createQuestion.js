@@ -81,11 +81,12 @@ class createQuestion extends Component {
     if (this._inputElement.value !== "") {
       let newOption = {
         content: this._inputElement.value,
+        correct: false,
         key: Date.now()
       };
       this.setState(prevState => {
         return {
-          items: prevState.items.concat(newOption),
+          items: prevState.items.concat(newOption)
         };
       });
     }
