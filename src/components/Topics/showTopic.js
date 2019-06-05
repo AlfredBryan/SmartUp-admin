@@ -75,6 +75,9 @@ class showTopic extends Component {
               <div>
                 <h3 className="course-name">{topic.name}</h3>
                 <span className="pull-right">
+                  <Link to={`/new_question/${topic_id}`}>
+                    <button className="topics-button">Add Question</button>
+                  </Link>
                   <button onClick={this.deleteTopic} className="topics-button">
                     Delete
                   </button>
