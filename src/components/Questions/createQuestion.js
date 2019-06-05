@@ -15,18 +15,29 @@ class createQuestion extends Component {
       description: "",
       errorMessage: "",
       loading: false,
-      items: [],
-      correct: false
+      correct: false,
+      content: "",
+      options: []
     };
   }
+
+  updateOptions = options => {
+    this.setState({ ...this.state, options });
+  };
 
   postQuestion = e => {
     e.preventDefault();
     const token = localStorage.getItem("token");
     let { name, description, topic_id } = this.state;
 
-    const answer_options_attributes = this.state.items;
-
+    const answer_options_attributes = this.state.options.reduce(
+      (objAccumulator, option, index) => {
+        objAccumulator[index] = option;
+        return objAccumulator;
+      },
+      {}
+    );
+    console.log(answer_options_attributes);
     if (name.length < 4 || description.length < 10) {
       this.setState({
         errorMessage: "Enter all fields"
@@ -77,43 +88,19 @@ class createQuestion extends Component {
     });
   };
 
-  addItem = event => {
-    if (this._inputElement.value !== "") {
-      let newOption = {
-        content: this._inputElement.value,
-        correct: false,
-        key: Date.now()
-      };
-      this.setState(prevState => {
-        return {
-          items: prevState.items.concat(newOption)
-        };
-      });
-    }
-    this._inputElement.value = "";
-
-    event.preventDefault();
-  };
-
-  deleteItem = key => {
-    var filteredItems = this.state.items.filter(function(item) {
-      return item.key !== key;
-    });
-    this.setState({
-      items: filteredItems
-    });
-  };
-
-  toggle = e => {
-    this.setState({
-      correct: !this.state.correct
-    });
+  handleCreateOptions = e => {
+    e.preventDefault();
+    this.updateOptions(
+      this.state.options.concat({
+        key: Date.now(),
+        content: this.state.content,
+        correct: false
+      })
+    );
   };
 
   render() {
-    const { errorMessage, loading, correct, items } = this.state;
-    console.log(items);
-    console.log(correct);
+    const { errorMessage, loading, options } = this.state;
     return (
       <React.Fragment>
         <Navigation />
@@ -152,23 +139,32 @@ class createQuestion extends Component {
                   </div>
                 </div>
                 <div className="form-group">
-                  <div className="question_options">
-                    <div className="Header">
-                      <input
-                        ref={a => (this._inputElement = a)}
-                        placeholder="Enter Answer options"
-                      />
-                      <button onClick={this.addItem} type="submit">
-                        Add Option
-                      </button>
-                    </div>
-                    <AnswerOptions
-                      entries={this.state.items}
-                      delete={this.deleteItem}
+                  <div className="col-lg-10">
+                    <input
+                      value={this.state.content}
+                      onChange={this.handleChange}
+                      type="text"
+                      name="content"
+                      className="form-options"
                     />
+                    <button
+                      className="option_btn"
+                      onClick={this.handleCreateOptions}
+                    >
+                      Create Options
+                    </button>
+                    {options.map(option => (
+                      <AnswerOptions
+                        key={option.key}
+                        optionKey={option.key}
+                        options={this.state.options}
+                        content={option.content}
+                        correct={option.correct}
+                        updateOptions={this.updateOptions}
+                      />
+                    ))}
                   </div>
                 </div>
-                {this.state.answer_options_attributes}
                 <div className="form-group">
                   <div className="col-lg-10">
                     <button
