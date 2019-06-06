@@ -17,8 +17,6 @@ const AnswerOptions = ({ content, correct, options, updateOptions, optionKey }) 
     });
     updateOptions(filteredOptions);
   };
-
-  console.log(`${JSON.stringify(options)}`);
   return (
     <div className="option_display">
       <input

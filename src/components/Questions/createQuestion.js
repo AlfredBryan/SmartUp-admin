@@ -37,15 +37,16 @@ class createQuestion extends Component {
       },
       {}
     );
-    console.log(answer_options_attributes);
+
     if (name.length < 4 || description.length < 10) {
+      alert("Please Enter fields");
       this.setState({
         errorMessage: "Enter all fields"
       });
     } else {
       axios
         .post(
-          `https://smart-up.herokuapp.com/api/v1/questions`,
+          "https://smart-up.herokuapp.com/api/v1/questions",
           {
             question: {
               name,
@@ -64,7 +65,6 @@ class createQuestion extends Component {
           })
         )
         .then(res => {
-          console.log(res);
           if (res.status === 200) {
             this.setState({
               loading: false
@@ -165,6 +165,7 @@ class createQuestion extends Component {
                     ))}
                   </div>
                 </div>
+                <p style={{ color: "red" }}>{errorMessage}</p>
                 <div className="form-group">
                   <div className="col-lg-10">
                     <button
