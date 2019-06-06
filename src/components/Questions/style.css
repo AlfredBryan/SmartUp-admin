@@ -54,3 +54,41 @@ div.option_list {
 .option_display i:hover {
     cursor: pointer;
 }
+
+.toggle-question {
+    padding: 2em 2em 0em;
+    background-color: azure;
+    margin-bottom: 1em;
+    margin-left: 10em;
+    width: 30em;
+}
+
+.question_edit {
+    margin-bottom: 0.3em;
+}
+
+.question {
+    padding-bottom: 2em;
+    font-size: 1.5em;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.quesn_options {
+    display: inline-block;
+    margin: 1em
+}
+
+.question-button {
+    margin: 0px 0px 4px 2px;
+    color: #050505;
+    border: none;
+    box-shadow: 0 0.3px 0.3px 0 rgba(0, 0, 0, 0.2);
+    font-size: 2em;
+    cursor: pointer;
+    padding: 0em 1em
+}
+
+.question-edit a {
+    text-decoration: none;
+}

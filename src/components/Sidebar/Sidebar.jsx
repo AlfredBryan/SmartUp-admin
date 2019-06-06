@@ -58,7 +58,7 @@ class Sidebar extends Component {
 
     let question_button;
     if (user.status !== "guardian" && "wards") {
-      ward_button = (
+      question_button = (
         <li>
           <NavLink to="/questions">
             <i className="pe-7s-server" />

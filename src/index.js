@@ -28,6 +28,8 @@ import EditInstitution from "components/Institution/EditInstitution";
 import showTopic from "components/Topics/showTopic";
 import EditTopic from "components/Topics/EditTopic";
 import createQuestion from "components/Questions/createQuestion";
+import Questions from "components/Questions/Questions";
+import EditQuestion from "components/Questions/EditQuestion";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -40,7 +42,9 @@ ReactDOM.render(
         <Route exact path="/courses" component={Courses} />
         <Route exact path="/new_course" component={newCourse} />
         <Route exact path="/new_topic/:slug" component={AddTopic} />
+        <Route exact path="/questions" component={Questions} />
         <Route exact path="/new_question/:id" component={createQuestion} />
+        <Route exact path="/edit_question/:topic_id/:id" component={EditQuestion} />
         <Route
           exact
           path="/courses/:course_slug/topics/:id"
