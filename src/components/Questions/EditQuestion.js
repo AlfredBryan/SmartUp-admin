@@ -17,12 +17,38 @@ class EditQuestion extends Component {
       loading: false,
       correct: false,
       content: "",
-      options: []
+      options: [],
+      question: ""
     };
   }
 
   updateOptions = options => {
     this.setState({ ...this.state, options });
+  };
+
+  componentDidMount() {
+    this.fetchQuestion();
+  }
+
+  fetchQuestion = () => {
+    const token = localStorage.getItem("token");
+    axios
+      .get(
+        `https://smart-up.herokuapp.com/api/v1/questions/${
+          this.state.question_id
+        }`,
+        {
+          headers: {
+            Authorization: token
+          }
+        }
+      )
+      .then(res => {
+        console.log(res);
+        this.setState({
+          question: res.data
+        });
+      });
   };
 
   postQuestion = e => {
@@ -99,7 +125,7 @@ class EditQuestion extends Component {
   };
 
   render() {
-    const { errorMessage, loading, options } = this.state;
+    const { errorMessage, loading, options, question } = this.state;
     return (
       <React.Fragment>
         <Navigation />
@@ -117,7 +143,7 @@ class EditQuestion extends Component {
                       type="text"
                       name="name"
                       value={this.state.name}
-                      placeholder="Enter Question ..."
+                      placeholder={question.name}
                       onChange={this.handleChange}
                     />
                   </div>
@@ -132,7 +158,7 @@ class EditQuestion extends Component {
                       type="text"
                       name="description"
                       value={this.state.description}
-                      placeholder="Enter Description ..."
+                      placeholder={question.description}
                       onChange={this.handleChange}
                     />
                   </div>

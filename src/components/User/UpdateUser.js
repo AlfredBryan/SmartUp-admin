@@ -181,6 +181,7 @@ class UpdateUser extends Component {
     ];
     const { classes } = this.props;
     const { open, loading, errorMessage } = this.state;
+    const user = JSON.parse(localStorage.getItem("user"));
     return (
       <div>
         <Navigation />
@@ -236,7 +237,11 @@ class UpdateUser extends Component {
                     type="text"
                     name="first_name"
                     value={this.state.first_name}
-                    placeholder="First Name ..."
+                    placeholder={
+                      user.first_name !== null
+                        ? user.first_name
+                        : "Enter First Name ..."
+                    }
                     onChange={this.handleChange}
                   />
                 </div>
@@ -249,7 +254,9 @@ class UpdateUser extends Component {
                     name="surname"
                     type="text"
                     value={this.state.surname}
-                    placeholder="Surname ..."
+                    placeholder={
+                      user.surname !== null ? user.surname : "Enter surname ..."
+                    }
                     onChange={this.handleChange}
                   />
                 </div>
@@ -262,7 +269,9 @@ class UpdateUser extends Component {
                     name="address"
                     type="text"
                     value={this.state.address}
-                    placeholder="Address ..."
+                    placeholder={
+                      user.address !== null ? user.address : "Enter address ..."
+                    }
                     onChange={this.handleChange}
                   />
                 </div>
@@ -279,7 +288,7 @@ class UpdateUser extends Component {
                       onChange={this.handleChange}
                     >
                       <option value="" disabled selected>
-                        --Select--
+                        {user.state !== null ? user.state : "--Select--"}
                       </option>
                       {states.map(s => (
                         <option value={s}>{s}</option>
@@ -296,7 +305,7 @@ class UpdateUser extends Component {
                     name="phone"
                     type="text"
                     value={this.state.phone}
-                    placeholder="Phone Number ..."
+                    placeholder={user.phone}
                     onChange={this.handleChange}
                   />
                 </div>
