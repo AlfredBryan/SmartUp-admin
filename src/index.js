@@ -44,7 +44,7 @@ ReactDOM.render(
         <Route exact path="/new_topic/:slug" component={AddTopic} />
         <Route exact path="/questions" component={Questions} />
         <Route exact path="/new_question/:id" component={createQuestion} />
-        <Route exact path="/edit_question/:topic_id/:id" component={EditQuestion} />
+        <Route exact path="/edit_question/:id" component={EditQuestion} />
         <Route
           exact
           path="/courses/:course_slug/topics/:id"

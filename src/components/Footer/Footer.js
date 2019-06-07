@@ -12,7 +12,7 @@ class Footer extends Component {
                 <h4>Social</h4>
                 <ul className="list-unstyled list-inline social-icons">
                   <li class="list-inline-item">
-                    <a href="javascript:void();" target="_blank">
+                    <a href="javascript:void();" target="_blank" rel="noopener noreferrer">
                       <i style={{ fontSize: "20px" }} class="fa fa-linkedin" />
                     </a>
                   </li>

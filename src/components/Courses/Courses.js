@@ -9,7 +9,6 @@ import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
 import Tooltip from "@material-ui/core/Tooltip";
 
-import routes from "../../routes";
 import Navigation from "components/Navigation/Navigation";
 
 const styles = theme => ({

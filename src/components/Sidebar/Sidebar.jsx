@@ -89,25 +89,25 @@ class Sidebar extends Component {
             {this.state.width <= 991 ? <AdminNavbarLinks /> : null}
             <li>
               <NavLink activeClassName="active" to="/profile">
-                <i class="pe-7s-graph" />
+                <i className="pe-7s-graph" />
                 <p>Dashboard</p>
               </NavLink>
             </li>
             <li>
               <NavLink activeClassName="active" to="/update_profile">
-                <i class="pe-7s-config" />
+                <i className="pe-7s-config" />
                 <p>My Profile</p>
               </NavLink>
             </li>
             <li>
               <NavLink activeClassName="active" to="/institutions">
-                <i class="pe-7s-culture" />
+                <i className="pe-7s-culture" />
                 <p>Institution</p>
               </NavLink>
             </li>
             <li>
               <NavLink activeClassName="active" to="/courses">
-                <i class="fa fa-graduation-cap" />
+                <i className="fa fa-graduation-cap" />
                 <p>Courses</p>
               </NavLink>
             </li>
@@ -116,7 +116,7 @@ class Sidebar extends Component {
             <hr />
             <li onClick={this.logOut} className="side_logout">
               <div>
-                <i class="pe-7s-power" />
+                <i className="pe-7s-power" />
                 <p>Log Out </p>
               </div>
             </li>

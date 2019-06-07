@@ -5,7 +5,7 @@ class Spinner extends Component {
   render() {
     return (
       <div className="wrap">
-        <div class="lds-ring">
+        <div className="lds-ring">
           <div />
           <div />
           <div />

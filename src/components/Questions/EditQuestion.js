@@ -10,7 +10,6 @@ class EditQuestion extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      topic_id: this.props.match.params.topic_id,
       question_id: this.props.match.params.id,
       name: "",
       description: "",
@@ -29,7 +28,7 @@ class EditQuestion extends Component {
   postQuestion = e => {
     e.preventDefault();
     const token = localStorage.getItem("token");
-    let { name, description, topic_id, question_id } = this.state;
+    let { name, description, question_id } = this.state;
 
     const answer_options_attributes = this.state.options.reduce(
       (objAccumulator, option, index) => {

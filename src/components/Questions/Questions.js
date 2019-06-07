@@ -14,6 +14,10 @@ class Questions extends Component {
     };
   }
 
+  componentDidMount() {
+    this.fetchQuestions();
+  }
+
   fetchQuestions = () => {
     const token = localStorage.getItem("token");
     axios
@@ -30,25 +34,21 @@ class Questions extends Component {
       });
   };
 
-  deleteQuestion = id => {
-    const token = localStorage.getItem("token");
-    axios
-      .delete(`https://smart-up.herokuapp.com/api/v1/questions/${id}`, {
-        headers: {
-          Authorization: token
-        }
-      })
-      .then(res => {
-        if (res.statusText === "OK") {
-          alert("Question removed");
-          this.props.history.replace("/questions");
-        }
-      });
-  };
-
-  componentDidMount() {
-    this.fetchQuestions();
-  }
+  // deleteQuestion = id => {
+  //   const token = localStorage.getItem("token");
+  //   axios
+  //     .delete(`https://smart-up.herokuapp.com/api/v1/questions/${id}`, {
+  //       headers: {
+  //         Authorization: token
+  //       }
+  //     })
+  //     .then(res => {
+  //       if (res.statusText === "OK") {
+  //         alert("Question removed");
+  //         this.props.history.replace("/questions");
+  //       }
+  //     });
+  // };
 
   render() {
     const { questions } = this.state;
@@ -69,13 +69,14 @@ class Questions extends Component {
                   </div>
                   <Link
                     to={`/edit_question/${question.id}`}
+                    className="pull-right"
                   >
                     <i className="fa fa-edit question-button" />
                   </Link>
-                  <i
+                  {/* <i
                     onClick={this.deleteQuestion(question.id)}
                     className="fa fa-trash question-button pull-right"
-                  />
+                  /> */}
                 </Collapsible>
               </div>
             ))}

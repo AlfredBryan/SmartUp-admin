@@ -1,12 +1,8 @@
 import React, { Component } from "react";
 import { NavItem, Nav } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
-import axios from "axios";
 
 class AdminNavbarLinks extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     const user = JSON.parse(localStorage.getItem("user"));
     return (
