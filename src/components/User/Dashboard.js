@@ -54,6 +54,11 @@ class Dashboard extends Component {
     this.handleClick();
   }
 
+  //capitalize function
+  Capitalize = str => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
+
   //Age function
   getAge = dateString => {
     var today = new Date();
@@ -65,6 +70,7 @@ class Dashboard extends Component {
     }
     return age;
   };
+  //ends
 
   //Add ward function
   addWard = e => {
@@ -82,6 +88,7 @@ class Dashboard extends Component {
       )
       .then(res => {});
   };
+  //Ends
 
   render() {
     const { classes } = this.props;
@@ -135,13 +142,13 @@ class Dashboard extends Component {
                       </h4>
                     </div>
                     <p className="profile_data">
-                      <small>{user.sex}</small>{" "}
+                      <small>{this.Capitalize(user.sex)}</small>{" "}
                       <small className="profile_divider" />
                       <small>{user.level}</small>
                       <small className="profile_divider" />
                       <small>{this.getAge(user.date_of_birth)}YRS</small>
                     </p>
-                    <hr className="profile_hr"/>
+                    <hr className="profile_hr" />
                     <p className="description text-center">
                       {user.address}
                       <br />

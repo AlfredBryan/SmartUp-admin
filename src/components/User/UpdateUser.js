@@ -6,6 +6,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 
+//file upload
+import FileBase64 from "react-file-base64";
+
 //popup notification
 import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
@@ -51,7 +54,7 @@ class UpdateUser extends Component {
       address: "",
       phone: "",
       state: "",
-      image_url: "",
+      url: "",
       date_of_birth: new Date(),
       sex: "male",
       level: "1",
@@ -69,6 +72,13 @@ class UpdateUser extends Component {
   handleClose = () => {
     this.setState({ open: false });
   };
+  //pop up ends
+
+  //File upload begins
+  uploadImageFile = file => {
+    this.setState({ url: file });
+  };
+  //Ends here
 
   Capitalize = str => {
     return str.charAt(0).toUpperCase() + str.slice(1);
@@ -85,6 +95,7 @@ class UpdateUser extends Component {
       state,
       date_of_birth,
       level,
+      url,
       sex
     } = this.state;
     if (first_name.length < 3 || surname.length < 3) {
@@ -104,6 +115,9 @@ class UpdateUser extends Component {
               state,
               date_of_birth,
               sex,
+              image: {
+                url
+              },
               level
             }
           },
@@ -215,13 +229,7 @@ class UpdateUser extends Component {
                     className="avatar img-circle"
                     alt="avatar"
                   />
-
-                  <input
-                    type="file"
-                    name="image_url"
-                    onChange={this.handleImageChange}
-                    className="form-control"
-                  />
+                  <FileBase64 multiple={false} onDone={this.uploadImageFile} />
                 </div>
               </div>
             </div>
@@ -236,7 +244,8 @@ class UpdateUser extends Component {
                     className="form-control"
                     type="text"
                     name="first_name"
-                    defaultValue{...user.first_name}
+                    defaultValue
+                    {...user.first_name}
                     value={this.state.first_name}
                     onChange={this.handleChange}
                   />
