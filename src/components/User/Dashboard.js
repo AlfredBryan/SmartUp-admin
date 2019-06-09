@@ -134,31 +134,14 @@ class Dashboard extends Component {
                         <br />
                       </h4>
                     </div>
-                    <p style={{ marginLeft: "7em" }}>
-                      <small
-                        style={{
-                          borderRight: "2px solid grey",
-                          padding: "0.5em"
-                        }}
-                      >
-                        {user.sex}
-                      </small>{" "}
-                      <small
-                        style={{
-                          borderRight: "2px solid grey",
-                          padding: "0.5em"
-                        }}
-                      >
-                        {user.level}
-                      </small>
-                      <small
-                        style={{
-                          padding: "0.8em"
-                        }}
-                      >
-                        {this.getAge(user.date_of_birth)}YRS
-                      </small>
+                    <p className="profile_data">
+                      <small>{user.sex}</small>{" "}
+                      <small className="profile_divider" />
+                      <small>{user.level}</small>
+                      <small className="profile_divider" />
+                      <small>{this.getAge(user.date_of_birth)}YRS</small>
                     </p>
+                    <hr className="profile_hr"/>
                     <p className="description text-center">
                       {user.address}
                       <br />
