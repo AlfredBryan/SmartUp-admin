@@ -236,12 +236,8 @@ class UpdateUser extends Component {
                     className="form-control"
                     type="text"
                     name="first_name"
+                    defaultValue{...user.first_name}
                     value={this.state.first_name}
-                    placeholder={
-                      user.first_name !== null
-                        ? user.first_name
-                        : "Enter First Name ..."
-                    }
                     onChange={this.handleChange}
                   />
                 </div>

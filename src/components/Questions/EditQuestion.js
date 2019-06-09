@@ -18,7 +18,8 @@ class EditQuestion extends Component {
       correct: false,
       content: "",
       options: [],
-      question: ""
+      question: "",
+      answer_options: []
     };
   }
 
@@ -46,7 +47,8 @@ class EditQuestion extends Component {
       .then(res => {
         console.log(res);
         this.setState({
-          question: res.data
+          question: res.data,
+          answer_options: res.data.answer_options
         });
       });
   };
@@ -125,7 +127,13 @@ class EditQuestion extends Component {
   };
 
   render() {
-    const { errorMessage, loading, options, question } = this.state;
+    const {
+      errorMessage,
+      loading,
+      options,
+      answer_options,
+      question
+    } = this.state;
     return (
       <React.Fragment>
         <Navigation />
@@ -190,6 +198,11 @@ class EditQuestion extends Component {
                     ))}
                   </div>
                 </div>
+                {answer_options.map(op => (
+                  <div className="option_display" key={op.id}>
+                    <span className="option_content">{op.content}</span>
+                  </div>
+                ))}
                 <p style={{ color: "red" }}>{errorMessage}</p>
                 <div className="form-group">
                   <div className="col-lg-10">

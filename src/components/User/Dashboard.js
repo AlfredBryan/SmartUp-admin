@@ -54,6 +54,18 @@ class Dashboard extends Component {
     this.handleClick();
   }
 
+  //Age function
+  getAge = dateString => {
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age;
+  };
+
   //Add ward function
   addWard = e => {
     e.preventDefault();
@@ -109,19 +121,44 @@ class Dashboard extends Component {
                   </div>
                   <div className="content">
                     <div className="author">
-                      <a href="#pablo">
-                        <img
-                          className="avatar border-gray"
-                          src={require("../../images/dfimg.png")}
-                          alt="..."
-                        />
-                        <h4 className="title">
-                          {user.full_name}
-                          <br />
-                          <small>{user.status}</small>
-                        </h4>
-                      </a>
+                      <img
+                        className="avatar border-gray"
+                        src={require("../../images/dfimg.png")}
+                        alt="..."
+                      />
+                      <h4 className="title">
+                        <strong>Hi,</strong>
+                        <strong style={{ padding: "0.5em" }}>
+                          {user.surname}
+                        </strong>
+                        <br />
+                      </h4>
                     </div>
+                    <p style={{ marginLeft: "7em" }}>
+                      <small
+                        style={{
+                          borderRight: "2px solid grey",
+                          padding: "0.5em"
+                        }}
+                      >
+                        {user.sex}
+                      </small>{" "}
+                      <small
+                        style={{
+                          borderRight: "2px solid grey",
+                          padding: "0.5em"
+                        }}
+                      >
+                        {user.level}
+                      </small>
+                      <small
+                        style={{
+                          padding: "0.8em"
+                        }}
+                      >
+                        {this.getAge(user.date_of_birth)}YRS
+                      </small>
+                    </p>
                     <p className="description text-center">
                       {user.address}
                       <br />
