@@ -147,7 +147,13 @@ class Dashboard extends Component {
                       </h4>
                     </div>
                     <p className="profile_data">
-                      <small>{this.Capitalize(user.sex)}</small>{" "}
+                      <small>
+                        {user.sex !== null ? (
+                          this.Capitalize(user.sex)
+                        ) : (
+                          <p>Unauthorized User</p>
+                        )}
+                      </small>{" "}
                       <small className="profile_divider" />
                       <small>{user.level}</small>
                       <small className="profile_divider" />
