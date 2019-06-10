@@ -72,39 +72,40 @@ class Questions extends Component {
           </div>
         </div>
       );
-    }
-    return (
-      <React.Fragment>
-        <Navigation />
-        <div className="main-content">
-          <div className="container questions">
-            {questions.map(question => (
-              <div key={question.id} className="toggle-question">
-                <Collapsible className="question" trigger={question.name}>
-                  <div>
-                    {question.answer_options.map(option => (
-                      <p className="quesn_options" key={option.id}>
-                        {option.content}
-                      </p>
-                    ))}
-                  </div>
-                  <Link
-                    to={`/edit_question/${question.id}`}
-                    className="pull-right"
-                  >
-                    <i className="fa fa-edit question-button" />
-                  </Link>
-                  {/* <i
-                      onClick={this.deleteQuestion(question.id)}
-                      className="fa fa-trash question-button pull-right"
-                    /> */}
-                </Collapsible>
-              </div>
-            ))}
+    } else {
+      return (
+        <React.Fragment>
+          <Navigation />
+          <div className="main-content">
+            <div className="container questions">
+              {questions.map(question => (
+                <div key={question.id} className="toggle-question">
+                  <Collapsible className="question" trigger={question.name}>
+                    <div>
+                      {question.answer_options.map(option => (
+                        <p className="quesn_options" key={option.id}>
+                          {option.content}
+                        </p>
+                      ))}
+                    </div>
+                    <Link
+                      to={`/edit_question/${question.id}`}
+                      className="pull-right"
+                    >
+                      <i className="fa fa-edit question-button" />
+                    </Link>
+                    {/* <i
+                        onClick={this.deleteQuestion(question.id)}
+                        className="fa fa-trash question-button pull-right"
+                      /> */}
+                  </Collapsible>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </React.Fragment>
-    );
+        </React.Fragment>
+      );
+    }
   }
 }
 
