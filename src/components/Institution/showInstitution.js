@@ -42,7 +42,7 @@ class showInstitution extends Component {
     this.state = {
       slug: this.props.match.params.slug,
       course_list: [],
-      university: ""
+      institution: ""
     };
   }
 
@@ -82,14 +82,14 @@ class showInstitution extends Component {
       })
       .then(res => {
         this.setState({
-          university: res.data
+          institution: res.data
         });
       });
   }
   render() {
     console.log(this.state.slug);
     const { classes } = this.props;
-    const { course_list, university, slug } = this.state;
+    const { course_list, institution, slug } = this.state;
 
     return (
       <div>
@@ -100,22 +100,23 @@ class showInstitution extends Component {
               <div className="col-sm-12 col-md-4">
                 <div className="newcard card-user">
                   <div className="image">
-                    <img src={require("../../images/bgimg.jpg")} alt="..." />
+                    <img
+                      src={require("../../images/institutebg.jpg")}
+                      alt="..."
+                    />
                   </div>
                   <div className="content">
                     <div className="author">
-                      <a href="#pablo">
-                        <img
-                          className="avatar border-gray"
-                          src={require("../../images/dfimg.png")}
-                          alt="..."
-                        />
-                        <h4 className="title">
-                          {university.name}
-                          <br />
-                          <small>{university.motto}</small>
-                        </h4>
-                      </a>
+                      <img
+                        className="avatar border-gray"
+                        src={institution.logo_url}
+                        alt="..."
+                      />
+                      <h4 className="title">
+                        {institution.name}
+                        <br />
+                        <small>{institution.motto}</small>
+                      </h4>
                     </div>
                     <p className="description text-center">
                       <Link

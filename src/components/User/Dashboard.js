@@ -130,7 +130,7 @@ class Dashboard extends Component {
                     <div className="author">
                       <img
                         className="avatar border-gray"
-                        src={require("../../images/dfimg.png")}
+                        src={user.image_url}
                         alt="..."
                       />
                       <h4 className="title">

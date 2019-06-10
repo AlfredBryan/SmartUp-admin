@@ -28,7 +28,7 @@ class Institution extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      universities: [],
+      institutions: [],
       loading: false
     };
   }
@@ -47,7 +47,7 @@ class Institution extends Component {
       })
       .then(res => {
         this.setState({
-          universities: res.data
+          institutions: res.data
         });
       });
   };
@@ -59,7 +59,7 @@ class Institution extends Component {
   };
 
   render() {
-    const { universities } = this.state;
+    const { institutions } = this.state;
 
     const { classes } = this.props;
     return (
@@ -78,22 +78,26 @@ class Institution extends Component {
               <div className="row push-down">
                 <div className="col-xs-12 col-sm-8 col-md-8">
                   <div className="row">
-                    {universities.map(uni => (
+                    {institutions.map(inst => (
                       <div
-                        key={uni.id}
+                        key={inst.id}
                         className="card family-member-info text-center col-xs-12 col-sm-3 col-md-3"
                         id="family-card"
                       >
                         <Link
-                          to={`/institutions/${uni.slug}`}
+                          to={`/institutions/${inst.slug}`}
                           className="display-uni"
                         >
                           <div>
-                            <i className="fa fa-university" />
-                            <h5>{uni.name}</h5>
+                            {inst.logo_url ? (
+                              <img className="institution_logo" src={inst.logo_url} />
+                            ) : (
+                              <i className="fa fa-university" />
+                            )}
+                            <h5>{inst.name}</h5>
                             <div className="uni-text">
                               <span>
-                                <p>Motto: {uni.motto}</p>
+                                <p>Motto: {inst.motto}</p>
                               </span>
                             </div>
                           </div>

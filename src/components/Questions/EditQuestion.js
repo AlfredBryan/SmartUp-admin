@@ -19,7 +19,8 @@ class EditQuestion extends Component {
       content: "",
       options: [],
       question: "",
-      answer_options: []
+      answer_options: [],
+      question: ""
     };
   }
 
@@ -52,39 +53,33 @@ class EditQuestion extends Component {
         console.log(res);
         // populate fields
         this.setState({
-          name: this.Capitalize(res.data.name),
-          description: this.Capitalize(res.data.description)
+          question: res.data
+          // name: this.Capitalize(res.data.name),
+          // description: this.Capitalize(res.data.description)
         });
       });
   };
 
-  postQuestion = e => {
+  postAnswerOptions = e => {
     e.preventDefault();
     const token = localStorage.getItem("token");
-    let { name, description, question_id } = this.state;
+    let { question_id } = this.state;
 
-    const answer_options_attributes = this.state.options.reduce(
-      (objAccumulator, option, index) => {
-        objAccumulator[index] = option;
-        return objAccumulator;
-      },
-      {}
-    );
+    const answer_options = this.state.options
 
-    if (name.length < 4 || description.length < 10) {
-      alert("Please Enter fields");
+    if (answer_options === null) {
+      alert("Please Enter options");
       this.setState({
-        errorMessage: "Enter all fields"
+        errorMessage: "Enter options"
       });
     } else {
       axios
-        .put(
-          `https://smart-up.herokuapp.com/api/v1/questions/${question_id}`,
+        .post(
+          `https://smart-up.herokuapp.com/api/v1/questions/${question_id}/answer_options`,
           {
-            question: {
-              name,
-              description,
-              answer_options_attributes
+            answer_option: {
+              answer_options,
+              question_id
             }
           },
           {
@@ -97,6 +92,7 @@ class EditQuestion extends Component {
           })
         )
         .then(res => {
+          console.log(res);
           if (res.status === 200) {
             this.setState({
               loading: false
@@ -149,7 +145,7 @@ class EditQuestion extends Component {
                       className="form-control"
                       type="text"
                       name="name"
-                      value={this.state.name}
+                      value={question.name}
                       placeholder="Enter question..."
                       onChange={this.handleChange}
                     />
@@ -164,7 +160,7 @@ class EditQuestion extends Component {
                       className="form-control"
                       type="text"
                       name="description"
-                      value={this.state.description}
+                      value={question.description}
                       placeholder={question.description}
                       onChange={this.handleChange}
                     />
@@ -201,7 +197,7 @@ class EditQuestion extends Component {
                 <div className="form-group">
                   <div className="col-lg-10">
                     <button
-                      onClick={this.postQuestion}
+                      onClick={this.postAnswerOptions}
                       className="form-control btn-submit"
                     >
                       {loading ? <Spinner /> : "Create"}

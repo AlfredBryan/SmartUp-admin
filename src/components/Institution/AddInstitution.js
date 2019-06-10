@@ -8,6 +8,10 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
+//file upload
+import FileBase64 from "react-file-base64";
+
+//Navigation
 import Navigation from "components/Navigation/Navigation";
 
 const styles = theme => ({
@@ -39,6 +43,7 @@ class AddInstitution extends Component {
       motto: "",
       email: "",
       phone: "",
+      logo: "",
       loading: false,
       response: ""
     };
@@ -52,11 +57,18 @@ class AddInstitution extends Component {
   handleClose = () => {
     this.setState({ open: false });
   };
+  //Ends
+
+  //File upload begins
+  uploadImageFile = file => {
+    this.setState({ logo: file.base64 });
+  };
+  //Ends here
 
   handleSubmit = e => {
     e.preventDefault();
     const token = localStorage.getItem("token");
-    let { name, motto, email, phone } = this.state;
+    let { name, motto, email, phone, logo } = this.state;
     axios
       .post(
         "https://smart-up.herokuapp.com/api/v1/institutions",
@@ -65,7 +77,8 @@ class AddInstitution extends Component {
             name,
             motto,
             email,
-            phone
+            phone,
+            logo
           }
         },
         {
@@ -188,6 +201,15 @@ class AddInstitution extends Component {
                       value={this.state.phone}
                       placeholder="Phone Number ..."
                       onChange={this.handleChange}
+                    />
+                  </div>
+                </div>
+                <div className="form-group">
+                  <label className="col-lg-3 control-label">Logo:</label>
+                  <div className="col-lg-8">
+                    <FileBase64
+                      multiple={false}
+                      onDone={this.uploadImageFile}
                     />
                   </div>
                 </div>

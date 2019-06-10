@@ -13,6 +13,11 @@
     background-color: rgb(212, 37, 54);
 }
 
+.edit_avatar {
+    width: 12em;
+    height: 12em;
+}
+
 .login-form {
     display: inline-block;
     width: 20em;

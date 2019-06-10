@@ -358,17 +358,22 @@ a:hover {
 
 .remove-font {
     font-family: 'Roboto', sans-serif !important;
-    font-size: 0.6em !important;
-}
-
-.nav-icon {
-    font-size: 2em !important;
+    font-size: 0.8em !important;
+    margin: 0em 0em 1em 0em;
 }
 
 .span-logout {
     line-height: 1.5em;
     font-size: 1.1em !important;
 }
+
+.navbar_avatar {
+    height: 2em;
+    width: 2em;
+    padding: 0em 0.2em;
+    border-radius: 100%;
+}
+
 
 .navbar-default .navbar-toggle .icon-bar {
     background-color: #ffffff !important;

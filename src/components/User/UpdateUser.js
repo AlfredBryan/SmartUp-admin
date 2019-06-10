@@ -54,7 +54,7 @@ class UpdateUser extends Component {
       address: "",
       phone: "",
       state: "select",
-      url: "",
+      image: "",
       date_of_birth: new Date(),
       sex: "male",
       level: "1",
@@ -76,7 +76,7 @@ class UpdateUser extends Component {
 
   //File upload begins
   uploadImageFile = file => {
-    this.setState({ url: file });
+    this.setState({ image: file.base64 });
   };
   //Ends here
 
@@ -95,7 +95,7 @@ class UpdateUser extends Component {
       state,
       date_of_birth,
       level,
-      url,
+      image,
       sex
     } = this.state;
     if (first_name.length < 3 || surname.length < 3) {
@@ -115,9 +115,7 @@ class UpdateUser extends Component {
               state,
               date_of_birth,
               sex,
-              image: {
-                url
-              },
+              image,
               level
             }
           },
@@ -131,7 +129,6 @@ class UpdateUser extends Component {
           })
         )
         .then(res => {
-          console.log(res);
           if (res.status === 200) {
             this.setState({
               loading: false
@@ -210,6 +207,7 @@ class UpdateUser extends Component {
     ];
     const { classes } = this.props;
     const { open, loading, errorMessage } = this.state;
+    const user = JSON.parse(localStorage.getItem("user"));
     return (
       <div>
         <Navigation />
@@ -239,11 +237,21 @@ class UpdateUser extends Component {
               <div className="col-md-12">
                 <div className="text-center form-horizontal-user">
                   <img
-                    src="//placehold.it/100"
-                    className="avatar img-circle"
+                    src={user.image_url}
+                    className="edit_avatar img-circle"
                     alt="avatar"
                   />
-                  <FileBase64 multiple={false} onDone={this.uploadImageFile} />
+                  <div className="form-group">
+                    <label className="col-lg-3 control-label">
+                      Profile Photo:
+                    </label>
+                    <div className="col-lg-8">
+                      <FileBase64
+                        multiple={false}
+                        onDone={this.uploadImageFile}
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

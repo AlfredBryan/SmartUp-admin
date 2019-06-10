@@ -51,8 +51,7 @@ class createQuestion extends Component {
             question: {
               name,
               description,
-              topic_id,
-              answer_options_attributes
+              topic_id
             }
           },
           {
@@ -65,6 +64,7 @@ class createQuestion extends Component {
           })
         )
         .then(res => {
+          console.log(res);
           if (res.status === 200) {
             this.setState({
               loading: false
@@ -136,33 +136,6 @@ class createQuestion extends Component {
                       placeholder="Enter Description ..."
                       onChange={this.handleChange}
                     />
-                  </div>
-                </div>
-                <div className="form-group">
-                  <div className="col-lg-10">
-                    <input
-                      value={this.state.content}
-                      onChange={this.handleChange}
-                      type="text"
-                      name="content"
-                      className="form-options"
-                    />
-                    <button
-                      className="option_btn"
-                      onClick={this.handleCreateOptions}
-                    >
-                      Create Options
-                    </button>
-                    {options.map(option => (
-                      <AnswerOptions
-                        key={option.key}
-                        optionKey={option.key}
-                        options={this.state.options}
-                        content={option.content}
-                        correct={option.correct}
-                        updateOptions={this.updateOptions}
-                      />
-                    ))}
                   </div>
                 </div>
                 <p style={{ color: "red" }}>{errorMessage}</p>

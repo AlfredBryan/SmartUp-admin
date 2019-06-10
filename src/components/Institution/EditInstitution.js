@@ -41,7 +41,9 @@ class EditInstitution extends Component {
       email: "",
       phone: "",
       loading: false,
-      response: ""
+      response: "",
+      institution_id: "",
+      slug: this.props.match.params.slug
     };
   }
 
@@ -53,14 +55,37 @@ class EditInstitution extends Component {
   handleClose = () => {
     this.setState({ open: false });
   };
+  //Ends
+
+  //populate input fields
+  fetchInstitution() {
+    const token = localStorage.getItem("token");
+    let id = this.state.slug;
+    axios
+      .get(`https://smart-up.herokuapp.com/api/v1/institutions/${id}`, {
+        headers: {
+          Authorization: token
+        }
+      })
+      .then(res => {
+        this.setState({
+          institution_id: res.data.id,
+          name: res.data.name,
+          motto: res.data.motto,
+          email: res.data.email,
+          phone: res.data.phone
+        });
+      });
+  }
+  //ends
 
   handleSubmit = e => {
     e.preventDefault();
     const token = localStorage.getItem("token");
-    let { name, motto, email, phone } = this.state;
+    let { name, motto, email, phone, institution_id } = this.state;
     axios
       .put(
-        "https://smart-up.herokuapp.com/api/v1/institutions",
+        `https://smart-up.herokuapp.com/api/v1/institutions/${institution_id}`,
         {
           institution: {
             name,
@@ -104,8 +129,12 @@ class EditInstitution extends Component {
     });
   };
 
+  componentDidMount() {
+    this.fetchInstitution();
+  }
+
   render() {
-    const { loading, open, response } = this.state;
+    const { loading, open, response, institution_id } = this.state;
     const { classes } = this.props;
     return (
       <div>

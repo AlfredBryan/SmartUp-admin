@@ -10,9 +10,8 @@ class AdminNavbarLinks extends Component {
         <Nav pullRight>
           <NavItem eventKey={1} href="#">
             <div className="user-info">
-              <i className="fa fa-user-circle nav-icon">
-                <span className="remove-font">{user.first_name}</span>
-              </i>
+              <img src={user.image_url} alt="" className="navbar_avatar" />
+              <span className="remove-font">{user.first_name}</span>
             </div>
           </NavItem>
         </Nav>
