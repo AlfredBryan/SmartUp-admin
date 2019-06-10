@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import Navigation from "components/Navigation/Navigation";
 import Spinner from "components/hoc/spinner";
 import axios from "axios";
-import AnswerOptions from "./AnswerOptions";
-
+import Checkbox from "@material-ui/core/Checkbox";
 import "./style.css";
 
 class EditQuestion extends Component {
@@ -17,15 +16,12 @@ class EditQuestion extends Component {
       loading: false,
       correct: false,
       content: "",
-      options: [],
-      question: "",
-      answer_options: [],
       question: ""
     };
   }
 
-  updateOptions = options => {
-    this.setState({ ...this.state, options });
+  updateOptions = answer_options => {
+    this.setState({ ...this.state, answer_options });
   };
 
   componentDidMount() {
@@ -65,9 +61,9 @@ class EditQuestion extends Component {
     const token = localStorage.getItem("token");
     let { question_id } = this.state;
 
-    const answer_options = this.state.options
+    const { correct, content } = this.state;
 
-    if (answer_options === null) {
+    if (content.length < 3 || correct === null) {
       alert("Please Enter options");
       this.setState({
         errorMessage: "Enter options"
@@ -78,8 +74,9 @@ class EditQuestion extends Component {
           `https://smart-up.herokuapp.com/api/v1/questions/${question_id}/answer_options`,
           {
             answer_option: {
-              answer_options,
-              question_id
+              question_id,
+              correct,
+              content
             }
           },
           {
@@ -116,19 +113,26 @@ class EditQuestion extends Component {
     });
   };
 
-  handleCreateOptions = e => {
-    e.preventDefault();
-    this.updateOptions(
-      this.state.options.concat({
-        key: Date.now(),
-        content: this.state.content,
-        correct: false
-      })
-    );
+  // handleCreateOptions = e => {
+  //   e.preventDefault();
+  //   this.updateOptions(
+  //     this.state.answer_options.concat({
+  //       content: this.state.content,
+  //       correct: false
+  //     })
+  //   );
+  //   this.postAnswerOptions();
+  // };
+
+  toggle = e => {
+    this.setState({
+      correct: !this.state.correct
+    });
   };
 
   render() {
-    const { errorMessage, loading, options, question } = this.state;
+    const { errorMessage, loading, question, correct, content } = this.state;
+    console.log(correct);
     return (
       <React.Fragment>
         <Navigation />
@@ -168,42 +172,33 @@ class EditQuestion extends Component {
                 </div>
                 <div className="form-group">
                   <div className="col-lg-10">
-                    <input
-                      value={this.state.content}
-                      onChange={this.handleChange}
-                      type="text"
-                      name="content"
-                      className="form-options"
-                    />
+                    <label className="col-lg-2 adjust-input control-label">
+                      Correct:
+                    </label>
+                    <span>
+                      <Checkbox
+                        checked={correct}
+                        onChange={this.toggle}
+                        value={correct}
+                        name="correct"
+                      />
+                      <input
+                        type="text"
+                        name="content"
+                        onChange={this.handleChange}
+                        value={content}
+                      />
+                      {/* <i className="fa fa-trash" /> */}
+                    </span>
                     <button
                       className="option_btn"
-                      onClick={this.handleCreateOptions}
+                      onClick={this.postAnswerOptions}
                     >
                       Create Options
                     </button>
-                    {options.map(option => (
-                      <AnswerOptions
-                        key={option.key}
-                        optionKey={option.key}
-                        options={this.state.options}
-                        content={option.content}
-                        correct={option.correct}
-                        updateOptions={this.updateOptions}
-                      />
-                    ))}
                   </div>
                 </div>
                 <p style={{ color: "red" }}>{errorMessage}</p>
-                <div className="form-group">
-                  <div className="col-lg-10">
-                    <button
-                      onClick={this.postAnswerOptions}
-                      className="form-control btn-submit"
-                    >
-                      {loading ? <Spinner /> : "Create"}
-                    </button>
-                  </div>
-                </div>
               </form>
             </div>
           </div>
