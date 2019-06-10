@@ -53,7 +53,7 @@ class UpdateUser extends Component {
       surname: "",
       address: "",
       phone: "",
-      state: "",
+      state: "select",
       url: "",
       date_of_birth: new Date(),
       sex: "male",
@@ -153,6 +153,21 @@ class UpdateUser extends Component {
     });
   };
 
+  // populate input fields
+  componentDidMount() {
+    const user = JSON.parse(localStorage.getItem("user"));
+    this.setState({
+      first_name: user.first_name,
+      surname: user.surname,
+      address: user.address,
+      phone: user.phone,
+      state: user.state,
+      sex: user.sex,
+      level: user.level
+    });
+  }
+  //ends
+
   render() {
     let states = [
       "Abia",
@@ -195,7 +210,6 @@ class UpdateUser extends Component {
     ];
     const { classes } = this.props;
     const { open, loading, errorMessage } = this.state;
-    const user = JSON.parse(localStorage.getItem("user"));
     return (
       <div>
         <Navigation />
@@ -244,8 +258,7 @@ class UpdateUser extends Component {
                     className="form-control"
                     type="text"
                     name="first_name"
-                    defaultValue
-                    {...user.first_name}
+                    placeholder="Enter firstname ...."
                     value={this.state.first_name}
                     onChange={this.handleChange}
                   />
@@ -259,9 +272,7 @@ class UpdateUser extends Component {
                     name="surname"
                     type="text"
                     value={this.state.surname}
-                    placeholder={
-                      user.surname !== null ? user.surname : "Enter surname ..."
-                    }
+                    placeholder="Enter surname ..."
                     onChange={this.handleChange}
                   />
                 </div>
@@ -274,9 +285,7 @@ class UpdateUser extends Component {
                     name="address"
                     type="text"
                     value={this.state.address}
-                    placeholder={
-                      user.address !== null ? user.address : "Enter address ..."
-                    }
+                    placeholder="Enter address ..."
                     onChange={this.handleChange}
                   />
                 </div>
@@ -293,7 +302,7 @@ class UpdateUser extends Component {
                       onChange={this.handleChange}
                     >
                       <option value="" disabled selected>
-                        {user.state !== null ? user.state : "--Select--"}
+                        --Select--
                       </option>
                       {states.map(s => (
                         <option value={s}>{s}</option>
@@ -310,7 +319,7 @@ class UpdateUser extends Component {
                     name="phone"
                     type="text"
                     value={this.state.phone}
-                    placeholder={user.phone}
+                    placeholder="Enter phone..."
                     onChange={this.handleChange}
                   />
                 </div>

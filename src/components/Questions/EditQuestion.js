@@ -31,6 +31,10 @@ class EditQuestion extends Component {
     this.fetchQuestion();
   }
 
+  Capitalize = str => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
+
   fetchQuestion = () => {
     const token = localStorage.getItem("token");
     axios
@@ -46,9 +50,10 @@ class EditQuestion extends Component {
       )
       .then(res => {
         console.log(res);
+        // populate fields
         this.setState({
-          question: res.data,
-          answer_options: res.data.answer_options
+          name: this.Capitalize(res.data.name),
+          description: this.Capitalize(res.data.description)
         });
       });
   };
@@ -127,13 +132,7 @@ class EditQuestion extends Component {
   };
 
   render() {
-    const {
-      errorMessage,
-      loading,
-      options,
-      answer_options,
-      question
-    } = this.state;
+    const { errorMessage, loading, options, question } = this.state;
     return (
       <React.Fragment>
         <Navigation />
@@ -151,7 +150,7 @@ class EditQuestion extends Component {
                       type="text"
                       name="name"
                       value={this.state.name}
-                      placeholder={question.name}
+                      placeholder="Enter question..."
                       onChange={this.handleChange}
                     />
                   </div>
@@ -198,11 +197,6 @@ class EditQuestion extends Component {
                     ))}
                   </div>
                 </div>
-                {answer_options.map(op => (
-                  <div className="option_display" key={op.id}>
-                    <span className="option_content">{op.content}</span>
-                  </div>
-                ))}
                 <p style={{ color: "red" }}>{errorMessage}</p>
                 <div className="form-group">
                   <div className="col-lg-10">
