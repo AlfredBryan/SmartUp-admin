@@ -11,6 +11,10 @@
     border: none;
 }
 
+.no_avatar {
+    margin: 0em 5em
+}
+
 .react-datepicker__input-container {
     width: 20px !important;
 }

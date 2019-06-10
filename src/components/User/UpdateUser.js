@@ -236,11 +236,18 @@ class UpdateUser extends Component {
             <div className="row">
               <div className="col-md-12">
                 <div className="text-center form-horizontal-user">
-                  <img
-                    src={user.image_url}
-                    className="edit_avatar img-circle"
-                    alt="avatar"
-                  />
+                  {user.image_url !== null ? (
+                    <img
+                      className="avatar border-gray edit_avatar"
+                      src={user.image_url}
+                      alt="..."
+                    />
+                  ) : (
+                    <i
+                      style={{ fontSize: "50px" }}
+                      className="fa fa-user avatar no_avatar"
+                    />
+                  )}
                   <div className="form-group">
                     <label className="col-lg-3 control-label">
                       Profile Photo:

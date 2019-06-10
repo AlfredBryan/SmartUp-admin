@@ -23,6 +23,7 @@
 .edit_avatar {
     width: 12em;
     height: 12em;
+    border-radius: 100%;
 }
 
 .login-form {
