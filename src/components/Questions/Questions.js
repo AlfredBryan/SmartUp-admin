@@ -27,10 +27,18 @@ class Questions extends Component {
         }
       })
       .then(res => {
-        console.log(res);
-        this.setState({
-          questions: res.data
-        });
+        if (res.data.errors) {
+          this.setState({
+            questions: []
+          });
+        } else {
+          this.setState({
+            questions: res.data
+          });
+        }
+      })
+      .catch(error => {
+        console.log(error);
       });
   };
 
@@ -52,6 +60,19 @@ class Questions extends Component {
 
   render() {
     const { questions } = this.state;
+    if (questions.length < 1) {
+      return (
+        <div>
+          <Navigation />
+          <div className="main-content text-center">
+            <span className="center_wrong">
+              <h1>UnAuthorized User</h1>
+              <p style={{ color: "red" }}>please login</p>
+            </span>
+          </div>
+        </div>
+      );
+    }
     return (
       <React.Fragment>
         <Navigation />
@@ -74,9 +95,9 @@ class Questions extends Component {
                     <i className="fa fa-edit question-button" />
                   </Link>
                   {/* <i
-                    onClick={this.deleteQuestion(question.id)}
-                    className="fa fa-trash question-button pull-right"
-                  /> */}
+                      onClick={this.deleteQuestion(question.id)}
+                      className="fa fa-trash question-button pull-right"
+                    /> */}
                 </Collapsible>
               </div>
             ))}
