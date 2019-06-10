@@ -13,6 +13,13 @@
     background-color: rgb(212, 37, 54);
 }
 
+.no_pics {
+    margin: 0em 6.5em;
+    background-color: #aaa
+}
+
+
+
 .edit_avatar {
     width: 12em;
     height: 12em;

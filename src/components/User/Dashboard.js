@@ -128,11 +128,16 @@ class Dashboard extends Component {
                   </div>
                   <div className="content">
                     <div className="author">
-                      <img
-                        className="avatar border-gray"
-                        src={user.image_url}
-                        alt="..."
-                      />
+                      {user.image_url !== null ? (
+                        <img
+                          className="avatar border-gray"
+                          src={user.image_url}
+                          alt="..."
+                        />
+                      ) : (
+                        <i className="fa fa-user avatar no_pics" />
+                      )}
+
                       <h4 className="title">
                         <strong>Hi,</strong>
                         <strong style={{ padding: "0.5em" }}>

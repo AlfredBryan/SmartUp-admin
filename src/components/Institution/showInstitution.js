@@ -107,11 +107,15 @@ class showInstitution extends Component {
                   </div>
                   <div className="content">
                     <div className="author">
-                      <img
-                        className="avatar border-gray"
-                        src={institution.logo_url}
-                        alt="..."
-                      />
+                      {institution.logo_url !== null ? (
+                        <img
+                          className="avatar border-gray"
+                          src={institution.logo_url}
+                          alt="..."
+                        />
+                      ) : (
+                        <i className="fa fa-university avatar no_pics" />
+                      )}
                       <h4 className="title">
                         {institution.name}
                         <br />
