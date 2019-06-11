@@ -31,6 +31,7 @@ import createQuestion from "components/Questions/createQuestion";
 import Questions from "components/Questions/Questions";
 import EditQuestion from "components/Questions/EditQuestion";
 import Assessment from "components/Assessment/Assessment";
+import EditOptions from "components/Questions/EditOptions";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -46,6 +47,11 @@ ReactDOM.render(
         <Route exact path="/questions" component={Questions} />
         <Route exact path="/new_question/:id" component={createQuestion} />
         <Route exact path="/edit_question/:id" component={EditQuestion} />
+        <Route
+          exact
+          path="/edit_option/:question_id/:id"
+          component={EditOptions}
+        />
         <Route exact path="/assessment" component={Assessment} />
         <Route
           exact

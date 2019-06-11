@@ -75,20 +75,32 @@ div.option_list {
 }
 
 .quesn_options {
-    display: inline-block;
-    margin: 1em
+    margin: 0.5em;
+    padding: 0em;
+    background-color: #1a1010;
+    width: 17em;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.quesn_content {
+    list-style: none;
+    padding: 0em 1em;
+    color: #ffffff;
+    overflow: hidden;
+}
+
+.quesn_content a {
+    text-decoration: none;
+    color: #ffffff;
 }
 
 .question-button {
-    margin: 0px 0px 4px 2px;
+    margin: 0px 0px 0px 0px;
     color: #050505;
     border: none;
     box-shadow: 0 0.3px 0.3px 0 rgba(0, 0, 0, 0.2);
-    font-size: 2em;
+    font-size: 1.5em;
     cursor: pointer;
     padding: 0em 1em
-}
-
-.question-edit a {
-    text-decoration: none;
 }

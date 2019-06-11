@@ -3,6 +3,8 @@ import Navigation from "components/Navigation/Navigation";
 import Spinner from "components/hoc/spinner";
 import axios from "axios";
 import Checkbox from "@material-ui/core/Checkbox";
+import { Link } from "react-router-dom";
+
 import "./style.css";
 
 class EditQuestion extends Component {
@@ -12,6 +14,7 @@ class EditQuestion extends Component {
       question_id: this.props.match.params.id,
       name: "",
       description: "",
+      answer_options: [],
       errorMessage: "",
       loading: false,
       correct: false,
@@ -49,11 +52,63 @@ class EditQuestion extends Component {
         console.log(res);
         // populate fields
         this.setState({
-          question: res.data
-          // name: this.Capitalize(res.data.name),
-          // description: this.Capitalize(res.data.description)
+          answer_options: res.data.answer_options,
+          name: this.Capitalize(res.data.name),
+          description: this.Capitalize(res.data.description)
         });
       });
+  };
+
+  updateQuestion = e => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+    let { name, description, question_id } = this.state;
+    axios
+      .put(
+        `https://smart-up.herokuapp.com/api/v1/questions/${question_id}`,
+        {
+          question: {
+            name,
+            description
+          }
+        },
+        {
+          headers: {
+            Authorization: token
+          }
+        },
+        this.setState({
+          loading: true
+        })
+      )
+      .then(res => {
+        console.log(res);
+        if (res.status === 200) {
+          this.setState({
+            loading: false
+          });
+          alert("Successful");
+        }
+      })
+      .catch(err => {
+        if (err) {
+          this.setState({
+            loading: false
+          });
+        }
+      });
+  };
+
+  handleChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
+
+  toggle = () => {
+    this.setState({
+      correct: !this.state.correct
+    });
   };
 
   postAnswerOptions = e => {
@@ -95,6 +150,7 @@ class EditQuestion extends Component {
               loading: false
             });
             alert("Successful");
+            this.fetchQuestion();
           }
         })
         .catch(err => {
@@ -107,39 +163,41 @@ class EditQuestion extends Component {
     }
   };
 
-  handleChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  };
-
-  // handleCreateOptions = e => {
-  //   e.preventDefault();
-  //   this.updateOptions(
-  //     this.state.answer_options.concat({
-  //       content: this.state.content,
-  //       correct: false
-  //     })
-  //   );
-  //   this.postAnswerOptions();
-  // };
-
-  toggle = e => {
-    this.setState({
-      correct: !this.state.correct
-    });
+  deleteOption = (question_id, id) => {
+    const token = localStorage.getItem("token");
+    axios
+      .delete(
+        `https://smart-up.herokuapp.com/api/v1/questions/${question_id}/answer_options/${id}`,
+        {
+          headers: {
+            Authorization: token
+          }
+        }
+      )
+      .then(res => {
+        console.log(res);
+        if (res.statusText === "OK") {
+          alert(`Option removed ${id}`);
+          this.fetchQuestions();
+        }
+      })
+      .catch(error => {
+        if (error) {
+          alert(`${error}`);
+        }
+      });
   };
 
   render() {
-    const { errorMessage, loading, question, correct, content } = this.state;
-    console.log(correct);
+    const { loading, correct, content, answer_options } = this.state;
+    console.log(answer_options);
     return (
       <React.Fragment>
         <Navigation />
         <div className="main-content">
           <div className="container">
             <div className="center-div">
-              <form onSubmit={this.postQuestion} className="form-horizontal">
+              <form className="form-horizontal">
                 <div className="form-group">
                   <label className="col-lg-8 adjust-input control-label">
                     Question:
@@ -149,7 +207,7 @@ class EditQuestion extends Component {
                       className="form-control"
                       type="text"
                       name="name"
-                      value={question.name}
+                      value={this.state.name}
                       placeholder="Enter question..."
                       onChange={this.handleChange}
                     />
@@ -164,8 +222,8 @@ class EditQuestion extends Component {
                       className="form-control"
                       type="text"
                       name="description"
-                      value={question.description}
-                      placeholder={question.description}
+                      value={this.state.description}
+                      placeholder="Enter description..."
                       onChange={this.handleChange}
                     />
                   </div>
@@ -198,7 +256,41 @@ class EditQuestion extends Component {
                     </button>
                   </div>
                 </div>
-                <p style={{ color: "red" }}>{errorMessage}</p>
+                <div className="form-group">
+                  <div className="col-lg-10">
+                    {answer_options.map(option => (
+                      <ul className="quesn_options" key={option.id}>
+                        <li className="quesn_content">
+                          <Link
+                            to={`/edit_option/${option.question_id}/${
+                              option.id
+                            }`}
+                          >
+                            {option.content}
+                          </Link>
+                          <i
+                            onClick={() => {
+                              this.deleteOption(option.question_id, option.id);
+                            }}
+                            style={{ cursor: "pointer" }}
+                            className="fa fa-trash pull-right"
+                          />
+                        </li>
+                      </ul>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="form-group">
+                  <div className="col-lg-10">
+                    <button
+                      className="option_btn form-control"
+                      onClick={this.updateQuestion}
+                    >
+                      {loading ? <Spinner /> : "Submit"}
+                    </button>
+                  </div>
+                </div>
               </form>
             </div>
           </div>

@@ -5,7 +5,7 @@ import axios from "axios";
 import Checkbox from "@material-ui/core/Checkbox";
 import "./style.css";
 
-class AnswerOption extends Component {
+class EditOptions extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -49,14 +49,14 @@ class AnswerOption extends Component {
         console.log(res);
         // populate fields
         this.setState({
-          question: res.data
-          // name: this.Capitalize(res.data.name),
-          // description: this.Capitalize(res.data.description)
+          // question: res.data
+          name: this.Capitalize(res.data.name),
+          description: this.Capitalize(res.data.description)
         });
       });
   };
 
-  postAnswerOptions = e => {
+  updateAnswerOptions = e => {
     e.preventDefault();
     const token = localStorage.getItem("token");
     let { question_id } = this.state;
@@ -70,7 +70,7 @@ class AnswerOption extends Component {
       });
     } else {
       axios
-        .post(
+        .put(
           `https://smart-up.herokuapp.com/api/v1/questions/${question_id}/answer_options`,
           {
             answer_option: {
@@ -139,7 +139,7 @@ class AnswerOption extends Component {
         <div className="main-content">
           <div className="container">
             <div className="center-div">
-              <form onSubmit={this.postQuestion} className="form-horizontal">
+              <form className="form-horizontal">
                 <div className="form-group">
                   <label className="col-lg-8 adjust-input control-label">
                     Question:
@@ -149,7 +149,7 @@ class AnswerOption extends Component {
                       className="form-control"
                       type="text"
                       name="name"
-                      value={question.name}
+                      value={this.state.name}
                       placeholder="Enter question..."
                       onChange={this.handleChange}
                     />
@@ -164,7 +164,7 @@ class AnswerOption extends Component {
                       className="form-control"
                       type="text"
                       name="description"
-                      value={question.description}
+                      value={this.state.description}
                       placeholder={question.description}
                       onChange={this.handleChange}
                     />
@@ -208,4 +208,4 @@ class AnswerOption extends Component {
   }
 }
 
-export default AnswerOption;
+export default EditOptions;

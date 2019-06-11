@@ -3,7 +3,7 @@ import axios from "axios";
 import Navigation from "components/Navigation/Navigation";
 
 import Collapsible from "react-collapsible";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 class Questions extends Component {
   constructor(props) {
@@ -18,6 +18,20 @@ class Questions extends Component {
     this.fetchQuestions();
   }
 
+  // fetchOptions = question_id => {
+  //   const token = localStorage.getItem("token");
+  //   axios
+  //     .get(
+  //       `https://smart-up.herokuapp.com/api/v1/questions/${question_id}/answer_options`,
+  //       {
+  //         headers: {
+  //           Authorization: token
+  //         }
+  //       }
+  //     )
+  //     .then(res => {});
+  // };
+
   fetchQuestions = () => {
     const token = localStorage.getItem("token");
     axios
@@ -27,9 +41,10 @@ class Questions extends Component {
         }
       })
       .then(res => {
+        console.log(res);
         if (res.data.errors) {
           this.setState({
-            questions: []
+            questions: null
           });
         } else {
           this.setState({
@@ -37,41 +52,38 @@ class Questions extends Component {
           });
         }
       })
+      .catch(error => {});
+  };
+
+  deleteOption = (question_id, id) => {
+    const token = localStorage.getItem("token");
+    axios
+      .delete(
+        `https://smart-up.herokuapp.com/api/v1/questions/${question_id}/answer_options/${id}`,
+        {
+          headers: {
+            Authorization: token
+          }
+        }
+      )
+      .then(res => {
+        console.log(res);
+        if (res.statusText === "No Content") {
+          alert(`Option removed ${id}`);
+          this.fetchQuestions();
+        }
+      })
       .catch(error => {
-        console.log(error);
+        if (error) {
+          alert(`${error}`);
+        }
       });
   };
 
-  // deleteQuestion = id => {
-  //   const token = localStorage.getItem("token");
-  //   axios
-  //     .delete(`https://smart-up.herokuapp.com/api/v1/questions/${id}`, {
-  //       headers: {
-  //         Authorization: token
-  //       }
-  //     })
-  //     .then(res => {
-  //       if (res.statusText === "OK") {
-  //         alert("Question removed");
-  //         this.props.history.replace("/questions");
-  //       }
-  //     });
-  // };
-
   render() {
     const { questions } = this.state;
-    if (questions.length < 1) {
-      return (
-        <div>
-          <Navigation />
-          <div className="main-content text-center">
-            <span className="center_wrong">
-              <h1>UnAuthorized User</h1>
-              <p style={{ color: "red" }}>please login</p>
-            </span>
-          </div>
-        </div>
-      );
+    if (questions === null) {
+      return <Redirect to="/login" />;
     } else {
       return (
         <React.Fragment>
@@ -81,19 +93,35 @@ class Questions extends Component {
               {questions.map(question => (
                 <div key={question.id} className="toggle-question">
                   <Collapsible className="question" trigger={question.name}>
+                    <Link to={`/edit_question/${question.id}`}>
+                      <i className="fa fa-edit question-button pull-right" />
+                    </Link>
+
                     <div>
                       {question.answer_options.map(option => (
-                        <p className="quesn_options" key={option.id}>
-                          {option.content}
-                        </p>
+                        <ul className="quesn_options" key={option.id}>
+                          <li className="quesn_content">
+                            <Link
+                              to={`/edit_option/${option.question_id}/${
+                                option.id
+                              }`}
+                            >
+                              {option.content}
+                            </Link>
+                            <i
+                              onClick={() => {
+                                this.deleteOption(
+                                  option.question_id,
+                                  option.id
+                                );
+                              }}
+                              style={{ cursor: "pointer" }}
+                              className="fa fa-trash pull-right"
+                            />
+                          </li>
+                        </ul>
                       ))}
                     </div>
-                    <Link
-                      to={`/edit_question/${question.id}`}
-                      className="pull-right"
-                    >
-                      <i className="fa fa-edit question-button" />
-                    </Link>
                     {/* <i
                         onClick={this.deleteQuestion(question.id)}
                         className="fa fa-trash question-button pull-right"
