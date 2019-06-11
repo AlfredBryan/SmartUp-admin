@@ -176,9 +176,9 @@ class EditQuestion extends Component {
       )
       .then(res => {
         console.log(res);
-        if (res.statusText === "OK") {
+        if (res.statusText === "No Content") {
           alert(`Option removed ${id}`);
-          this.fetchQuestions();
+          this.fetchQuestion();
         }
       })
       .catch(error => {
