@@ -41,7 +41,6 @@ class Questions extends Component {
         }
       })
       .then(res => {
-        console.log(res);
         if (res.data.errors) {
           this.setState({
             questions: null

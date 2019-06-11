@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 
 import PropTypes from "prop-types";
@@ -46,9 +46,15 @@ class Institution extends Component {
         }
       })
       .then(res => {
-        this.setState({
-          institutions: res.data
-        });
+        if (res.data.errors) {
+          this.setState({
+            institutions: null
+          });
+        } else {
+          this.setState({
+            institutions: res.data
+          });
+        }
       });
   };
 
@@ -60,58 +66,64 @@ class Institution extends Component {
 
   render() {
     const { institutions } = this.state;
-
     const { classes } = this.props;
-    return (
-      <div>
-        <Navigation />
-        <div className="main-content">
-          <Link to="/new_institution" className="button-area">
-            <Tooltip title="Add" aria-label="Add">
-              <Fab color="primary" className={classes.fab}>
-                <AddIcon />
-              </Fab>
-            </Tooltip>
-          </Link>
-          <div className="container">
-            <div>
-              <div className="row push-down">
-                <div className="col-xs-12 col-sm-8 col-md-8">
-                  <div className="row">
-                    {institutions.map(inst => (
-                      <div
-                        key={inst.id}
-                        className="card family-member-info text-center col-xs-12 col-sm-3 col-md-3"
-                        id="family-card"
-                      >
-                        <Link
-                          to={`/institutions/${inst.slug}`}
-                          className="display-uni"
+    if (institutions === null) {
+      return <Redirect to="/login" />;
+    } else {
+      return (
+        <div>
+          <Navigation />
+          <div className="main-content">
+            <Link to="/new_institution" className="button-area">
+              <Tooltip title="Add" aria-label="Add">
+                <Fab color="primary" className={classes.fab}>
+                  <AddIcon />
+                </Fab>
+              </Tooltip>
+            </Link>
+            <div className="container">
+              <div>
+                <div className="row push-down">
+                  <div className="col-xs-12 col-sm-8 col-md-8">
+                    <div className="row">
+                      {institutions.map(inst => (
+                        <div
+                          key={inst.id}
+                          className="card family-member-info text-center col-xs-12 col-sm-3 col-md-3"
+                          id="family-card"
                         >
-                          <div>
-                            {inst.logo_url ? (
-                              <img className="institution_logo" src={inst.logo_url} />
-                            ) : (
-                              <i className="fa fa-university" />
-                            )}
-                            <h5>{inst.name}</h5>
-                            <div className="uni-text">
-                              <span>
-                                <p>Motto: {inst.motto}</p>
-                              </span>
+                          <Link
+                            to={`/institutions/${inst.slug}`}
+                            className="display-uni"
+                          >
+                            <div>
+                              {inst.logo_url ? (
+                                <img
+                                  className="institution_logo"
+                                  src={inst.logo_url}
+                                />
+                              ) : (
+                                <i className="fa fa-university" />
+                              )}
+                              <h5>{inst.name}</h5>
+                              <div className="uni-text">
+                                <span>
+                                  <p>Motto: {inst.motto}</p>
+                                </span>
+                              </div>
                             </div>
-                          </div>
-                        </Link>
-                      </div>
-                    ))}
+                          </Link>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
 }
 

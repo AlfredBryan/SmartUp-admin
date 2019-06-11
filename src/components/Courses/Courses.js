@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import "./course.css";
 import axios from "axios";
 
@@ -70,77 +70,84 @@ class Courses extends Component {
         }
       })
       .then(res => {
-        console.log(res);
-        this.setState({
-          course_list: res.data,
-          visible: res.data.length > 0
-        });
+        if (res.data.errors) {
+          this.setState({
+            course_list: null
+          });
+        } else {
+          this.setState({
+            course_list: res.data
+          });
+        }
       });
   };
 
   render() {
     const { course_list } = this.state;
     const { classes } = this.props;
-
-    if (course_list.length < 0) {
-      return (
-        <div>
-          <Navigation />
-          <div className="main-content">
-            <div className="container">
-              <div className="row">
-                <div className="container">
-                  <div className="no-wards">
-                    <Link to="/courses/new" className="pull-right">
-                      <Tooltip title="Add" aria-label="Add">
-                        <Fab color="primary" className={classes.fab}>
-                          <AddIcon />
-                        </Fab>
-                      </Tooltip>
-                    </Link>
-                    <div className="wards-cover text-center">
-                      <br />
-                      <p>No Courses yet.</p>
+    if (course_list === null) {
+      return <Redirect to="/login" />;
+    } else {
+      if (course_list.length < 0) {
+        return (
+          <div>
+            <Navigation />
+            <div className="main-content">
+              <div className="container">
+                <div className="row">
+                  <div className="container">
+                    <div className="no-wards">
+                      <Link to="/courses/new" className="pull-right">
+                        <Tooltip title="Add" aria-label="Add">
+                          <Fab color="primary" className={classes.fab}>
+                            <AddIcon />
+                          </Fab>
+                        </Tooltip>
+                      </Link>
+                      <div className="wards-cover text-center">
+                        <br />
+                        <p>No Courses yet.</p>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          <Navigation />
-          <div className="main-content">
-            <div className="action-buttons">
-              <Link to="/new_course" className="button-area">
-                <Tooltip title="Add" aria-label="Add">
-                  <Fab color="primary" className={classes.fab}>
-                    <AddIcon />
-                  </Fab>
-                </Tooltip>
-              </Link>
-            </div>
+        );
+      } else {
+        return (
+          <div>
+            <Navigation />
+            <div className="main-content">
+              <div className="action-buttons">
+                <Link to="/new_course" className="button-area">
+                  <Tooltip title="Add" aria-label="Add">
+                    <Fab color="primary" className={classes.fab}>
+                      <AddIcon />
+                    </Fab>
+                  </Tooltip>
+                </Link>
+              </div>
 
-            <div className="container">
-              <ul className="course-listed">
-                {course_list.map(course => (
-                  <Link key={course.id} to={`/courses/${course.slug}`}>
-                    <li>
-                      {course.name}
-                      <span className="pull-right">
-                        <span>Topics</span>({course.topics.length})
-                      </span>
-                    </li>
-                  </Link>
-                ))}
-              </ul>
+              <div className="container">
+                <ul className="course-listed">
+                  {course_list.map(course => (
+                    <Link key={course.id} to={`/courses/${course.slug}`}>
+                      <li>
+                        {course.name}
+                        <span className="pull-right">
+                          <span>Topics</span>({course.topics.length})
+                        </span>
+                      </li>
+                    </Link>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
-      );
+        );
+      }
     }
   }
 }
