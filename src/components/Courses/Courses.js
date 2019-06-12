@@ -45,7 +45,8 @@ class Courses extends Component {
       loading: false,
       visible: false,
       course_list: [],
-      slug: ""
+      slug: "",
+      error: false
     };
   }
 
@@ -72,7 +73,7 @@ class Courses extends Component {
       .then(res => {
         if (res.data.errors) {
           this.setState({
-            course_list: null
+            error: true
           });
         } else {
           this.setState({
@@ -83,10 +84,12 @@ class Courses extends Component {
   };
 
   render() {
-    const { course_list } = this.state;
+    const { course_list, error } = this.state;
     const { classes } = this.props;
-    if (course_list === null) {
-      return <Redirect to="/login" />;
+    if (error) {
+      localStorage.clear("token");
+      localStorage.clear("user");
+      this.props.history.push("/login");
     } else {
       if (course_list.length < 0) {
         return (

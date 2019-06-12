@@ -29,7 +29,8 @@ class Institution extends Component {
     super(props);
     this.state = {
       institutions: [],
-      loading: false
+      loading: false,
+      error: false
     };
   }
 
@@ -48,7 +49,7 @@ class Institution extends Component {
       .then(res => {
         if (res.data.errors) {
           this.setState({
-            institutions: null
+            error: true
           });
         } else {
           this.setState({
@@ -65,10 +66,12 @@ class Institution extends Component {
   };
 
   render() {
-    const { institutions } = this.state;
+    const { institutions, error } = this.state;
     const { classes } = this.props;
-    if (institutions === null) {
-      return <Redirect to="/login" />;
+    if (error) {
+      localStorage.clear("token");
+      localStorage.clear("user");
+      this.props.history.push("/login");
     } else {
       return (
         <div>

@@ -11,7 +11,7 @@ class Questions extends Component {
     this.state = {
       questions: [],
       answer_options: [],
-      error: ""
+      error: false
     };
   }
 
@@ -44,7 +44,7 @@ class Questions extends Component {
       .then(res => {
         if (res.data.errors) {
           this.setState({
-            error: "Not Authorized"
+            error: true
           });
         } else {
           this.setState({
