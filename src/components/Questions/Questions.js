@@ -10,7 +10,8 @@ class Questions extends Component {
     super(props);
     this.state = {
       questions: [],
-      answer_options: []
+      answer_options: [],
+      error: ""
     };
   }
 
@@ -43,7 +44,7 @@ class Questions extends Component {
       .then(res => {
         if (res.data.errors) {
           this.setState({
-            questions: null
+            error: "Not Authorized"
           });
         } else {
           this.setState({
@@ -80,8 +81,8 @@ class Questions extends Component {
   };
 
   render() {
-    const { questions } = this.state;
-    if (questions === null) {
+    const { questions, error } = this.state;
+    if (error) {
       localStorage.clear("token");
       localStorage.clear("user");
       this.props.history.push("/login");
