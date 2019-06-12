@@ -82,7 +82,9 @@ class Questions extends Component {
   render() {
     const { questions } = this.state;
     if (questions === null) {
-      return <Redirect to="/login" />;
+      localStorage.clear("token");
+      localStorage.clear("user");
+      this.props.history.push("/login");
     } else {
       return (
         <React.Fragment>
