@@ -1,0 +1,20 @@
+.assess_body {
+    padding: 0em;
+    margin: 0em 1em 1em;
+    width: 40em;
+}
+
+.asses_name {
+    background-color: #ffffff;
+    padding: 2em;
+
+}
+
+.assess_body li {
+    overflow: hidden;
+    list-style: none;
+    padding: 1em;
+    margin: 0em;
+    background-color: white;
+    box-shadow: 0 0.3px 0.3px 0 rgba(0, 0, 0, 0.2);
+}

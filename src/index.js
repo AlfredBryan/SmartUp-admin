@@ -32,6 +32,8 @@ import Questions from "components/Questions/Questions";
 import EditQuestion from "components/Questions/EditQuestion";
 import Assessment from "components/Assessment/Assessment";
 import EditOptions from "components/Questions/EditOptions";
+import NewAssessment from "components/Assessment/NewAssessment";
+import AddQuestion from "components/Assessment/AddQuestion";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -52,7 +54,9 @@ ReactDOM.render(
           path="/edit_option/:question_id/:id"
           component={EditOptions}
         />
-        <Route exact path="/assessment" component={Assessment} />
+        <Route exact path="/assessment/" component={Assessment} />
+        <Route exact path="/new_assessment/:id" component={NewAssessment} />
+        <Route exact path="/edit_assessment/:id" component={AddQuestion} />
         <Route
           exact
           path="/courses/:course_slug/topics/:id"

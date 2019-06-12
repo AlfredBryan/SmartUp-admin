@@ -48,6 +48,9 @@ class showCourse extends Component {
               <div>
                 <h3 className="course-name">{course.name}</h3>
                 <span className="pull-right">
+                <Link to={`/new_assessment/${course.id}`}>
+                    <button className="topics-button">Add Assessment</button>
+                  </Link>
                   <Link to={`/new_topic/${course_slug}`}>
                     <button className="topics-button">Add Topic</button>
                   </Link>
