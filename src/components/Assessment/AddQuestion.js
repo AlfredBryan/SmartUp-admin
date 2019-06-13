@@ -14,7 +14,8 @@ class AddQuestion extends Component {
       assessment_id: this.props.match.params.id,
       name: "",
       description: "",
-      questions: []
+      questions: [],
+      question: ""
     };
   }
 
@@ -78,7 +79,8 @@ class AddQuestion extends Component {
   }
 
   render() {
-    const { loading, errorMessage } = this.state;
+    const { loading, errorMessage, questions, question } = this.state;
+    console.log(question);
     return (
       <React.Fragment>
         <Navigation />
@@ -119,6 +121,29 @@ class AddQuestion extends Component {
                         placeholder="Description ..."
                         onChange={this.handleChange}
                       />
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <label className="col-lg-8 adjust-input control-label">
+                      Questions:
+                    </label>
+                    <div className="col-lg-12">
+                      <select
+                        value={question}
+                        class="form-control m-bot15"
+                        onChange={this.handleChange}
+                        name="question"
+                        required
+                      >
+                        <option value="" disabled selected>
+                          --Select--
+                        </option>
+                        {questions.map(q => (
+                          <option key={q.id} value={q.name}>
+                            {q.name}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                   </div>
                   <p style={{ color: "red" }}>{errorMessage}</p>
