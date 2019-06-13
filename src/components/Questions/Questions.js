@@ -5,15 +5,60 @@ import Navigation from "components/Navigation/Navigation";
 import Collapsible from "react-collapsible";
 import { Link, Redirect } from "react-router-dom";
 
+//popup notification
+import Button from "@material-ui/core/Button";
+import Snackbar from "@material-ui/core/Snackbar";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+
+const styles = theme => ({
+  container: {
+    display: "flex",
+    flexWrap: "wrap"
+  },
+  formControl: {
+    margin: theme.spacing.unit
+  },
+  root: {
+    position: "relative",
+    overflow: "hidden"
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20
+  },
+  button: {
+    marginBottom: theme.spacing.unit
+  },
+  snackbar: {
+    position: "absolute"
+  },
+  snackbarContent: {
+    width: 360,
+    fontSize: "1em"
+  }
+});
+
 class Questions extends Component {
   constructor(props) {
     super(props);
     this.state = {
       questions: [],
       answer_options: [],
+      open: false,
       error: false
     };
   }
+
+  // popup notification functions
+  handleClick = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+  //ends
 
   componentDidMount() {
     this.fetchQuestions();
@@ -67,10 +112,9 @@ class Questions extends Component {
         }
       )
       .then(res => {
-        console.log(res);
         if (res.statusText === "No Content") {
-          alert(`Option removed ${id}`);
           this.fetchQuestions();
+          this.handleClick();
         }
       })
       .catch(error => {
@@ -81,7 +125,8 @@ class Questions extends Component {
   };
 
   render() {
-    const { questions, error } = this.state;
+    const { questions, error, open } = this.state;
+    const { classes } = this.props;
     if (error) {
       localStorage.clear("token");
       localStorage.clear("user");
@@ -90,6 +135,26 @@ class Questions extends Component {
       return (
         <React.Fragment>
           <Navigation />
+          <Snackbar
+            open={open}
+            autoHideDuration={4000}
+            onClose={this.handleClose}
+            ContentProps={{
+              "aria-describedby": "snackbar-fab-message-id",
+              className: classes.snackbarContent
+            }}
+            message={
+              <span id="snackbar-fab-message-id popup-text">
+                Removed Successfully
+              </span>
+            }
+            action={
+              <Button color="inherit" size="small" onClick={this.handleClose}>
+                close
+              </Button>
+            }
+            className={classes.snackbar}
+          />
           <div className="main-content">
             <div className="container questions">
               {questions.map(question => (
@@ -139,4 +204,8 @@ class Questions extends Component {
   }
 }
 
-export default Questions;
+Questions.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(Questions);

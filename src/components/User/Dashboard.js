@@ -49,6 +49,7 @@ class Dashboard extends Component {
   handleClose = () => {
     this.setState({ open: false });
   };
+  //ends
 
   componentDidMount() {
     this.handleClick();

@@ -10,6 +10,14 @@
 
 }
 
+.display_quesn {
+    text-align: center;
+    background-color: rgb(39, 14, 14);
+    color: white;
+    padding: 0.5em;
+    border-radius: 4px;
+}
+
 .assess_body li {
     overflow: hidden;
     list-style: none;

@@ -73,6 +73,28 @@ class AddQuestion extends Component {
     });
   };
 
+  postQuestion = e => {
+    const token = localStorage.getItem("token");
+    const { assessment_id, question } = this.state;
+    axios
+      .post(
+        `https://smart-up.herokuapp.com/api/v1/assessments/${assessment_id}/assessment_question`,
+        {
+          assessment: {
+            question
+          }
+        },
+        {
+          headers: {
+            Authorization: token
+          }
+        }
+      )
+      .then(res => {
+        console.log(res);
+      });
+  };
+
   componentDidMount() {
     this.fetchAssessment();
     this.fetchQuestions();
@@ -124,10 +146,10 @@ class AddQuestion extends Component {
                     </div>
                   </div>
                   <div className="form-group">
-                    <label className="col-lg-8 adjust-input control-label">
+                    <label className="col-lg-2 adjust-input control-label">
                       Questions:
                     </label>
-                    <div className="col-lg-12">
+                    <div className="col-lg-5">
                       <select
                         value={question}
                         class="form-control m-bot15"
@@ -145,7 +167,11 @@ class AddQuestion extends Component {
                         ))}
                       </select>
                     </div>
+                    <button onClick={this.postQuestion} className="option_btn">
+                      Add Question
+                    </button>
                   </div>
+                  <div className="display_quesn">{question}</div>
                   <p style={{ color: "red" }}>{errorMessage}</p>
                   <div className="form-group">
                     <div className="col-lg-12">

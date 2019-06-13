@@ -5,7 +5,41 @@ import axios from "axios";
 import Checkbox from "@material-ui/core/Checkbox";
 import { Link } from "react-router-dom";
 
+//popup notification
+import Button from "@material-ui/core/Button";
+import Snackbar from "@material-ui/core/Snackbar";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+
 import "./style.css";
+
+const styles = theme => ({
+  container: {
+    display: "flex",
+    flexWrap: "wrap"
+  },
+  formControl: {
+    margin: theme.spacing.unit
+  },
+  root: {
+    position: "relative",
+    overflow: "hidden"
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20
+  },
+  button: {
+    marginBottom: theme.spacing.unit
+  },
+  snackbar: {
+    position: "absolute"
+  },
+  snackbarContent: {
+    width: 360,
+    fontSize: "1em"
+  }
+});
 
 class EditQuestion extends Component {
   constructor(props) {
@@ -18,14 +52,21 @@ class EditQuestion extends Component {
       errorMessage: "",
       loading: false,
       correct: false,
+      open: false,
       content: "",
       question: ""
     };
   }
 
-  updateOptions = answer_options => {
-    this.setState({ ...this.state, answer_options });
+  // popup notification functions
+  handleClick = () => {
+    this.setState({ open: true });
   };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+  //ends
 
   componentDidMount() {
     this.fetchQuestion();
@@ -87,7 +128,7 @@ class EditQuestion extends Component {
           this.setState({
             loading: false
           });
-          alert("Successful");
+          this.handleClick();
         }
       })
       .catch(err => {
@@ -105,7 +146,7 @@ class EditQuestion extends Component {
     });
   };
 
-  toggle = () => {
+  toggleOption = () => {
     this.setState({
       correct: !this.state.correct
     });
@@ -138,19 +179,16 @@ class EditQuestion extends Component {
             headers: {
               Authorization: token
             }
-          },
-          this.setState({
-            loading: true
-          })
+          }
         )
         .then(res => {
           console.log(res);
           if (res.status === 200) {
             this.setState({
-              loading: false
+              content: ""
             });
-            alert("Successful");
             this.fetchQuestion();
+            this.handleClick();
           }
         })
         .catch(err => {
@@ -177,8 +215,8 @@ class EditQuestion extends Component {
       .then(res => {
         console.log(res);
         if (res.statusText === "No Content") {
-          alert(`Option removed ${id}`);
           this.fetchQuestion();
+          this.handleClick();
         }
       })
       .catch(error => {
@@ -189,11 +227,30 @@ class EditQuestion extends Component {
   };
 
   render() {
-    const { loading, correct, content, answer_options } = this.state;
+    const { classes } = this.props;
+    const { loading, correct, content, open, answer_options } = this.state;
     console.log(answer_options);
     return (
       <React.Fragment>
         <Navigation />
+        <Snackbar
+          open={open}
+          autoHideDuration={4000}
+          onClose={this.handleClose}
+          ContentProps={{
+            "aria-describedby": "snackbar-fab-message-id",
+            className: classes.snackbarContent
+          }}
+          message={
+            <span id="snackbar-fab-message-id popup-text">Successful</span>
+          }
+          action={
+            <Button color="inherit" size="small" onClick={this.handleClose}>
+              close
+            </Button>
+          }
+          className={classes.snackbar}
+        />
         <div className="main-content">
           <div className="container">
             <div className="center-div">
@@ -236,7 +293,7 @@ class EditQuestion extends Component {
                     <span>
                       <Checkbox
                         checked={correct}
-                        onChange={this.toggle}
+                        onChange={this.toggleOption}
                         value={correct}
                         name="correct"
                       />
@@ -300,4 +357,8 @@ class EditQuestion extends Component {
   }
 }
 
-export default EditQuestion;
+EditQuestion.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(EditQuestion);
