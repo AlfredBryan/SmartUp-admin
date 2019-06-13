@@ -87,9 +87,11 @@ class Courses extends Component {
     const { course_list, error } = this.state;
     const { classes } = this.props;
     if (error) {
-      localStorage.clear("token");
-      localStorage.clear("user");
-      this.props.history.push("/login");
+      return (
+        localStorage.clear("token"),
+        localStorage.clear("user"),
+        this.props.history.push("/login")
+      );
     } else {
       if (course_list.length < 0) {
         return (

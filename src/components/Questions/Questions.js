@@ -128,9 +128,11 @@ class Questions extends Component {
     const { questions, error, open } = this.state;
     const { classes } = this.props;
     if (error) {
-      localStorage.clear("token");
-      localStorage.clear("user");
-      this.props.history.push("/login");
+      return (
+        localStorage.clear("token"),
+        localStorage.clear("user"),
+        this.props.history.push("/login")
+      );
     } else {
       return (
         <React.Fragment>

@@ -69,9 +69,11 @@ class Institution extends Component {
     const { institutions, error } = this.state;
     const { classes } = this.props;
     if (error) {
-      localStorage.clear("token");
-      localStorage.clear("user");
-      this.props.history.push("/login");
+      return (
+        localStorage.clear("token"),
+        localStorage.clear("user"),
+        this.props.history.push("/login")
+      );
     } else {
       return (
         <div>
