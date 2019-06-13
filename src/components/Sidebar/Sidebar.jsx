@@ -49,7 +49,7 @@ class Sidebar extends Component {
       ward_button = (
         <li>
           <NavLink to="/family">
-            <i className="pe-7s-users" />
+            <i className="fa fa-users" />
             <p>{user.status === "guardian" ? "Wards" : "Guardians"}</p>
           </NavLink>
         </li>
@@ -61,7 +61,7 @@ class Sidebar extends Component {
       question_button = (
         <li>
           <NavLink to="/questions">
-            <i className="pe-7s-server" />
+            <i className="fa fa-server" />
             <p>Questions</p>
           </NavLink>
         </li>
@@ -89,19 +89,19 @@ class Sidebar extends Component {
             {this.state.width <= 991 ? <AdminNavbarLinks /> : null}
             <li>
               <NavLink activeClassName="active" to="/profile">
-                <i className="pe-7s-graph" />
+                <i className="fa fa-pie-chart" />
                 <p>Dashboard</p>
               </NavLink>
             </li>
             <li>
               <NavLink activeClassName="active" to="/update_profile">
-                <i className="pe-7s-config" />
+                <i className="fa fa-wrench" />
                 <p>My Profile</p>
               </NavLink>
             </li>
             <li>
               <NavLink activeClassName="active" to="/institutions">
-                <i className="pe-7s-culture" />
+                <i className="fa fa-university" />
                 <p>Institution</p>
               </NavLink>
             </li>
@@ -122,7 +122,7 @@ class Sidebar extends Component {
             <hr />
             <li onClick={this.logOut} className="side_logout">
               <div>
-                <i className="pe-7s-power" />
+                <i className="fa fa-power-off" />
                 <p>Log Out </p>
               </div>
             </li>

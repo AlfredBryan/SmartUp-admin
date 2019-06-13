@@ -272,8 +272,8 @@ class EditQuestion extends Component {
                             onClick={() => {
                               this.deleteOption(option.question_id, option.id);
                             }}
-                            style={{ cursor: "pointer" }}
-                            className="fa fa-trash pull-right"
+                            style={{ cursor: "pointer", color: "red" }}
+                            className="fa fa-times pull-right"
                           />
                         </li>
                       </ul>
