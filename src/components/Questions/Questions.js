@@ -58,25 +58,16 @@ class Questions extends Component {
   handleClose = () => {
     this.setState({ open: false });
   };
+
+  Capitalize = str => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
   //ends
 
   componentDidMount() {
     this.fetchQuestions();
   }
 
-  // fetchOptions = question_id => {
-  //   const token = localStorage.getItem("token");
-  //   axios
-  //     .get(
-  //       `https://smart-up.herokuapp.com/api/v1/questions/${question_id}/answer_options`,
-  //       {
-  //         headers: {
-  //           Authorization: token
-  //         }
-  //       }
-  //     )
-  //     .then(res => {});
-  // };
 
   fetchQuestions = () => {
     const token = localStorage.getItem("token");
@@ -162,39 +153,33 @@ class Questions extends Component {
               {questions.map(question => (
                 <div key={question.id} className="toggle-question">
                   <Collapsible className="question" trigger={question.name}>
+                  <blockquote>{question.description}</blockquote>
                     <Link to={`/edit_question/${question.id}`}>
                       <i className="fa fa-edit question-button pull-right" />
                     </Link>
-
                     <div>
                       {question.answer_options.map(option => (
-                        <ul className="quesn_options" key={option.id}>
-                          <li className="quesn_content">
+                        <ul className="question_options" key={option.id}>
+                          <li className="question_content">
                             <Link
                               to={`/edit_option/${option.question_id}/${
                                 option.id
                               }`}
                             >
-                              {option.content}
+                              {this.Capitalize(option.content)}
                             </Link>
+
                             <i
-                              onClick={() => {
-                                this.deleteOption(
-                                  option.question_id,
-                                  option.id
-                                );
-                              }}
+                            onClick={() => {
+                              this.deleteOption(option.question_id, option.id);
+                            }}
                               style={{ cursor: "pointer", color: "red" }}
-                              className="fa fa-times pull-right"
+                              className="fa fa-trash-o pull-right"
                             />
                           </li>
                         </ul>
                       ))}
                     </div>
-                    {/* <i
-                        onClick={this.deleteQuestion(question.id)}
-                        className="fa fa-trash question-button pull-right"
-                      /> */}
                   </Collapsible>
                 </div>
               ))}

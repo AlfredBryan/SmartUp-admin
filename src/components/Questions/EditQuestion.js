@@ -252,12 +252,12 @@ class EditQuestion extends Component {
           className={classes.snackbar}
         />
         <div className="main-content">
-          <div className="container">
+          <div className="container question">
             <div className="center-div">
               <form className="form-horizontal">
                 <div className="form-group">
                   <label className="col-lg-8 adjust-input control-label">
-                    Question:
+                    Question
                   </label>
                   <div className="col-lg-10">
                     <input
@@ -272,7 +272,7 @@ class EditQuestion extends Component {
                 </div>
                 <div className="form-group">
                   <label className="col-lg-8 adjust-input control-label">
-                    Description:
+                    Description
                   </label>
                   <div className="col-lg-10">
                     <textarea
@@ -286,11 +286,33 @@ class EditQuestion extends Component {
                   </div>
                 </div>
                 <div className="form-group">
-                  <div className="col-lg-10">
-                    <label className="col-lg-2 adjust-input control-label">
+                <div className="col-md-6">
+                    {answer_options.map(option => (
+                      <ul className="question_options w-100" key={option.id}>
+                        <li className="question_content">
+                          <Link
+                            to={`/edit_option/${option.question_id}/${
+                              option.id
+                            }`}
+                          >
+                            {this.Capitalize(option.content)}({option.correct ? "Correct" : "Incorrect"})
+                          </Link>
+                          <i
+                            onClick={() => {
+                              this.deleteOption(option.question_id, option.id);
+                            }}
+                            style={{ cursor: "pointer", color: "red" }}
+                            className="fa fa-trash-o pull-right"
+                          />
+                        </li>
+                      </ul>
+                    ))}
+                  </div>
+                  <div className="col-md-6">
+                    <span>
+                    <label className="adjust-input control-label">
                       Correct:
                     </label>
-                    <span>
                       <Checkbox
                         checked={correct}
                         onChange={this.toggleOption}
@@ -303,39 +325,17 @@ class EditQuestion extends Component {
                         onChange={this.handleChange}
                         value={content}
                       />
-                      {/* <i className="fa fa-trash" /> */}
-                    </span>
-                    <button
+                      <button
                       className="option_btn"
                       onClick={this.postAnswerOptions}
                     >
-                      Create Options
+                      Add Option
                     </button>
+                    </span>
                   </div>
                 </div>
                 <div className="form-group">
-                  <div className="col-lg-10">
-                    {answer_options.map(option => (
-                      <ul className="quesn_options" key={option.id}>
-                        <li className="quesn_content">
-                          <Link
-                            to={`/edit_option/${option.question_id}/${
-                              option.id
-                            }`}
-                          >
-                            {option.content}
-                          </Link>
-                          <i
-                            onClick={() => {
-                              this.deleteOption(option.question_id, option.id);
-                            }}
-                            style={{ cursor: "pointer", color: "red" }}
-                            className="fa fa-times pull-right"
-                          />
-                        </li>
-                      </ul>
-                    ))}
-                  </div>
+                  
                 </div>
 
                 <div className="form-group">
@@ -344,7 +344,7 @@ class EditQuestion extends Component {
                       className="option_btn form-control"
                       onClick={this.updateQuestion}
                     >
-                      {loading ? <Spinner /> : "Submit"}
+                      {loading ? <Spinner /> : "Update"}
                     </button>
                   </div>
                 </div>
