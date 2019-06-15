@@ -9,6 +9,11 @@
     color: white;
     font-weight: 700;
     border: none;
+    padding: 1em 0;
+}
+
+.form-control {
+    height: auto;
 }
 
 .no_avatar {

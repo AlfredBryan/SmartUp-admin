@@ -58,6 +58,7 @@ class UpdateUser extends Component {
       date_of_birth: new Date(),
       sex: "male",
       level: "1",
+      image: "",
       open: false,
       loading: false,
       errorMessage: ""
@@ -160,7 +161,8 @@ class UpdateUser extends Component {
       phone: user.phone,
       state: user.state,
       sex: user.sex,
-      level: user.level
+      level: user.level,
+      image: user.image_url
     });
   }
   //ends
@@ -208,6 +210,7 @@ class UpdateUser extends Component {
     const { classes } = this.props;
     const { open, loading, errorMessage } = this.state;
     const user = JSON.parse(localStorage.getItem("user"));
+
     return (
       <div>
         <Navigation />
@@ -316,11 +319,11 @@ class UpdateUser extends Component {
                       value={this.state.state}
                       onChange={this.handleChange}
                     >
-                      <option value="" disabled selected>
+                      <option value="">
                         --Select--
                       </option>
                       {states.map(s => (
-                        <option value={s}>{s}</option>
+                        <option key={s} value={s}>{s}</option>
                       ))}
                     </select>
                   </div>
@@ -365,7 +368,7 @@ class UpdateUser extends Component {
                   >
                     {Array.from(new Array(12), (val, index) => index + 1).map(
                       l => (
-                        <option value={l}> Grade {l}</option>
+                        <option key={l} value={l}> Grade {l}</option>
                       )
                     )}
                   </select>
@@ -374,9 +377,14 @@ class UpdateUser extends Component {
               <div className="form-group">
                 <label className="col-lg-3 control-label">Sex:</label>
                 <div className="col-lg-8">
-                  <select className="form-control" name="" id="">
+                  <select className="form-control" 
+                  name="sex" 
+                  id=""
+                  value={this.state.sex}
+                  onChange={this.handleChange}
+                  >
                     {["male", "female"].map(sx => (
-                      <option value={sx}>{this.Capitalize(sx)}</option>
+                      <option key={sx} value={sx}>{this.Capitalize(sx)}</option>
                     ))}
                   </select>
                 </div>

@@ -95,6 +95,7 @@ class Dashboard extends Component {
     const { classes } = this.props;
     const { open } = this.state;
     const user = JSON.parse(localStorage.getItem("user"));
+    console.log(user)
     return (
       <React.Fragment>
         <Navigation />
@@ -149,11 +150,7 @@ class Dashboard extends Component {
                     </div>
                     <p className="profile_data">
                       <small>
-                        {user.sex !== null ? (
-                          this.Capitalize(user.sex)
-                        ) : (
-                          <p>Unauthorized User</p>
-                        )}
+                        {this.Capitalize(user.sex || "")}
                       </small>{" "}
                       <small className="profile_divider" />
                       <small>{user.level}</small>
