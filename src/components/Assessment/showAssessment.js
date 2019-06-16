@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 import "./style.css";
 import Navigation from "components/Navigation/Navigation";
 import Collapsible from "react-collapsible";
+import EditIcon from "@material-ui/icons/Edit";
+import Fab from "@material-ui/core/Fab";
+import Tooltip from "@material-ui/core/Tooltip";
 
 class showAssessment extends Component {
   constructor(props) {
@@ -61,15 +64,21 @@ class showAssessment extends Component {
         <div>
         <Navigation />
         <div className="main-content">
-          <div className="assessment_with_questions">
+          <div className="container questions">
+          <Link to={`/edit_assessment/${assessment.id}`} className="button-area">
+              <Tooltip title="Edit" aria-label="Edit">
+                <Fab color="primary">
+                  <EditIcon />
+                </Fab>
+              </Tooltip>
+            </Link>
           <h3>{assessment.name}</h3>
-          {/* <span className="pull-right">{(assessment !== undefined) ? assessment.course.name : ""}</span> */}
-          <span>
+          <span className="pull-right">
                       {questions.length < 1 ? (
                         <span className="topics-span">No questions yet</span>
                       ) : (
                         <span className="topics-span">
-                          Assessments:{questions.length}
+                          Questions :{questions.length}
                         </span>
                       )}
                     </span>

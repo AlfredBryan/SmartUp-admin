@@ -136,6 +136,7 @@ class Courses extends Component {
               </div>
 
               <div className="container">
+                <h3>Courses</h3>
                 <ul className="course-listed">
                   {course_list.map(course => (
                     <Link key={course.id} to={`/courses/${course.slug}`}>

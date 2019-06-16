@@ -17,7 +17,8 @@ class AddQuestion extends Component {
       description: "",
       questions: [],
       question: "",
-      selectedOption: null
+      selectedOption: null,
+      assessment_questions: []
     };
   }
 
@@ -59,7 +60,8 @@ class AddQuestion extends Component {
         if (res.status === 200 && res.statusText === "OK") {
           this.setState({
             name: res.data.name,
-            description: res.data.description
+            description: res.data.description,
+            assessment_questions: res.data.assessment_questions
           });
         }
       })
@@ -102,8 +104,12 @@ class AddQuestion extends Component {
         }
       )
       .then(res => {
-        console.log(res);
         this.fetchAssessment();
+      })
+      .catch(error => {
+        if (error) {
+          alert(`${error}`);
+        }
       });
     }
   };
@@ -116,13 +122,58 @@ class AddQuestion extends Component {
     return options
   }
 
+  removeAnswerQuestion = question_id => {
+    const token = localStorage.getItem("token");
+    const { assessment_id } = this.state;
+    axios.delete(
+      `https://smart-up.herokuapp.com/api/v1/assessments/${assessment_id}/assessment_questions/${question_id}`,
+      
+      {
+        headers: {
+          Authorization: token
+        }
+      }
+    )
+    .then(res => {
+      this.fetchAssessment();
+    });
+  }
+
+  updateAssessment = e => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+    const { name, description, assessment_id } = this.state;
+
+    axios.put(
+      `https://smart-up.herokuapp.com/api/v1/assessments/${assessment_id}`,
+      {
+        assessment: {
+          name: name, description: description
+        }
+      },
+      {
+        headers: {
+          Authorization: token
+        }
+      }
+    )
+    .then(res => {
+      this.fetchAssessment();
+    })
+    .catch(error => {
+      if (error) {
+        alert(`${error}`);
+      }
+    });
+  }
+
   componentDidMount() {
     this.fetchAssessment();
     this.fetchQuestions();
   }
 
   render() {
-    const { loading, errorMessage, questions, question, selectedOption } = this.state;
+    const { loading, errorMessage, questions, assessment_questions, selectedOption } = this.state;
     return (
       <React.Fragment>
         <Navigation />
@@ -130,13 +181,14 @@ class AddQuestion extends Component {
           <div className="main-content">
             <div className="container">
               <div className="center-div">
+              <h3>Edit Assessment</h3>
                 <form
                   onSubmit={this.postAssessment}
                   className="form-horizontal"
                 >
                   <div className="form-group">
                     <label className="col-lg-8 adjust-input control-label">
-                      Assessment name
+                      Name
                     </label>
                     <div className="col-lg-12">
                       <input
@@ -182,7 +234,22 @@ class AddQuestion extends Component {
                     </button>
                     </div>
                     <div className="col-md-12">
-                    <div className="display_questions">{question}</div>
+                    <div className="">
+                      <ul className="">
+                        {assessment_questions.map(assessment_question => (
+                          <li key={assessment_question.id} className="question_options w-100">
+                            <i
+                            onClick={() => {
+                              this.removeAnswerQuestion(assessment_question.id);
+                            }}
+                            style={{ cursor: "pointer", color: "red" }}
+                            className="fa fa-trash-o pull-right"
+                          />
+                          {assessment_question.question.name}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                     </div>
                   </div>
                   <p style={{ color: "red" }}>{errorMessage}</p>
@@ -192,7 +259,7 @@ class AddQuestion extends Component {
                         onClick={this.postAssessment}
                         className="form-control btn-submit"
                       >
-                        {loading ? <Spinner /> : "Create"}
+                        {loading ? <Spinner /> : "Update"}
                       </button>
                     </div>
                   </div>

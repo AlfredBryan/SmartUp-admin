@@ -213,7 +213,6 @@ class EditQuestion extends Component {
         }
       )
       .then(res => {
-        console.log(res);
         if (res.statusText === "No Content") {
           this.fetchQuestion();
           this.handleClick();

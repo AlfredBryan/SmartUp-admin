@@ -102,7 +102,7 @@ class Sidebar extends Component {
             <li>
               <NavLink activeClassName="active" to="/institutions">
                 <i className="fa fa-university" />
-                <p>Institution</p>
+                <p>Institutions</p>
               </NavLink>
             </li>
             <li>
@@ -114,7 +114,7 @@ class Sidebar extends Component {
             <li>
               <NavLink activeClassName="active" to="/assessment">
                 <i className="fa fa-book" />
-                <p>Assessment</p>
+                <p>Assessments</p>
               </NavLink>
             </li>
             {ward_button}

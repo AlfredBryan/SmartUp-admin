@@ -9,13 +9,6 @@
 
 }
 
-.display_questions {
-    text-align: center;
-    background-color: lightgrey;
-    padding: 0.5em;
-    border-radius: 2px;
-}
-
 .assessment_body li {
     overflow: hidden;
     list-style: none;

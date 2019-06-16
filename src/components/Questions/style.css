@@ -58,6 +58,7 @@ div.option_list {
     padding: 2em 2em 0em;
     background-color: white;
     margin: 1em auto;
+    box-shadow: 0 0.3px 0.3px 0 rgba(0, 0, 0, 0.2);
 }
 
 .container.questions {
@@ -113,4 +114,8 @@ blockquote {
     font-size: 1.5em;
     cursor: pointer;
     padding: 0em 1em
+}
+
+ul.assessment_questions {
+    list-style-type: none;
 }

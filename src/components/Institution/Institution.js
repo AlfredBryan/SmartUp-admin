@@ -89,6 +89,7 @@ class Institution extends Component {
             <div className="container">
               <div>
                 <div className="row push-down">
+                  <h3>Institutions</h3>
                   <div className="col-xs-12 col-sm-8 col-md-8">
                     <div className="row">
                       {institutions.map(inst => (

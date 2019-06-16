@@ -10,6 +10,9 @@ import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
+import EditIcon from "@material-ui/icons/Edit";
+import Fab from "@material-ui/core/Fab";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const styles = theme => ({
   container: {
@@ -150,13 +153,18 @@ class Questions extends Component {
           />
           <div className="main-content">
             <div className="container questions">
+              <h3>Questions</h3>
               {questions.map(question => (
                 <div key={question.id} className="toggle-question">
                   <Collapsible className="question" trigger={question.name}>
+                  <Link to={`/edit_question/${question.id}`} className="pull-right">
+                  <Tooltip title="Edit" aria-label="Edit">
+                    <Fab color="primary">
+                      <EditIcon />
+                    </Fab>
+                  </Tooltip>
+                  </Link>
                   <blockquote>{question.description}</blockquote>
-                    <Link to={`/edit_question/${question.id}`}>
-                      <i className="fa fa-edit question-button pull-right" />
-                    </Link>
                     <div>
                       {question.answer_options.map(option => (
                         <ul className="question_options" key={option.id}>

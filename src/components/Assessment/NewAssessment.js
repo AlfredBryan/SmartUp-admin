@@ -72,9 +72,11 @@ class NewAssessment extends Component {
                   onSubmit={this.postAssessment}
                   className="form-horizontal"
                 >
+                  <h3>New Assessment</h3>
+                  <hr></hr>
                   <div className="form-group">
                     <label className="col-lg-8 adjust-input control-label">
-                      Assessment name:
+                      Name
                     </label>
                     <div className="col-lg-12">
                       <input
@@ -89,7 +91,7 @@ class NewAssessment extends Component {
                   </div>
                   <div className="form-group">
                     <label className="col-lg-8 adjust-input control-label">
-                      Description:
+                      Description
                     </label>
                     <div className="col-lg-12">
                       <textarea

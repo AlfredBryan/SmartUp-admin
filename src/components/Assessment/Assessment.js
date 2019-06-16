@@ -37,6 +37,7 @@ class Assessment extends Component {
         <Navigation />
         <div className="main-content">
           <div className="container">
+            <h3>Assessments</h3>
             {assessment.map(ass => (
               <ul className="assessment_body" key={ass.id}>
                 <Link to={`/assessment/${ass.id}`}>
