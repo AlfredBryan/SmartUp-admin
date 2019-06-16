@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 import PropTypes from "prop-types";
@@ -106,6 +106,7 @@ class Institution extends Component {
                               {inst.logo_url ? (
                                 <img
                                   className="institution_logo"
+                                  alt="institution_logo"
                                   src={inst.logo_url}
                                 />
                               ) : (

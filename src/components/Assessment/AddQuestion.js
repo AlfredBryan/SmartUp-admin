@@ -4,7 +4,7 @@ import "./style.css";
 import Navigation from "components/Navigation/Navigation";
 import Spinner from "components/hoc/spinner";
 import axios from "axios";
-import Select from 'react-select';
+import Select from "react-select";
 
 class AddQuestion extends Component {
   constructor(props) {
@@ -78,23 +78,80 @@ class AddQuestion extends Component {
 
   handleQuestionChange = selectedOption => {
     this.setState({ selectedOption });
-  }
+  };
 
   postQuestion = e => {
     e.preventDefault();
     const token = localStorage.getItem("token");
-    const { assessment_id, question, selectedOption } = this.state;
+    const { assessment_id, selectedOption } = this.state;
     if (selectedOption === null) {
       alert("Please select a question");
       this.setState({
         errorMessage: "Select a question"
       });
-    } else { 
-      axios.post(
-        `https://smart-up.herokuapp.com/api/v1/assessments/${assessment_id}/assessment_questions`,
+    } else {
+      axios
+        .post(
+          `https://smart-up.herokuapp.com/api/v1/assessments/${assessment_id}/assessment_questions`,
+          {
+            assessment_question: {
+              question_id: selectedOption.value.id,
+              assessment_id: assessment_id
+            }
+          },
+          {
+            headers: {
+              Authorization: token
+            }
+          }
+        )
+        .then(res => {
+          this.fetchAssessment();
+        })
+        .catch(error => {
+          if (error) {
+            alert(`${error}`);
+          }
+        });
+    }
+  };
+
+  questionOptions = questions => {
+    let options = [];
+    questions.map(item => options.push({ value: item, label: item.name }));
+    return options;
+  };
+
+  removeAnswerQuestion = question_id => {
+    const token = localStorage.getItem("token");
+    const { assessment_id } = this.state;
+    axios
+      .delete(
+        `https://smart-up.herokuapp.com/api/v1/assessments/${assessment_id}/assessment_questions/${question_id}`,
+
         {
-          assessment_question: {
-            question_id: selectedOption.value.id, assessment_id: assessment_id
+          headers: {
+            Authorization: token
+          }
+        }
+      )
+      .then(res => {
+        this.fetchAssessment();
+      });
+  };
+
+  updateAssessment = e => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+    const { name, description, assessment_id } = this.state;
+
+    axios
+      .put(
+        `https://smart-up.herokuapp.com/api/v1/assessments/${assessment_id}`,
+        {
+          assessment: {
+            name: name,
+            description: description
           }
         },
         {
@@ -111,61 +168,7 @@ class AddQuestion extends Component {
           alert(`${error}`);
         }
       });
-    }
   };
-
-  questionOptions = questions => {
-    let options = []
-    questions.map(item => 
-      options.push({value: item, label: item.name})
-    )
-    return options
-  }
-
-  removeAnswerQuestion = question_id => {
-    const token = localStorage.getItem("token");
-    const { assessment_id } = this.state;
-    axios.delete(
-      `https://smart-up.herokuapp.com/api/v1/assessments/${assessment_id}/assessment_questions/${question_id}`,
-      
-      {
-        headers: {
-          Authorization: token
-        }
-      }
-    )
-    .then(res => {
-      this.fetchAssessment();
-    });
-  }
-
-  updateAssessment = e => {
-    e.preventDefault();
-    const token = localStorage.getItem("token");
-    const { name, description, assessment_id } = this.state;
-
-    axios.put(
-      `https://smart-up.herokuapp.com/api/v1/assessments/${assessment_id}`,
-      {
-        assessment: {
-          name: name, description: description
-        }
-      },
-      {
-        headers: {
-          Authorization: token
-        }
-      }
-    )
-    .then(res => {
-      this.fetchAssessment();
-    })
-    .catch(error => {
-      if (error) {
-        alert(`${error}`);
-      }
-    });
-  }
 
   componentDidMount() {
     this.fetchAssessment();
@@ -173,7 +176,13 @@ class AddQuestion extends Component {
   }
 
   render() {
-    const { loading, errorMessage, questions, assessment_questions, selectedOption } = this.state;
+    const {
+      loading,
+      errorMessage,
+      questions,
+      assessment_questions,
+      selectedOption
+    } = this.state;
     return (
       <React.Fragment>
         <Navigation />
@@ -181,7 +190,7 @@ class AddQuestion extends Component {
           <div className="main-content">
             <div className="container">
               <div className="center-div">
-              <h3>Edit Assessment</h3>
+                <h3>Edit Assessment</h3>
                 <form
                   onSubmit={this.postAssessment}
                   className="form-horizontal"
@@ -219,37 +228,44 @@ class AddQuestion extends Component {
                   </div>
                   <div className="form-group">
                     <div className="col-md-12">
-                    <Select
-                    className="col-md-8"
-                    class="form-control m-bot15"
-                    value={selectedOption}
-                    onChange={this.handleQuestionChange}
-                    name="question"
-                    options={this.questionOptions(questions)}
-                    required
-                    >
-                    </Select>
-                    <button onClick={this.postQuestion} className="option_btn">
-                      Add Question
-                    </button>
+                      <Select
+                        className="col-md-8"
+                        class="form-control m-bot15"
+                        value={selectedOption}
+                        onChange={this.handleQuestionChange}
+                        name="question"
+                        options={this.questionOptions(questions)}
+                        required
+                      />
+                      <button
+                        onClick={this.postQuestion}
+                        className="option_btn"
+                      >
+                        Add Question
+                      </button>
                     </div>
                     <div className="col-md-12">
-                    <div className="">
-                      <ul className="">
-                        {assessment_questions.map(assessment_question => (
-                          <li key={assessment_question.id} className="question_options w-100">
-                            <i
-                            onClick={() => {
-                              this.removeAnswerQuestion(assessment_question.id);
-                            }}
-                            style={{ cursor: "pointer", color: "red" }}
-                            className="fa fa-trash-o pull-right"
-                          />
-                          {assessment_question.question.name}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                      <div className="">
+                        <ul className="">
+                          {assessment_questions.map(assessment_question => (
+                            <li
+                              key={assessment_question.id}
+                              className="question_options w-100"
+                            >
+                              <i
+                                onClick={() => {
+                                  this.removeAnswerQuestion(
+                                    assessment_question.id
+                                  );
+                                }}
+                                style={{ cursor: "pointer", color: "red" }}
+                                className="fa fa-trash-o pull-right"
+                              />
+                              {assessment_question.question.name}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
                   </div>
                   <p style={{ color: "red" }}>{errorMessage}</p>

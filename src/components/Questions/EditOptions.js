@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Navigation from "components/Navigation/Navigation";
-import Spinner from "components/hoc/spinner";
+// import Spinner from "components/hoc/spinner";
 import axios from "axios";
 import Checkbox from "@material-ui/core/Checkbox";
 import "./style.css";
@@ -131,7 +131,7 @@ class EditOptions extends Component {
   };
 
   render() {
-    const { errorMessage, loading, question, correct, content } = this.state;
+    const { errorMessage, question, correct, content } = this.state;
     console.log(correct);
     return (
       <React.Fragment>

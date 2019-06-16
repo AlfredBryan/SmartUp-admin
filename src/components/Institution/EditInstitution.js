@@ -134,7 +134,7 @@ class EditInstitution extends Component {
   }
 
   render() {
-    const { loading, open, response, institution_id } = this.state;
+    const { loading, open, response  } = this.state;
     const { classes } = this.props;
     return (
       <div>

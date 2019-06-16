@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import swal from "sweetalert";
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -58,7 +57,6 @@ class UpdateUser extends Component {
       date_of_birth: new Date(),
       sex: "male",
       level: "1",
-      image: "",
       open: false,
       loading: false,
       errorMessage: ""

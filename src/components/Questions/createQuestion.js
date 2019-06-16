@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import Navigation from "components/Navigation/Navigation";
 import Spinner from "components/hoc/spinner";
 import axios from "axios";
-import AnswerOptions from "./AnswerOptions";
-
 import "./style.css";
 
 class createQuestion extends Component {
@@ -29,14 +27,6 @@ class createQuestion extends Component {
     e.preventDefault();
     const token = localStorage.getItem("token");
     let { name, description, topic_id } = this.state;
-
-    const answer_options_attributes = this.state.options.reduce(
-      (objAccumulator, option, index) => {
-        objAccumulator[index] = option;
-        return objAccumulator;
-      },
-      {}
-    );
 
     if (name.length < 4 || description.length < 10) {
       alert("Please Enter fields");
@@ -100,7 +90,7 @@ class createQuestion extends Component {
   };
 
   render() {
-    const { errorMessage, loading, options } = this.state;
+    const { errorMessage, loading } = this.state;
     return (
       <React.Fragment>
         <Navigation />

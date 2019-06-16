@@ -3,7 +3,6 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 import Navigation from "components/Navigation/Navigation";
-import { error } from "util";
 
 class showTopic extends Component {
   constructor(props) {

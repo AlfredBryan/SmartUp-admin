@@ -3,7 +3,7 @@ import axios from "axios";
 import Navigation from "components/Navigation/Navigation";
 
 import Collapsible from "react-collapsible";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 //popup notification
 import Button from "@material-ui/core/Button";
@@ -70,7 +70,6 @@ class Questions extends Component {
   componentDidMount() {
     this.fetchQuestions();
   }
-
 
   fetchQuestions = () => {
     const token = localStorage.getItem("token");
@@ -157,14 +156,17 @@ class Questions extends Component {
               {questions.map(question => (
                 <div key={question.id} className="toggle-question">
                   <Collapsible className="question" trigger={question.name}>
-                  <Link to={`/edit_question/${question.id}`} className="pull-right">
-                  <Tooltip title="Edit" aria-label="Edit">
-                    <Fab color="primary">
-                      <EditIcon />
-                    </Fab>
-                  </Tooltip>
-                  </Link>
-                  <blockquote>{question.description}</blockquote>
+                    <Link
+                      to={`/edit_question/${question.id}`}
+                      className="pull-right"
+                    >
+                      <Tooltip title="Edit" aria-label="Edit">
+                        <Fab color="primary">
+                          <EditIcon />
+                        </Fab>
+                      </Tooltip>
+                    </Link>
+                    <blockquote>{question.description}</blockquote>
                     <div>
                       {question.answer_options.map(option => (
                         <ul className="question_options" key={option.id}>
@@ -178,9 +180,12 @@ class Questions extends Component {
                             </Link>
 
                             <i
-                            onClick={() => {
-                              this.deleteOption(option.question_id, option.id);
-                            }}
+                              onClick={() => {
+                                this.deleteOption(
+                                  option.question_id,
+                                  option.id
+                                );
+                              }}
                               style={{ cursor: "pointer", color: "red" }}
                               className="fa fa-trash-o pull-right"
                             />
