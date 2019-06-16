@@ -1,7 +1,6 @@
-.assess_body {
+.assessment_body {
     padding: 0em;
     margin: 0em 1em 1em;
-    width: 40em;
 }
 
 .asses_name {
@@ -10,15 +9,14 @@
 
 }
 
-.display_quesn {
+.display_questions {
     text-align: center;
-    background-color: rgb(39, 14, 14);
-    color: white;
+    background-color: lightgrey;
     padding: 0.5em;
-    border-radius: 4px;
+    border-radius: 2px;
 }
 
-.assess_body li {
+.assessment_body li {
     overflow: hidden;
     list-style: none;
     padding: 1em;

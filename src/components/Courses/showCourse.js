@@ -29,7 +29,6 @@ class showCourse extends Component {
         }
       })
       .then(res => {
-        console.log(res);
         this.setState({
           course: res.data,
           topics: res.data.topics

@@ -32,23 +32,20 @@ class Assessment extends Component {
   };
   render() {
     const { assessment } = this.state;
-    console.log(assessment);
     return (
       <React.Fragment>
         <Navigation />
         <div className="main-content">
           <div className="container">
             {assessment.map(ass => (
-              <ul className="assess_body" key={ass.id}>
-                <Link to={`/edit_assessment/${ass.id}`}>
+              <ul className="assessment_body" key={ass.id}>
+                <Link to={`/assessment/${ass.id}`}>
                   <li className="display_asses">
                     <span className="asses_name">
-                      <strong style={{ padding: "2px" }}>Name:</strong>
-                      {ass.name}
+                      <strong>{ass.name}</strong>
                     </span>
                     <span className="pull-right">
-                      <strong style={{ padding: "2px" }}>Description:</strong>
-                      {ass.description}
+                      <strong>Course: {ass.course.name}</strong>
                     </span>
                   </li>
                 </Link>

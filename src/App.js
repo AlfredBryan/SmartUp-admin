@@ -30,6 +30,7 @@ import Assessment from "components/Assessment/Assessment";
 import EditOptions from "components/Questions/EditOptions";
 import NewAssessment from "components/Assessment/NewAssessment";
 import AddQuestion from "components/Assessment/AddQuestion";
+import showAssessment from "components/Assessment/showAssessment";
 
 class App extends Component {
   render() {
@@ -46,14 +47,11 @@ class App extends Component {
           <Route exact path="/questions" component={Questions} />
           <Route exact path="/new_question/:id" component={createQuestion} />
           <Route exact path="/edit_question/:id" component={EditQuestion} />
-          <Route
-            exact
-            path="/edit_option/:question_id/:id"
-            component={EditOptions}
-          />
-          <Route exact path="/assessment/" component={Assessment} />
+          <Route exact path="/edit_option/:question_id/:id"component={EditOptions}/>
+          <Route exact path="/assessment" component={Assessment} />
           <Route exact path="/new_assessment/:id" component={NewAssessment} />
           <Route exact path="/edit_assessment/:id" component={AddQuestion} />
+          <Route exact path="/assessment/:id" component={showAssessment} />
           <Route
             exact
             path="/courses/:course_slug/topics/:id"

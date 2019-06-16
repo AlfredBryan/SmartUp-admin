@@ -4,6 +4,7 @@ import "./style.css";
 import Navigation from "components/Navigation/Navigation";
 import Spinner from "components/hoc/spinner";
 import axios from "axios";
+import Select from 'react-select';
 
 class AddQuestion extends Component {
   constructor(props) {
@@ -15,7 +16,8 @@ class AddQuestion extends Component {
       name: "",
       description: "",
       questions: [],
-      question: ""
+      question: "",
+      selectedOption: null
     };
   }
 
@@ -54,7 +56,6 @@ class AddQuestion extends Component {
         }
       )
       .then(res => {
-        console.log(res);
         if (res.status === 200 && res.statusText === "OK") {
           this.setState({
             name: res.data.name,
@@ -73,15 +74,25 @@ class AddQuestion extends Component {
     });
   };
 
+  handleQuestionChange = selectedOption => {
+    this.setState({ selectedOption });
+  }
+
   postQuestion = e => {
+    e.preventDefault();
     const token = localStorage.getItem("token");
-    const { assessment_id, question } = this.state;
-    axios
-      .post(
-        `https://smart-up.herokuapp.com/api/v1/assessments/${assessment_id}/assessment_question`,
+    const { assessment_id, question, selectedOption } = this.state;
+    if (selectedOption === null) {
+      alert("Please select a question");
+      this.setState({
+        errorMessage: "Select a question"
+      });
+    } else { 
+      axios.post(
+        `https://smart-up.herokuapp.com/api/v1/assessments/${assessment_id}/assessment_questions`,
         {
-          assessment: {
-            question
+          assessment_question: {
+            question_id: selectedOption.value.id, assessment_id: assessment_id
           }
         },
         {
@@ -92,8 +103,18 @@ class AddQuestion extends Component {
       )
       .then(res => {
         console.log(res);
+        this.fetchAssessment();
       });
+    }
   };
+
+  questionOptions = questions => {
+    let options = []
+    questions.map(item => 
+      options.push({value: item, label: item.name})
+    )
+    return options
+  }
 
   componentDidMount() {
     this.fetchAssessment();
@@ -101,8 +122,7 @@ class AddQuestion extends Component {
   }
 
   render() {
-    const { loading, errorMessage, questions, question } = this.state;
-    console.log(question);
+    const { loading, errorMessage, questions, question, selectedOption } = this.state;
     return (
       <React.Fragment>
         <Navigation />
@@ -116,7 +136,7 @@ class AddQuestion extends Component {
                 >
                   <div className="form-group">
                     <label className="col-lg-8 adjust-input control-label">
-                      Assessment name:
+                      Assessment name
                     </label>
                     <div className="col-lg-12">
                       <input
@@ -131,7 +151,7 @@ class AddQuestion extends Component {
                   </div>
                   <div className="form-group">
                     <label className="col-lg-8 adjust-input control-label">
-                      Description:
+                      Description
                     </label>
                     <div className="col-lg-12">
                       <textarea
@@ -146,32 +166,25 @@ class AddQuestion extends Component {
                     </div>
                   </div>
                   <div className="form-group">
-                    <label className="col-lg-2 adjust-input control-label">
-                      Questions:
-                    </label>
-                    <div className="col-lg-5">
-                      <select
-                        value={question}
-                        class="form-control m-bot15"
-                        onChange={this.handleChange}
-                        name="question"
-                        required
-                      >
-                        <option value="" disabled selected>
-                          --Select--
-                        </option>
-                        {questions.map(q => (
-                          <option key={q.id} value={q.name}>
-                            {q.name}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
+                    <div className="col-md-12">
+                    <Select
+                    className="col-md-8"
+                    class="form-control m-bot15"
+                    value={selectedOption}
+                    onChange={this.handleQuestionChange}
+                    name="question"
+                    options={this.questionOptions(questions)}
+                    required
+                    >
+                    </Select>
                     <button onClick={this.postQuestion} className="option_btn">
                       Add Question
                     </button>
+                    </div>
+                    <div className="col-md-12">
+                    <div className="display_questions">{question}</div>
+                    </div>
                   </div>
-                  <div className="display_quesn">{question}</div>
                   <p style={{ color: "red" }}>{errorMessage}</p>
                   <div className="form-group">
                     <div className="col-lg-12">

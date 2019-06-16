@@ -46,12 +46,8 @@ class AnswerOption extends Component {
         }
       )
       .then(res => {
-        console.log(res);
-        // populate fields
         this.setState({
           question: res.data
-          // name: this.Capitalize(res.data.name),
-          // description: this.Capitalize(res.data.description)
         });
       });
   };
@@ -113,17 +109,6 @@ class AnswerOption extends Component {
     });
   };
 
-  // handleCreateOptions = e => {
-  //   e.preventDefault();
-  //   this.updateOptions(
-  //     this.state.answer_options.concat({
-  //       content: this.state.content,
-  //       correct: false
-  //     })
-  //   );
-  //   this.postAnswerOptions();
-  // };
-
   toggle = e => {
     this.setState({
       correct: !this.state.correct
@@ -132,7 +117,6 @@ class AnswerOption extends Component {
 
   render() {
     const { errorMessage, loading, question, correct, content } = this.state;
-    console.log(correct);
     return (
       <React.Fragment>
         <Navigation />
@@ -142,7 +126,7 @@ class AnswerOption extends Component {
               <form onSubmit={this.postQuestion} className="form-horizontal">
                 <div className="form-group">
                   <label className="col-lg-8 adjust-input control-label">
-                    Question:
+                    Question
                   </label>
                   <div className="col-lg-10">
                     <input
@@ -157,7 +141,7 @@ class AnswerOption extends Component {
                 </div>
                 <div className="form-group">
                   <label className="col-lg-8 adjust-input control-label">
-                    Description:
+                    Description
                   </label>
                   <div className="col-lg-10">
                     <textarea
