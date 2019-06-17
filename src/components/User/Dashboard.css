@@ -45,14 +45,9 @@
 .card {
     box-shadow: 0 0.115px 0.115px 0 rgba(0, 0, 0, 0);
     transition: 0.3s;
-    height: 140px;
-    width: 200px;
+    padding: 3em 2em;
     background: #ffffff;
     text-align: center !important;
-}
-
-.card i {
-    margin-left: 90px;
 }
 
 .card:hover {
@@ -425,10 +420,6 @@
         width: 20em !important;
         padding: 0.5em;
         margin-left: 0.7em !important;
-    }
-
-    .card i {
-        margin-left: 2.7em !important;
     }
 
     #family-card i {

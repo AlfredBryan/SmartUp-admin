@@ -90,18 +90,11 @@ class Institution extends Component {
               <div>
                 <div className="row push-down">
                   <h3>Institutions</h3>
-                  <div className="col-xs-12 col-sm-8 col-md-8">
-                    <div className="row">
+                  <div className="row" id="institutions_home">
                       {institutions.map(inst => (
-                        <div
-                          key={inst.id}
-                          className="card family-member-info text-center col-xs-12 col-sm-3 col-md-3"
-                          id="family-card"
-                        >
-                          <Link
-                            to={`/institutions/${inst.slug}`}
-                            className="display-uni"
-                          >
+                        <div className="col-md-4">
+                          <div key={inst.id} className="card text-center">
+                          <Link to={`/institutions/${inst.slug}`} className="display-uni">
                             <div>
                               {inst.logo_url ? (
                                 <img
@@ -112,7 +105,7 @@ class Institution extends Component {
                               ) : (
                                 <i className="fa fa-university" />
                               )}
-                              <h5>{inst.name}</h5>
+                              <h5 className="institution_name">{inst.name}</h5>
                               <div className="uni-text">
                                 <span>
                                   <p>Motto: {inst.motto}</p>
@@ -121,9 +114,9 @@ class Institution extends Component {
                             </div>
                           </Link>
                         </div>
+                        </div>
                       ))}
                     </div>
-                  </div>
                 </div>
               </div>
             </div>

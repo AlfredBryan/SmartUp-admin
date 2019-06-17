@@ -38,37 +38,25 @@ class Assessment extends Component {
         <div className="main-content">
           <div className="container">
             <div className="row push-down">
-              <h3>Assessment</h3>
-              <div className="col-xs-12 col-sm-8 col-md-8">
-                <div className="row">
+              <h3>Assessments</h3>
+              <div className="row" id="assessments_home">
                   {assessment.map(ass => (
-                    <div
-                      key={ass.id}
-                      className="card family-member-info text-center col-xs-12 col-sm-3 col-md-3"
-                      id="family-card"
-                    >
+                    <div className="col-md-4">
+                      <div key={ass.id} className="card">
                       <Link
                         to={`/assessment/${ass.id}`}
                         className="display-uni"
                       >
-                        <div>
-                          <strong>
-                            {ass.name}
-                          </strong>
-                          <div
-                            style={{ marginTop: "2em" }}
-                            className="ass-text"
-                          >
-                            <span>
-                              <strong>Course: {ass.course.name}</strong>
-                            </span>
-                          </div>
-                        </div>
+                        <i className="fa fa-vcard-o assessment_logo"/>
+                      <h6 className="assessment_name">{ass.name}</h6>
+                      <p className="assessment_course_name">
+                        Course: {ass.course.name}
+                      </p>
                       </Link>
+                    </div>
                     </div>
                   ))}
                 </div>
-              </div>
             </div>
           </div>
         </div>

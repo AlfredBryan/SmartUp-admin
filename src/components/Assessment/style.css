@@ -17,3 +17,45 @@
     background-color: white;
     box-shadow: 0 0.3px 0.3px 0 rgba(0, 0, 0, 0.2);
 }
+
+#assessments_home {
+    margin-top: 2em;
+}
+
+#assessments_home .card {
+    padding: 3em 2em;
+    box-shadow: 0 0.3px 0.3px 0 rgba(0, 0, 0, 0.2);
+}
+
+#assessments_home .card .fa {
+    width: auto;
+}
+
+#assessments_home .assessment_logo {
+    font-size: 3em;
+    color: #0a306d;
+    margin: 0 auto;
+}
+
+#assessments_home .assessment_name {
+    margin-top: 1em;
+}
+
+#assessments_home .assessment_course_name {
+    color: grey;
+    font-size: 12px;
+}
+
+#institutions_home .card {
+ text-transform: capitalize;
+}
+
+#institutions_home .card i {
+    font-size: 5em;
+    width: auto;
+    margin-bottom: 0.43em; 
+}
+
+#institutions_home .card .institution_logo {
+    width: 10em;
+}

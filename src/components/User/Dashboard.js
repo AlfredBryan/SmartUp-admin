@@ -174,7 +174,7 @@ class Dashboard extends Component {
                 </div>
               </div>
               <div className="col-xs-12 col-sm-8 col-md-8">
-                <div className="card-length">
+                {/* <div className="card-length">
                   <div className="flex-div">
                     <div className="card">
                       <i
@@ -219,7 +219,7 @@ class Dashboard extends Component {
                       </p>
                     </div>
                   </div>
-                </div>
+                </div> */}
                 <div className="ward-section">
                   <h5 style={{ marginBottom: "20px" }}>My Wards</h5>
                   <div className="wards">
