@@ -37,21 +37,39 @@ class Assessment extends Component {
         <Navigation />
         <div className="main-content">
           <div className="container">
-            <h3>Assessments</h3>
-            {assessment.map(ass => (
-              <ul className="assessment_body" key={ass.id}>
-                <Link to={`/assessment/${ass.id}`}>
-                  <li className="display_asses">
-                    <span className="asses_name">
-                      <strong>{ass.name}</strong>
-                    </span>
-                    <span className="pull-right">
-                      <strong>Course: {ass.course.name}</strong>
-                    </span>
-                  </li>
-                </Link>
-              </ul>
-            ))}
+            <div className="row push-down">
+              <h3>Assessment</h3>
+              <div className="col-xs-12 col-sm-8 col-md-8">
+                <div className="row">
+                  {assessment.map(ass => (
+                    <div
+                      key={ass.id}
+                      className="card family-member-info text-center col-xs-12 col-sm-3 col-md-3"
+                      id="family-card"
+                    >
+                      <Link
+                        to={`/assessment/${ass.id}`}
+                        className="display-uni"
+                      >
+                        <div>
+                          <strong>
+                            {ass.name}
+                          </strong>
+                          <div
+                            style={{ marginTop: "2em" }}
+                            className="ass-text"
+                          >
+                            <span>
+                              <strong>Course: {ass.course.name}</strong>
+                            </span>
+                          </div>
+                        </div>
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </React.Fragment>
