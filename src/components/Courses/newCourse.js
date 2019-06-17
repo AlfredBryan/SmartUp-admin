@@ -103,7 +103,7 @@ class newCourse extends Component {
                 <form onSubmit={this.handleSubmit} className="form-horizontal">
                   <div className="form-group">
                     <label className="col-lg-8 adjust-input control-label">
-                      Course name:
+                      Name
                     </label>
                     <div className="col-lg-12">
                       <input
@@ -118,7 +118,7 @@ class newCourse extends Component {
                   </div>
                   <div className="form-group">
                     <label className="col-lg-8 adjust-input control-label">
-                      Description:
+                      Introduction
                     </label>
                     <div className="col-lg-12">
                       <textarea
@@ -127,7 +127,7 @@ class newCourse extends Component {
                         name="description"
                         type="text"
                         value={this.state.description}
-                        placeholder="Description ..."
+                        placeholder="Introduction ..."
                         onChange={this.handleChange}
                       />
                     </div>

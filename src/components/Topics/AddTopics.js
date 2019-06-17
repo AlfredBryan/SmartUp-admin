@@ -10,7 +10,6 @@ class AddTopic extends Component {
     this.state = {
       name: "",
       description: "",
-      rank: "",
       active: false,
       loading: false,
       course_id: this.props.match.params.slug,
@@ -26,7 +25,7 @@ class AddTopic extends Component {
   postTopic = e => {
     e.preventDefault();
     const token = localStorage.getItem("token");
-    const { name, description, rank, active, lecture_type } = this.state;
+    const { name, description, active, lecture_type } = this.state;
 
     if (name.length < 4 || description.length < 10) {
       this.setState({
@@ -42,7 +41,6 @@ class AddTopic extends Component {
             topic: {
               name,
               description,
-              rank,
               active,
               lecture_type
             }
@@ -97,7 +95,7 @@ class AddTopic extends Component {
                 <form onSubmit={this.handleSubmit} className="form-horizontal">
                   <div className="form-group">
                     <label className="col-lg-8 adjust-input control-label">
-                      Topic name:
+                      Topic
                     </label>
                     <div className="col-lg-12">
                       <input
@@ -112,7 +110,7 @@ class AddTopic extends Component {
                   </div>
                   <div className="form-group">
                     <label className="col-lg-8 adjust-input control-label">
-                      Description:
+                      Content
                     </label>
                     <div className="col-lg-12">
                       <textarea
@@ -128,7 +126,7 @@ class AddTopic extends Component {
                   </div>
                   <div className="form-group">
                     <label className="col-lg-8 adjust-input control-label">
-                      Active:
+                      Active
                     </label>
                     <div className="col-lg-12">
                       <Checkbox
@@ -141,33 +139,12 @@ class AddTopic extends Component {
                   </div>
                   <div className="form-group">
                     <label className="col-lg-8 adjust-input control-label">
-                      Lecture Type:
+                      Lecture Type
                     </label>
                     <div className="col-lg-12">
                       <select className="form-control" name="" id="">
                         {["text", "video"].map(lt => (
                           <option value={lt}>{this.Capitalize(lt)}</option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <label className="col-lg-8 adjust-input control-label">
-                      Rank:
-                    </label>
-                    <div className="col-lg-12">
-                      <select
-                        className="form-control"
-                        name="rank"
-                        value={this.state.rank}
-                        onChange={this.handleChange}
-                        id=""
-                      >
-                        {Array.from(
-                          new Array(12),
-                          (val, index) => index + 1
-                        ).map(rank => (
-                          <option value={rank}> Rank {rank}</option>
                         ))}
                       </select>
                     </div>

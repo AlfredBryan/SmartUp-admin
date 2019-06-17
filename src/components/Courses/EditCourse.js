@@ -13,9 +13,28 @@ class EditCourse extends Component {
       description: "",
       active: false,
       loading: false,
-      institution_id: this.props.match.params.slug
+      course_slug: this.props.match.params.slug,
+      institution_id: this.props.match.params.slug,
+      course: ""
     };
   }
+
+  fetchCourse = () => {
+    const token = localStorage.getItem("token");
+    axios
+      .get(`https://smart-up.herokuapp.com/api/v1/courses/${this.state.course_slug}`, 
+      
+      {
+        headers: {
+          Authorization: token
+        }
+      })
+      .then(res => {
+        this.setState({
+          course: res.data
+        });
+      });
+  };
 
   postCourse = e => {
     e.preventDefault();
@@ -49,7 +68,6 @@ class EditCourse extends Component {
         })
       )
       .then(res => {
-        console.log(res);
         this.setState({
           loading: false,
           course: res.data
@@ -76,13 +94,17 @@ class EditCourse extends Component {
 
   toggle = e => {
     this.setState({
-      active: !this.state.active
+      active: !this.state.course.active
     });
   };
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
+
+  componentDidMount() {
+    this.fetchCourse();
+  }
 
   render() {
     const { loading } = this.state;
@@ -91,18 +113,19 @@ class EditCourse extends Component {
         <Navigation />
         <div className="main-content">
           <div className="container">
+            <h3>Edit Course</h3>
             <div className="center-div">
               <form onSubmit={this.handleSubmit} className="form-horizontal">
                 <div className="form-group">
                   <label className="col-lg-8 adjust-input control-label">
-                    Course name:
+                    Name
                   </label>
                   <div className="col-lg-12">
                     <input
                       className="form-control"
                       type="text"
                       name="name"
-                      value={this.state.name}
+                      value={this.state.course.name}
                       placeholder="Course Name ..."
                       onChange={this.handleChange}
                     />
@@ -110,7 +133,7 @@ class EditCourse extends Component {
                 </div>
                 <div className="form-group">
                   <label className="col-lg-8 adjust-input control-label">
-                    Description:
+                    Introduction
                   </label>
                   <div className="col-lg-12">
                     <textarea
@@ -118,8 +141,8 @@ class EditCourse extends Component {
                       className="form-control"
                       name="description"
                       type="text"
-                      value={this.state.description}
-                      placeholder="Description ..."
+                      value={this.state.course.description}
+                      placeholder="Introduction..."
                       onChange={this.handleChange}
                     />
                   </div>
@@ -130,9 +153,9 @@ class EditCourse extends Component {
                   </label>
                   <div className="col-lg-12">
                     <Checkbox
-                      checked={this.state.active}
+                      checked={this.state.course.active}
                       onChange={this.toggle}
-                      value={this.state.active}
+                      value={(this.state.course.active || "").toString()}
                       name="active"
                     />
                   </div>
@@ -143,7 +166,7 @@ class EditCourse extends Component {
                       onClick={this.postCourse}
                       className="form-control btn-submit"
                     >
-                      {loading ? <Spinner /> : "Create"}
+                      {loading ? <Spinner /> : "Update"}
                     </button>
                   </div>
                 </div>

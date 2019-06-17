@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import "./course.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import EditIcon from "@material-ui/icons/Edit";
+import Fab from "@material-ui/core/Fab";
+import Tooltip from "@material-ui/core/Tooltip";
 
 import Navigation from "components/Navigation/Navigation";
 
@@ -44,9 +47,7 @@ class showCourse extends Component {
         <div className="main-content">
           <div className="course_n_topics">
             <div className="align-course">
-              <div>
-                <h3 className="course-name">{course.name}</h3>
-                <span className="pull-right">
+            <span className="pull-right">
                 <Link to={`/new_assessment/${course.id}`}>
                     <button className="topics-button">Add Assessment</button>
                   </Link>
@@ -54,14 +55,18 @@ class showCourse extends Component {
                     <button className="topics-button">Add Topic</button>
                   </Link>
                   <Link to={`/update_course/${course_slug}`}>
-                    <button className="topics-button">Edit Course</button>
+                  <Tooltip title="Edit Course" aria-label="Edit Course">
+                      <Fab color="primary">
+                        <EditIcon />
+                      </Fab>
+                    </Tooltip>
                   </Link>
                 </span>
+              <div>
+                <h3 className="course-name">{course.name}</h3>
               </div>
-              <div className="topics-cover">
-                <ul>
-                  <li>
-                    <span>
+              <div className="topics-cover container">
+              <span className="pull-right">
                       {course.topics < 1 ? (
                         <span className="topics-span">No topics yet</span>
                       ) : (
@@ -70,34 +75,21 @@ class showCourse extends Component {
                         </span>
                       )}
                     </span>
-                  </li>
-                  <li>
-                    <span>Description</span>
-                    <span style={{ display: "flex" }}>
-                      <hr id="line-colored" /> <hr id="line-gray" />
-                    </span>
-                  </li>
-                  <li>
-                    <p style={{ textTransform: "capitalize" }}>
-                      {course.description}
-                    </p>
-                  </li>
-                  <span className="topic-head">Topics</span>
-                  <span style={{ display: "flex" }}>
-                    <hr id="line-colored" /> <hr id="line-gray" />
-                  </span>
-                  <li className="topic-listed">
-                    {topics.map(topic => (
-                      <Link
-                        to={`/courses/${course_slug}/topics/${topic.id}`}
-                        key={topic.id}
-                      >
+                <h4>Description</h4>
+
+                <blockquote>{course.description}</blockquote>
+                 <br/>     
+                <h4>Topics</h4>
+                <ul className="topic_list">
+                {topics.map(topic => (
+                      <Link to={`/courses/${course_slug}/topics/${topic.id}`} key={topic.id}>
+                        <li>
                         <div className="topic-card">
                           <span className="topic_name">{topic.name}</span>
                         </div>
+                        </li>
                       </Link>
-                    ))}
-                  </li>
+                  ))}
                 </ul>
               </div>
             </div>

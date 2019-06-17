@@ -41,14 +41,14 @@
 }
 
 .topics-cover {
-    display: inline-block;
+    margin-top: 2em;
     text-align: left;
-    width: 44.7em;
-    box-shadow: 0 0.3px 0.3px 0 rgba(0, 0, 0, 0.2);
     padding: 3rem;
-    background-color: #ffffff;
-    margin-top: 2rem;
     margin-left: 3em;
+}
+
+.topic_content {
+    margin-top: 3em;
 }
 
 
@@ -109,11 +109,7 @@
 
 .topics-cover li {
     list-style: none;
-}
-
-.topics-cover li:nth-child(2) {
-    padding-top: 2em;
-    font-size: 2.2em;
+    border: 1px solid lightgray
 }
 
 .topics-cover ul {
@@ -161,7 +157,6 @@
 }
 
 .course-listed {
-    width: 49em;
     padding: 0;
     height: 35em;
     overflow: scroll;
@@ -172,30 +167,6 @@
 .course-listed a {
     text-decoration: none !important;
     color: black;
-}
-
-.topic-listed {
-    width: inherit;
-    padding: 0;
-    height: 10em;
-    overflow: scroll;
-}
-
-.topic-listed a {
-    text-decoration: none !important;
-    color: black;
-}
-
-.topic-listed li {
-    list-style: none;
-    background-color: white;
-    padding: 1.25em !important;
-    margin-bottom: 0.2em !important;
-    text-transform: capitalize;
-}
-
-.topic-listed li:last-child {
-    margin-bottom: 0;
 }
 
 .continue span {

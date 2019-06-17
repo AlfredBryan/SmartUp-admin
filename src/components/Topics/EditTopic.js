@@ -10,7 +10,6 @@ class EditTopic extends Component {
     this.state = {
       name: "",
       description: "",
-      rank: "",
       active: false,
       loading: false,
       course_slug: this.props.match.params.course_slug,
@@ -19,6 +18,24 @@ class EditTopic extends Component {
       errorMessage: ""
     };
   }
+
+  fetchTopic = () => {
+    const token = localStorage.getItem("token");
+    const { topic_id, course_slug } = this.state;
+    axios
+      .get(`https://smart-up.herokuapp.com/api/v1/courses/${course_slug}/topics/${topic_id}`, 
+      
+      {
+        headers: {
+          Authorization: token
+        }
+      })
+      .then(res => {
+        this.setState({
+          name: res.data.name, description: res.data.description, active: res.data.active, lecture_type: res.data.lecture_type
+        });
+      });
+  };
 
   Capitalize = str => {
     return str.charAt(0).toUpperCase() + str.slice(1);
@@ -30,7 +47,6 @@ class EditTopic extends Component {
     const {
       name,
       description,
-      rank,
       active,
       lecture_type,
       course_slug,
@@ -49,7 +65,6 @@ class EditTopic extends Component {
             topic: {
               name,
               description,
-              rank,
               active,
               lecture_type
             }
@@ -64,7 +79,6 @@ class EditTopic extends Component {
           })
         )
         .then(res => {
-          console.log(res);
           if (res.status === 200) {
             this.setState({
               loading: false
@@ -89,37 +103,43 @@ class EditTopic extends Component {
   };
 
   handleChange = event => {
+console.log(event.target)
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  componentDidMount() {
+    this.fetchTopic();
+  }
+
   render() {
-    const { loading, errorMessage } = this.state;
+    const { loading, errorMessage, name, description, active, lecture_type } = this.state;
     return (
       <div>
         <Navigation />
         <div>
           <div className="main-content">
             <div className="container">
+              <h3>Edit Topic</h3>
               <div className="center-div">
                 <form onSubmit={this.editTopic} className="form-horizontal">
                   <div className="form-group">
                     <label className="col-lg-8 adjust-input control-label">
-                      Topic name:
+                      Topic
                     </label>
                     <div className="col-lg-12">
                       <input
                         className="form-control"
                         type="text"
                         name="name"
-                        value={this.state.name}
-                        placeholder="Topic Name ..."
+                        value={name}
+                        placeholder="Topic..."
                         onChange={this.handleChange}
                       />
                     </div>
                   </div>
                   <div className="form-group">
                     <label className="col-lg-8 adjust-input control-label">
-                      Description:
+                      Content
                     </label>
                     <div className="col-lg-12">
                       <textarea
@@ -127,54 +147,33 @@ class EditTopic extends Component {
                         className="form-control"
                         name="description"
                         type="text"
-                        value={this.state.description}
-                        placeholder="Description ..."
+                        value={description}
+                        placeholder="Content ..."
                         onChange={this.handleChange}
                       />
                     </div>
                   </div>
                   <div className="form-group">
                     <label className="col-lg-8 adjust-input control-label">
-                      Active:
+                      Active
                     </label>
                     <div className="col-lg-12">
                       <Checkbox
-                        checked={this.state.active}
+                        checked={active}
                         onChange={this.toggle}
-                        value={this.state.active}
+                        value={(active || "").toString()}
                         name="active"
                       />
                     </div>
                   </div>
                   <div className="form-group">
                     <label className="col-lg-8 adjust-input control-label">
-                      Lecture Type:
+                      Lecture Type
                     </label>
                     <div className="col-lg-12">
-                      <select className="form-control" name="" id="">
+                      <select className="form-control" name="" id="" value={lecture_type}>
                         {["text", "video"].map(lt => (
-                          <option value={lt}>{this.Capitalize(lt)}</option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <label className="col-lg-8 adjust-input control-label">
-                      Rank:
-                    </label>
-                    <div className="col-lg-12">
-                      <select
-                        className="form-control"
-                        name="rank"
-                        value={this.state.rank}
-                        onChange={this.handleChange}
-                        id=""
-                      >
-                        {Array.from(
-                          new Array(12),
-                          (val, index) => index + 1
-                        ).map(rank => (
-                          <option value={rank}> Rank {rank}</option>
+                          <option key={lt} value={lt}>{this.Capitalize(lt)}</option>
                         ))}
                       </select>
                     </div>
@@ -186,7 +185,7 @@ class EditTopic extends Component {
                         onClick={this.editTopic}
                         className="form-control btn-submit"
                       >
-                        {loading ? <Spinner /> : "Create"}
+                        {loading ? <Spinner /> : "Update"}
                       </button>
                     </div>
                   </div>

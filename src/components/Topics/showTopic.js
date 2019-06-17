@@ -3,6 +3,11 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 import Navigation from "components/Navigation/Navigation";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
+import Fab from "@material-ui/core/Fab";
+import Tooltip from "@material-ui/core/Tooltip";
+
 
 class showTopic extends Component {
   constructor(props) {
@@ -69,36 +74,30 @@ class showTopic extends Component {
       <div>
         <Navigation />
         <div className="main-content">
-          <div className="course_n_topics">
-            <div className="align-course">
-              <div>
-                <h3 className="course-name">{topic.name}</h3>
-                <span className="pull-right">
+          <div className="container">
+          <span className="pull-right">
                   <Link to={`/new_question/${topic_id}`}>
                     <button className="topics-button">Add Question</button>
                   </Link>
-                  <button onClick={this.deleteTopic} className="topics-button">
-                    Delete
-                  </button>
                   <Link to={`/update_topic/${course_slug}/topics/${topic_id}`}>
-                    <button className="topics-button">Edit Topic</button>
+                  <Tooltip title="Edit Topic" aria-label="Edit Topic">
+                      <Fab color="primary">
+                        <EditIcon/>
+                      </Fab>
+                    </Tooltip>
                   </Link>
+                  <Tooltip title="Delete Topic" aria-label="Delete Topic">
+                      <Fab color="primary">
+                        <DeleteIcon onClick={this.deleteTopic}/>
+                      </Fab>
+                    </Tooltip>
                 </span>
+                <h3>{topic.name}</h3>
+              <div className="topic_content">
+                <blockquote>{topic.description}</blockquote>
               </div>
-              <div className="topics-cover">
-                <ul>
-                  <li>
-                    <span style={{ display: "flex" }}>
-                      <hr id="line-colored" /> <hr id="line-gray" />
-                    </span>
-                  </li>
-                  <li>
-                    <p style={{ textTransform: "capitalize" }}>
-                      {topic.description}
-                    </p>
-                  </li>
-                </ul>
-              </div>
+            <div className="align-course">
+              
             </div>
           </div>
         </div>
