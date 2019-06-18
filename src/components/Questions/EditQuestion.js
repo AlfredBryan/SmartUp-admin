@@ -4,6 +4,9 @@ import Spinner from "components/hoc/spinner";
 import axios from "axios";
 import Checkbox from "@material-ui/core/Checkbox";
 import { Link } from "react-router-dom";
+import ReactMde from "react-mde";
+import * as Showdown from "showdown";
+import "react-mde/lib/styles/css/react-mde-all.css";
 
 //popup notification
 import Button from "@material-ui/core/Button";
@@ -56,6 +59,13 @@ class EditQuestion extends Component {
       content: "",
       question: ""
     };
+
+    this.converter = new Showdown.Converter({
+      tables: true,
+      simplifiedAutoLink: true,
+      strikethrough: true,
+      tasklists: true
+    });
   }
 
   // popup notification functions
@@ -141,9 +151,11 @@ class EditQuestion extends Component {
   };
 
   handleChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
+    this.setState({[e.target.name]: e.target.value});
+  };
+
+  handleDescriptionChange = (description) => {
+    this.setState({ description });
   };
 
   toggleOption = () => {
@@ -228,7 +240,6 @@ class EditQuestion extends Component {
   render() {
     const { classes } = this.props;
     const { loading, correct, content, open, answer_options } = this.state;
-    console.log(answer_options);
     return (
       <React.Fragment>
         <Navigation />
@@ -252,6 +263,7 @@ class EditQuestion extends Component {
         />
         <div className="main-content">
           <div className="container question">
+            <h3>Edit Question</h3>
             <div className="center-div">
               <form className="form-horizontal">
                 <div className="form-group">
@@ -271,44 +283,16 @@ class EditQuestion extends Component {
                 </div>
                 <div className="form-group">
                   <label className="col-lg-8 adjust-input control-label">
-                    Description
+                    Content
                   </label>
                   <div className="col-lg-10">
-                    <textarea
-                      className="form-control"
-                      type="text"
-                      name="description"
-                      value={this.state.description}
-                      placeholder="Enter description..."
-                      onChange={this.handleChange}
-                    />
+                  <ReactMde onChange={this.handleDescriptionChange} value={this.state.description} 
+                    generateMarkdownPreview={markdown =>
+                    Promise.resolve(this.converter.makeHtml(markdown))} />
                   </div>
                 </div>
                 <div className="form-group">
-                <div className="col-md-6">
-                    {answer_options.map(option => (
-                      <ul className="question_options w-100" key={option.id}>
-                        <li className="question_content">
-                          <Link
-                            to={`/edit_option/${option.question_id}/${
-                              option.id
-                            }`}
-                          >
-                            {this.Capitalize(option.content)}({option.correct ? "Correct" : "Incorrect"})
-                          </Link>
-                          <i
-                            onClick={() => {
-                              this.deleteOption(option.question_id, option.id);
-                            }}
-                            style={{ cursor: "pointer", color: "red" }}
-                            className="fa fa-trash-o pull-right"
-                          />
-                        </li>
-                      </ul>
-                    ))}
-                  </div>
-                  <div className="col-md-6">
-                    <span>
+                <span>
                     <label className="adjust-input control-label">
                       Correct:
                     </label>
@@ -331,10 +315,28 @@ class EditQuestion extends Component {
                       Add Option
                     </button>
                     </span>
-                  </div>
                 </div>
                 <div className="form-group">
-                  
+                {answer_options.map(option => (
+                      <ul className="question_options" key={option.id}>
+                        <li className="question_content">
+                          <Link
+                            to={`/edit_option/${option.question_id}/${
+                              option.id
+                            }`}
+                          >
+                            {this.Capitalize(option.content)}({option.correct ? "Correct" : "Incorrect"})
+                          </Link>
+                          <i
+                            onClick={() => {
+                              this.deleteOption(option.question_id, option.id);
+                            }}
+                            style={{ cursor: "pointer", color: "red" }}
+                            className="fa fa-trash-o pull-right"
+                          />
+                        </li>
+                      </ul>
+                    ))}
                 </div>
 
                 <div className="form-group">

@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import axios from "axios";
 import Spinner from "../hoc/spinner";
 import Navigation from "components/Navigation/Navigation";
+import ReactMde from "react-mde";
+import * as Showdown from "showdown";
+import "react-mde/lib/styles/css/react-mde-all.css";
 
 class NewAssessment extends Component {
   constructor(props) {
@@ -13,6 +16,13 @@ class NewAssessment extends Component {
       course_id: this.props.match.params.id,
       errorMessage: ""
     };
+
+    this.converter = new Showdown.Converter({
+      tables: true,
+      simplifiedAutoLink: true,
+      strikethrough: true,
+      tasklists: true
+    });
   }
 
   postAssessment = e => {
@@ -44,7 +54,6 @@ class NewAssessment extends Component {
           })
         )
         .then(res => {
-          console.log(res);
           if (res.status === 200 && res.statusText === "OK") {
             this.setState({
               loading: false
@@ -57,6 +66,10 @@ class NewAssessment extends Component {
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
+  };
+
+  handleDescriptionChange = (description) => {
+    this.setState({ description });
   };
 
   render() {
@@ -94,15 +107,9 @@ class NewAssessment extends Component {
                       Description
                     </label>
                     <div className="col-lg-12">
-                      <textarea
-                        rows="6"
-                        className="form-control"
-                        name="description"
-                        type="text"
-                        value={this.state.description}
-                        placeholder="Description ..."
-                        onChange={this.handleChange}
-                      />
+                    <ReactMde onChange={this.handleDescriptionChange} value={this.state.description} 
+                    generateMarkdownPreview={markdown =>
+                    Promise.resolve(this.converter.makeHtml(markdown))} />
                     </div>
                   </div>
                   <p style={{ color: "red" }}>{errorMessage}</p>

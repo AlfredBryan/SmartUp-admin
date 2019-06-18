@@ -120,6 +120,7 @@ class Questions extends Component {
   render() {
     const { questions, error, open } = this.state;
     const { classes } = this.props;
+    const ReactMarkdown = require('react-markdown')
     if (error) {
       return (
         localStorage.clear("token"),
@@ -166,7 +167,9 @@ class Questions extends Component {
                         </Fab>
                       </Tooltip>
                     </Link>
-                    <blockquote>{question.description}</blockquote>
+                    <blockquote>
+                      <ReactMarkdown source={question.description} />
+                    </blockquote>
                     <div>
                       {question.answer_options.map(option => (
                         <ul className="question_options" key={option.id}>

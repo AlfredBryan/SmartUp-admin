@@ -3,6 +3,10 @@ import Navigation from "components/Navigation/Navigation";
 import Spinner from "components/hoc/spinner";
 import axios from "axios";
 import "./style.css";
+import ReactMde from "react-mde";
+import * as Showdown from "showdown";
+import "react-mde/lib/styles/css/react-mde-all.css";
+
 
 class createQuestion extends Component {
   constructor(props) {
@@ -17,6 +21,13 @@ class createQuestion extends Component {
       content: "",
       options: []
     };
+
+    this.converter = new Showdown.Converter({
+      tables: true,
+      simplifiedAutoLink: true,
+      strikethrough: true,
+      tasklists: true
+    });
   }
 
   updateOptions = options => {
@@ -73,10 +84,13 @@ class createQuestion extends Component {
   };
 
   handleChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
+    this.setState({[e.target.name]: e.target.value});
   };
+
+  handleDescriptionChange = (description) => {
+    this.setState({ description });
+  };
+
 
   handleCreateOptions = e => {
     e.preventDefault();
@@ -101,7 +115,7 @@ class createQuestion extends Component {
               <form onSubmit={this.postQuestion} className="form-horizontal">
                 <div className="form-group">
                   <label className="col-lg-8 adjust-input control-label">
-                    Question:
+                    Question
                   </label>
                   <div className="col-lg-10">
                     <input
@@ -116,17 +130,12 @@ class createQuestion extends Component {
                 </div>
                 <div className="form-group">
                   <label className="col-lg-8 adjust-input control-label">
-                    Description:
+                    Content
                   </label>
                   <div className="col-lg-10">
-                    <textarea
-                      className="form-control"
-                      type="text"
-                      name="description"
-                      value={this.state.description}
-                      placeholder="Enter Description ..."
-                      onChange={this.handleChange}
-                    />
+                  <ReactMde onChange={this.handleDescriptionChange} value={this.state.description} 
+                    generateMarkdownPreview={markdown =>
+                    Promise.resolve(this.converter.makeHtml(markdown))} />
                   </div>
                 </div>
                 <p style={{ color: "red" }}>{errorMessage}</p>

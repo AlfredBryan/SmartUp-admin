@@ -41,6 +41,7 @@ class showCourse extends Component {
 
   render() {
     const { course, topics, course_slug } = this.state;
+    const ReactMarkdown = require('react-markdown')
     return (
       <div>
         <Navigation />
@@ -75,9 +76,11 @@ class showCourse extends Component {
                         </span>
                       )}
                     </span>
-                <h4>Description</h4>
+                <h4>Introduction</h4>
 
-                <blockquote>{course.description}</blockquote>
+                <blockquote>
+                <ReactMarkdown source={course.description} />
+                </blockquote>
                  <br/>     
                 <h4>Topics</h4>
                 <ul className="topic_list">

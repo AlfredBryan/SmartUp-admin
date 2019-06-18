@@ -4,6 +4,10 @@ import axios from "axios";
 import Spinner from "../hoc/spinner";
 import Checkbox from "@material-ui/core/Checkbox";
 import Navigation from "components/Navigation/Navigation";
+import ReactMde from "react-mde";
+import * as Showdown from "showdown";
+import "react-mde/lib/styles/css/react-mde-all.css";
+
 
 class EditCourse extends Component {
   constructor(props) {
@@ -17,6 +21,12 @@ class EditCourse extends Component {
       institution_id: this.props.match.params.slug,
       course: ""
     };
+    this.converter = new Showdown.Converter({
+      tables: true,
+      simplifiedAutoLink: true,
+      strikethrough: true,
+      tasklists: true
+    });
   }
 
   fetchCourse = () => {
@@ -102,6 +112,10 @@ class EditCourse extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  handleDescriptionChange = (description) => {
+    this.setState({ description });
+  };
+
   componentDidMount() {
     this.fetchCourse();
   }
@@ -136,15 +150,9 @@ class EditCourse extends Component {
                     Introduction
                   </label>
                   <div className="col-lg-12">
-                    <textarea
-                      rows="6"
-                      className="form-control"
-                      name="description"
-                      type="text"
-                      value={description}
-                      placeholder="Introduction..."
-                      onChange={this.handleChange}
-                    />
+                  <ReactMde onChange={this.handleDescriptionChange} value={description} 
+                    generateMarkdownPreview={markdown =>
+                    Promise.resolve(this.converter.makeHtml(markdown))} />
                   </div>
                 </div>
                 <div className="form-group">

@@ -5,6 +5,9 @@ import Navigation from "components/Navigation/Navigation";
 import Spinner from "components/hoc/spinner";
 import axios from "axios";
 import Select from "react-select";
+import ReactMde from "react-mde";
+import * as Showdown from "showdown";
+import "react-mde/lib/styles/css/react-mde-all.css";
 
 class AddQuestion extends Component {
   constructor(props) {
@@ -20,6 +23,13 @@ class AddQuestion extends Component {
       selectedOption: null,
       assessment_questions: []
     };
+
+    this.converter = new Showdown.Converter({
+      tables: true,
+      simplifiedAutoLink: true,
+      strikethrough: true,
+      tasklists: true
+    });
   }
 
   fetchQuestions = () => {
@@ -78,6 +88,10 @@ class AddQuestion extends Component {
 
   handleQuestionChange = selectedOption => {
     this.setState({ selectedOption });
+  };
+
+  handleDescriptionChange = (description) => {
+    this.setState({ description });
   };
 
   postQuestion = e => {
@@ -215,15 +229,9 @@ class AddQuestion extends Component {
                       Description
                     </label>
                     <div className="col-lg-12">
-                      <textarea
-                        rows="6"
-                        className="form-control"
-                        name="description"
-                        type="text"
-                        value={this.state.description}
-                        placeholder="Description ..."
-                        onChange={this.handleChange}
-                      />
+                    <ReactMde onChange={this.handleDescriptionChange} value={this.state.description} 
+                    generateMarkdownPreview={markdown =>
+                    Promise.resolve(this.converter.makeHtml(markdown))} />
                     </div>
                   </div>
                   <div className="form-group">

@@ -36,7 +36,6 @@ class showTopic extends Component {
         }
       )
       .then(res => {
-        console.log(res);
         this.setState({
           topic: res.data
         });
@@ -70,6 +69,7 @@ class showTopic extends Component {
 
   render() {
     const { topic, course_slug, topic_id } = this.state;
+    const ReactMarkdown = require('react-markdown')
     return (
       <div>
         <Navigation />
@@ -94,7 +94,9 @@ class showTopic extends Component {
                 </span>
                 <h3>{topic.name}</h3>
               <div className="topic_content">
-                <blockquote>{topic.description}</blockquote>
+                <blockquote>
+                <ReactMarkdown source={topic.description} />
+                </blockquote>
               </div>
             <div className="align-course">
               

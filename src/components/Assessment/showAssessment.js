@@ -60,6 +60,7 @@ class showAssessment extends Component {
 
   render() {
     const { assessment, questions } = this.state;
+    const ReactMarkdown = require('react-markdown')
     return (
         <div>
         <Navigation />
@@ -83,6 +84,9 @@ class showAssessment extends Component {
                       )}
                     </span>
               <div className="">
+                <blockquote>
+                <ReactMarkdown source={assessment.description} />
+                </blockquote>  
                 <ul className="assessment_questions">
                   {questions.map(question => (
                     <li key={question.id} className="toggle-question">
