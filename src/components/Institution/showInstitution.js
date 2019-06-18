@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import AddIcon from "@material-ui/icons/Add";
+import EditIcon from "@material-ui/icons/Edit";
 import Fab from "@material-ui/core/Fab";
 import Tooltip from "@material-ui/core/Tooltip";
 import { withStyles } from "@material-ui/core/styles";
@@ -8,6 +9,7 @@ import PropTypes from "prop-types";
 import axios from "axios";
 
 import Navigation from "components/Navigation/Navigation";
+
 
 const styles = theme => ({
   root: {
@@ -87,7 +89,6 @@ class showInstitution extends Component {
       });
   }
   render() {
-    console.log(this.state.slug);
     const { classes } = this.props;
     const { course_list, institution, slug } = this.state;
 
@@ -95,7 +96,7 @@ class showInstitution extends Component {
       <div>
         <Navigation />
         <div className="main-content">
-          <div className="container">
+          <div className="container" id="institution_show">
             <div className="row margin-top">
               <div className="col-sm-12 col-md-4">
                 <div className="newcard card-user">
@@ -123,17 +124,12 @@ class showInstitution extends Component {
                       </h4>
                     </div>
                     <p className="description text-center">
-                      <Link
-                        to={`/update_institution/${slug}`}
-                        className="edit-area"
-                      >
-                        <i
-                          class="fa fa-edit edit-fa"
-                          style={{
-                            color: "#3394AB"
-                          }}
-                        />
-                        <p className="edit-button">Edit</p>
+                      <Link to={`/update_institution/${slug}`} className="pull-right">
+                      <Tooltip title="Edit Institutioon" aria-label="Edit Institution">
+                      <Fab color="primary">
+                        <EditIcon/>
+                      </Fab>
+                      </Tooltip>
                       </Link>
                     </p>
                   </div>
@@ -176,12 +172,12 @@ class showInstitution extends Component {
                   <div className="row">
                     <ul className="course-listed pr-20">
                       {course_list.map(course => (
-                        <li className="">
+                        <Link key={course.id} to={`/courses/${course.slug}`}>
+                        <li>
                           {course.name}
-                          <span className="pull-right">
-                            {course.topics.length}
-                          </span>
+                          <span className="pull-right">{course.topics.length}</span>
                         </li>
+                      </Link>
                       ))}
                     </ul>
                   </div>

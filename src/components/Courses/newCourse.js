@@ -99,6 +99,7 @@ class newCourse extends Component {
         <div>
           <div className="main-content">
             <div className="container">
+              <h3>Add Course</h3>
               <div className="center-div">
                 <form onSubmit={this.handleSubmit} className="form-horizontal">
                   <div className="form-group">

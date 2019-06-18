@@ -31,7 +31,7 @@ class EditCourse extends Component {
       })
       .then(res => {
         this.setState({
-          course: res.data
+          name: res.data.name, description: res.data.description, active: res.data.active
         });
       });
   };
@@ -107,7 +107,7 @@ class EditCourse extends Component {
   }
 
   render() {
-    const { loading } = this.state;
+    const { loading, name, description, active } = this.state;
     return (
       <div>
         <Navigation />
@@ -125,7 +125,7 @@ class EditCourse extends Component {
                       className="form-control"
                       type="text"
                       name="name"
-                      value={this.state.course.name}
+                      value={name}
                       placeholder="Course Name ..."
                       onChange={this.handleChange}
                     />
@@ -141,7 +141,7 @@ class EditCourse extends Component {
                       className="form-control"
                       name="description"
                       type="text"
-                      value={this.state.course.description}
+                      value={description}
                       placeholder="Introduction..."
                       onChange={this.handleChange}
                     />
@@ -153,9 +153,9 @@ class EditCourse extends Component {
                   </label>
                   <div className="col-lg-12">
                     <Checkbox
-                      checked={this.state.course.active}
+                      checked={active}
                       onChange={this.toggle}
-                      value={(this.state.course.active || "").toString()}
+                      value={(active || "").toString()}
                       name="active"
                     />
                   </div>

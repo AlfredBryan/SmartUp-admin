@@ -96,6 +96,7 @@ class createQuestion extends Component {
         <Navigation />
         <div className="main-content">
           <div className="container">
+            <h3>Add Question</h3>
             <div className="center-div">
               <form onSubmit={this.postQuestion} className="form-horizontal">
                 <div className="form-group">
