@@ -1,0 +1,9 @@
+.btn-join {
+    background: linear-gradient(174.78deg, #64daf6 -8.91%, #3394ab 99.52%) !important;
+    color: white;
+    font-weight: 700;
+    border: none;
+    padding: 0.5em 0;
+    width: 3em;
+    border-radius: 4px;
+}
