@@ -7,6 +7,39 @@ import ReactMde from "react-mde";
 import * as Showdown from "showdown";
 import "react-mde/lib/styles/css/react-mde-all.css";
 
+//popup notification
+import Button from "@material-ui/core/Button";
+import Snackbar from "@material-ui/core/Snackbar";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+
+const styles = theme => ({
+  container: {
+    display: "flex",
+    flexWrap: "wrap"
+  },
+  formControl: {
+    margin: theme.spacing.unit
+  },
+  root: {
+    position: "relative",
+    overflow: "hidden"
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20
+  },
+  button: {
+    marginBottom: theme.spacing.unit
+  },
+  snackbar: {
+    position: "absolute"
+  },
+  snackbarContent: {
+    width: 360,
+    fontSize: "1.2em"
+  }
+});
 
 class createQuestion extends Component {
   constructor(props) {
@@ -18,6 +51,7 @@ class createQuestion extends Component {
       errorMessage: "",
       loading: false,
       correct: false,
+      open: false,
       content: "",
       options: []
     };
@@ -29,6 +63,16 @@ class createQuestion extends Component {
       tasklists: true
     });
   }
+
+  // popup notification functions
+  handleClick = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+  //ends
 
   updateOptions = options => {
     this.setState({ ...this.state, options });
@@ -70,7 +114,7 @@ class createQuestion extends Component {
             this.setState({
               loading: false
             });
-            alert("Successful");
+            this.handleClick();
           }
         })
         .catch(err => {
@@ -84,13 +128,12 @@ class createQuestion extends Component {
   };
 
   handleChange = e => {
-    this.setState({[e.target.name]: e.target.value});
+    this.setState({ [e.target.name]: e.target.value });
   };
 
-  handleDescriptionChange = (description) => {
+  handleDescriptionChange = description => {
     this.setState({ description });
   };
-
 
   handleCreateOptions = e => {
     e.preventDefault();
@@ -104,10 +147,29 @@ class createQuestion extends Component {
   };
 
   render() {
-    const { errorMessage, loading } = this.state;
+    const { errorMessage, loading, open } = this.state;
+    const { classes } = this.props;
     return (
       <React.Fragment>
         <Navigation />
+        <Snackbar
+          open={open}
+          autoHideDuration={4000}
+          onClose={this.handleClose}
+          ContentProps={{
+            "aria-describedby": "snackbar-fab-message-id",
+            className: classes.snackbarContent
+          }}
+          message={
+            <span id="snackbar-fab-message-id popup-text">Question Added</span>
+          }
+          action={
+            <Button color="inherit" size="small" onClick={this.handleClose}>
+              close
+            </Button>
+          }
+          className={classes.snackbar}
+        />
         <div className="main-content">
           <div className="container">
             <h3>Add Question</h3>
@@ -133,9 +195,13 @@ class createQuestion extends Component {
                     Content
                   </label>
                   <div className="col-lg-10">
-                  <ReactMde onChange={this.handleDescriptionChange} value={this.state.description} 
-                    generateMarkdownPreview={markdown =>
-                    Promise.resolve(this.converter.makeHtml(markdown))} />
+                    <ReactMde
+                      onChange={this.handleDescriptionChange}
+                      value={this.state.description}
+                      generateMarkdownPreview={markdown =>
+                        Promise.resolve(this.converter.makeHtml(markdown))
+                      }
+                    />
                   </div>
                 </div>
                 <p style={{ color: "red" }}>{errorMessage}</p>
@@ -158,4 +224,8 @@ class createQuestion extends Component {
   }
 }
 
-export default createQuestion;
+createQuestion.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(createQuestion);

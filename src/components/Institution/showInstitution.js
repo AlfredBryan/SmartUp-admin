@@ -10,7 +10,6 @@ import axios from "axios";
 
 import Navigation from "components/Navigation/Navigation";
 
-
 const styles = theme => ({
   root: {
     width: "100%",
@@ -91,7 +90,7 @@ class showInstitution extends Component {
   render() {
     const { classes } = this.props;
     const { course_list, institution, slug } = this.state;
-
+    console.log(institution);
     return (
       <div>
         <Navigation />
@@ -124,12 +123,25 @@ class showInstitution extends Component {
                       </h4>
                     </div>
                     <p className="description text-center">
-                      <Link to={`/update_institution/${slug}`} className="pull-right">
-                      <Tooltip title="Edit Institutioon" aria-label="Edit Institution">
-                      <Fab color="primary">
-                        <EditIcon/>
-                      </Fab>
-                      </Tooltip>
+                      <Link to={`/create_study_group/${institution.id}`}>
+                        <Tooltip title="Add Study Group" aria-label="Add">
+                          <Fab color="primary" className="pull-left">
+                            <AddIcon />
+                          </Fab>
+                        </Tooltip>
+                      </Link>
+                      <Link
+                        to={`/update_institution/${slug}`}
+                        className="pull-right"
+                      >
+                        <Tooltip
+                          title="Edit Institutioon"
+                          aria-label="Edit Institution"
+                        >
+                          <Fab color="primary">
+                            <EditIcon />
+                          </Fab>
+                        </Tooltip>
                       </Link>
                     </p>
                   </div>
@@ -170,14 +182,26 @@ class showInstitution extends Component {
                 <div className="col-sm-12 col-md-8">
                   <h4>Courses</h4>
                   <div className="row">
+                    <Link
+                      to={`/institutions/${slug}/new_course`}
+                      className="button-area"
+                    >
+                      <Tooltip title="Add new Course" aria-label="Add">
+                        <Fab color="primary" className={classes.fab}>
+                          <AddIcon />
+                        </Fab>
+                      </Tooltip>
+                    </Link>
                     <ul className="course-listed pr-20">
                       {course_list.map(course => (
                         <Link key={course.id} to={`/courses/${course.slug}`}>
-                        <li>
-                          {course.name}
-                          <span className="pull-right">{course.topics.length}</span>
-                        </li>
-                      </Link>
+                          <li>
+                            {course.name}
+                            <span className="pull-right">
+                              {course.topics.length}
+                            </span>
+                          </li>
+                        </Link>
                       ))}
                     </ul>
                   </div>

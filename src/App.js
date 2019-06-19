@@ -31,6 +31,11 @@ import EditOptions from "components/Questions/EditOptions";
 import NewAssessment from "components/Assessment/NewAssessment";
 import AddQuestion from "components/Assessment/AddQuestion";
 import showAssessment from "components/Assessment/showAssessment";
+import createStudyGroup from "components/Group/createStudyGroup";
+import StudyGroups from "components/Group/StudyGroups";
+import Default from "components/Default";
+import showGroup from "components/Group/showGroup";
+import TakeAssessment from "components/TakeAssessment/TakeAssessment";
 
 class App extends Component {
   render() {
@@ -47,7 +52,11 @@ class App extends Component {
           <Route exact path="/questions" component={Questions} />
           <Route exact path="/new_question/:id" component={createQuestion} />
           <Route exact path="/edit_question/:id" component={EditQuestion} />
-          <Route exact path="/edit_option/:question_id/:id"component={EditOptions}/>
+          <Route
+            exact
+            path="/edit_option/:question_id/:id"
+            component={EditOptions}
+          />
           <Route exact path="/assessment" component={Assessment} />
           <Route exact path="/new_assessment/:id" component={NewAssessment} />
           <Route exact path="/edit_assessment/:id" component={AddQuestion} />
@@ -80,6 +89,14 @@ class App extends Component {
             path="/institutions/:institution_slug/courses/:slug"
             component={showCourse}
           />
+          <Route
+            exact
+            path="/create_study_group/:id"
+            component={createStudyGroup}
+          />
+          <Route exact path="/take_assessment" component={TakeAssessment} />
+          <Route exact path="/study_groups" component={StudyGroups} />
+          <Route exact path="/show_group/:id" component={showGroup} />
           <Route exact path="/update_course/:slug" component={EditCourse} />
           <Route exact path="/courses/:slug" component={showCourse} />
           <Route exact path="/profile" component={Dashboard} />
