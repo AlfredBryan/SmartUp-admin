@@ -104,7 +104,7 @@ class EditGroup extends Component {
         if (res.status === 200) {
           this.setState({
             pop_up: res.data.name,
-            loading:false
+            loading: false
           });
           this.handleClick();
         }
@@ -170,7 +170,7 @@ class EditGroup extends Component {
                   </div>
                 </div>
                 <div className="form-group">
-                  <label className="col-lg-3 control-label">Level:</label>
+                  <label className="col-lg-3 control-label">Grade</label>
                   <div className="col-lg-8">
                     <select
                       className="form-control"
@@ -182,7 +182,7 @@ class EditGroup extends Component {
                         lev => (
                           <option key={lev} value={lev}>
                             {" "}
-                            Level {lev}
+                            Grade {lev}
                           </option>
                         )
                       )}
