@@ -4,15 +4,11 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 import EditIcon from "@material-ui/icons/Edit";
+import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
 import Tooltip from "@material-ui/core/Tooltip";
 
-import ReactMde from "react-mde";
-import * as Showdown from "showdown";
-import "react-mde/lib/styles/css/react-mde-all.css";
-
 import "./style.css";
-import Spinner from "components/hoc/spinner";
 
 class showGroup extends Component {
   constructor(props) {
@@ -24,13 +20,6 @@ class showGroup extends Component {
       user_emails: "",
       loading: false
     };
-
-    this.converter = new Showdown.Converter({
-      tables: true,
-      simplifiedAutoLink: true,
-      strikethrough: true,
-      tasklists: true
-    });
   }
 
   fetchGroup = () => {
@@ -90,8 +79,10 @@ class showGroup extends Component {
       });
   };
 
-  handleTextAreaChange = user_emails => {
-    this.setState({ user_emails });
+  handleChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
   };
 
   componentDidMount() {
@@ -116,40 +107,41 @@ class showGroup extends Component {
             </div>
             <h2>{group.name}</h2>
             <form onSubmit={this.AddUsers} className="form-horizontal">
+              <h4>
+                <strong>Add Users</strong>
+              </h4>
               <div className="form-group">
-                <label className="col-lg-8 adjust-input control-label">
-                  Group Users
-                </label>
-                <div className="col-lg-12">
-                  <ReactMde
-                    onChange={this.handleTextAreaChange}
+                <div className="col-lg-8">
+                  <span onClick={this.AddUsers} className="pull-right">
+                    <Tooltip title="Add Users" aria-label="Edit">
+                      <Fab color="primary">
+                        <AddIcon />
+                      </Fab>
+                    </Tooltip>
+                  </span>
+                  <textarea
+                    name="user_emails"
                     value={user_emails}
-                    generateMarkdownPreview={markdown =>
-                      Promise.resolve(this.converter.makeHtml(markdown))
-                    }
+                    onChange={this.handleChange}
+                    cols="40"
+                    rows="4"
                   />
                 </div>
               </div>
-              <div className="form-group">
-                <div className="col-lg-12">
-                  <button
-                    onClick={this.AddUsers}
-                    className="form-control btn-submit"
-                  >
-                    {loading ? <Spinner /> : "Add Users"}
-                  </button>
-                </div>
-              </div>
             </form>
-            <div>
+            {/* <div>
               {GroupMembers > 0 ? (
                 <div>
-                  <p>{GroupMembers.name}</p>
+                  <p>
+                    {GroupMembers.map(mem => (
+                      <div>{mem.email}</div>
+                    ))}
+                  </p>
                 </div>
               ) : (
                 <span className="group-card">No members Yet</span>
               )}
-            </div>
+            </div> */}
           </div>
         </div>
       </React.Fragment>
