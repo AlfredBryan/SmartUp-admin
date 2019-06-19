@@ -118,6 +118,12 @@ class Sidebar extends Component {
               </NavLink>
             </li>
             <li>
+              <NavLink activeClassName="active" to="/take_assessment">
+                <i className="fa fa-pencil-square-o" />
+                <p>Take Assessment</p>
+              </NavLink>
+            </li>
+            <li>
               <NavLink activeClassName="active" to="/study_groups">
                 <i className="fa fa-comments-o" />
                 <p>Study Groups</p>

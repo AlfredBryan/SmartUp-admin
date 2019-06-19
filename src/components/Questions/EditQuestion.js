@@ -40,7 +40,7 @@ const styles = theme => ({
   },
   snackbarContent: {
     width: 360,
-    fontSize: "1em"
+    fontSize: "1.2em"
   }
 });
 

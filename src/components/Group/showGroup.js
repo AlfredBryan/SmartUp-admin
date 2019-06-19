@@ -48,13 +48,15 @@ class showGroup extends Component {
     const user = JSON.parse(localStorage.getItem("user"));
     const { study_group_id } = this.state;
     const user_id = user.id;
+    const user_emails = user.email;
     axios
       .post(
         "https://smart-up.herokuapp.com/api/v1/group_memberships",
         {
           group_membership: {
             study_group_id,
-            user_id
+            user_id,
+            user_emails
           }
         },
         {
