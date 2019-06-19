@@ -21,6 +21,7 @@ class EditCourse extends Component {
       institution_id: this.props.match.params.slug,
       course: ""
     };
+    
     this.converter = new Showdown.Converter({
       tables: true,
       simplifiedAutoLink: true,

@@ -7,7 +7,12 @@ import EditIcon from "@material-ui/icons/Edit";
 import Fab from "@material-ui/core/Fab";
 import Tooltip from "@material-ui/core/Tooltip";
 
+import ReactMde from "react-mde";
+import * as Showdown from "showdown";
+import "react-mde/lib/styles/css/react-mde-all.css";
+
 import "./style.css";
+import Spinner from "components/hoc/spinner";
 
 class showGroup extends Component {
   constructor(props) {
@@ -15,8 +20,17 @@ class showGroup extends Component {
     this.state = {
       study_group_id: this.props.match.params.id,
       group: "",
-      GroupMembers: []
+      GroupMembers: [],
+      user_emails: "",
+      loading: false
     };
+
+    this.converter = new Showdown.Converter({
+      tables: true,
+      simplifiedAutoLink: true,
+      strikethrough: true,
+      tasklists: true
+    });
   }
 
   fetchGroup = () => {
@@ -42,20 +56,16 @@ class showGroup extends Component {
       });
   };
 
-  joinGroup = e => {
+  AddUsers = e => {
     e.preventDefault();
     const token = localStorage.getItem("token");
-    const user = JSON.parse(localStorage.getItem("user"));
-    const { study_group_id } = this.state;
-    const user_id = user.id;
-    const user_emails = user.email;
+    const { study_group_id, user_emails } = this.state;
     axios
       .post(
         "https://smart-up.herokuapp.com/api/v1/group_memberships",
         {
           group_membership: {
             study_group_id,
-            user_id,
             user_emails
           }
         },
@@ -63,11 +73,25 @@ class showGroup extends Component {
           headers: {
             Authorization: token
           }
-        }
+        },
+        this.setState({
+          loading: true
+        })
       )
       .then(res => {
         console.log(res);
+        if (res.status === 200) {
+          this.setState({
+            loading: false
+          });
+          this.fetchGroup();
+          alert("Users Added Successfully");
+        }
       });
+  };
+
+  handleTextAreaChange = user_emails => {
+    this.setState({ user_emails });
   };
 
   componentDidMount() {
@@ -75,7 +99,7 @@ class showGroup extends Component {
   }
 
   render() {
-    const { GroupMembers, group } = this.state;
+    const { GroupMembers, group, user_emails, loading } = this.state;
     return (
       <React.Fragment>
         <Navigation />
@@ -89,11 +113,34 @@ class showGroup extends Component {
                   </Fab>
                 </Tooltip>
               </Link>
-              <button onClick={this.joinGroup} className="btn-join">
-                Join
-              </button>
             </div>
             <h2>{group.name}</h2>
+            <form onSubmit={this.AddUsers} className="form-horizontal">
+              <div className="form-group">
+                <label className="col-lg-8 adjust-input control-label">
+                  Group Users
+                </label>
+                <div className="col-lg-12">
+                  <ReactMde
+                    onChange={this.handleTextAreaChange}
+                    value={user_emails}
+                    generateMarkdownPreview={markdown =>
+                      Promise.resolve(this.converter.makeHtml(markdown))
+                    }
+                  />
+                </div>
+              </div>
+              <div className="form-group">
+                <div className="col-lg-12">
+                  <button
+                    onClick={this.AddUsers}
+                    className="form-control btn-submit"
+                  >
+                    {loading ? <Spinner /> : "Add Users"}
+                  </button>
+                </div>
+              </div>
+            </form>
             <div>
               {GroupMembers > 0 ? (
                 <div>
