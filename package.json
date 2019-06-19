@@ -23,6 +23,7 @@
     "react-mde": "^7.4.1",
     "react-notification-system": "0.2.17",
     "react-paginating": "^1.3.0-hook.2",
+    "react-radio-group": "^3.0.3",
     "react-redux": "^7.1.0",
     "react-router": "5.0.0",
     "react-router-dom": "5.0.0",

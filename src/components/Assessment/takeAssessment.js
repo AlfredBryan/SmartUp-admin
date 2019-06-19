@@ -1,0 +1,173 @@
+import React, { Component } from "react";
+import axios from "axios";
+import Pagination from "react-paginating";
+
+import Navigation from "components/Navigation/Navigation";
+import {RadioGroup, Radio} from 'react-radio-group'
+import ArrowLeftIcon from "@material-ui/icons/ArrowLeft";
+import ArrowRightIcon from "@material-ui/icons/ArrowRight";
+import FirstPageIcon from "@material-ui/icons/FirstPage";
+import LastPageIcon from "@material-ui/icons/LastPage";
+import Fab from "@material-ui/core/Fab";
+import Tooltip from "@material-ui/core/Tooltip";
+
+class takeAssessment extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+        assessment_id: this.props.match.params.id,   
+      questions: [],
+      currentPage: 1
+    };
+  }
+
+  getInitialAnswerState = question => {
+    return { selectedValue: 'apple' };
+  }
+
+  fetchAssessment = () => {
+    const token = localStorage.getItem("token");
+    const ReactMarkdown = require('react-markdown')
+
+    axios
+      .get(`https://smart-up.herokuapp.com/api/v1/assessments/${this.state.assessment_id}`, {
+        headers: {
+          Authorization: token
+        }
+      })
+      .then(res => {
+        const result = res.data.questions.map(
+            ({ id, name, description, answer_options }) => (
+              <div key={id} className="assessment_question">
+                <h3>{name}</h3>
+                <blockquote>
+                <ReactMarkdown source={description} />
+                </blockquote>
+
+                <RadioGroup name="selected_option" selectedValue={this.state.selectedValue}
+                onChange={this.handleAnswerSelect}>
+                {answer_options.map(item => (
+                 <div key={item.id} className="col-md-6">
+                  <div className="card">
+                  <label key={item.id} className="answer_option"><Radio value={item.content}/>{item.content}</label>
+                 </div>
+                 </div>
+                ))}    
+                </RadioGroup> 
+              </div>
+            )
+          );
+          this.setState({
+            questions: result
+          });
+      })
+      .catch(error => {});
+  };
+
+  handlePageChange = (page) => {
+    this.setState({
+      currentPage: page
+    });
+  };
+
+  handleAnswerSelect = () => {
+
+  }
+
+  componentDidMount() {
+    this.fetchAssessment();
+  }
+
+  render() {
+    const { questions, currentPage } = this.state;
+
+    const limit = 1;
+    const pageCount = questions.length;
+    const total = questions.length * limit;
+
+    return (
+      <React.Fragment>
+        <Navigation />
+        <div className="main-content">
+          <div className="container" id="take_assessment">
+            <ul>{questions[currentPage - 1]}</ul>
+            <Pagination
+              total={total}
+              limit={limit}
+              pageCount={pageCount}
+              currentPage={currentPage}
+            >
+              {({
+                pages,
+                currentPage,
+                hasNextPage,
+                hasPreviousPage,
+                previousPage,
+                nextPage,
+                totalPages,
+                getPageItemProps
+              }) => (
+                <div className="container nav-buttons">
+                    <Tooltip title="First page" aria-label="First page">
+                    <Fab color="primary"
+                    {...getPageItemProps({
+                        pageValue: 1,
+                        onPageChange: this.handlePageChange
+                      })}
+                    >
+                    <FirstPageIcon />
+                    </Fab>
+                  </Tooltip>
+                  
+
+                  {hasPreviousPage && (
+                    <Tooltip title="Previous" aria-label="Previous">
+                    <Fab color="primary"
+                      {...getPageItemProps({
+                        pageValue: previousPage,
+                        onPageChange: this.handlePageChange
+                      })}
+                    >
+                    <ArrowLeftIcon />
+                    </Fab>
+                    </Tooltip>
+                  )}
+
+                  {hasNextPage && (
+                    <Tooltip title="Next" aria-label="Next">
+                    <Fab color="primary"
+                    {...getPageItemProps({
+                        pageValue: nextPage,
+                        onPageChange: this.handlePageChange
+                    })}
+                    >
+                    <ArrowRightIcon />
+                    </Fab>
+                    </Tooltip>
+                  )}
+
+                  <Tooltip title="Last page" aria-label="Last page">
+                    <Fab color="primary"
+                    {...getPageItemProps({
+                        pageValue: totalPages,
+                        onPageChange: this.handlePageChange
+                      })}
+                    >
+                    <LastPageIcon />
+                    </Fab>
+                  </Tooltip>
+
+                  {!hasNextPage && (
+                    <button className="finish-button">Finish</button>
+                  )}
+                </div>
+              )}
+            </Pagination>
+          </div>
+        </div>
+      </React.Fragment>
+    );
+  }
+}
+
+export default takeAssessment;

@@ -6,6 +6,7 @@ import "./style.css";
 import Navigation from "components/Navigation/Navigation";
 import Collapsible from "react-collapsible";
 import EditIcon from "@material-ui/icons/Edit";
+import AssessmentIcon from "@material-ui/icons/Assessment";
 import Fab from "@material-ui/core/Fab";
 import Tooltip from "@material-ui/core/Tooltip";
 
@@ -60,19 +61,28 @@ class showAssessment extends Component {
 
   render() {
     const { assessment, questions } = this.state;
-    const ReactMarkdown = require('react-markdown')
+    const ReactMarkdown = require('react-markdown');
     return (
         <div>
         <Navigation />
         <div className="main-content">
           <div className="container questions">
-          <Link to={`/edit_assessment/${assessment.id}`} className="button-area">
+           <span className="pull-right">
+           <Link to={`/assessments/${assessment.id}/take_assessment`}>
+              <Tooltip title="Start Assessment" aria-label="Start">
+                <Fab color="primary">
+                    <AssessmentIcon />
+                </Fab>
+              </Tooltip>
+            </Link>    
+          <Link to={`/edit_assessment/${assessment.id}`}>
               <Tooltip title="Edit" aria-label="Edit">
                 <Fab color="primary">
                   <EditIcon />
                 </Fab>
               </Tooltip>
             </Link>
+            </span>   
           <h3>{assessment.name}</h3>
           <span className="pull-right">
                       {questions.length < 1 ? (
