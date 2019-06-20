@@ -69,45 +69,49 @@ class AddInstitution extends Component {
     e.preventDefault();
     const token = localStorage.getItem("token");
     let { name, motto, email, phone, logo } = this.state;
-    axios
-      .post(
-        "https://smart-up.herokuapp.com/api/v1/institutions",
-        {
-          institution: {
-            name,
-            motto,
-            email,
-            phone,
-            logo
+    if (name.length < 3 && email.length < 8 && phone.length < 10) {
+      alert("Please Enter all fields");
+    } else {
+      axios
+        .post(
+          "https://smart-up.herokuapp.com/api/v1/institutions",
+          {
+            institution: {
+              name,
+              motto,
+              email,
+              phone,
+              logo
+            }
+          },
+          {
+            headers: {
+              Authorization: token
+            }
+          },
+          this.setState({
+            loading: true
+          })
+        )
+        .then(res => {
+          console.log(res);
+          if (res) {
+            this.setState({
+              loading: false,
+              response: res.data
+            });
+            this.handleClick();
           }
-        },
-        {
-          headers: {
-            Authorization: token
-          }
-        },
-        this.setState({
-          loading: true
         })
-      )
-      .then(res => {
-        console.log(res);
-        if (res) {
-          this.setState({
-            loading: false,
-            response: res.data
-          });
-          this.handleClick();
-        }
-      })
-      .catch(err => {
-        console.log(err);
-        if (err) {
-          this.setState({
-            loading: false
-          });
-        }
-      });
+        .catch(err => {
+          console.log(err);
+          if (err) {
+            this.setState({
+              loading: false
+            });
+          }
+        });
+    }
   };
 
   handleChange = e => {
@@ -215,12 +219,15 @@ class AddInstitution extends Component {
                 </div>
                 <div className="form-group">
                   <div className="col-lg-12">
-                    <button
+                    <Button
+                      variant="contained"
+                      component="span"
+                      color="primary"
+                      className="form-control new-btn"
                       onClick={this.handleSubmit}
-                      className="form-control btn-submit"
                     >
                       {loading ? <Spinner /> : "Submit"}
-                    </button>
+                    </Button>
                   </div>
                 </div>
               </form>

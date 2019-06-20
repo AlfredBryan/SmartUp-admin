@@ -5,6 +5,8 @@ import Navigation from "components/Navigation/Navigation";
 import ReactMde from "react-mde";
 import * as Showdown from "showdown";
 import "react-mde/lib/styles/css/react-mde-all.css";
+import Button from "@material-ui/core/Button";
+
 
 class NewAssessment extends Component {
   constructor(props) {
@@ -115,12 +117,15 @@ class NewAssessment extends Component {
                   <p style={{ color: "red" }}>{errorMessage}</p>
                   <div className="form-group">
                     <div className="col-lg-12">
-                      <button
+                      <Button
+                        variant="contained"
+                        component="span"
+                        color="primary"
+                        className="form-control new-btn"
                         onClick={this.postAssessment}
-                        className="form-control btn-submit"
                       >
-                        {loading ? <Spinner /> : "Create"}
-                      </button>
+                        {loading ? <Spinner /> : "Update"}
+                      </Button>
                     </div>
                   </div>
                 </form>

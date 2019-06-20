@@ -317,11 +317,11 @@ class UpdateUser extends Component {
                       value={this.state.state}
                       onChange={this.handleChange}
                     >
-                      <option value="">
-                        --Select--
-                      </option>
+                      <option value="">--Select--</option>
                       {states.map(s => (
-                        <option key={s} value={s}>{s}</option>
+                        <option key={s} value={s}>
+                          {s}
+                        </option>
                       ))}
                     </select>
                   </div>
@@ -366,7 +366,10 @@ class UpdateUser extends Component {
                   >
                     {Array.from(new Array(12), (val, index) => index + 1).map(
                       l => (
-                        <option key={l} value={l}> Grade {l}</option>
+                        <option key={l} value={l}>
+                          {" "}
+                          Grade {l}
+                        </option>
                       )
                     )}
                   </select>
@@ -375,14 +378,17 @@ class UpdateUser extends Component {
               <div className="form-group">
                 <label className="col-lg-3 control-label">Sex:</label>
                 <div className="col-lg-8">
-                  <select className="form-control" 
-                  name="sex" 
-                  id=""
-                  value={this.state.sex}
-                  onChange={this.handleChange}
+                  <select
+                    className="form-control"
+                    name="sex"
+                    id=""
+                    value={this.state.sex}
+                    onChange={this.handleChange}
                   >
                     {["male", "female"].map(sx => (
-                      <option key={sx} value={sx}>{this.Capitalize(sx)}</option>
+                      <option key={sx} value={sx}>
+                        {this.Capitalize(sx)}
+                      </option>
                     ))}
                   </select>
                 </div>
@@ -400,12 +406,15 @@ class UpdateUser extends Component {
               <div className="form-group">
                 <div className="col-lg-3" />
                 <div className="col-lg-8">
-                  <button
+                  <Button
+                    variant="contained"
+                    component="span"
+                    color="primary"
+                    className="form-control new-btn"
                     onClick={this.handleSubmit}
-                    className="form-control btn-submit"
                   >
                     {loading ? <Spinner /> : "Confirm"}
-                  </button>
+                  </Button>
                 </div>
               </div>
             </form>

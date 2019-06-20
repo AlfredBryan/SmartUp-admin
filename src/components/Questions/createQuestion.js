@@ -207,12 +207,15 @@ class createQuestion extends Component {
                 <p style={{ color: "red" }}>{errorMessage}</p>
                 <div className="form-group">
                   <div className="col-lg-10">
-                    <button
+                    <Button
+                      variant="contained"
+                      component="span"
+                      color="primary"
+                      className="form-control new-btn"
                       onClick={this.postQuestion}
-                      className="form-control btn-submit"
                     >
                       {loading ? <Spinner /> : "Create"}
-                    </button>
+                    </Button>
                   </div>
                 </div>
               </form>

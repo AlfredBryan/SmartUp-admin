@@ -6,6 +6,9 @@ import Checkbox from "@material-ui/core/Checkbox";
 import { Link } from "react-router-dom";
 import ReactMde from "react-mde";
 import * as Showdown from "showdown";
+import AddIcon from "@material-ui/icons/Add";
+import Fab from "@material-ui/core/Fab";
+import Tooltip from "@material-ui/core/Tooltip";
 import "react-mde/lib/styles/css/react-mde-all.css";
 
 //popup notification
@@ -151,10 +154,10 @@ class EditQuestion extends Component {
   };
 
   handleChange = e => {
-    this.setState({[e.target.name]: e.target.value});
+    this.setState({ [e.target.name]: e.target.value });
   };
 
-  handleDescriptionChange = (description) => {
+  handleDescriptionChange = description => {
     this.setState({ description });
   };
 
@@ -286,67 +289,76 @@ class EditQuestion extends Component {
                     Content
                   </label>
                   <div className="col-lg-10">
-                  <ReactMde onChange={this.handleDescriptionChange} value={this.state.description} 
-                    generateMarkdownPreview={markdown =>
-                    Promise.resolve(this.converter.makeHtml(markdown))} />
+                    <ReactMde
+                      onChange={this.handleDescriptionChange}
+                      value={this.state.description}
+                      generateMarkdownPreview={markdown =>
+                        Promise.resolve(this.converter.makeHtml(markdown))
+                      }
+                    />
                   </div>
                 </div>
                 <div className="form-group">
-                <span>
+                  <span>
                     <label className="adjust-input control-label">
                       Correct:
                     </label>
-                      <Checkbox
-                        checked={correct}
-                        onChange={this.toggleOption}
-                        value={correct}
-                        name="correct"
-                      />
-                      <input
-                        type="text"
-                        name="content"
-                        onChange={this.handleChange}
-                        value={content}
-                      />
-                      <button
-                      className="option_btn"
-                      onClick={this.postAnswerOptions}
-                    >
-                      Add Option
-                    </button>
-                    </span>
+                    <Checkbox
+                      checked={correct}
+                      onChange={this.toggleOption}
+                      value={correct}
+                      name="correct"
+                    />
+                    <input
+                      type="text"
+                      name="content"
+                      onChange={this.handleChange}
+                      value={content}
+                    />
+                    <Tooltip title="Add Option" aria-label="Add">
+                      <Fab
+                        onClick={this.postAnswerOptions}
+                        color="primary"
+                        className={classes.fab}
+                      >
+                        <AddIcon />
+                      </Fab>
+                    </Tooltip>
+                  </span>
                 </div>
                 <div className="form-group">
-                {answer_options.map(option => (
-                      <ul className="question_options" key={option.id}>
-                        <li className="question_content">
-                          <Link
-                            to={`/edit_option/${option.question_id}/${
-                              option.id
-                            }`}
-                          >
-                            {this.Capitalize(option.content)}({option.correct ? "Correct" : "Incorrect"})
-                          </Link>
-                          <i
-                            onClick={() => {
-                              this.deleteOption(option.question_id, option.id);
-                            }}
-                            style={{ cursor: "pointer", color: "red" }}
-                            className="fa fa-trash-o pull-right"
-                          />
-                        </li>
-                      </ul>
-                    ))}
+                  {answer_options.map(option => (
+                    <ul className="question_options" key={option.id}>
+                      <li className="question_content">
+                        <Link
+                          to={`/edit_option/${option.question_id}/${option.id}`}
+                        >
+                          {this.Capitalize(option.content)}(
+                          {option.correct ? "Correct" : "Incorrect"})
+                        </Link>
+                        <i
+                          onClick={() => {
+                            this.deleteOption(option.question_id, option.id);
+                          }}
+                          style={{ cursor: "pointer", color: "red" }}
+                          className="fa fa-trash-o pull-right"
+                        />
+                      </li>
+                    </ul>
+                  ))}
                 </div>
 
                 <div className="form-group">
                   <div className="col-lg-10">
-                    <button
-                      className="option_btn form-control"
+                    <Button
+                      variant="contained"
+                      component="span"
+                      color="primary"
+                      className="form-control new-btn"
                       onClick={this.updateQuestion}
                     >
                       {loading ? <Spinner /> : "Update"}
-                    </button>
+                    </Button>
                   </div>
                 </div>
               </form>

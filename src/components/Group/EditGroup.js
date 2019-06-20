@@ -191,12 +191,15 @@ class EditGroup extends Component {
                 </div>
                 <div className="form-group">
                   <div className="col-lg-12">
-                    <button
+                    <Button
+                      variant="contained"
+                      component="span"
+                      color="primary"
+                      className="form-control new-btn"
                       onClick={this.EditGroup}
-                      className="form-control btn-submit"
                     >
                       {loading ? <Spinner /> : "Submit"}
-                    </button>
+                    </Button>
                   </div>
                 </div>
               </form>

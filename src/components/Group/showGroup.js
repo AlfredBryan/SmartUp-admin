@@ -46,13 +46,21 @@ class showGroup extends Component {
       memberships: [],
       user_emails: "",
       loading: false,
-      open: false
+      open: false,
+      done: false
     };
   }
 
   // popup notification functions
   handleClick = () => {
     this.setState({ open: true });
+  };
+
+  handleRemoveClick = () => {
+    this.setState({ done: true });
+  };
+  handleRemoveClose = () => {
+    this.setState({ done: false });
   };
 
   handleClose = () => {
@@ -105,12 +113,13 @@ class showGroup extends Component {
         })
       )
       .then(res => {
+        console.log(res);
         if (res.status === 200) {
           this.setState({
             loading: false
           });
           this.fetchGroup();
-          alert("Users Added Successfully");
+          this.handleClick();
         }
       });
   };
@@ -132,8 +141,8 @@ class showGroup extends Component {
       })
       .then(res => {
         if (res.status === 204) {
-          this.handleClick();
           this.fetchGroup();
+          this.handleRemoveClick();
         }
       });
   };
@@ -144,7 +153,7 @@ class showGroup extends Component {
 
   render() {
     const { classes } = this.props;
-    const { memberships, group, user_emails, loading, open } = this.state;
+    const { memberships, group, user_emails, done, open, pop_up } = this.state;
     return (
       <React.Fragment>
         <Navigation />
@@ -158,9 +167,8 @@ class showGroup extends Component {
           }}
           message={
             <span id="snackbar-fab-message-id popup-text">
-              Member
-              <span className="user-popup">Removed </span>
-              Successfully
+              Added
+              <span className="user-popup">Successfully</span>
             </span>
           }
           action={
@@ -170,6 +178,33 @@ class showGroup extends Component {
           }
           className={classes.snackbar}
         />
+        {/* remove user */}
+        <Snackbar
+          open={done}
+          autoHideDuration={4000}
+          onClose={this.handleRemoveClick}
+          ContentProps={{
+            "aria-describedby": "snackbar-fab-message-id",
+            className: classes.snackbarContent
+          }}
+          message={
+            <span id="snackbar-fab-message-id popup-text">
+              Member removed
+              <span className="user-popup">Successfully</span>
+            </span>
+          }
+          action={
+            <Button
+              color="inherit"
+              size="small"
+              onClick={this.handleRemoveClose}
+            >
+              close
+            </Button>
+          }
+          className={classes.snackbar}
+        />
+        {/* ends */}
         <div className="main-content">
           <div className="container" id="show_group">
             <div>

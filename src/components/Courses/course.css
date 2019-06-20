@@ -303,28 +303,8 @@ a:hover {
     font-size: 0px !important
 }
 
-.MuiListSubheader-root-101 {
-    color: rgba(240, 17, 17, 0.54) !important;
-    font-size: 1rem !important;
-    box-sizing: border-box;
-    list-style: none;
-    line-height: 50px !important;
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-    font-weight: 800 !important;
-}
-
-.MuiListItemText-root-59 {
-    flex: 1 1 !important;
-    padding: 0 16px;
-    min-width: 0;
-}
-
-
-.MuiTypography-subheading-72 {
-    color: rgba(0, 0, 0, 0.87);
-    font-size: 1.5rem !important;
-    font-weight: 800 !important;
-    line-height: 1.5em;
+.topics-botton {
+    margin: 0em 1.5em !important
 }
 
 .remove-font {

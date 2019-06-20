@@ -27,9 +27,7 @@ const styles = theme => ({
     padding: 0
   },
   fab: {
-    margin: theme.spacing.unit * 2,
-    background:
-      "linear-gradient(174.78deg, #3394AB -8.91%, #64DAF6 99.52%) !important"
+    margin: theme.spacing.unit * 2
   },
   absolute: {
     position: "absolute",

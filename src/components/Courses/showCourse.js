@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import EditIcon from "@material-ui/icons/Edit";
 import Fab from "@material-ui/core/Fab";
 import Tooltip from "@material-ui/core/Tooltip";
+import Button from "@material-ui/core/Button";
 
 import Navigation from "components/Navigation/Navigation";
 
@@ -41,57 +42,72 @@ class showCourse extends Component {
 
   render() {
     const { course, topics, course_slug } = this.state;
-    const ReactMarkdown = require('react-markdown')
+    const ReactMarkdown = require("react-markdown");
     return (
       <div>
         <Navigation />
         <div className="main-content">
           <div className="course_n_topics">
             <div className="align-course">
-            <span className="pull-right">
+              <span className="pull-right">
                 <Link to={`/new_assessment/${course.id}`}>
-                    <button className="topics-button">Add Assessment</button>
-                  </Link>
-                  <Link to={`/new_topic/${course_slug}`}>
-                    <button className="topics-button">Add Topic</button>
-                  </Link>
-                  <Link to={`/update_course/${course_slug}`}>
+                  <Button
+                    variant="contained"
+                    component="span"
+                    color="primary"
+                    className="topics-botton new-btn"
+                  >
+                    Add Assessment
+                  </Button>
+                </Link>
+                <Link to={`/new_topic/${course_slug}`}>
+                  <Button
+                    variant="contained"
+                    component="span"
+                    color="primary"
+                    className="topics-botton new-btn"
+                  >
+                    Add Topic
+                  </Button>
+                </Link>
+                <Link to={`/update_course/${course_slug}`}>
                   <Tooltip title="Edit Course" aria-label="Edit Course">
-                      <Fab color="primary">
-                        <EditIcon />
-                      </Fab>
-                    </Tooltip>
-                  </Link>
-                </span>
+                    <Fab color="primary">
+                      <EditIcon />
+                    </Fab>
+                  </Tooltip>
+                </Link>
+              </span>
               <div>
                 <h3 className="course-name">{course.name}</h3>
               </div>
               <div className="topics-cover container">
-              <span className="pull-right">
-                      {course.topics < 1 ? (
-                        <span className="topics-span">No topics yet</span>
-                      ) : (
-                        <span className="topics-span">
-                          Topics:{topics.length}
-                        </span>
-                      )}
-                    </span>
+                <span className="pull-right">
+                  {course.topics < 1 ? (
+                    <span className="topics-span">No topics yet</span>
+                  ) : (
+                    <span className="topics-span">Topics:{topics.length}</span>
+                  )}
+                </span>
                 <h4>Introduction</h4>
 
                 <blockquote>
-                <ReactMarkdown source={course.description} />
+                  <ReactMarkdown source={course.description} />
                 </blockquote>
-                 <br/>     
+                <br />
                 <h4>Topics</h4>
                 <ul className="topic_list">
-                {topics.map(topic => (
-                      <Link to={`/courses/${course_slug}/topics/${topic.id}`} key={topic.id}>
-                        <li>
+                  {topics.map(topic => (
+                    <Link
+                      to={`/courses/${course_slug}/topics/${topic.id}`}
+                      key={topic.id}
+                    >
+                      <li>
                         <div className="topic-card">
                           <span className="topic_name">{topic.name}</span>
                         </div>
-                        </li>
-                      </Link>
+                      </li>
+                    </Link>
                   ))}
                 </ul>
               </div>

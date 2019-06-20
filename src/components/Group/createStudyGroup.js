@@ -166,12 +166,15 @@ class createStudyGroup extends Component {
                 </div>
                 <div className="form-group">
                   <div className="col-lg-12">
-                    <button
-                      onClick={this.handleSubmit}
-                      className="form-control btn-submit"
-                    >
+                    <Button
+                        variant="contained"
+                        component="span"
+                        color="primary"
+                        className="form-control new-btn"
+                        onClick={this.handleSubmit}
+                      >
                       {loading ? <Spinner /> : "Submit"}
-                    </button>
+                      </Button>
                   </div>
                 </div>
               </form>

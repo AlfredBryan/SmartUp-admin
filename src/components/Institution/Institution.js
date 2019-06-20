@@ -13,9 +13,7 @@ import Navigation from "components/Navigation/Navigation";
 
 const styles = theme => ({
   fab: {
-    margin: theme.spacing.unit * 2,
-    background:
-      "linear-gradient(174.78deg, #3394AB -8.91%, #64DAF6 99.52%) !important"
+    margin: theme.spacing.unit * 2
   },
   absolute: {
     position: "absolute",
@@ -91,10 +89,13 @@ class Institution extends Component {
                 <div className="row push-down">
                   <h3>Institutions</h3>
                   <div className="row" id="institutions_home">
-                      {institutions.map(inst => (
-                        <div className="col-md-4">
-                          <div key={inst.id} className="card text-center">
-                          <Link to={`/institutions/${inst.slug}`} className="display-uni">
+                    {institutions.map(inst => (
+                      <div className="col-md-4">
+                        <div key={inst.id} className="card text-center">
+                          <Link
+                            to={`/institutions/${inst.slug}`}
+                            className="display-uni"
+                          >
                             <div>
                               {inst.logo_url ? (
                                 <img
@@ -114,9 +115,9 @@ class Institution extends Component {
                             </div>
                           </Link>
                         </div>
-                        </div>
-                      ))}
-                    </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>

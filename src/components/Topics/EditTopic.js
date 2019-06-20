@@ -5,6 +5,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Navigation from "components/Navigation/Navigation";
 import ReactMde from "react-mde";
 import * as Showdown from "showdown";
+import Button from "@material-ui/core/Button";
 import "react-mde/lib/styles/css/react-mde-all.css";
 
 class EditTopic extends Component {
@@ -33,16 +34,21 @@ class EditTopic extends Component {
     const token = localStorage.getItem("token");
     const { topic_id, course_slug } = this.state;
     axios
-      .get(`https://smart-up.herokuapp.com/api/v1/courses/${course_slug}/topics/${topic_id}`, 
-      
-      {
-        headers: {
-          Authorization: token
+      .get(
+        `https://smart-up.herokuapp.com/api/v1/courses/${course_slug}/topics/${topic_id}`,
+
+        {
+          headers: {
+            Authorization: token
+          }
         }
-      })
+      )
       .then(res => {
         this.setState({
-          name: res.data.name, description: res.data.description, active: res.data.active, lecture_type: res.data.lecture_type
+          name: res.data.name,
+          description: res.data.description,
+          active: res.data.active,
+          lecture_type: res.data.lecture_type
         });
       });
   };
@@ -116,7 +122,7 @@ class EditTopic extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  handleDescriptionChange = (description) => {
+  handleDescriptionChange = description => {
     this.setState({ description });
   };
 
@@ -125,7 +131,14 @@ class EditTopic extends Component {
   }
 
   render() {
-    const { loading, errorMessage, name, description, active, lecture_type } = this.state;
+    const {
+      loading,
+      errorMessage,
+      name,
+      description,
+      active,
+      lecture_type
+    } = this.state;
     return (
       <div>
         <Navigation />
@@ -155,9 +168,13 @@ class EditTopic extends Component {
                       Content
                     </label>
                     <div className="col-lg-12">
-                    <ReactMde onChange={this.handleDescriptionChange} value={description} 
-                    generateMarkdownPreview={markdown =>
-                    Promise.resolve(this.converter.makeHtml(markdown))} />
+                      <ReactMde
+                        onChange={this.handleDescriptionChange}
+                        value={description}
+                        generateMarkdownPreview={markdown =>
+                          Promise.resolve(this.converter.makeHtml(markdown))
+                        }
+                      />
                     </div>
                   </div>
                   <div className="form-group">
@@ -178,9 +195,16 @@ class EditTopic extends Component {
                       Lecture Type
                     </label>
                     <div className="col-lg-12">
-                      <select className="form-control" name="" id="" value={lecture_type}>
+                      <select
+                        className="form-control"
+                        name=""
+                        id=""
+                        value={lecture_type}
+                      >
                         {["text", "video"].map(lt => (
-                          <option key={lt} value={lt}>{this.Capitalize(lt)}</option>
+                          <option key={lt} value={lt}>
+                            {this.Capitalize(lt)}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -188,12 +212,15 @@ class EditTopic extends Component {
                   <p style={{ color: "red" }}>{errorMessage}</p>
                   <div className="form-group">
                     <div className="col-lg-12">
-                      <button
+                      <Button
+                        variant="contained"
+                        component="span"
+                        color="primary"
+                        className="form-control new-btn"
                         onClick={this.editTopic}
-                        className="form-control btn-submit"
                       >
                         {loading ? <Spinner /> : "Update"}
-                      </button>
+                      </Button>
                     </div>
                   </div>
                 </form>

@@ -7,6 +7,7 @@ import axios from "axios";
 import Select from "react-select";
 import ReactMde from "react-mde";
 import * as Showdown from "showdown";
+import Button from "@material-ui/core/Button";
 import "react-mde/lib/styles/css/react-mde-all.css";
 
 class AddQuestion extends Component {
@@ -90,7 +91,7 @@ class AddQuestion extends Component {
     this.setState({ selectedOption });
   };
 
-  handleDescriptionChange = (description) => {
+  handleDescriptionChange = description => {
     this.setState({ description });
   };
 
@@ -229,9 +230,13 @@ class AddQuestion extends Component {
                       Description
                     </label>
                     <div className="col-lg-12">
-                    <ReactMde onChange={this.handleDescriptionChange} value={this.state.description} 
-                    generateMarkdownPreview={markdown =>
-                    Promise.resolve(this.converter.makeHtml(markdown))} />
+                      <ReactMde
+                        onChange={this.handleDescriptionChange}
+                        value={this.state.description}
+                        generateMarkdownPreview={markdown =>
+                          Promise.resolve(this.converter.makeHtml(markdown))
+                        }
+                      />
                     </div>
                   </div>
                   <div className="form-group">
@@ -279,12 +284,15 @@ class AddQuestion extends Component {
                   <p style={{ color: "red" }}>{errorMessage}</p>
                   <div className="form-group">
                     <div className="col-lg-12">
-                      <button
+                      <Button
+                        variant="contained"
+                        component="span"
+                        color="primary"
+                        className="form-control new-btn"
                         onClick={this.postAssessment}
-                        className="form-control btn-submit"
                       >
                         {loading ? <Spinner /> : "Update"}
-                      </button>
+                      </Button>
                     </div>
                   </div>
                 </form>
