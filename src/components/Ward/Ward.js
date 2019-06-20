@@ -190,7 +190,7 @@ class AddWard extends Component {
       return (
         <button
           onClick={() => this.cancelRequest(id)}
-          className="btn btn-danger"
+          className="cancel-btn btn-danger"
         >
           {this.state.loading ? (
             <Spinner />
@@ -273,7 +273,7 @@ class AddWard extends Component {
                         {d.user.full_name}
                         {d.user.email}
                       </div>
-                      <div className="actions">
+                      <div className="ward_actions">
                         {this.declineReqButton(user, d.id)}
                         {this.acceptReqButton(user, d.id)}
                       </div>

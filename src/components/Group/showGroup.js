@@ -4,11 +4,38 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 import EditIcon from "@material-ui/icons/Edit";
-import AddIcon from "@material-ui/icons/Add";
+import GroupAddIcon from "@material-ui/icons/GroupAdd";
 import Fab from "@material-ui/core/Fab";
 import Tooltip from "@material-ui/core/Tooltip";
 
+//popup notification
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import Snackbar from "@material-ui/core/Snackbar";
+
 import "./style.css";
+
+const styles = theme => ({
+  root: {
+    position: "relative",
+    overflow: "hidden"
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20
+  },
+  button: {
+    marginBottom: theme.spacing.unit
+  },
+  snackbar: {
+    position: "absolute"
+  },
+  snackbarContent: {
+    width: 360,
+    fontSize: "1em"
+  }
+});
 
 class showGroup extends Component {
   constructor(props) {
@@ -16,11 +43,22 @@ class showGroup extends Component {
     this.state = {
       study_group_id: this.props.match.params.id,
       group: "",
-      GroupMembers: [],
+      memberships: [],
       user_emails: "",
-      loading: false
+      loading: false,
+      open: false
     };
   }
+
+  // popup notification functions
+  handleClick = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+  //ends
 
   fetchGroup = () => {
     const token = localStorage.getItem("token");
@@ -35,11 +73,10 @@ class showGroup extends Component {
         }
       )
       .then(res => {
-        console.log(res);
         if (res.status === 200) {
           this.setState({
             group: res.data,
-            GroupMembers: res.data.members
+            memberships: res.data.memberships
           });
         }
       });
@@ -68,7 +105,6 @@ class showGroup extends Component {
         })
       )
       .then(res => {
-        console.log(res);
         if (res.status === 200) {
           this.setState({
             loading: false
@@ -85,18 +121,63 @@ class showGroup extends Component {
     });
   };
 
+  deleteGroupUser = id => {
+    const token = localStorage.getItem("token");
+
+    axios
+      .delete(`https://smart-up.herokuapp.com/api/v1/group_memberships/${id}`, {
+        headers: {
+          Authorization: token
+        }
+      })
+      .then(res => {
+        if (res.status === 204) {
+          this.handleClick();
+          this.fetchGroup();
+        }
+      });
+  };
+
   componentDidMount() {
     this.fetchGroup();
   }
 
   render() {
-    const { GroupMembers, group, user_emails, loading } = this.state;
+    const { classes } = this.props;
+    const { memberships, group, user_emails, loading, open } = this.state;
     return (
       <React.Fragment>
         <Navigation />
+        <Snackbar
+          open={open}
+          autoHideDuration={4000}
+          onClose={this.handleClose}
+          ContentProps={{
+            "aria-describedby": "snackbar-fab-message-id",
+            className: classes.snackbarContent
+          }}
+          message={
+            <span id="snackbar-fab-message-id popup-text">
+              Member
+              <span className="user-popup">Removed </span>
+              Successfully
+            </span>
+          }
+          action={
+            <Button color="inherit" size="small" onClick={this.handleClose}>
+              close
+            </Button>
+          }
+          className={classes.snackbar}
+        />
         <div className="main-content">
-          <div className="container">
+          <div className="container" id="show_group">
             <div>
+              <Link to={`/attendance/${group.id}`}>
+                <Button variant="contained" component="span" color="primary">
+                  Attendance
+                </Button>
+              </Link>
               <Link to={`/update_group/${group.id}`} className="button-area">
                 <Tooltip title="Edit Group" aria-label="Edit">
                   <Fab color="primary">
@@ -111,11 +192,11 @@ class showGroup extends Component {
                 <strong>Add Users</strong>
               </h4>
               <div className="form-group">
-                <div className="col-lg-8">
+                <div className="col-md-12">
                   <span onClick={this.AddUsers} className="pull-right">
                     <Tooltip title="Add Users" aria-label="Edit">
                       <Fab color="primary">
-                        <AddIcon />
+                        <GroupAddIcon />
                       </Fab>
                     </Tooltip>
                   </span>
@@ -123,25 +204,59 @@ class showGroup extends Component {
                     name="user_emails"
                     value={user_emails}
                     onChange={this.handleChange}
-                    cols="40"
                     rows="4"
                   />
                 </div>
               </div>
             </form>
-            {/* <div>
-              {GroupMembers > 0 ? (
-                <div>
-                  <p>
-                    {GroupMembers.map(mem => (
-                      <div>{mem.email}</div>
+            <div>
+              {memberships.length > 0 ? (
+                <table className="table-striped">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {memberships.map(mem => (
+                      <tr key={mem.id}>
+                        <td>
+                          <span style={{ padding: "1.3em" }}>
+                            {mem.user.surname ? (
+                              <span>{mem.user.surname}</span>
+                            ) : (
+                              <span>Not available</span>
+                            )}
+                          </span>
+                          <span>
+                            {mem.user.first_name ? (
+                              <span>{mem.user.first_name}</span>
+                            ) : (
+                              <span>Not available</span>
+                            )}
+                          </span>
+                        </td>
+                        <td>{mem.user.email}</td>
+                        <td>
+                          <i
+                            onClick={() => {
+                              this.deleteGroupUser(mem.id);
+                            }}
+                            className="fa fa-trash group_delete"
+                          />
+                        </td>
+                      </tr>
                     ))}
-                  </p>
-                </div>
+                  </tbody>
+                </table>
               ) : (
-                <span className="group-card">No members Yet</span>
+                <span>
+                  <h3 className="group-card">No members Yet</h3>
+                </span>
               )}
-            </div> */}
+            </div>
           </div>
         </div>
       </React.Fragment>
@@ -149,4 +264,8 @@ class showGroup extends Component {
   }
 }
 
-export default showGroup;
+showGroup.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(showGroup);

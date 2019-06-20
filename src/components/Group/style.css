@@ -1,9 +1,48 @@
-.btn-join {
-    background: linear-gradient(174.78deg, #64daf6 -8.91%, #3394ab 99.52%) !important;
-    color: white;
-    font-weight: 700;
-    border: none;
-    padding: 0.5em 0;
+.user_group_image {
     width: 3em;
-    border-radius: 4px;
+    height: 3em;
+    border-radius: 100%;
+}
+
+.group-card {
+    background-color: #ffffff;
+    padding: 1.5em;
+    box-shadow: 0 0.3px 0.3px 0 rgba(0, 0, 0, 0.2);
+    width: 49em;
+    text-align: center;
+    font-size: 1em;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    margin: 2em 0em;
+    box-shadow: 0 0.3px 0.3px 0 rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
+}
+
+td,
+th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+}
+
+.group_delete {
+    color: red;
+    cursor: pointer;
+    margin: 0 auto;
+}
+
+#show_group textarea {
+    width: 80%;
+}
+
+
+@media (max-width: 480px) {
+    .group-card {
+        width: 20em;
+        margin-left: 1em
+    }
 }

@@ -5,6 +5,8 @@ import EditIcon from "@material-ui/icons/Edit";
 import Fab from "@material-ui/core/Fab";
 import Tooltip from "@material-ui/core/Tooltip";
 import { withStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+
 import PropTypes from "prop-types";
 import axios from "axios";
 
@@ -123,12 +125,17 @@ class showInstitution extends Component {
                       </h4>
                     </div>
                     <p className="description text-center">
-                      <Link to={`/create_study_group/${institution.id}`}>
-                        <Tooltip title="Add Study Group" aria-label="Add">
-                          <Fab color="primary" className="pull-left">
-                            <AddIcon />
-                          </Fab>
-                        </Tooltip>
+                      <Link
+                        className="pull-left"
+                        to={`/create_study_group/${institution.id}`}
+                      >
+                        <Button
+                          variant="contained"
+                          component="span"
+                          color="primary"
+                        >
+                          Add Study Group
+                        </Button>
                       </Link>
                       <Link
                         to={`/update_institution/${slug}`}

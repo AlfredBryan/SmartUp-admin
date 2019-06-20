@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import Navigation from "components/Navigation/Navigation";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Button from "@material-ui/core/Button";
+
+import Navigation from "components/Navigation/Navigation";
 
 class StudyGroups extends Component {
   constructor(props) {
@@ -48,10 +50,10 @@ class StudyGroups extends Component {
                         to={`/show_group/${stud.id}`}
                         className="display-uni"
                       >
-                        <i className="fa fa-comments assessment_logo" />
+                        <i className="fa fa-group assessment_logo" />
                         <h6 className="assessment_name">{stud.name}</h6>
                         <p className="assessment_course_name">
-                          <strong>Level</strong>:{stud.level}
+                          <strong>Grade</strong>:{stud.level}
                         </p>
                       </Link>
                     </div>
