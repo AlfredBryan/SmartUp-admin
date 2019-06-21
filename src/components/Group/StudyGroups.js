@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import Button from "@material-ui/core/Button";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import Navigation from "components/Navigation/Navigation";
 
@@ -49,7 +49,7 @@ class StudyGroups extends Component {
                         to={`/show_group/${stud.id}`}
                         className="display-uni"
                       >
-                        <i className="fa fa-group assessment_logo" />
+                       <FontAwesomeIcon icon="users-cog" size="3x" /> 
                         <h6 className="assessment_name">{stud.name}</h6>
                         <p className="assessment_course_name">
                           <strong>Grade</strong>:{stud.level}

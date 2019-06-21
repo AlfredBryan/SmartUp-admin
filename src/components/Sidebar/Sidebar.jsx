@@ -3,6 +3,7 @@ import { NavLink, Link, withRouter } from "react-router-dom";
 import axios from "axios";
 
 import AdminNavbarLinks from "../Navbars/AdminNavbarLinks.jsx";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class Sidebar extends Component {
   constructor(props) {
@@ -119,7 +120,7 @@ class Sidebar extends Component {
             </li>
             <li>
               <NavLink activeClassName="active" to="/study_groups">
-                <i className="fa fa-group"></i>
+              <FontAwesomeIcon icon="users-cog" size="2x"/>
                 <p>Study Groups</p>
               </NavLink>
             </li>

@@ -52,6 +52,15 @@ th {
     margin: 0.25em;
 }
 
+.sidebar .nav p {
+    display: inline;
+    vertical-align: top;
+}
+
+.sidebar .nav svg {
+    margin-right: 0.35em; 
+}
+
 
 
 
