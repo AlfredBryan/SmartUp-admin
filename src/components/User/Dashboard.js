@@ -95,7 +95,6 @@ class Dashboard extends Component {
     const { classes } = this.props;
     const { open } = this.state;
     const user = JSON.parse(localStorage.getItem("user"));
-    console.log(user)
     return (
       <React.Fragment>
         <Navigation />

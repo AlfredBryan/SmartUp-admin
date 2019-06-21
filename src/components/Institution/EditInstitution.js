@@ -8,6 +8,8 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
+//file upload
+import FileBase64 from "react-file-base64";
 
 import Navigation from "components/Navigation/Navigation";
 
@@ -40,6 +42,7 @@ class EditInstitution extends Component {
       motto: "",
       email: "",
       phone: "",
+      logo: "",
       loading: false,
       response: "",
       institution_id: "",
@@ -56,6 +59,12 @@ class EditInstitution extends Component {
     this.setState({ open: false });
   };
   //Ends
+
+  //File upload begins
+  uploadImageFile = file => {
+    this.setState({ logo: file.base64 });
+  };
+  //Ends here
 
   //populate input fields
   fetchInstitution() {
@@ -82,7 +91,7 @@ class EditInstitution extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const token = localStorage.getItem("token");
-    let { name, motto, email, phone, institution_id } = this.state;
+    let { name, motto, email, phone, logo, institution_id } = this.state;
     axios
       .put(
         `https://smart-up.herokuapp.com/api/v1/institutions/${institution_id}`,
@@ -91,7 +100,8 @@ class EditInstitution extends Component {
             name,
             motto,
             email,
-            phone
+            phone,
+            logo
           }
         },
         {
@@ -134,7 +144,7 @@ class EditInstitution extends Component {
   }
 
   render() {
-    const { loading, open, response  } = this.state;
+    const { loading, open, response } = this.state;
     const { classes } = this.props;
     return (
       <div>
@@ -167,7 +177,7 @@ class EditInstitution extends Component {
               <form onSubmit={this.handleSubmit} className="form-horizontal">
                 <div className="form-group">
                   <label className="col-lg-3 control-label">
-                    Institution name:
+                    Institution name
                   </label>
                   <div className="col-lg-8">
                     <input
@@ -182,7 +192,7 @@ class EditInstitution extends Component {
                 </div>
                 <div className="form-group">
                   <label className="col-lg-3 control-label">
-                    Contact Email:
+                    Contact Email
                   </label>
                   <div className="col-lg-8">
                     <input
@@ -196,7 +206,7 @@ class EditInstitution extends Component {
                   </div>
                 </div>
                 <div className="form-group">
-                  <label className="col-lg-3 control-label">Motto:</label>
+                  <label className="col-lg-3 control-label">Motto</label>
                   <div className="col-lg-8">
                     <input
                       className="form-control"
@@ -209,7 +219,7 @@ class EditInstitution extends Component {
                   </div>
                 </div>
                 <div className="form-group">
-                  <label className="col-lg-3 control-label">Phone:</label>
+                  <label className="col-lg-3 control-label">Phone</label>
                   <div className="col-lg-8">
                     <input
                       className="form-control"
@@ -222,15 +232,24 @@ class EditInstitution extends Component {
                   </div>
                 </div>
                 <div className="form-group">
+                  <label className="col-lg-3 control-label">Logo</label>
+                  <div className="col-lg-8">
+                    <FileBase64
+                      multiple={false}
+                      onDone={this.uploadImageFile}
+                    />
+                  </div>
+                </div>
+                <div className="form-group">
                   <div className="col-lg-12">
                     <Button
                       variant="contained"
                       component="span"
-                      color="primary"
+                      color="secondary"
                       className="form-control new-btn"
                       onClick={this.handleSubmit}
                     >
-                    {loading ? <Spinner /> : "Submit"}
+                      {loading ? <Spinner /> : "Submit"}
                     </Button>
                   </div>
                 </div>

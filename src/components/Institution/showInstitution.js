@@ -60,7 +60,6 @@ class showInstitution extends Component {
         }
       )
       .then(res => {
-        console.log(res);
         this.setState({
           course_list: res.data
         });
@@ -90,7 +89,6 @@ class showInstitution extends Component {
   render() {
     const { classes } = this.props;
     const { course_list, institution, slug } = this.state;
-    console.log(institution);
     return (
       <div>
         <Navigation />
@@ -130,7 +128,7 @@ class showInstitution extends Component {
                         <Button
                           variant="contained"
                           component="span"
-                          color="primary"
+                          color="secondary"
                         >
                           Add Study Group
                         </Button>
@@ -143,7 +141,7 @@ class showInstitution extends Component {
                           title="Edit Institutioon"
                           aria-label="Edit Institution"
                         >
-                          <Fab color="primary">
+                          <Fab color="secondary">
                             <EditIcon />
                           </Fab>
                         </Tooltip>
@@ -168,7 +166,7 @@ class showInstitution extends Component {
                       className="button-area"
                     >
                       <Tooltip title="Add" aria-label="Add">
-                        <Fab color="primary" className={classes.fab}>
+                        <Fab color="secondary" className={classes.fab}>
                           <AddIcon />
                         </Fab>
                       </Tooltip>
@@ -192,7 +190,7 @@ class showInstitution extends Component {
                       className="button-area"
                     >
                       <Tooltip title="Add new Course" aria-label="Add">
-                        <Fab color="primary" className={classes.fab}>
+                        <Fab color="secondary" className={classes.fab}>
                           <AddIcon />
                         </Fab>
                       </Tooltip>

@@ -47,22 +47,24 @@
 }
 
 #institutions_home .card {
- text-transform: capitalize;
+    text-transform: capitalize;
 }
 
 #institutions_home .card i {
     font-size: 5em;
     width: auto;
-    margin-bottom: 0.43em; 
+    margin-bottom: 0.43em;
 }
 
 #institutions_home .card .institution_logo {
-    width: 10em;
+    width: 8em;
+    height: 8em;
+    border-radius: 100%;
 }
 
 .assessment_question .card {
     padding: 1em;
-    border: 3px solid  #64daf6;
+    border: 3px solid #64daf6;
     min-height: 9em;
 }
 
@@ -85,13 +87,13 @@
 #take_assessment .nav-buttons .finish-button {
     padding: 1em 1.5em;
     color: black;
-    background-color: #64daf6; 
+    background-color: #64daf6;
     border: none;
     font-size: 16px;
 }
 
 #take_assessment .nav-buttons .finish-button:hover {
-    box-shadow: 0 0 11px rgba(33,33,33,.2);
+    box-shadow: 0 0 11px rgba(33, 33, 33, .2);
 }
 
 @media (max-width: 480px) {

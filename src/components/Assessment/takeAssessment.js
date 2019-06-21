@@ -109,7 +109,7 @@ class takeAssessment extends Component {
               }) => (
                 <div className="container nav-buttons">
                     <Tooltip title="First page" aria-label="First page">
-                    <Fab color="primary"
+                    <Fab color="secondary"
                     {...getPageItemProps({
                         pageValue: 1,
                         onPageChange: this.handlePageChange
@@ -122,7 +122,7 @@ class takeAssessment extends Component {
 
                   {hasPreviousPage && (
                     <Tooltip title="Previous" aria-label="Previous">
-                    <Fab color="primary"
+                    <Fab color="secondary"
                       {...getPageItemProps({
                         pageValue: previousPage,
                         onPageChange: this.handlePageChange
@@ -135,7 +135,7 @@ class takeAssessment extends Component {
 
                   {hasNextPage && (
                     <Tooltip title="Next" aria-label="Next">
-                    <Fab color="primary"
+                    <Fab color="secondary"
                     {...getPageItemProps({
                         pageValue: nextPage,
                         onPageChange: this.handlePageChange
@@ -147,7 +147,7 @@ class takeAssessment extends Component {
                   )}
 
                   <Tooltip title="Last page" aria-label="Last page">
-                    <Fab color="primary"
+                    <Fab color="secondary"
                     {...getPageItemProps({
                         pageValue: totalPages,
                         onPageChange: this.handlePageChange

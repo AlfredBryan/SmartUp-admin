@@ -54,7 +54,7 @@ class showCourse extends Component {
                   <Button
                     variant="contained"
                     component="span"
-                    color="primary"
+                    color="secondary"
                     className="topics-botton new-btn"
                   >
                     Add Assessment
@@ -64,15 +64,15 @@ class showCourse extends Component {
                   <Button
                     variant="contained"
                     component="span"
-                    color="primary"
+                    color="secondary"
                     className="topics-botton new-btn"
                   >
                     Add Topic
                   </Button>
                 </Link>
                 <Link to={`/update_course/${course_slug}`}>
-                  <Tooltip title="Edit Course" aria-label="Edit Course">
-                    <Fab color="primary">
+                  <Tooltip title="Edit Course" aria-label="Edit">
+                    <Fab color="secondary">
                       <EditIcon />
                     </Fab>
                   </Tooltip>

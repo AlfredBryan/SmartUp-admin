@@ -101,8 +101,8 @@ class Courses extends Component {
                   <div className="container">
                     <div className="no-wards">
                       <Link to="/courses/new" className="pull-right">
-                        <Tooltip title="Add" aria-label="Add">
-                          <Fab color="primary" className={classes.fab}>
+                        <Tooltip title="Add Course" aria-label="Add">
+                          <Fab color="secondary">
                             <AddIcon />
                           </Fab>
                         </Tooltip>
@@ -125,8 +125,8 @@ class Courses extends Component {
             <div className="main-content">
               <div className="action-buttons">
                 <Link to="/new_course" className="button-area">
-                  <Tooltip title="Add" aria-label="Add">
-                    <Fab color="primary" className={classes.fab}>
+                  <Tooltip title="Add Course" aria-label="Add">
+                    <Fab color="secondary" className={classes.fab}>
                       <AddIcon />
                     </Fab>
                   </Tooltip>

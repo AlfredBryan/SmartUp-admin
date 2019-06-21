@@ -169,7 +169,7 @@ class createStudyGroup extends Component {
                     <Button
                         variant="contained"
                         component="span"
-                        color="primary"
+                        color="secondary"
                         className="form-control new-btn"
                         onClick={this.handleSubmit}
                       >

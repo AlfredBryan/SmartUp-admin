@@ -79,7 +79,7 @@ class Institution extends Component {
           <div className="main-content">
             <Link to="/new_institution" className="button-area">
               <Tooltip title="Add" aria-label="Add">
-                <Fab color="primary" className={classes.fab}>
+                <Fab color="secondary" className={classes.fab}>
                   <AddIcon />
                 </Fab>
               </Tooltip>
@@ -90,8 +90,8 @@ class Institution extends Component {
                   <h3>Institutions</h3>
                   <div className="row" id="institutions_home">
                     {institutions.map(inst => (
-                      <div className="col-md-4">
-                        <div key={inst.id} className="card text-center">
+                      <div key={inst.id} className="col-md-4">
+                        <div className="card text-center">
                           <Link
                             to={`/institutions/${inst.slug}`}
                             className="display-uni"

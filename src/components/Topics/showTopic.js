@@ -4,10 +4,12 @@ import { Link } from "react-router-dom";
 
 import Navigation from "components/Navigation/Navigation";
 import EditIcon from "@material-ui/icons/Edit";
+import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Fab from "@material-ui/core/Fab";
 import Tooltip from "@material-ui/core/Tooltip";
 
+import "./style.css"
 
 class showTopic extends Component {
   constructor(props) {
@@ -69,38 +71,43 @@ class showTopic extends Component {
 
   render() {
     const { topic, course_slug, topic_id } = this.state;
-    const ReactMarkdown = require('react-markdown')
+    const ReactMarkdown = require("react-markdown");
     return (
       <div>
         <Navigation />
         <div className="main-content">
           <div className="container">
-          <span className="pull-right">
-                  <Link to={`/new_question/${topic_id}`}>
-                    <button className="topics-button">Add Question</button>
-                  </Link>
-                  <Link to={`/update_topic/${course_slug}/topics/${topic_id}`}>
-                  <Tooltip title="Edit Topic" aria-label="Edit Topic">
-                      <Fab color="primary">
-                        <EditIcon/>
-                      </Fab>
-                    </Tooltip>
-                  </Link>
-                  <Tooltip title="Delete Topic" aria-label="Delete Topic">
-                      <Fab color="primary">
-                        <DeleteIcon onClick={this.deleteTopic}/>
-                      </Fab>
-                    </Tooltip>
-                </span>
-                <h3>{topic.name}</h3>
-              <div className="topic_content">
-                <blockquote>
+            <span className="pull-right">
+              <Link to={`/new_question/${topic_id}`}>
+                <Button
+                  variant="contained"
+                  component="span"
+                  color="secondary"
+                  className="btn_topics"
+                >
+                  Add Question
+                </Button>
+              </Link>
+              <Link to={`/update_topic/${course_slug}/topics/${topic_id}`}>
+                <Tooltip  className="btn_topics" title="Edit Topic" aria-label="Edit Topic">
+                  <Fab color="secondary">
+                    <EditIcon />
+                  </Fab>
+                </Tooltip>
+              </Link>
+              <Tooltip  className="btn_topics" title="Delete Topic" aria-label="Delete Topic">
+                <Fab color="secondary">
+                  <DeleteIcon onClick={this.deleteTopic} />
+                </Fab>
+              </Tooltip>
+            </span>
+            <h3>{topic.name}</h3>
+            <div className="topic_content">
+              <blockquote>
                 <ReactMarkdown source={topic.description} />
-                </blockquote>
-              </div>
-            <div className="align-course">
-              
+              </blockquote>
             </div>
+            <div className="align-course" />
           </div>
         </div>
       </div>

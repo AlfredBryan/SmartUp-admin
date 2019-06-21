@@ -162,7 +162,7 @@ class Questions extends Component {
                       className="pull-right"
                     >
                       <Tooltip title="Edit" aria-label="Edit">
-                        <Fab color="primary">
+                        <Fab color="secondary">
                           <EditIcon />
                         </Fab>
                       </Tooltip>

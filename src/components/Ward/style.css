@@ -9,16 +9,15 @@
 .ward-input {
     width: 29em;
     padding: 0.4rem;
+    border: 1px solid grey;
 }
 
 .ward-button {
     width: 10rem;
     margin-left: 1rem;
-    background: linear-gradient(174.78deg, #64daf6 -8.91%, #3394ab 99.52%) !important;
-    color: #ffffff;
     border: none;
     border-radius: 3px;
-    padding: 0.5rem 0.4rem;
+    padding: 1.2em !important;
 }
 
 .user-list {

@@ -20,7 +20,6 @@ class StudyGroups extends Component {
         headers: { Authorization: token }
       })
       .then(res => {
-        console.log(res);
         if (res.status === 200) {
           this.setState({
             study_groups: res.data

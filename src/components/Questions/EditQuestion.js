@@ -103,7 +103,6 @@ class EditQuestion extends Component {
         }
       )
       .then(res => {
-        console.log(res);
         // populate fields
         this.setState({
           answer_options: res.data.answer_options,
@@ -136,7 +135,6 @@ class EditQuestion extends Component {
         })
       )
       .then(res => {
-        console.log(res);
         if (res.status === 200) {
           this.setState({
             loading: false
@@ -197,7 +195,6 @@ class EditQuestion extends Component {
           }
         )
         .then(res => {
-          console.log(res);
           if (res.status === 200) {
             this.setState({
               content: ""
@@ -306,7 +303,7 @@ class EditQuestion extends Component {
                     <Checkbox
                       checked={correct}
                       onChange={this.toggleOption}
-                      value={correct}
+                      value={correct ? String(correct) : ""}
                       name="correct"
                     />
                     <input
@@ -314,11 +311,12 @@ class EditQuestion extends Component {
                       name="content"
                       onChange={this.handleChange}
                       value={content}
+                      style={{ borderColor: "grey" }}
                     />
                     <Tooltip title="Add Option" aria-label="Add">
                       <Fab
                         onClick={this.postAnswerOptions}
-                        color="primary"
+                        color="secondary"
                         className={classes.fab}
                       >
                         <AddIcon />
@@ -353,7 +351,7 @@ class EditQuestion extends Component {
                     <Button
                       variant="contained"
                       component="span"
-                      color="primary"
+                      color="secondary"
                       className="form-control new-btn"
                       onClick={this.updateQuestion}
                     >

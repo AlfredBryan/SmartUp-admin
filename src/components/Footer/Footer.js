@@ -11,29 +11,29 @@ class Footer extends Component {
               <div className="col-xs-12 col-sm-4 col-md-4">
                 <h4>Social</h4>
                 <ul className="list-unstyled list-inline social-icons">
-                  <li class="list-inline-item">
+                  <li className="list-inline-item">
                     <a href="javascript:void();" target="_blank" rel="noopener noreferrer">
-                      <i style={{ fontSize: "20px" }} class="fa fa-linkedin" />
+                      <i style={{ fontSize: "20px" }} className="fa fa-linkedin" />
                     </a>
                   </li>
                   <li className="list-inline-item">
-                    <a href="javascript:void();">
-                      <i style={{ fontSize: "20px" }} class="fa fa-youtube" />
+                    <a href="javascript:void();" target="_blank" rel="noopener noreferrer">
+                      <i style={{ fontSize: "20px" }} className="fa fa-youtube" />
                     </a>
                   </li>
                   <li className="list-inline-item">
-                    <a href="javascript:void();">
-                      <i style={{ fontSize: "20px" }} class="fa fa-instagram" />
+                    <a href="javascript:void();" target="_blank" rel="noopener noreferrer">
+                      <i style={{ fontSize: "20px" }} className="fa fa-instagram" />
                     </a>
                   </li>
-                  <li class="list-inline-item">
-                    <a href="javascript:void();">
-                      <i style={{ fontSize: "20px" }} class="fa fa-facebook" />
+                  <li className="list-inline-item">
+                    <a href="javascript:void();" target="_blank" rel="noopener noreferrer">
+                      <i style={{ fontSize: "20px" }} className="fa fa-facebook" />
                     </a>
                   </li>
-                  <li class="list-inline-item">
-                    <a href="javascript:void();" target="_blank">
-                      <i style={{ fontSize: "20px" }} class="fa fa-twitter" />
+                  <li className="list-inline-item">
+                    <a href="javascript:void();" target="_blank" rel="noopener noreferrer">
+                      <i style={{ fontSize: "20px" }} className="fa fa-twitter" />
                     </a>
                   </li>
                 </ul>

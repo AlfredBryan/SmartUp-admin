@@ -209,13 +209,13 @@ class showGroup extends Component {
           <div className="container" id="show_group">
             <div>
               <Link to={`/attendance/${group.id}`}>
-                <Button variant="contained" component="span" color="primary">
+                <Button variant="contained" component="span" color="secondary">
                   Attendance
                 </Button>
               </Link>
               <Link to={`/update_group/${group.id}`} className="button-area">
                 <Tooltip title="Edit Group" aria-label="Edit">
-                  <Fab color="primary">
+                  <Fab color="secondary">
                     <EditIcon />
                   </Fab>
                 </Tooltip>
@@ -230,7 +230,7 @@ class showGroup extends Component {
                 <div className="col-md-12">
                   <span onClick={this.AddUsers} className="pull-right">
                     <Tooltip title="Add Users" aria-label="Edit">
-                      <Fab color="primary">
+                      <Fab color="secondary">
                         <GroupAddIcon />
                       </Fab>
                     </Tooltip>

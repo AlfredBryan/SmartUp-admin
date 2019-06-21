@@ -370,9 +370,15 @@ class AddWard extends Component {
                         placeholder="Email ..."
                         onChange={this.handleChange}
                       />
-                      <button onClick={this.addWard} className="ward-button">
+                      <Button
+                        variant="contained"
+                        component="span"
+                        color="secondary"
+                        className="ward-button"
+                        onClick={this.addWard}
+                      >
                         {loading ? <Spinner /> : "Confirm"}
-                      </button>
+                      </Button>
                     </div>
                   </form>{" "}
                 </div>
