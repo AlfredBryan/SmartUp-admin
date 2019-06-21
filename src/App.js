@@ -37,7 +37,8 @@ import Default from "components/Default";
 import showGroup from "components/Group/showGroup";
 import EditGroup from "components/Group/EditGroup";
 import takeAssessment from "components/Assessment/takeAssessment";
-import Attendance from "components/Attendance/Attendance";
+import newAttendance from "components/Attendance/newAttendance";
+import showAttendance from "components/Attendance/showAttendance";
 
 class App extends Component {
   render() {
@@ -103,7 +104,8 @@ class App extends Component {
             path="/create_study_group/:id"
             component={createStudyGroup}
           />
-          <Route exact path="/attendance/:id" component={Attendance} />
+          <Route exact path="/study_groups/:id/new_attendance" component={newAttendance} />
+          <Route exact path="/study_groups/:study_group_id/attendances/:id" component={showAttendance} />
           <Route exact path="/show_group/:id" component={showGroup} />
           <Route exact path="/update_course/:slug" component={EditCourse} />
           <Route exact path="/courses/:slug" component={showCourse} />

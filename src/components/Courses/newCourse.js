@@ -162,7 +162,7 @@ class newCourse extends Component {
                   </div>
                   <p style={{ color: "red" }}>{errorMessage}</p>
                   <div className="form-group">
-                    <div className="col-lg-12">
+                    <div className="col-md-12">
                       <Button
                         variant="contained"
                         component="span"

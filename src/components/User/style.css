@@ -32,7 +32,7 @@
 
 .login-form {
     display: inline-block;
-    width: 20em;
+    width:20em ;
     background-color: #ffff;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.12);
     border-radius: 0.25em;
@@ -167,7 +167,7 @@ li>a {
 @media screen and (max-width: 600px) {
 
     .login-form {
-        width: 20em;
+        width: inherit;
     }
 
     #login-button {

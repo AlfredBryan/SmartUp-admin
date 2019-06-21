@@ -7,6 +7,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import GroupAddIcon from "@material-ui/icons/GroupAdd";
 import Fab from "@material-ui/core/Fab";
 import Tooltip from "@material-ui/core/Tooltip";
+import Moment from 'react-moment';
 
 //popup notification
 import PropTypes from "prop-types";
@@ -44,6 +45,7 @@ class showGroup extends Component {
       study_group_id: this.props.match.params.id,
       group: "",
       memberships: [],
+      attendances: [],
       user_emails: "",
       loading: false,
       open: false,
@@ -87,6 +89,25 @@ class showGroup extends Component {
             memberships: res.data.memberships
           });
         }
+      });
+  };
+
+  fetchAttendances = () => {
+    const token = localStorage.getItem("token");
+    const { study_group_id } = this.state;
+    axios
+      .get(
+        `https://smart-up.herokuapp.com/api/v1/attendances?group_id=${study_group_id}`,
+        {
+          headers: {
+            Authorization: token
+          }
+        }
+      )
+      .then(res => {
+        this.setState({
+          attendances: res.data
+        });
       });
   };
 
@@ -149,11 +170,13 @@ class showGroup extends Component {
 
   componentDidMount() {
     this.fetchGroup();
+    this.fetchAttendances();
   }
 
   render() {
     const { classes } = this.props;
-    const { memberships, group, user_emails, done, open, pop_up } = this.state;
+    const { memberships, attendances, group, user_emails, done, loading, open } = this.state;
+
     return (
       <React.Fragment>
         <Navigation />
@@ -206,13 +229,8 @@ class showGroup extends Component {
         />
         {/* ends */}
         <div className="main-content">
-          <div className="container" id="show_group">
+          <div className="row" id="show_group">
             <div>
-              <Link to={`/attendance/${group.id}`}>
-                <Button variant="contained" component="span" color="secondary">
-                  Attendance
-                </Button>
-              </Link>
               <Link to={`/update_group/${group.id}`} className="button-area">
                 <Tooltip title="Edit Group" aria-label="Edit">
                   <Fab color="secondary">
@@ -221,8 +239,9 @@ class showGroup extends Component {
                 </Tooltip>
               </Link>
             </div>
-            <h2>{group.name}</h2>
-            <form onSubmit={this.AddUsers} className="form-horizontal">
+            <div className="col-md-6">
+            <h3>{group.name}</h3>
+             <form onSubmit={this.AddUsers} className="form-horizontal">
               <h4>
                 <strong>Add Users</strong>
               </h4>
@@ -244,8 +263,7 @@ class showGroup extends Component {
                 </div>
               </div>
             </form>
-            <div>
-              {memberships.length > 0 ? (
+            {memberships.length > 0 ? (
                 <table className="table-striped">
                   <thead>
                     <tr>
@@ -291,6 +309,31 @@ class showGroup extends Component {
                   <h3 className="group-card">No members Yet</h3>
                 </span>
               )}
+            </div>
+            <div className="col-md-6">
+            <Link to={`/study_groups/${group.id}/new_attendance`}>
+              <Button
+              variant="contained"
+              component="span"
+              color="secondary">
+                New attendance Log
+              </Button>
+            </Link>
+            {attendances.length > 0 ? (
+                <ul className="group_attendances">
+                  {attendances.map(attendance => (
+                  <li key={attendance.id}>
+                  <Link to={`/study_groups/${group.id}/attendances/${attendance.id}`}>
+                    {attendance.name} for <b><Moment format="Do MMMM YYYY">{attendance.marked_on}</Moment></b>
+                </Link>
+                 </li>   
+                ))}
+                </ul>
+              ) : (
+                <span>
+                  <h3 className="group-card">No attendance market yet</h3>
+                </span>
+              )} 
             </div>
           </div>
         </div>

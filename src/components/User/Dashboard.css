@@ -414,7 +414,7 @@
     }
 
     .card {
-        width: 20em !important;
+        width: inherit !important;
         padding: 0.5em;
         margin-left: 0.7em !important;
     }
@@ -428,7 +428,7 @@
     }
 
     .ward-section {
-        width: 20em !important;
+        width: inherit !important;
         margin-left: 0.7em !important;
     }
 
@@ -441,7 +441,7 @@
     }
 
     .newcard {
-        width: 20em;
+        width: inherit;
         padding: 0% !important;
         margin-left: 0.7em !important
     }

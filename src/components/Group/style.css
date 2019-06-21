@@ -39,10 +39,25 @@ th {
     width: 80%;
 }
 
+#show_group ul.group_attendances {
+    margin: 1em auto;
+    list-style: none;
+    padding: 0;
+}
+
+#show_group ul.group_attendances li{
+    background-color: #ffffff;
+    padding: 1.5em;
+    box-shadow: 0 0.3px 0.3px 0 rgba(0, 0, 0, 0.2);
+    margin: 0.25em;
+}
+
+
+
 
 @media (max-width: 480px) {
     .group-card {
-        width: 20em;
+        width: inherit;
         margin-left: 1em
     }
 }
