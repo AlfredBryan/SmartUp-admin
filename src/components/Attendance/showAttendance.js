@@ -215,8 +215,8 @@ class showAttendance extends Component {
             <div>
               <Link to={`/study_groups/${study_group_id}/edit_attendance/${attendance.id}`} className="button-area">
                 <Tooltip title="Edit Group" aria-label="Edit">
-                  <Fab color="primary">
-                    <EditIcon />
+                  <Fab color="secondary">
+                    <EditIcon/>
                   </Fab>
                 </Tooltip>
               </Link>
@@ -279,7 +279,7 @@ class showAttendance extends Component {
                 <div className="col-md-12">
                   <span onClick={this.AddUsers} className="pull-right">
                     <Tooltip title="Mark user" aria-label="Mark">
-                      <Fab color="primary">
+                      <Fab color="secondary">
                         <DoneAllIcon />
                       </Fab>
                     </Tooltip>
