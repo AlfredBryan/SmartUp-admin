@@ -165,11 +165,14 @@ class showInstitution extends Component {
                       to={`/institutions/${slug}/new_course`}
                       className="button-area"
                     >
-                      <Tooltip title="Add" aria-label="Add">
-                        <Fab color="secondary" className={classes.fab}>
-                          <AddIcon />
-                        </Fab>
-                      </Tooltip>
+                      <Button
+                        variant="contained"
+                        component="span"
+                        color="secondary"
+                        className="inst_btn"
+                      >
+                        Add Course
+                      </Button>
                     </Link>
                     <div className="wards-cover">
                       <h5>What is this section for? </h5>
@@ -189,11 +192,14 @@ class showInstitution extends Component {
                       to={`/institutions/${slug}/new_course`}
                       className="button-area"
                     >
-                      <Tooltip title="Add new Course" aria-label="Add">
-                        <Fab color="secondary" className={classes.fab}>
-                          <AddIcon />
-                        </Fab>
-                      </Tooltip>
+                      <Button
+                        variant="contained"
+                        component="span"
+                        color="secondary"
+                        className="new-btn"
+                      >
+                        Add Course
+                      </Button>
                     </Link>
                     <ul className="course-listed pr-20">
                       {course_list.map(course => (
