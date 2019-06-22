@@ -211,7 +211,7 @@ class showAttendance extends Component {
           className={classes.snackbar}
         />
         <div className="main-content">
-          <div className="row" id="show_attendance">
+          <div id="show_attendance">
             <div>
               <Link to={`/study_groups/${study_group_id}/edit_attendance/${attendance.id}`} className="button-area">
                 <Tooltip title="Edit Group" aria-label="Edit">
@@ -236,7 +236,7 @@ class showAttendance extends Component {
                     {attendance_users.map(att => (
                       <tr key={att.id}>
                         <td>
-                          <span style={{ padding: "1.3em" }}>
+                          <span style={{ padding: "0.5em" }}>
                             {att.user.surname ? (
                               <span>{att.user.surname}</span>
                             ) : (

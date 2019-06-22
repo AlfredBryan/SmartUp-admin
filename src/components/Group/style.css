@@ -8,7 +8,7 @@
     background-color: #ffffff;
     padding: 1.5em;
     box-shadow: 0 0.3px 0.3px 0 rgba(0, 0, 0, 0.2);
-    width: 49em;
+    width: auto;
     text-align: center;
     font-size: 1em;
 }

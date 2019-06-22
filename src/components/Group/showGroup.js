@@ -276,7 +276,7 @@ class showGroup extends Component {
                     {memberships.map(mem => (
                       <tr key={mem.id}>
                         <td>
-                          <span style={{ padding: "1.3em" }}>
+                          <span style={{ padding: "0.5em" }}>
                             {mem.user.surname ? (
                               <span>{mem.user.surname}</span>
                             ) : (
