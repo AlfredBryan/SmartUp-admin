@@ -30,14 +30,14 @@
 }
 
 .form-horizontal-info {
-    width: 49em;
+    width: auto;
 }
 
 .form-horizontal-user {
     padding: 2em;
     background-color: white;
     box-shadow: 0 0.3px 0.3px 0 rgba(0, 0, 0, 0.2);
-    width: 49em;
+    width: auto;
     margin-bottom: 2em;
 }
 

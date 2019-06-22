@@ -229,7 +229,7 @@ class showGroup extends Component {
         />
         {/* ends */}
         <div className="main-content">
-          <div className="row" id="show_group">
+          <div id="show_group">
             <div>
               <Link to={`/update_group/${group.id}`} className="button-area">
                 <Tooltip title="Edit Group" aria-label="Edit">
