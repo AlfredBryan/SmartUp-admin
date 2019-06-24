@@ -15,6 +15,8 @@ class Authenticate extends Component {
     const token = localStorage.getItem("token");
     const user = JSON.parse(localStorage.getItem("user"));
     if (!token) {
+      localStorage.clear("token");
+      localStorage.clear("user");
       this.props.history.push("/login");
     }
     axios
@@ -27,8 +29,11 @@ class Authenticate extends Component {
         });
       })
       .catch(error => {
-        console.log(error);
-        this.props.history.push("/login");
+        if (error) {
+          localStorage.clear("token");
+          localStorage.clear("user");
+          this.props.history.push("/login");
+        }
       });
   }
 

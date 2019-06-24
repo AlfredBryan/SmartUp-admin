@@ -43,6 +43,7 @@ class showInstitution extends Component {
     this.state = {
       slug: this.props.match.params.slug,
       course_list: [],
+      owner_id: "",
       institution: ""
     };
   }
@@ -66,11 +67,6 @@ class showInstitution extends Component {
       });
   };
 
-  componentDidMount() {
-    this.fetchInstitution();
-    this.fetchCourses();
-  }
-
   fetchInstitution() {
     const token = localStorage.getItem("token");
     let id = this.state.slug;
@@ -82,13 +78,21 @@ class showInstitution extends Component {
       })
       .then(res => {
         this.setState({
-          institution: res.data
+          institution: res.data,
+          owner_id: res.data.owner_id
         });
       });
   }
+
+  componentDidMount() {
+    this.fetchInstitution();
+    this.fetchCourses();
+  }
+
   render() {
     const { classes } = this.props;
-    const { course_list, institution, slug } = this.state;
+    const { course_list, institution, slug, owner_id } = this.state;
+    const user = JSON.parse(localStorage.getItem("user"));
     return (
       <div>
         <Navigation />
@@ -133,19 +137,23 @@ class showInstitution extends Component {
                           Add Study Group
                         </Button>
                       </Link>
-                      <Link
-                        to={`/update_institution/${slug}`}
-                        className="pull-right"
-                      >
-                        <Tooltip
-                          title="Edit Institutioon"
-                          aria-label="Edit Institution"
+                      {user.id === owner_id ? (
+                        <Link
+                          to={`/update_institution/${slug}`}
+                          className="pull-right"
                         >
-                          <Fab color="secondary">
-                            <EditIcon />
-                          </Fab>
-                        </Tooltip>
-                      </Link>
+                          <Tooltip
+                            title="Edit Institutioon"
+                            aria-label="Edit Institution"
+                          >
+                            <Fab color="secondary">
+                              <EditIcon />
+                            </Fab>
+                          </Tooltip>
+                        </Link>
+                      ) : (
+                        ""
+                      )}
                     </p>
                   </div>
                   <hr />

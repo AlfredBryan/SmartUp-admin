@@ -66,6 +66,7 @@ class Institution extends Component {
   render() {
     const { institutions, error } = this.state;
     const { classes } = this.props;
+    const user = JSON.parse(localStorage.getItem("user"));
     if (error) {
       return (
         localStorage.clear("token"),
@@ -77,13 +78,18 @@ class Institution extends Component {
         <div>
           <Navigation />
           <div className="main-content">
-            <Link to="/new_institution" className="button-area">
-              <Tooltip title="Add" aria-label="Add">
-                <Fab color="secondary" className={classes.fab}>
-                  <AddIcon />
-                </Fab>
-              </Tooltip>
-            </Link>
+            {user.status === "educator" || user.admin === true ? (
+              <Link to="/new_institution" className="button-area">
+                <Tooltip title="Add Institution" aria-label="Add">
+                  <Fab color="secondary" className={classes.fab}>
+                    <AddIcon />
+                  </Fab>
+                </Tooltip>
+              </Link>
+            ) : (
+              ""
+            )}
+
             <div className="container">
               <div>
                 <div className="row push-down">

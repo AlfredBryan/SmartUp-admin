@@ -91,8 +91,8 @@ class UserAuth extends Component {
           </Link>
           <div className="container login-auth">
             <div className="login-form">
-              <ul class="nav nav-tabs">
-                <li class="active">
+              <ul className="nav nav-tabs">
+                <li className="active">
                   <Link to="/login" data-toggle="tab">
                     Login
                   </Link>

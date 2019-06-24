@@ -120,7 +120,9 @@ class Questions extends Component {
   render() {
     const { questions, error, open } = this.state;
     const { classes } = this.props;
-    const ReactMarkdown = require('react-markdown')
+    const user = JSON.parse(localStorage.getItem("user"));
+    console.log(user.status);
+    const ReactMarkdown = require("react-markdown");
     if (error) {
       return (
         localStorage.clear("token"),
@@ -157,16 +159,21 @@ class Questions extends Component {
               {questions.map(question => (
                 <div key={question.id} className="toggle-question">
                   <Collapsible className="question" trigger={question.name}>
-                    <Link
-                      to={`/edit_question/${question.id}`}
-                      className="pull-right"
-                    >
-                      <Tooltip title="Edit" aria-label="Edit">
-                        <Fab color="secondary">
-                          <EditIcon />
-                        </Fab>
-                      </Tooltip>
-                    </Link>
+                    {user.status === "educator" || user.admin === true ? (
+                      <Link
+                        to={`/edit_question/${question.id}`}
+                        className="pull-right"
+                      >
+                        <Tooltip title="Edit" aria-label="Edit">
+                          <Fab color="secondary">
+                            <EditIcon />
+                          </Fab>
+                        </Tooltip>
+                      </Link>
+                    ) : (
+                      ""
+                    )}
+
                     <blockquote>
                       <ReactMarkdown source={question.description} />
                     </blockquote>
@@ -174,24 +181,34 @@ class Questions extends Component {
                       {question.answer_options.map(option => (
                         <ul className="question_options" key={option.id}>
                           <li className="question_content">
-                            <Link
-                              to={`/edit_option/${option.question_id}/${
-                                option.id
-                              }`}
-                            >
-                              {this.Capitalize(option.content)}
-                            </Link>
-
-                            <i
-                              onClick={() => {
-                                this.deleteOption(
-                                  option.question_id,
+                            {user.status === "educator" ||
+                            user.admin === true ? (
+                              <Link
+                                to={`/edit_option/${option.question_id}/${
                                   option.id
-                                );
-                              }}
-                              style={{ cursor: "pointer", color: "red" }}
-                              className="fa fa-trash-o pull-right"
-                            />
+                                }`}
+                              >
+                                {this.Capitalize(option.content)}
+                              </Link>
+                            ) : (
+                              <span>{this.Capitalize(option.content)}</span>
+                            )}
+
+                            {user.status === "educator" ||
+                            user.admin === true ? (
+                              <i
+                                onClick={() => {
+                                  this.deleteOption(
+                                    option.question_id,
+                                    option.id
+                                  );
+                                }}
+                                style={{ cursor: "pointer", color: "red" }}
+                                className="fa fa-trash-o pull-right"
+                              />
+                            ) : (
+                              ""
+                            )}
                           </li>
                         </ul>
                       ))}

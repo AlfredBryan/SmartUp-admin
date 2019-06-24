@@ -3,7 +3,7 @@ import { NavLink, Link, withRouter } from "react-router-dom";
 import axios from "axios";
 
 import AdminNavbarLinks from "../Navbars/AdminNavbarLinks.jsx";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class Sidebar extends Component {
   constructor(props) {
@@ -33,7 +33,6 @@ class Sidebar extends Component {
       );
       return res;
     } catch (e) {
-      console.log(e);
       return e.message;
     } finally {
       localStorage.clear("token");
@@ -58,7 +57,7 @@ class Sidebar extends Component {
     }
 
     let question_button;
-    if (user.status !== "guardian" && "wards") {
+    if (user.status !== "guardian") {
       question_button = (
         <li>
           <NavLink to="/questions">
@@ -120,7 +119,7 @@ class Sidebar extends Component {
             </li>
             <li>
               <NavLink activeClassName="active" to="/study_groups">
-              <FontAwesomeIcon icon="users-cog" size="2x"/>
+                <FontAwesomeIcon icon="users-cog" size="2x" />
                 <p>Study Groups</p>
               </NavLink>
             </li>

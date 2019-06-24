@@ -84,6 +84,7 @@ class Courses extends Component {
   render() {
     const { course_list, error } = this.state;
     const { classes } = this.props;
+    const user = JSON.parse(localStorage.getItem("user"));
     if (error) {
       return (
         localStorage.clear("token"),
@@ -100,13 +101,18 @@ class Courses extends Component {
                 <div className="row">
                   <div className="container">
                     <div className="no-wards">
-                      <Link to="/courses/new" className="pull-right">
-                        <Tooltip title="Add Course" aria-label="Add">
-                          <Fab color="secondary">
-                            <AddIcon />
-                          </Fab>
-                        </Tooltip>
-                      </Link>
+                      {user.status === "educator" || user.admin === true ? (
+                        <Link to="/courses/new" className="pull-right">
+                          <Tooltip title="Add Course" aria-label="Add">
+                            <Fab color="secondary">
+                              <AddIcon />
+                            </Fab>
+                          </Tooltip>
+                        </Link>
+                      ) : (
+                        ""
+                      )}
+
                       <div className="wards-cover text-center">
                         <br />
                         <p>No Courses yet.</p>
@@ -124,13 +130,17 @@ class Courses extends Component {
             <Navigation />
             <div className="main-content">
               <div className="action-buttons">
-                <Link to="/new_course" className="button-area">
-                  <Tooltip title="Add Course" aria-label="Add">
-                    <Fab color="secondary" className={classes.fab}>
-                      <AddIcon />
-                    </Fab>
-                  </Tooltip>
-                </Link>
+                {user.status === "educator" || user.admin === true ? (
+                  <Link to="/courses/new" className="pull-right">
+                    <Tooltip title="Add Course" aria-label="Add">
+                      <Fab color="secondary">
+                        <AddIcon />
+                      </Fab>
+                    </Tooltip>
+                  </Link>
+                ) : (
+                  ""
+                )}
               </div>
 
               <div className="container">

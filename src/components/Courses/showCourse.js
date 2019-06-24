@@ -15,7 +15,8 @@ class showCourse extends Component {
     this.state = {
       course: "",
       topics: [],
-      course_slug: this.props.match.params.slug
+      course_slug: this.props.match.params.slug,
+      course_creator: ""
     };
   }
 
@@ -35,13 +36,15 @@ class showCourse extends Component {
       .then(res => {
         this.setState({
           course: res.data,
-          topics: res.data.topics
+          topics: res.data.topics,
+          course_creator: res.data.creator
         });
       });
   };
 
   render() {
-    const { course, topics, course_slug } = this.state;
+    const { course, topics, course_slug, course_creator } = this.state;
+    const user = JSON.parse(localStorage.getItem("user"));
     const ReactMarkdown = require("react-markdown");
     return (
       <div>
@@ -70,13 +73,17 @@ class showCourse extends Component {
                     Add Topic
                   </Button>
                 </Link>
-                <Link to={`/update_course/${course_slug}`}>
-                  <Tooltip title="Edit Course" aria-label="Edit">
-                    <Fab color="secondary">
-                      <EditIcon />
-                    </Fab>
-                  </Tooltip>
-                </Link>
+                {user.id === course_creator.id ? (
+                  <Link to={`/update_course/${course_slug}`}>
+                    <Tooltip title="Edit Course" aria-label="Edit">
+                      <Fab color="secondary">
+                        <EditIcon />
+                      </Fab>
+                    </Tooltip>
+                  </Link>
+                ) : (
+                  ""
+                )}
               </span>
               <div>
                 <h3 className="course-name">{course.name}</h3>
