@@ -19,6 +19,7 @@ class EditTopic extends Component {
       course_slug: this.props.match.params.course_slug,
       topic_id: this.props.match.params.id,
       lecture_type: "text",
+      video_url: "",
       errorMessage: ""
     };
 
@@ -48,7 +49,8 @@ class EditTopic extends Component {
           name: res.data.name,
           description: res.data.description,
           active: res.data.active,
-          lecture_type: res.data.lecture_type
+          lecture_type: res.data.lecture_type,
+          video_url: res.data.video_url
         });
       });
   };
@@ -66,12 +68,13 @@ class EditTopic extends Component {
       active,
       lecture_type,
       course_slug,
-      topic_id
+      topic_id,
+      video_url
     } = this.state;
 
-    if (name.length < 4 || description.length < 10) {
+    if (name.length < 3 || (description.length < 3 && video_url.length < 10)) {
       this.setState({
-        errorMessage: "Please Enter all fields"
+        errorMessage: "Please Enter required fields"
       });
     } else {
       axios
@@ -82,7 +85,8 @@ class EditTopic extends Component {
               name,
               description,
               active,
-              lecture_type
+              lecture_type,
+              video_url
             }
           },
           {
@@ -99,7 +103,7 @@ class EditTopic extends Component {
             this.setState({
               loading: false
             });
-            alert("Topic Edited Successfully");
+            this.props.history.replace(`/courses/${course_slug}/topics/${topic_id}`);
           }
         })
         .catch(err => {
@@ -137,7 +141,8 @@ class EditTopic extends Component {
       name,
       description,
       active,
-      lecture_type
+      lecture_type,
+      video_url
     } = this.state;
     return (
       <div>
@@ -200,6 +205,7 @@ class EditTopic extends Component {
                         name=""
                         id=""
                         value={lecture_type}
+                        onChange={this.handleChange}
                       >
                         {["text", "video"].map(lt => (
                           <option key={lt} value={lt}>
@@ -207,6 +213,21 @@ class EditTopic extends Component {
                           </option>
                         ))}
                       </select>
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <label className="col-lg-8 adjust-input control-label">
+                      Video url
+                    </label>
+                    <div className="col-lg-12">
+                      <input
+                        className="form-control"
+                        type="text"
+                        name="video_url"
+                        value={video_url}
+                        placeholder="Url..."
+                        onChange={this.handleChange}
+                      />
                     </div>
                   </div>
                   <p style={{ color: "red" }}>{errorMessage}</p>

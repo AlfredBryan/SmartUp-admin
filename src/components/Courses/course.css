@@ -26,6 +26,10 @@
     font-size: 1em
 }
 
+.topic-lecture-type {
+    text-transform: capitalize;
+}
+
 .lecture_type {
     text-transform: capitalize;
     color: rgb(53, 15, 15);

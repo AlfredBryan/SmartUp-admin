@@ -18,6 +18,7 @@ class AddTopic extends Component {
       loading: false,
       course_id: this.props.match.params.slug,
       lecture_type: "text",
+      video_url: "",
       errorMessage: ""
     };
 
@@ -36,11 +37,13 @@ class AddTopic extends Component {
   postTopic = e => {
     e.preventDefault();
     const token = localStorage.getItem("token");
-    const { name, description, active, lecture_type } = this.state;
+    const { name, description, active, lecture_type, video_url } = this.state;
+    console.log(video_url.length)
+    console.log(description.length)
 
-    if (name.length < 4 || description.length < 10) {
+    if (name.length < 3 || (description.length < 3 && video_url.length < 10)) {
       this.setState({
-        errorMessage: "Enter all fields"
+        errorMessage: "Enter required fields"
       });
     } else {
       const course_slug = this.state.course_id;
@@ -53,7 +56,8 @@ class AddTopic extends Component {
               name,
               description,
               active,
-              lecture_type
+              lecture_type,
+              video_url
             }
           },
           {
@@ -66,12 +70,11 @@ class AddTopic extends Component {
           })
         )
         .then(res => {
-          console.log(res);
           if (res.status === 200) {
             this.setState({
               loading: false
             });
-            alert("Topic Added Successfully");
+            this.props.history.replace(`/courses/${course_slug}`);
           }
         })
         .catch(err => {
@@ -145,7 +148,7 @@ class AddTopic extends Component {
                       <Checkbox
                         checked={this.state.active}
                         onChange={this.toggle}
-                        value={this.state.active}
+                        value={(this.state.active.toString() || "")}
                         name="active"
                       />
                     </div>
@@ -155,11 +158,26 @@ class AddTopic extends Component {
                       Lecture Type
                     </label>
                     <div className="col-lg-12">
-                      <select className="form-control" name="" id="">
+                      <select className="form-control" name="lecture_type" value={this.state.lecture_type} onChange={this.handleChange}>
                         {["text", "video"].map(lt => (
-                          <option value={lt}>{this.Capitalize(lt)}</option>
+                          <option key={lt} value={lt}>{this.Capitalize(lt)}</option>
                         ))}
                       </select>
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <label className="col-lg-8 adjust-input control-label">
+                      Video url
+                    </label>
+                    <div className="col-lg-12">
+                      <input
+                        className="form-control"
+                        type="text"
+                        name="video_url"
+                        value={this.state.video_url}
+                        placeholder="Url..."
+                        onChange={this.handleChange}
+                      />
                     </div>
                   </div>
                   <p style={{ color: "red" }}>{errorMessage}</p>

@@ -112,6 +112,7 @@ class showCourse extends Component {
                       <li>
                         <div className="topic-card">
                           <span className="topic_name">{topic.name}</span>
+                          <span className="pull-right topic-lecture-type">{topic.lecture_type}</span>
                         </div>
                       </li>
                     </Link>
