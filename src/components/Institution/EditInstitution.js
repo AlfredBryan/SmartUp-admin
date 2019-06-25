@@ -12,6 +12,8 @@ import Snackbar from "@material-ui/core/Snackbar";
 import FileBase64 from "react-file-base64";
 
 import Navigation from "components/Navigation/Navigation";
+//Alert
+import swal from "sweetalert";
 
 const styles = theme => ({
   root: {
@@ -77,6 +79,7 @@ class EditInstitution extends Component {
         }
       })
       .then(res => {
+        console.log(res);
         this.setState({
           institution_id: res.data.id,
           name: res.data.name,
@@ -92,45 +95,54 @@ class EditInstitution extends Component {
     e.preventDefault();
     const token = localStorage.getItem("token");
     let { name, motto, email, phone, logo, institution_id } = this.state;
-    axios
-      .put(
-        `https://smart-up.herokuapp.com/api/v1/institutions/${institution_id}`,
-        {
-          institution: {
-            name,
-            motto,
-            email,
-            phone,
-            logo
-          }
-        },
-        {
-          headers: {
-            Authorization: token
-          }
-        },
-        this.setState({
-          loading: true
-        })
-      )
-      .then(res => {
-        console.log(res);
-        if (res) {
-          this.setState({
-            loading: false,
-            response: res.data
-          });
-          this.handleClick();
-        }
-      })
-      .catch(err => {
-        console.log(err);
-        if (err) {
-          this.setState({
-            loading: false
-          });
-        }
+    if (name.length < 3 && email.length < 8 && phone.length < 10) {
+      swal({
+        title: "Fields cannot be empty",
+        text: "Please enter all fields",
+        icon: "warning",
+        dangerMode: true
       });
+    } else {
+      axios
+        .put(
+          `https://smart-up.herokuapp.com/api/v1/institutions/${institution_id}`,
+          {
+            institution: {
+              name,
+              motto,
+              email,
+              phone,
+              logo
+            }
+          },
+          {
+            headers: {
+              Authorization: token
+            }
+          },
+          this.setState({
+            loading: true
+          })
+        )
+        .then(res => {
+          console.log(res);
+          if (res) {
+            this.setState({
+              loading: false,
+              response: res.data
+            });
+            this.handleClick();
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          if (err) {
+            this.setState({
+              loading: false
+            });
+          }
+        });
+    }
   };
 
   handleChange = e => {

@@ -102,7 +102,7 @@ class Courses extends Component {
                   <div className="container">
                     <div className="no-wards">
                       {user.status === "educator" || user.admin === true ? (
-                        <Link to="/courses/new" className="pull-right">
+                        <Link to="/new_course" className="pull-right">
                           <Tooltip title="Add Course" aria-label="Add">
                             <Fab color="secondary">
                               <AddIcon />
@@ -131,7 +131,7 @@ class Courses extends Component {
             <div className="main-content">
               <div className="action-buttons">
                 {user.status === "educator" || user.admin === true ? (
-                  <Link to="/courses/new" className="pull-right">
+                  <Link to="/new_course" className="pull-right">
                     <Tooltip title="Add Course" aria-label="Add">
                       <Fab color="secondary">
                         <AddIcon />

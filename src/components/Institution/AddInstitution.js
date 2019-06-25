@@ -13,6 +13,8 @@ import FileBase64 from "react-file-base64";
 
 //Navigation
 import Navigation from "components/Navigation/Navigation";
+//Alert
+import swal from "sweetalert";
 
 const styles = theme => ({
   root: {
@@ -70,7 +72,12 @@ class AddInstitution extends Component {
     const token = localStorage.getItem("token");
     let { name, motto, email, phone, logo } = this.state;
     if (name.length < 3 && email.length < 8 && phone.length < 10) {
-      alert("Please Enter all fields");
+      swal({
+        title: "Fields cannot be empty",
+        text: "Please enter all fields",
+        icon: "warning",
+        dangerMode: true
+      });
     } else {
       axios
         .post(
