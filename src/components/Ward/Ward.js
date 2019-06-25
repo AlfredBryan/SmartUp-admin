@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import "./style.css";
 import axios from "axios";
 import Spinner from "../hoc/spinner";
+import { Helmet } from "react-helmet";
 //popup notification
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
@@ -224,6 +225,10 @@ class AddWard extends Component {
 
     return (
       <div>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Family</title>
+        </Helmet>
         <Navigation />
         <Snackbar
           open={open}

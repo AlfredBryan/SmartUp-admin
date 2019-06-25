@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./style.css";
 import axios from "axios";
 import Spinner from "../hoc/spinner";
+import { Helmet } from "react-helmet";
 
 class Register extends Component {
   constructor(props) {
@@ -94,6 +95,10 @@ class Register extends Component {
 
     return (
       <React.Fragment>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>SignUp</title>
+        </Helmet>
         <div className="cover-all">
           <Link to="/">
             <img

@@ -3,6 +3,7 @@ import axios from "axios";
 
 import Navigation from "components/Navigation/Navigation";
 import Spinner from "components/hoc/spinner";
+import { Helmet } from "react-helmet";
 
 //popup notification
 import PropTypes from "prop-types";
@@ -127,6 +128,10 @@ class EditGroup extends Component {
 
     return (
       <React.Fragment>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Study Group</title>
+        </Helmet>
         <Navigation />
         <Snackbar
           open={open}

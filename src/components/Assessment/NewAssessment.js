@@ -6,6 +6,7 @@ import ReactMde from "react-mde";
 import * as Showdown from "showdown";
 import "react-mde/lib/styles/css/react-mde-all.css";
 import Button from "@material-ui/core/Button";
+import {Helmet} from "react-helmet";
 
 
 class NewAssessment extends Component {
@@ -78,6 +79,10 @@ class NewAssessment extends Component {
     const { loading, errorMessage } = this.state;
     return (
       <div>
+      <Helmet>
+          <meta charSet="utf-8" />
+          <title>Assessment</title>
+        </Helmet>
         <Navigation />
         <div>
           <div className="main-content">

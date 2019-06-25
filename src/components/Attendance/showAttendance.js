@@ -3,6 +3,7 @@ import "./attendance.css";
 import Navigation from "components/Navigation/Navigation";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import Select from "react-select";
 
 import EditIcon from "@material-ui/icons/Edit";
@@ -15,7 +16,6 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
-
 
 const styles = theme => ({
   root: {
@@ -76,7 +76,7 @@ class showAttendance extends Component {
           }
         }
       )
-      .then(res => { 
+      .then(res => {
         if (res.status === 200) {
           this.setState({
             attendance: res.data,
@@ -86,18 +86,17 @@ class showAttendance extends Component {
       });
   };
 
-
   AddUsers = e => {
     e.preventDefault();
     const token = localStorage.getItem("token");
     const { attendance_id, selectedOption } = this.state;
     if (selectedOption === null) {
-        alert("Please select a user");
-        this.setState({
-          errorMessage: "Select a user"
-        });
+      alert("Please select a user");
+      this.setState({
+        errorMessage: "Select a user"
+      });
     } else {
-        axios
+      axios
         .post(
           "https://smart-up.herokuapp.com/api/v1/attendance_users",
           {
@@ -137,17 +136,22 @@ class showAttendance extends Component {
   fetchGroup = () => {
     const token = localStorage.getItem("token");
     axios
-      .get(`https://smart-up.herokuapp.com/api/v1/study_groups/${this.state.study_group_id}`, {
-        headers: {
-          Authorization: token
+      .get(
+        `https://smart-up.herokuapp.com/api/v1/study_groups/${
+          this.state.study_group_id
+        }`,
+        {
+          headers: {
+            Authorization: token
+          }
         }
-      })
+      )
       .then(res => {
         this.setState({
-            members: res.data.members
-        })
+          members: res.data.members
+        });
       });
-  }
+  };
 
   deleteAttendanceUser = id => {
     const token = localStorage.getItem("token");
@@ -172,10 +176,14 @@ class showAttendance extends Component {
 
   memberOptions = members => {
     let options = [];
-    members.map(item => options.push({ value: item.id, label: `${item.first_name} - ${item.email}` }));
+    members.map(item =>
+      options.push({
+        value: item.id,
+        label: `${item.first_name} - ${item.email}`
+      })
+    );
     return options;
   };
-
 
   componentDidMount() {
     this.fetchAttendance();
@@ -184,9 +192,21 @@ class showAttendance extends Component {
 
   render() {
     const { classes } = this.props;
-    const { attendance_users, members, attendance, selectedOption, study_group_id, loading, open } = this.state;
+    const {
+      attendance_users,
+      members,
+      attendance,
+      selectedOption,
+      study_group_id,
+      loading,
+      open
+    } = this.state;
     return (
       <React.Fragment>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Attendance</title>
+        </Helmet>
         <Navigation />
         <Snackbar
           open={open}
@@ -213,17 +233,22 @@ class showAttendance extends Component {
         <div className="main-content">
           <div id="show_attendance">
             <div>
-              <Link to={`/study_groups/${study_group_id}/edit_attendance/${attendance.id}`} className="button-area">
+              <Link
+                to={`/study_groups/${study_group_id}/edit_attendance/${
+                  attendance.id
+                }`}
+                className="button-area"
+              >
                 <Tooltip title="Edit Group" aria-label="Edit">
                   <Fab color="secondary">
-                    <EditIcon/>
+                    <EditIcon />
                   </Fab>
                 </Tooltip>
               </Link>
             </div>
             <div className="col-md-6">
-            <h3>{attendance.name}</h3>
-            {attendance_users.length > 0 ? (
+              <h3>{attendance.name}</h3>
+              {attendance_users.length > 0 ? (
                 <table className="table-striped">
                   <thead>
                     <tr>
@@ -271,31 +296,35 @@ class showAttendance extends Component {
               )}
             </div>
             <div className="col-md-6">
-            <form onSubmit={this.AddUsers} className="form-horizontal mark-attendance">
-              <h4>
-                <strong>Mark user as present</strong>
-              </h4>
-              <div className="form-group">
-                <div className="col-md-12">
-                  <span onClick={this.AddUsers} className="pull-right">
-                    <Tooltip title="Mark user" aria-label="Mark">
-                      <Fab color="secondary">
-                        <DoneAllIcon />
-                      </Fab>
-                    </Tooltip>
-                  </span>
-                  <Select
-                    className="col-md-8"
-                    class="form-control m-bot15"
-                    value={selectedOption}
-                    onChange={this.handleMemberChange}
-                    name="question"
-                    options={this.memberOptions(members)}
-                    required/>
+              <form
+                onSubmit={this.AddUsers}
+                className="form-horizontal mark-attendance"
+              >
+                <h4>
+                  <strong>Mark user as present</strong>
+                </h4>
+                <div className="form-group">
+                  <div className="col-md-12">
+                    <span onClick={this.AddUsers} className="pull-right">
+                      <Tooltip title="Mark user" aria-label="Mark">
+                        <Fab color="secondary">
+                          <DoneAllIcon />
+                        </Fab>
+                      </Tooltip>
+                    </span>
+                    <Select
+                      className="col-md-8"
+                      class="form-control m-bot15"
+                      value={selectedOption}
+                      onChange={this.handleMemberChange}
+                      name="question"
+                      options={this.memberOptions(members)}
+                      required
+                    />
+                  </div>
                 </div>
-              </div>
-            </form>
-            </div> 
+              </form>
+            </div>
           </div>
         </div>
       </React.Fragment>

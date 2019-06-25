@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Navigation from "components/Navigation/Navigation";
 import Spinner from "components/hoc/spinner";
+import { Helmet } from "react-helmet";
 import axios from "axios";
 import "./style.css";
 import ReactMde from "react-mde";
@@ -151,6 +152,10 @@ class createQuestion extends Component {
     const { classes } = this.props;
     return (
       <React.Fragment>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Question</title>
+        </Helmet>
         <Navigation />
         <Snackbar
           open={open}

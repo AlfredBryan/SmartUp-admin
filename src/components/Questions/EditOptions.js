@@ -3,6 +3,7 @@ import Navigation from "components/Navigation/Navigation";
 // import Spinner from "components/hoc/spinner";
 import axios from "axios";
 import Checkbox from "@material-ui/core/Checkbox";
+import { Helmet } from "react-helmet";
 import "./style.css";
 
 class EditOptions extends Component {
@@ -135,6 +136,10 @@ class EditOptions extends Component {
     console.log(correct);
     return (
       <React.Fragment>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Question</title>
+        </Helmet>
         <Navigation />
         <div className="main-content">
           <div className="container">

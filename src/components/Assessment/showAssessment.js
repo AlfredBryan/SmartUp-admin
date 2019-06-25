@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import {Helmet} from "react-helmet";
 
 import "./style.css";
 import Navigation from "components/Navigation/Navigation";
@@ -67,6 +68,10 @@ class showAssessment extends Component {
     const ReactMarkdown = require("react-markdown");
     return (
       <div>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Assessment</title>
+        </Helmet>
         <Navigation />
         <div className="main-content">
           <div className="container questions">

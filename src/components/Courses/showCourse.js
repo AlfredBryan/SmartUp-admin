@@ -6,6 +6,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import Fab from "@material-ui/core/Fab";
 import Tooltip from "@material-ui/core/Tooltip";
 import Button from "@material-ui/core/Button";
+import { Helmet } from "react-helmet";
 
 import Navigation from "components/Navigation/Navigation";
 
@@ -48,6 +49,10 @@ class showCourse extends Component {
     const ReactMarkdown = require("react-markdown");
     return (
       <div>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Course</title>
+        </Helmet>
         <Navigation />
         <div className="main-content">
           <div className="course_n_topics">
@@ -112,7 +117,9 @@ class showCourse extends Component {
                       <li>
                         <div className="topic-card">
                           <span className="topic_name">{topic.name}</span>
-                          <span className="pull-right topic-lecture-type">{topic.lecture_type}</span>
+                          <span className="pull-right topic-lecture-type">
+                            {topic.lecture_type}
+                          </span>
                         </div>
                       </li>
                     </Link>

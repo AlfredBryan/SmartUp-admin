@@ -5,6 +5,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Navigation from "components/Navigation/Navigation";
 import ReactMde from "react-mde";
 import * as Showdown from "showdown";
+import { Helmet } from "react-helmet";
 import Button from "@material-ui/core/Button";
 import "react-mde/lib/styles/css/react-mde-all.css";
 
@@ -103,7 +104,9 @@ class EditTopic extends Component {
             this.setState({
               loading: false
             });
-            this.props.history.replace(`/courses/${course_slug}/topics/${topic_id}`);
+            this.props.history.replace(
+              `/courses/${course_slug}/topics/${topic_id}`
+            );
           }
         })
         .catch(err => {
@@ -146,6 +149,10 @@ class EditTopic extends Component {
     } = this.state;
     return (
       <div>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Topic</title>
+        </Helmet>
         <Navigation />
         <div>
           <div className="main-content">

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Navigation from "components/Navigation/Navigation";
 import Spinner from "components/hoc/spinner";
 import DatePicker from "react-datepicker";
+import { Helmet } from "react-helmet";
 import axios from "axios";
 
 //popup notification
@@ -63,7 +64,9 @@ class editAttendance extends Component {
     const { name, marked_on, study_group_id, attendance_id } = this.state;
     axios
       .put(
-        `https://smart-up.herokuapp.com/api/v1/attendances/${this.state.attendance_id}`,
+        `https://smart-up.herokuapp.com/api/v1/attendances/${
+          this.state.attendance_id
+        }`,
         {
           attendance: {
             name,
@@ -102,9 +105,9 @@ class editAttendance extends Component {
           }
         }
       )
-      .then(res => { 
+      .then(res => {
         if (res.status === 200) {
-          console.log(res.data)  
+          console.log(res.data);
           this.setState({
             name: res.data.name,
             marked_on: res.data.marked_on
@@ -134,6 +137,10 @@ class editAttendance extends Component {
     const { classes } = this.props;
     return (
       <React.Fragment>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Attendance</title>
+        </Helmet>
         <Navigation />
         <Snackbar
           open={open}
@@ -161,10 +168,8 @@ class editAttendance extends Component {
             <h3>Edit attendance info</h3>
             <div className="col-md-9" id="institution-settings">
               <form onSubmit={this.handleSubmit} className="form-horizontal">
-              <div className="form-group">
-                  <label className="col-lg-3 control-label">
-                    Title
-                  </label>
+                <div className="form-group">
+                  <label className="col-lg-3 control-label">Title</label>
                   <div className="col-lg-8">
                     <input
                       className="form-control"
@@ -176,32 +181,32 @@ class editAttendance extends Component {
                     />
                   </div>
                 </div>
-              <div className="form-group">
-                <label className="col-lg-3 control-label">Date</label>
-                <div className="col-lg-8">
-                  <DatePicker
-                    selected={new Date(marked_on)}
-                    onChange={this.handleDateChange}
-                    peekNextMonth
-                    showMonthDropdown
-                    showYearDropdown
-                    dropdownMode="select"
-                    dateFormat="dd/MM/yyyy"
-                  />
+                <div className="form-group">
+                  <label className="col-lg-3 control-label">Date</label>
+                  <div className="col-lg-8">
+                    <DatePicker
+                      selected={new Date(marked_on)}
+                      onChange={this.handleDateChange}
+                      peekNextMonth
+                      showMonthDropdown
+                      showYearDropdown
+                      dropdownMode="select"
+                      dateFormat="dd/MM/yyyy"
+                    />
+                  </div>
                 </div>
-              </div>
-                
+
                 <div className="form-group">
                   <div className="col-md-12">
-                  <Button
-                    variant="contained"
-                    component="span"
-                    color="secondary"
-                    className="form-control new-btn"
-                    onClick={this.handleSubmit}
+                    <Button
+                      variant="contained"
+                      component="span"
+                      color="secondary"
+                      className="form-control new-btn"
+                      onClick={this.handleSubmit}
                     >
-                    {loading ? <Spinner /> : "Update"}
-                   </Button>
+                      {loading ? <Spinner /> : "Update"}
+                    </Button>
                   </div>
                 </div>
               </form>

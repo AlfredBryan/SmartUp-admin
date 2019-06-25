@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 import "./style.css";
 import Navigation from "components/Navigation/Navigation";
@@ -34,6 +35,10 @@ class Assessment extends Component {
     const { assessment } = this.state;
     return (
       <React.Fragment>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Assessments</title>
+        </Helmet>
         <Navigation />
         <div className="main-content">
           <div className="container">

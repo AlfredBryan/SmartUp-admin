@@ -10,6 +10,7 @@ import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
 import Tooltip from "@material-ui/core/Tooltip";
 import "react-mde/lib/styles/css/react-mde-all.css";
+import { Helmet } from "react-helmet";
 
 //popup notification
 import Button from "@material-ui/core/Button";
@@ -242,6 +243,10 @@ class EditQuestion extends Component {
     const { loading, correct, content, open, answer_options } = this.state;
     return (
       <React.Fragment>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Question</title>
+        </Helmet>
         <Navigation />
         <Snackbar
           open={open}

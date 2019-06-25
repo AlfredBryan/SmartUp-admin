@@ -8,6 +8,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 import Navigation from "components/Navigation/Navigation";
+import { Helmet } from "react-helmet";
 
 const token = localStorage.getItem("token");
 
@@ -97,6 +98,10 @@ class Dashboard extends Component {
     const user = JSON.parse(localStorage.getItem("user"));
     return (
       <React.Fragment>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>SmartUp</title>
+        </Helmet>
         <Navigation />
         <Snackbar
           open={open}
@@ -148,9 +153,7 @@ class Dashboard extends Component {
                       </h4>
                     </div>
                     <p className="profile_data">
-                      <small>
-                        {this.Capitalize(user.sex || "")}
-                      </small>{" "}
+                      <small>{this.Capitalize(user.sex || "")}</small>{" "}
                       <small className="profile_divider" />
                       <small>{user.level}</small>
                       <small className="profile_divider" />

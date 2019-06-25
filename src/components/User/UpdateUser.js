@@ -4,6 +4,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
+import { Helmet } from "react-helmet";
 
 //file upload
 import FileBase64 from "react-file-base64";
@@ -211,6 +212,10 @@ class UpdateUser extends Component {
 
     return (
       <div>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Profile</title>
+        </Helmet>
         <Navigation />
         <Snackbar
           open={open}

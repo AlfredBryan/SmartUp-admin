@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Helmet } from "react-helmet";
 import axios from "axios";
 
 import "./style.css";
@@ -132,6 +133,10 @@ class AddInstitution extends Component {
     const { classes } = this.props;
     return (
       <div>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Institution</title>
+        </Helmet>
         <Navigation />
         <Snackbar
           open={open}
