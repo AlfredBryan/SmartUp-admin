@@ -85,15 +85,9 @@
 }
 
 #take_assessment .nav-buttons .finish-button {
-    padding: 1em 1.5em;
-    color: black;
-    background-color: #64daf6;
+    padding: 0.5em 1.5em;
     border: none;
     font-size: 16px;
-}
-
-#take_assessment .nav-buttons .finish-button:hover {
-    box-shadow: 0 0 11px rgba(33, 33, 33, .2);
 }
 
 @media (max-width: 480px) {

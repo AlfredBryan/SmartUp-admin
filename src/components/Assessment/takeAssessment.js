@@ -3,76 +3,86 @@ import axios from "axios";
 import Pagination from "react-paginating";
 
 import Navigation from "components/Navigation/Navigation";
-import {RadioGroup, Radio} from 'react-radio-group'
+import { RadioGroup, Radio } from "react-radio-group";
 import ArrowLeftIcon from "@material-ui/icons/ArrowLeft";
 import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 import FirstPageIcon from "@material-ui/icons/FirstPage";
 import LastPageIcon from "@material-ui/icons/LastPage";
 import Fab from "@material-ui/core/Fab";
 import Tooltip from "@material-ui/core/Tooltip";
+import Button from "@material-ui/core/Button";
 
 class takeAssessment extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        assessment_id: this.props.match.params.id,   
+      assessment_id: this.props.match.params.id,
       questions: [],
       currentPage: 1
     };
   }
 
   getInitialAnswerState = question => {
-    return { selectedValue: 'apple' };
-  }
+    return { selectedValue: "apple" };
+  };
 
   fetchAssessment = () => {
     const token = localStorage.getItem("token");
-    const ReactMarkdown = require('react-markdown')
+    const ReactMarkdown = require("react-markdown");
 
     axios
-      .get(`https://smart-up.herokuapp.com/api/v1/assessments/${this.state.assessment_id}`, {
-        headers: {
-          Authorization: token
+      .get(
+        `https://smart-up.herokuapp.com/api/v1/assessments/${
+          this.state.assessment_id
+        }`,
+        {
+          headers: {
+            Authorization: token
+          }
         }
-      })
+      )
       .then(res => {
         const result = res.data.questions.map(
-            ({ id, name, description, answer_options }) => (
-              <div key={id} className="assessment_question">
-                <h3>{name}</h3>
-                <blockquote>
+          ({ id, name, description, answer_options }) => (
+            <div key={id} className="assessment_question">
+              <h3>{name}</h3>
+              <blockquote>
                 <ReactMarkdown source={description} />
-                </blockquote>
+              </blockquote>
 
-                <RadioGroup name="selected_option" selectedValue={this.state.selectedValue}
-                onChange={this.handleAnswerSelect}>
+              <RadioGroup
+                name="selected_option"
+                selectedValue={this.state.selectedValue}
+                onChange={this.handleAnswerSelect}
+              >
                 {answer_options.map(item => (
-                 <div key={item.id} className="col-md-6">
-                  <div className="card">
-                  <label key={item.id} className="answer_option"><Radio value={item.content}/>{item.content}</label>
-                 </div>
-                 </div>
-                ))}    
-                </RadioGroup> 
-              </div>
-            )
-          );
-          this.setState({
-            questions: result
-          });
+                  <div key={item.id} className="col-md-6">
+                    <div className="card">
+                      <label key={item.id} className="answer_option">
+                        <Radio value={item.content} />
+                        {item.content}
+                      </label>
+                    </div>
+                  </div>
+                ))}
+              </RadioGroup>
+            </div>
+          )
+        );
+        this.setState({
+          questions: result
+        });
       })
       .catch(error => {});
   };
 
-  handlePageChange = (page) => {
+  handlePageChange = page => {
     this.setState({
       currentPage: page
     });
   };
 
-  handleAnswerSelect = () => {
-
-  }
+  handleAnswerSelect = () => {};
 
   componentDidMount() {
     this.fetchAssessment();
@@ -108,57 +118,67 @@ class takeAssessment extends Component {
                 getPageItemProps
               }) => (
                 <div className="container nav-buttons">
-                    <Tooltip title="First page" aria-label="First page">
-                    <Fab color="secondary"
-                    {...getPageItemProps({
+                  <Tooltip title="First page" aria-label="First page">
+                    <Fab
+                      color="secondary"
+                      {...getPageItemProps({
                         pageValue: 1,
                         onPageChange: this.handlePageChange
                       })}
                     >
-                    <FirstPageIcon />
+                      <FirstPageIcon />
                     </Fab>
                   </Tooltip>
-                  
 
                   {hasPreviousPage && (
                     <Tooltip title="Previous" aria-label="Previous">
-                    <Fab color="secondary"
-                      {...getPageItemProps({
-                        pageValue: previousPage,
-                        onPageChange: this.handlePageChange
-                      })}
-                    >
-                    <ArrowLeftIcon />
-                    </Fab>
+                      <Fab
+                        color="secondary"
+                        {...getPageItemProps({
+                          pageValue: previousPage,
+                          onPageChange: this.handlePageChange
+                        })}
+                      >
+                        <ArrowLeftIcon />
+                      </Fab>
                     </Tooltip>
                   )}
 
                   {hasNextPage && (
                     <Tooltip title="Next" aria-label="Next">
-                    <Fab color="secondary"
-                    {...getPageItemProps({
-                        pageValue: nextPage,
-                        onPageChange: this.handlePageChange
-                    })}
-                    >
-                    <ArrowRightIcon />
-                    </Fab>
+                      <Fab
+                        color="secondary"
+                        {...getPageItemProps({
+                          pageValue: nextPage,
+                          onPageChange: this.handlePageChange
+                        })}
+                      >
+                        <ArrowRightIcon />
+                      </Fab>
                     </Tooltip>
                   )}
 
                   <Tooltip title="Last page" aria-label="Last page">
-                    <Fab color="secondary"
-                    {...getPageItemProps({
+                    <Fab
+                      color="secondary"
+                      {...getPageItemProps({
                         pageValue: totalPages,
                         onPageChange: this.handlePageChange
                       })}
                     >
-                    <LastPageIcon />
+                      <LastPageIcon />
                     </Fab>
                   </Tooltip>
 
                   {!hasNextPage && (
-                    <button className="finish-button">Finish</button>
+                    <Button
+                      variant="contained"
+                      component="span"
+                      color="primary"
+                      className="finish-button"
+                    >
+                      Finish
+                    </Button>
                   )}
                 </div>
               )}
