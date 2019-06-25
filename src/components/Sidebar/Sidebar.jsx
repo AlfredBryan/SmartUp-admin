@@ -44,7 +44,7 @@ class Sidebar extends Component {
   render() {
     const user = JSON.parse(localStorage.getItem("user"));
 
-    let ward_button;
+    let { ward_button, question_button } = "";
     if (user.status !== "educator") {
       ward_button = (
         <li>
@@ -56,8 +56,8 @@ class Sidebar extends Component {
       );
     }
 
-    let question_button;
-    if (user.status !== "guardian") {
+
+    if (user.status === "educator") {
       question_button = (
         <li>
           <NavLink to="/questions">
