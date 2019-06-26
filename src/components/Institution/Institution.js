@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import axios from "axios";
 
 import PropTypes from "prop-types";
@@ -76,6 +77,10 @@ class Institution extends Component {
     } else {
       return (
         <div>
+          <Helmet>
+            <meta charSet="utf-8" />
+            <title>Institutions</title>
+          </Helmet>
           <Navigation />
           <div className="main-content">
             {user.status === "educator" || user.admin === true ? (

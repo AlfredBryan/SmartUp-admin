@@ -32,7 +32,7 @@ class Home extends Component {
       <div>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>Home</title>
+          <title>SmartUp</title>
         </Helmet>
         <div id="home-section">
           <div className="root">

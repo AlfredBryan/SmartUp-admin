@@ -4,6 +4,7 @@ import Spinner from "../hoc/spinner";
 import Checkbox from "@material-ui/core/Checkbox";
 import Navigation from "components/Navigation/Navigation";
 import ReactMde from "react-mde";
+import { Helmet } from "react-helmet";
 import * as Showdown from "showdown";
 import Button from "@material-ui/core/Button";
 import "react-mde/lib/styles/css/react-mde-all.css";
@@ -103,6 +104,10 @@ class AddTopic extends Component {
     const { loading, errorMessage } = this.state;
     return (
       <div>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Topic</title>
+        </Helmet>
         <Navigation />
         <div>
           <div className="main-content">
@@ -146,7 +151,7 @@ class AddTopic extends Component {
                       <Checkbox
                         checked={this.state.active}
                         onChange={this.toggle}
-                        value={(this.state.active.toString() || "")}
+                        value={this.state.active.toString() || ""}
                         name="active"
                       />
                     </div>
@@ -156,9 +161,16 @@ class AddTopic extends Component {
                       Lecture Type
                     </label>
                     <div className="col-lg-12">
-                      <select className="form-control" name="lecture_type" value={this.state.lecture_type} onChange={this.handleChange}>
+                      <select
+                        className="form-control"
+                        name="lecture_type"
+                        value={this.state.lecture_type}
+                        onChange={this.handleChange}
+                      >
                         {["text", "video"].map(lt => (
-                          <option key={lt} value={lt}>{this.Capitalize(lt)}</option>
+                          <option key={lt} value={lt}>
+                            {this.Capitalize(lt)}
+                          </option>
                         ))}
                       </select>
                     </div>

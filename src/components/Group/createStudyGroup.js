@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Navigation from "components/Navigation/Navigation";
 import Spinner from "components/hoc/spinner";
+import { Helmet } from "react-helmet";
 import axios from "axios";
 
 //popup notification
@@ -100,6 +101,10 @@ class createStudyGroup extends Component {
     const { classes } = this.props;
     return (
       <React.Fragment>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Study Group</title>
+        </Helmet>
         <Navigation />
         <Snackbar
           open={open}
@@ -165,14 +170,14 @@ class createStudyGroup extends Component {
                 <div className="form-group">
                   <div className="col-lg-12">
                     <Button
-                        variant="contained"
-                        component="span"
-                        color="secondary"
-                        className="form-control new-btn"
-                        onClick={this.handleSubmit}
-                      >
+                      variant="contained"
+                      component="span"
+                      color="secondary"
+                      className="form-control new-btn"
+                      onClick={this.handleSubmit}
+                    >
                       {loading ? <Spinner /> : "Submit"}
-                      </Button>
+                    </Button>
                   </div>
                 </div>
               </form>

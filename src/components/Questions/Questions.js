@@ -4,6 +4,7 @@ import Navigation from "components/Navigation/Navigation";
 
 import Collapsible from "react-collapsible";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 //popup notification
 import Button from "@material-ui/core/Button";
@@ -131,6 +132,10 @@ class Questions extends Component {
     } else {
       return (
         <React.Fragment>
+          <Helmet>
+            <meta charSet="utf-8" />
+            <title>Questions</title>
+          </Helmet>
           <Navigation />
           <Snackbar
             open={open}

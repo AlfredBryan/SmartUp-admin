@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import "./course.css";
 import axios from "axios";
 
@@ -83,7 +84,6 @@ class Courses extends Component {
 
   render() {
     const { course_list, error } = this.state;
-    const { classes } = this.props;
     const user = JSON.parse(localStorage.getItem("user"));
     if (error) {
       return (
@@ -95,6 +95,10 @@ class Courses extends Component {
       if (course_list.length < 0) {
         return (
           <div>
+            <Helmet>
+              <meta charSet="utf-8" />
+              <title>Courses</title>
+            </Helmet>
             <Navigation />
             <div className="main-content">
               <div className="container">
@@ -127,6 +131,10 @@ class Courses extends Component {
       } else {
         return (
           <div>
+            <Helmet>
+              <meta charSet="utf-8" />
+              <title>Courses</title>
+            </Helmet>
             <Navigation />
             <div className="main-content">
               <div className="action-buttons">

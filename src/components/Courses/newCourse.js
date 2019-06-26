@@ -5,6 +5,7 @@ import Spinner from "../hoc/spinner";
 import Checkbox from "@material-ui/core/Checkbox";
 import Navigation from "components/Navigation/Navigation";
 import Button from "@material-ui/core/Button";
+import { Helmet } from "react-helmet";
 
 import ReactMde from "react-mde";
 import * as Showdown from "showdown";
@@ -110,6 +111,10 @@ class newCourse extends Component {
     const { loading, errorMessage } = this.state;
     return (
       <div>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Course</title>
+        </Helmet>
         <Navigation />
         <div>
           <div className="main-content">

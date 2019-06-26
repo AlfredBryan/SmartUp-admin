@@ -7,7 +7,8 @@ import EditIcon from "@material-ui/icons/Edit";
 import GroupAddIcon from "@material-ui/icons/GroupAdd";
 import Fab from "@material-ui/core/Fab";
 import Tooltip from "@material-ui/core/Tooltip";
-import Moment from 'react-moment';
+import { Helmet } from "react-helmet";
+import Moment from "react-moment";
 
 //popup notification
 import PropTypes from "prop-types";
@@ -174,10 +175,22 @@ class showGroup extends Component {
 
   render() {
     const { classes } = this.props;
-    const { memberships, attendances, group, user_emails, done, loading, open } = this.state;
+    const {
+      memberships,
+      attendances,
+      group,
+      user_emails,
+      done,
+      loading,
+      open
+    } = this.state;
 
     return (
       <React.Fragment>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Study Group</title>
+        </Helmet>
         <Navigation />
         <Snackbar
           open={open}
@@ -239,30 +252,30 @@ class showGroup extends Component {
               </Link>
             </div>
             <div className="col-md-6">
-            <h3>{group.name}</h3>
-             <form onSubmit={this.AddUsers} className="form-horizontal">
-              <h4>
-                <strong>Add Users</strong>
-              </h4>
-              <div className="form-group">
-                <div className="col-md-12">
-                  <span onClick={this.AddUsers} className="pull-right">
-                    <Tooltip title="Add Users" aria-label="Edit">
-                      <Fab color="secondary">
-                        <GroupAddIcon />
-                      </Fab>
-                    </Tooltip>
-                  </span>
-                  <textarea
-                    name="user_emails"
-                    value={user_emails}
-                    onChange={this.handleChange}
-                    rows="4"
-                  />
+              <h3>{group.name}</h3>
+              <form onSubmit={this.AddUsers} className="form-horizontal">
+                <h4>
+                  <strong>Add Users</strong>
+                </h4>
+                <div className="form-group">
+                  <div className="col-md-12">
+                    <span onClick={this.AddUsers} className="pull-right">
+                      <Tooltip title="Add Users" aria-label="Edit">
+                        <Fab color="secondary">
+                          <GroupAddIcon />
+                        </Fab>
+                      </Tooltip>
+                    </span>
+                    <textarea
+                      name="user_emails"
+                      value={user_emails}
+                      onChange={this.handleChange}
+                      rows="4"
+                    />
+                  </div>
                 </div>
-              </div>
-            </form>
-            {memberships.length > 0 ? (
+              </form>
+              {memberships.length > 0 ? (
                 <table className="table-striped">
                   <thead>
                     <tr>
@@ -310,29 +323,35 @@ class showGroup extends Component {
               )}
             </div>
             <div className="col-md-6">
-            <Link to={`/study_groups/${group.id}/new_attendance`}>
-              <Button
-              variant="contained"
-              component="span"
-              color="secondary">
-                New attendance Log
-              </Button>
-            </Link>
-            {attendances.length > 0 ? (
+              <Link to={`/study_groups/${group.id}/new_attendance`}>
+                <Button variant="contained" component="span" color="secondary">
+                  New attendance Log
+                </Button>
+              </Link>
+              {attendances.length > 0 ? (
                 <ul className="group_attendances">
                   {attendances.map(attendance => (
-                  <li key={attendance.id}>
-                  <Link to={`/study_groups/${group.id}/attendances/${attendance.id}`}>
-                    {attendance.name} for <b><Moment format="Do MMMM YYYY">{attendance.marked_on}</Moment></b>
-                </Link>
-                 </li>   
-                ))}
+                    <li key={attendance.id}>
+                      <Link
+                        to={`/study_groups/${group.id}/attendances/${
+                          attendance.id
+                        }`}
+                      >
+                        {attendance.name} for{" "}
+                        <b>
+                          <Moment format="Do MMMM YYYY">
+                            {attendance.marked_on}
+                          </Moment>
+                        </b>
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
               ) : (
                 <span>
                   <h3 className="group-card">No attendance market yet</h3>
                 </span>
-              )} 
+              )}
             </div>
           </div>
         </div>

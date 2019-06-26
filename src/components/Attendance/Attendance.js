@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Helmet } from "react-helmet";
 import axios from "axios";
 
 import Navigation from "components/Navigation/Navigation";
@@ -24,6 +25,10 @@ class Attendance extends Component {
   render() {
     return (
       <React.Fragment>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Attendance</title>
+        </Helmet>
         <Navigation />
         <div className="main-content">
           <div className="container" />

@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import AddIcon from "@material-ui/icons/Add";
 import EditIcon from "@material-ui/icons/Edit";
 import Fab from "@material-ui/core/Fab";
 import Tooltip from "@material-ui/core/Tooltip";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import { Helmet } from "react-helmet";
 
 import PropTypes from "prop-types";
 import axios from "axios";
@@ -90,11 +90,14 @@ class showInstitution extends Component {
   }
 
   render() {
-    const { classes } = this.props;
     const { course_list, institution, slug, owner_id } = this.state;
     const user = JSON.parse(localStorage.getItem("user"));
     return (
       <div>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Institution</title>
+        </Helmet>
         <Navigation />
         <div className="main-content">
           <div className="container" id="institution_show">

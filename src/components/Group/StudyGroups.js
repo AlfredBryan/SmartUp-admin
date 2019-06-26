@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Helmet } from "react-helmet";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Navigation from "components/Navigation/Navigation";
 
@@ -36,6 +37,10 @@ class StudyGroups extends Component {
     const { study_groups } = this.state;
     return (
       <React.Fragment>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Study Groups</title>
+        </Helmet>
         <Navigation />
         <div className="main-content">
           <div className="container">
@@ -49,7 +54,7 @@ class StudyGroups extends Component {
                         to={`/show_group/${stud.id}`}
                         className="display-uni"
                       >
-                       <FontAwesomeIcon icon="users-cog" size="3x" /> 
+                        <FontAwesomeIcon icon="users-cog" size="3x" />
                         <h6 className="assessment_name">{stud.name}</h6>
                         <p className="assessment_course_name">
                           <strong>Grade</strong>:{stud.level}

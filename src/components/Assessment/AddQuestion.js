@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Helmet } from "react-helmet";
 
 import "./style.css";
 import Navigation from "components/Navigation/Navigation";
@@ -200,6 +201,10 @@ class AddQuestion extends Component {
     } = this.state;
     return (
       <React.Fragment>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Assessment</title>
+        </Helmet>
         <Navigation />
         <div>
           <div className="main-content">
