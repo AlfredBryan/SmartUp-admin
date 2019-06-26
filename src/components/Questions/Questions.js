@@ -121,7 +121,6 @@ class Questions extends Component {
     const { questions, error, open } = this.state;
     const { classes } = this.props;
     const user = JSON.parse(localStorage.getItem("user"));
-    console.log(user.status);
     const ReactMarkdown = require("react-markdown");
     if (error) {
       return (
@@ -160,16 +159,17 @@ class Questions extends Component {
                 <div key={question.id} className="toggle-question">
                   <Collapsible className="question" trigger={question.name}>
                     {user.status === "educator" || user.admin === true ? (
-                      <Link
-                        to={`/edit_question/${question.id}`}
-                        className="pull-right"
-                      >
+                      <span className="pull-right">
+                        {question.question_type}
+                        <Link to={`/edit_question/${question.id}`}>
                         <Tooltip title="Edit" aria-label="Edit">
                           <Fab color="secondary">
                             <EditIcon />
                           </Fab>
                         </Tooltip>
                       </Link>
+                      </span>
+                      
                     ) : (
                       ""
                     )}

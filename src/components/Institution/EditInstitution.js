@@ -79,7 +79,6 @@ class EditInstitution extends Component {
         }
       })
       .then(res => {
-        console.log(res);
         this.setState({
           institution_id: res.data.id,
           name: res.data.name,
@@ -125,7 +124,6 @@ class EditInstitution extends Component {
           })
         )
         .then(res => {
-          console.log(res);
           if (res) {
             this.setState({
               loading: false,
@@ -135,7 +133,6 @@ class EditInstitution extends Component {
           }
         })
         .catch(err => {
-          console.log(err);
           if (err) {
             this.setState({
               loading: false

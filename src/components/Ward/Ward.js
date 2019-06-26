@@ -94,7 +94,6 @@ class AddWard extends Component {
       });
       return res;
     } catch (e) {
-      console.log(e);
       return e.message;
     }
   };

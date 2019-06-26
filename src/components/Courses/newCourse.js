@@ -67,7 +67,6 @@ class newCourse extends Component {
           })
         )
         .then(res => {
-          console.log(res);
           this.setState({
             loading: false,
             course: res.data

@@ -54,6 +54,7 @@ class EditQuestion extends Component {
       question_id: this.props.match.params.id,
       name: "",
       description: "",
+      question_type: "",
       answer_options: [],
       errorMessage: "",
       loading: false,
@@ -103,11 +104,11 @@ class EditQuestion extends Component {
         }
       )
       .then(res => {
-        // populate fields
         this.setState({
           answer_options: res.data.answer_options,
-          name: this.Capitalize(res.data.name),
-          description: this.Capitalize(res.data.description)
+          name: res.data.name,
+          description: res.data.description,
+          question_type: res.data.question_type
         });
       });
   };
@@ -115,14 +116,15 @@ class EditQuestion extends Component {
   updateQuestion = e => {
     e.preventDefault();
     const token = localStorage.getItem("token");
-    let { name, description, question_id } = this.state;
+    let { name, description, question_id, question_type } = this.state;
     axios
       .put(
         `https://smart-up.herokuapp.com/api/v1/questions/${question_id}`,
         {
           question: {
             name,
-            description
+            description,
+            question_type
           }
         },
         {
@@ -213,6 +215,10 @@ class EditQuestion extends Component {
     }
   };
 
+  Capitalize = str => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
+
   deleteOption = (question_id, id) => {
     const token = localStorage.getItem("token");
     axios
@@ -239,7 +245,7 @@ class EditQuestion extends Component {
 
   render() {
     const { classes } = this.props;
-    const { loading, correct, content, open, answer_options } = this.state;
+    const { loading, correct, content, open, answer_options, name, description, question_type } = this.state;
     return (
       <React.Fragment>
         <Navigation />
@@ -275,7 +281,7 @@ class EditQuestion extends Component {
                       className="form-control"
                       type="text"
                       name="name"
-                      value={this.state.name}
+                      value={name}
                       placeholder="Enter question..."
                       onChange={this.handleChange}
                     />
@@ -288,7 +294,7 @@ class EditQuestion extends Component {
                   <div className="col-lg-10">
                     <ReactMde
                       onChange={this.handleDescriptionChange}
-                      value={this.state.description}
+                      value={description}
                       generateMarkdownPreview={markdown =>
                         Promise.resolve(this.converter.makeHtml(markdown))
                       }
@@ -296,9 +302,21 @@ class EditQuestion extends Component {
                   </div>
                 </div>
                 <div className="form-group">
+                    <label className="col-md-2 adjust-input control-label">
+                      Question Type
+                    </label>
+                    <div className="col-md-4">
+                      <select className="form-control" name="question_type" value={question_type} onChange={this.handleChange}>
+                        {["choice", "theory"].map(lt => (
+                          <option key={lt} value={lt}>{this.Capitalize(lt)}</option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>    
+                <div className="form-group">
                   <span>
                     <label className="adjust-input control-label">
-                      Correct:
+                      Correct
                     </label>
                     <Checkbox
                       checked={correct}

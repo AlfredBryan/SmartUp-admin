@@ -52,7 +52,6 @@ class Register extends Component {
           this.setState({ loading: true })
         )
         .then(res => {
-          console.log(res);
           if (res.data.authentication_token === null) {
             this.setState({
               errorMessage: "There's a failure",
@@ -73,7 +72,6 @@ class Register extends Component {
         })
         .catch(err => {
           if (err) {
-            console.log(err);
             this.setState({
               errorMessage: err.message,
               loading: false

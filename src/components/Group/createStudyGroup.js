@@ -79,7 +79,6 @@ class createStudyGroup extends Component {
         })
       )
       .then(res => {
-        console.log(res);
         if (res.status === 200 && res.data.created_at !== null) {
           this.setState({
             loading: false,
@@ -99,7 +98,6 @@ class createStudyGroup extends Component {
   render() {
     const { loading, name, level, pop_up, open } = this.state;
     const { classes } = this.props;
-    console.log(pop_up);
     return (
       <React.Fragment>
         <Navigation />

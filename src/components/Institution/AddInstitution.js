@@ -101,7 +101,6 @@ class AddInstitution extends Component {
           })
         )
         .then(res => {
-          console.log(res);
           if (res) {
             this.setState({
               loading: false,
@@ -111,7 +110,6 @@ class AddInstitution extends Component {
           }
         })
         .catch(err => {
-          console.log(err);
           if (err) {
             this.setState({
               loading: false

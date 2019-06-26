@@ -104,7 +104,6 @@ class editAttendance extends Component {
       )
       .then(res => { 
         if (res.status === 200) {
-          console.log(res.data)  
           this.setState({
             name: res.data.name,
             marked_on: res.data.marked_on

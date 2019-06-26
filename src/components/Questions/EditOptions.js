@@ -46,10 +46,7 @@ class EditOptions extends Component {
         }
       )
       .then(res => {
-        console.log(res);
-        // populate fields
         this.setState({
-          // question: res.data
           name: this.Capitalize(res.data.name),
           description: this.Capitalize(res.data.description)
         });
@@ -89,7 +86,6 @@ class EditOptions extends Component {
           })
         )
         .then(res => {
-          console.log(res);
           if (res.status === 200) {
             this.setState({
               loading: false
@@ -113,17 +109,6 @@ class EditOptions extends Component {
     });
   };
 
-  // handleCreateOptions = e => {
-  //   e.preventDefault();
-  //   this.updateOptions(
-  //     this.state.answer_options.concat({
-  //       content: this.state.content,
-  //       correct: false
-  //     })
-  //   );
-  //   this.postAnswerOptions();
-  // };
-
   toggle = e => {
     this.setState({
       correct: !this.state.correct
@@ -132,7 +117,6 @@ class EditOptions extends Component {
 
   render() {
     const { errorMessage, question, correct, content } = this.state;
-    console.log(correct);
     return (
       <React.Fragment>
         <Navigation />

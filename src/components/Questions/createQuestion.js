@@ -53,6 +53,7 @@ class createQuestion extends Component {
       correct: false,
       open: false,
       content: "",
+      question_type: "",
       options: []
     };
 
@@ -78,10 +79,14 @@ class createQuestion extends Component {
     this.setState({ ...this.state, options });
   };
 
+  Capitalize = str => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
+
   postQuestion = e => {
     e.preventDefault();
     const token = localStorage.getItem("token");
-    let { name, description, topic_id } = this.state;
+    let { name, description, topic_id, question_type } = this.state;
 
     if (name.length < 4 || description.length < 10) {
       alert("Please Enter fields");
@@ -96,7 +101,8 @@ class createQuestion extends Component {
             question: {
               name,
               description,
-              topic_id
+              topic_id,
+              question_type
             }
           },
           {
@@ -109,7 +115,6 @@ class createQuestion extends Component {
           })
         )
         .then(res => {
-          console.log(res);
           if (res.status === 200) {
             this.setState({
               loading: false
@@ -204,6 +209,19 @@ class createQuestion extends Component {
                     />
                   </div>
                 </div>
+                <div className="form-group">
+                    <label className="col-md-2 adjust-input control-label">
+                      Question Type
+                    </label>
+                    <div className="col-md-4">
+                      <select className="form-control" name="question_type" value={this.state.question_type} onChange={this.handleChange}>
+                        {["choice", "theory"].map(lt => (
+                          <option key={lt} value={lt}>{this.Capitalize(lt)}</option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>        
+
                 <p style={{ color: "red" }}>{errorMessage}</p>
                 <div className="form-group">
                   <div className="col-lg-10">

@@ -40,7 +40,6 @@ class UserAuth extends Component {
           this.setState({ loading: true })
         )
         .then(res => {
-          console.log(res);
           if (res.statusText === "Created" && res.data.completed_at !== null) {
             localStorage.setItem("token", res.data.authentication_token);
             localStorage.setItem("user", JSON.stringify(res.data));

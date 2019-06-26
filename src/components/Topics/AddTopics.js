@@ -38,8 +38,6 @@ class AddTopic extends Component {
     e.preventDefault();
     const token = localStorage.getItem("token");
     const { name, description, active, lecture_type, video_url } = this.state;
-    console.log(video_url.length)
-    console.log(description.length)
 
     if (name.length < 3 || (description.length < 3 && video_url.length < 10)) {
       this.setState({

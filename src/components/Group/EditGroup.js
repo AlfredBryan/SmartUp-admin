@@ -60,7 +60,6 @@ class EditGroup extends Component {
         }
       )
       .then(res => {
-        console.log(res);
         if (res.status === 200) {
           this.setState({
             name: res.data.name,
@@ -100,7 +99,6 @@ class EditGroup extends Component {
         })
       )
       .then(res => {
-        console.log(res);
         if (res.status === 200) {
           this.setState({
             pop_up: res.data.name,
