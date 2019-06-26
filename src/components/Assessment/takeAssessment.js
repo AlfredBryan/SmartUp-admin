@@ -18,16 +18,42 @@ class takeAssessment extends Component {
     this.state = {
       assessment_id: this.props.match.params.id,
       questions: [],
-      currentPage: 1
+      currentPage: 1,
+      selections: {}
     };
   }
 
-  getInitialAnswerState = question => {
-    return { selectedValue: "apple" };
-  };
+sendAnswer = (question_id, option_id) => {
+    const token = localStorage.getItem("token");
+    const { selections, assessment_id } = this.state;
+    axios
+      .post(
+        `https://smart-up.herokuapp.com/api/v1/assessments/${
+          this.state.assessment_id}/answer`, {
+            answer: { 
+                assessment_id: assessment_id,  
+                question_id: question_id, 
+                answer_option_id: option_id 
+            }
+          },
+        {
+          headers: {
+            Authorization: token
+          }
+        }
+    ).then(res => {
+        selections[res.data.question_id] = res.data.answer_option_id
+        this.setState({
+            selections: selections
+        });    
+    }
+    ).catch(error => {});
+}
+
 
   fetchAssessment = () => {
     const token = localStorage.getItem("token");
+    const { selections } = this.state;
     const ReactMarkdown = require("react-markdown");
 
     axios
@@ -41,7 +67,7 @@ class takeAssessment extends Component {
           }
         }
       )
-      .then(res => {
+      .then(res => {  
         const result = res.data.questions.map(
           ({ id, name, description, answer_options }) => (
             <div key={id} className="assessment_question">
@@ -52,14 +78,14 @@ class takeAssessment extends Component {
 
               <RadioGroup
                 name="selected_option"
-                selectedValue={this.state.selectedValue}
+                selectedValue={selections[id]}
                 onChange={this.handleAnswerSelect}
               >
                 {answer_options.map(item => (
                   <div key={item.id} className="col-md-6">
                     <div className="card">
                       <label key={item.id} className="answer_option">
-                        <Radio value={item.content} />
+                        <Radio value={[item.question_id, item.id]} />
                         {item.content}
                       </label>
                     </div>
@@ -76,13 +102,20 @@ class takeAssessment extends Component {
       .catch(error => {});
   };
 
+  fetchUserAnswers = () => {
+    const token = localStorage.getItem("token");
+    const { selections } = this.state;
+  }
+
   handlePageChange = page => {
     this.setState({
       currentPage: page
     });
   };
 
-  handleAnswerSelect = () => {};
+  handleAnswerSelect = (value) => {
+    this.sendAnswer(value[0], value[1]);
+  };
 
   componentDidMount() {
     this.fetchAssessment();
