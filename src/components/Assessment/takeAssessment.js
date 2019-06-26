@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Pagination from "react-paginating";
+import ReactMde from "react-mde";
+import * as Showdown from "showdown";
 
 import Navigation from "components/Navigation/Navigation";
 import { RadioGroup, Radio } from "react-radio-group";
@@ -18,9 +20,21 @@ class takeAssessment extends Component {
     this.state = {
       assessment_id: this.props.match.params.id,
       questions: [],
-      currentPage: 1
+      currentPage: 1,
+      answer: ""
     };
+
+    this.converter = new Showdown.Converter({
+      tables: true,
+      simplifiedAutoLink: true,
+      strikethrough: true,
+      tasklists: true
+    });
   }
+
+  handleAnswerChange = answer => {
+    this.setState({ answer });
+  };
 
   getInitialAnswerState = question => {
     return { selectedValue: "apple" };
@@ -42,30 +56,42 @@ class takeAssessment extends Component {
         }
       )
       .then(res => {
+        const { answer } = this.state;
         const result = res.data.questions.map(
-          ({ id, name, description, answer_options }) => (
+          ({ id, name, description, answer_options, question_type }) => (
             <div key={id} className="assessment_question">
               <h3>{name}</h3>
               <blockquote>
                 <ReactMarkdown source={description} />
               </blockquote>
-
-              <RadioGroup
-                name="selected_option"
-                selectedValue={this.state.selectedValue}
-                onChange={this.handleAnswerSelect}
-              >
-                {answer_options.map(item => (
-                  <div key={item.id} className="col-md-6">
-                    <div className="card">
-                      <label key={item.id} className="answer_option">
-                        <Radio value={item.content} />
-                        {item.content}
-                      </label>
+              {question_type === "choice" ? (
+                <RadioGroup
+                  name="selected_option"
+                  selectedValue={this.state.selectedValue}
+                  onChange={this.handleAnswerSelect}
+                >
+                  {answer_options.map(item => (
+                    <div key={item.id} className="col-md-6">
+                      <div className="card">
+                        <label key={item.id} className="answer_option">
+                          <Radio value={item.content} />
+                          {item.content}
+                        </label>
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </RadioGroup>
+                  ))}
+                </RadioGroup>
+              ) : (
+                <div className="col-lg-8">
+                  <ReactMde
+                    onChange={this.handleAnswerChange}
+                    value={answer}
+                    generateMarkdownPreview={markdown =>
+                      Promise.resolve(this.converter.makeHtml(markdown))
+                    }
+                  />
+                </div>
+              )}
             </div>
           )
         );

@@ -3,6 +3,9 @@
     font-size: 13px;
     width: 200px;
 }
+.Collapsible__trigger-sibling {
+    float: right;
+}
 
 .option_btn {
     padding: 0.5em;

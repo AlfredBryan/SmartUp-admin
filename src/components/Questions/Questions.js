@@ -49,6 +49,7 @@ class Questions extends Component {
     this.state = {
       questions: [],
       answer_options: [],
+      question_type: "",
       open: false,
       error: false
     };
@@ -162,19 +163,21 @@ class Questions extends Component {
               <h3>Questions</h3>
               {questions.map(question => (
                 <div key={question.id} className="toggle-question">
-                  <Collapsible className="question" trigger={question.name}>
+                  <Collapsible
+                    className="question"
+                    trigger={this.Capitalize(question.name)}
+                    triggerSibling={this.Capitalize(question.question_type)}
+                  >
                     {user.status === "educator" || user.admin === true ? (
                       <span className="pull-right">
-                        {question.question_type}
                         <Link to={`/edit_question/${question.id}`}>
-                        <Tooltip title="Edit" aria-label="Edit">
-                          <Fab color="secondary">
-                            <EditIcon />
-                          </Fab>
-                        </Tooltip>
-                      </Link>
+                          <Tooltip title="Edit" aria-label="Edit">
+                            <Fab color="secondary">
+                              <EditIcon />
+                            </Fab>
+                          </Tooltip>
+                        </Link>
                       </span>
-                      
                     ) : (
                       ""
                     )}
