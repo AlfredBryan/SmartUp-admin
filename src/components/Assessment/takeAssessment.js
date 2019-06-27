@@ -19,11 +19,12 @@ class takeAssessment extends Component {
       assessment_id: this.props.match.params.id,
       questions: [],
       currentPage: 1,
+      possible_selections: [],
       selections: {}
     };
   }
 
-sendAnswer = (question_id, option_id) => {
+sendAnswer = (option) => {
     const token = localStorage.getItem("token");
     const { selections, assessment_id } = this.state;
     axios
@@ -32,8 +33,8 @@ sendAnswer = (question_id, option_id) => {
           this.state.assessment_id}/answer`, {
             answer: { 
                 assessment_id: assessment_id,  
-                question_id: question_id, 
-                answer_option_id: option_id 
+                question_id: option.question_id, 
+                answer_option_id: option.id 
             }
           },
         {
@@ -42,18 +43,21 @@ sendAnswer = (question_id, option_id) => {
           }
         }
     ).then(res => {
-        selections[res.data.question_id] = res.data.answer_option_id
+        selections[res.data.question_id] = res.data.answer_option
         this.setState({
             selections: selections
-        });    
+        });
     }
     ).catch(error => {});
 }
+  Capitalize = str => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
 
 
   fetchAssessment = () => {
     const token = localStorage.getItem("token");
-    const { selections } = this.state;
+    const { possible_selections } = this.state;
     const ReactMarkdown = require("react-markdown");
 
     axios
@@ -68,24 +72,29 @@ sendAnswer = (question_id, option_id) => {
         }
       )
       .then(res => {  
+        res.data.questions.map(question => {
+            possible_selections.push(question.answer_options);
+        })  
         const result = res.data.questions.map(
-          ({ id, name, description, answer_options }) => (
+          ({ id, name, description, answer_options }, index) => (
             <div key={id} className="assessment_question">
-              <h3>{name}</h3>
+              <h3>Question <span>{index + 1}</span> of <span>{res.data.questions.length}</span></h3>  
+              <h3>{this.Capitalize(name)}</h3>
               <blockquote>
                 <ReactMarkdown source={description} />
               </blockquote>
 
               <RadioGroup
+                key={id}
                 name="selected_option"
-                selectedValue={selections[id]}
+                selectedValue={this.realSelectedValue(id)}
                 onChange={this.handleAnswerSelect}
               >
                 {answer_options.map(item => (
                   <div key={item.id} className="col-md-6">
                     <div className="card">
                       <label key={item.id} className="answer_option">
-                        <Radio value={[item.question_id, item.id]} />
+                        <Radio value={item.id} />
                         {item.content}
                       </label>
                     </div>
@@ -96,7 +105,8 @@ sendAnswer = (question_id, option_id) => {
           )
         );
         this.setState({
-          questions: result
+          questions: result,
+          possible_selections: possible_selections.flat()
         });
       })
       .catch(error => {});
@@ -104,7 +114,45 @@ sendAnswer = (question_id, option_id) => {
 
   fetchUserAnswers = () => {
     const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("user"));
+    const { selections, assessment_id } = this.state;
+
+    axios
+      .get(
+        `https://smart-up.herokuapp.com/api/v1/assessments/${assessment_id}/answers?user_id=${user.id}`,
+        {
+          headers: {
+            Authorization: token
+          }
+        }
+      ).then(res => { 
+        res.data.map(answer => {
+            selections[answer.question.id] = (answer.question.question_type === "choice" ? answer.answer_option : answer.content)
+        })  
+        this.setState({
+            selections: selections
+        });
+       })
+      .catch(error => {});
+  }
+
+  searchArray(value, array){
+    for (var i=0; i < array.length; i++) {
+        if (array[i]["id"] === value) {
+            return array[i];
+        }
+    }
+}
+
+  getKeyByValue(object, value) {
+    return Object.keys(object).find(key => this.searchArray(value, object[key])["id"] === value);
+  }
+
+  realSelectedValue = id => {
     const { selections } = this.state;
+    if (selections[id]) { 
+      return selections[id]["id"]; 
+    }
   }
 
   handlePageChange = page => {
@@ -113,12 +161,15 @@ sendAnswer = (question_id, option_id) => {
     });
   };
 
-  handleAnswerSelect = (value) => {
-    this.sendAnswer(value[0], value[1]);
+  handleAnswerSelect = (id) => { 
+    const { possible_selections } = this.state;
+    let answer_option = this.searchArray(id, possible_selections)
+    this.sendAnswer(answer_option);
   };
 
   componentDidMount() {
     this.fetchAssessment();
+    this.fetchUserAnswers();
   }
 
   render() {
