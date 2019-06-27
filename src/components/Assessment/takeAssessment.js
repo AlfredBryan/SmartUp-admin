@@ -74,7 +74,10 @@ sendAnswer = (option) => {
       .then(res => {  
         res.data.questions.map(question => {
             possible_selections.push(question.answer_options);
-        })  
+        })
+        this.setState({
+            possible_selections: possible_selections.flat()
+          });  
         const result = res.data.questions.map(
           ({ id, name, description, answer_options }, index) => (
             <div key={id} className="assessment_question">
@@ -106,7 +109,6 @@ sendAnswer = (option) => {
         );
         this.setState({
           questions: result,
-          possible_selections: possible_selections.flat()
         });
       })
       .catch(error => {});
