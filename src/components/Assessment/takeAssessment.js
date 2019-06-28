@@ -32,10 +32,6 @@ class takeAssessment extends Component {
     });
   }
 
-  handleAnswerChange = answer => {
-    this.setState({ answer });
-  };
-
   getInitialAnswerState = question => {
     return { selectedValue: "apple" };
   };
@@ -106,6 +102,10 @@ class takeAssessment extends Component {
     this.setState({
       currentPage: page
     });
+  };
+
+  handleAnswerChange = answer => {
+    this.setState({ answer });
   };
 
   handleAnswerSelect = () => {};
