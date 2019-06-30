@@ -176,6 +176,7 @@ class showGroup extends Component {
 
   render() {
     const { classes } = this.props;
+    const user = JSON.parse(localStorage.getItem("user"));
     const {
       memberships,
       attendances,
@@ -244,13 +245,17 @@ class showGroup extends Component {
         <div className="main-content">
           <div id="show_group">
             <div>
-              <Link to={`/update_group/${group.id}`} className="button-area">
-                <Tooltip title="Edit Group" aria-label="Edit">
-                  <Fab color="secondary">
-                    <EditIcon />
-                  </Fab>
-                </Tooltip>
-              </Link>
+              {user.status === "educator" || user.admin === true ? (
+                <Link to={`/update_group/${group.id}`} className="button-area">
+                  <Tooltip title="Edit Group" aria-label="Edit">
+                    <Fab color="secondary">
+                      <EditIcon />
+                    </Fab>
+                  </Tooltip>
+                </Link>
+              ) : (
+                ""
+              )}
             </div>
             <div className="col-md-6">
               <h3>{group.name}</h3>
@@ -282,7 +287,11 @@ class showGroup extends Component {
                     <tr>
                       <th>Name</th>
                       <th>Email</th>
-                      <th>Actions</th>
+                      {user.status === "educator" || user.admin === true ? (
+                        <th>Actions</th>
+                      ) : (
+                        ""
+                      )}
                     </tr>
                   </thead>
                   <tbody>
@@ -305,14 +314,18 @@ class showGroup extends Component {
                           </span>
                         </td>
                         <td>{mem.user.email}</td>
-                        <td>
-                          <i
-                            onClick={() => {
-                              this.deleteGroupUser(mem.id);
-                            }}
-                            className="fa fa-trash group_delete"
-                          />
-                        </td>
+                        {user.status === "educator" || user.admin === true ? (
+                          <td>
+                            <i
+                              onClick={() => {
+                                this.deleteGroupUser(mem.id);
+                              }}
+                              className="fa fa-trash group_delete"
+                            />
+                          </td>
+                        ) : (
+                          ""
+                        )}
                       </tr>
                     ))}
                   </tbody>
@@ -324,11 +337,19 @@ class showGroup extends Component {
               )}
             </div>
             <div className="col-md-6">
-              <Link to={`/study_groups/${group.id}/new_attendance`}>
-                <Button variant="contained" component="span" color="secondary">
-                  New attendance Log
-                </Button>
-              </Link>
+              {user.status === "educator" ? (
+                <Link to={`/study_groups/${group.id}/new_attendance`}>
+                  <Button
+                    variant="contained"
+                    component="span"
+                    color="secondary"
+                  >
+                    New attendance Log
+                  </Button>
+                </Link>
+              ) : (
+                ""
+              )}
               {attendances.length > 0 ? (
                 <ul className="group_attendances">
                   {attendances.map(attendance => (
