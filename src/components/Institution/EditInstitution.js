@@ -127,10 +127,9 @@ class EditInstitution extends Component {
         .then(res => {
           if (res) {
             this.setState({
-              loading: false,
-              response: res.data
+              loading: false
             });
-            this.handleClick();
+            this.props.history.replace(`/institutions/${res.data.slug}`);
           }
         })
         .catch(err => {
