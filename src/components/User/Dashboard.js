@@ -10,8 +10,6 @@ import Snackbar from "@material-ui/core/Snackbar";
 import Navigation from "components/Navigation/Navigation";
 import { Helmet } from "react-helmet";
 
-const token = localStorage.getItem("token");
-
 const styles = theme => ({
   root: {
     position: "relative",
@@ -38,6 +36,7 @@ class Dashboard extends Component {
     super(props);
     this.state = {
       email: "",
+      test: [],
       open: false
     };
   }
@@ -51,10 +50,6 @@ class Dashboard extends Component {
     this.setState({ open: false });
   };
   //ends
-
-  componentDidMount() {
-    this.handleClick();
-  }
 
   //capitalize function
   Capitalize = str => {
@@ -74,23 +69,23 @@ class Dashboard extends Component {
   };
   //ends
 
-  //Add ward function
-  addWard = e => {
-    e.preventDefault();
-    const { email } = this.state;
+  fetchTest = e => {
+    const token = localStorage.getItem("token");
     axios
-      .post(
-        "https://smart-up.herokuapp.com/api/v1/ward_requests",
-        { email },
-        {
-          headers: {
-            Authorization: token
-          }
+      .get("https://smart-up.herokuapp.com/api/v1/assessment_results", {
+        headers: {
+          Authorization: token
         }
-      )
-      .then(res => {});
+      })
+      .then(res => {
+        console.log(res);
+      });
   };
-  //Ends
+
+  componentDidMount() {
+    this.handleClick();
+    this.fetchTest();
+  }
 
   render() {
     const { classes } = this.props;

@@ -202,6 +202,9 @@ class takeAssessment extends Component {
                       component="span"
                       color="primary"
                       className="finish-button"
+                      onClick={() => {
+                        this.props.history.replace("/profile");
+                      }}
                     >
                       Finish
                     </Button>

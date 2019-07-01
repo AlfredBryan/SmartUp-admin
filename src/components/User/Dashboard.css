@@ -6,7 +6,7 @@
 }
 
 .profile_data {
-    margin: 0em 5.8em 1.5em;
+    margin: 0em 5.6em 1.5em;
     color: grey;
 }
 
@@ -398,6 +398,11 @@
         margin-left: 0% !important;
         padding-top: 5em !important;
         /* width: 50% !important */
+    }
+
+    .profile_data {
+        margin: 0em 0em 1.5em 2.8em;
+        color: grey;
     }
 
     .flex-div {

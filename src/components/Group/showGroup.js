@@ -48,6 +48,7 @@ class showGroup extends Component {
       memberships: [],
       attendances: [],
       user_emails: "",
+      owner_id: "",
       loading: false,
       open: false,
       done: false
@@ -84,11 +85,11 @@ class showGroup extends Component {
         }
       )
       .then(res => {
-        console.log(res);
         if (res.status === 200) {
           this.setState({
             group: res.data,
-            memberships: res.data.memberships
+            memberships: res.data.memberships,
+            owner_id: res.data.owner_id
           });
         }
       });
@@ -183,7 +184,7 @@ class showGroup extends Component {
       group,
       user_emails,
       done,
-      loading,
+      owner_id,
       open
     } = this.state;
 
@@ -266,7 +267,11 @@ class showGroup extends Component {
                 <div className="form-group">
                   <div className="col-md-12">
                     <span onClick={this.AddUsers} className="pull-right">
-                      <Tooltip title="Add Users" aria-label="Edit">
+                      <Tooltip
+                        disabled={user.id !== owner_id}
+                        title="Add Users"
+                        aria-label="Edit"
+                      >
                         <Fab color="secondary">
                           <GroupAddIcon />
                         </Fab>
@@ -289,9 +294,7 @@ class showGroup extends Component {
                       <th>Email</th>
                       {user.status === "educator" || user.admin === true ? (
                         <th>Actions</th>
-                      ) : (
-                        ""
-                      )}
+                      ) : null}
                     </tr>
                   </thead>
                   <tbody>
@@ -323,9 +326,7 @@ class showGroup extends Component {
                               className="fa fa-trash group_delete"
                             />
                           </td>
-                        ) : (
-                          ""
-                        )}
+                        ) : null}
                       </tr>
                     ))}
                   </tbody>
