@@ -174,10 +174,18 @@ class AddQuestion extends Component {
           headers: {
             Authorization: token
           }
-        }
+        },
+        this.setState({
+          loading: true
+        })
       )
       .then(res => {
-        this.fetchAssessment();
+        if (res.status === 200) {
+          this.setState({
+            loading: false
+          });
+          this.props.history.replace(`/assessment/${res.data.id}`);
+        }
       })
       .catch(error => {
         if (error) {
@@ -294,7 +302,7 @@ class AddQuestion extends Component {
                         component="span"
                         color="secondary"
                         className="form-control new-btn"
-                        onClick={this.postAssessment}
+                        onClick={this.updateAssessment}
                       >
                         {loading ? <Spinner /> : "Update"}
                       </Button>

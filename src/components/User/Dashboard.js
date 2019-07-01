@@ -220,15 +220,67 @@ class Dashboard extends Component {
                 <div className="ward-section">
                   <h5 style={{ marginBottom: "20px" }}>My Wards</h5>
                   <div className="wards">
-                    <h6 style={{ marginLeft: "20px", paddingTop: "10px" }}>
-                      Wards
-                    </h6>
-                    <hr />
-                    <h6 style={{ marginLeft: "20px" }}>Educator</h6>
-                    <hr />
-                    <h6 style={{ marginLeft: "20px" }}>Educator</h6>
-                    <hr />
-                    <h6 style={{ marginLeft: "20px" }}>Educator</h6>
+                    <ul>
+                      <li>
+                        wards
+                        <span className="pull-right">
+                          <div class="c100 p12 small">
+                            <span>12%</span>
+                            <div class="slice">
+                              <div class="bar" />
+                              <div class="fill" />
+                            </div>
+                          </div>
+                        </span>
+                      </li>
+                      <li>
+                        wards
+                        <span className="pull-right">
+                          <div class="c100 p12 small">
+                            <span>12%</span>
+                            <div class="slice">
+                              <div class="bar" />
+                              <div class="fill" />
+                            </div>
+                          </div>
+                        </span>
+                      </li>
+                      <li>
+                        wards
+                        <span className="pull-right">
+                          <div class="c100 p12 small">
+                            <span>12%</span>
+                            <div class="slice">
+                              <div class="bar" />
+                              <div class="fill" />
+                            </div>
+                          </div>
+                        </span>
+                      </li>
+                      <li>
+                        wards
+                        <span className="pull-right">
+                          <div class="c100 p12 small">
+                            <span>12%</span>
+                            <div class="slice">
+                              <div class="bar" />
+                              <div class="fill" />
+                            </div>
+                          </div>
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div className="ward-section">
+                  <h5 style={{ marginBottom: "20px" }}>Attendance</h5>
+                  <div className="wards">
+                    <ul>
+                      <li>Attendance</li>
+                      <li>Attendance </li>
+                      <li>Attendance </li>
+                      <li>Attendance </li>
+                    </ul>
                   </div>
                 </div>
               </div>

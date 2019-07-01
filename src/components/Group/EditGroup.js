@@ -105,7 +105,7 @@ class EditGroup extends Component {
             pop_up: res.data.name,
             loading: false
           });
-          this.handleClick();
+          this.props.history.replace(`/show_group/${res.data.id}`);
         }
       });
   };

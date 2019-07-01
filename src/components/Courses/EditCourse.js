@@ -77,7 +77,6 @@ class EditCourse extends Component {
         })
       )
       .then(res => {
-        console.log(res);
         if (res.status === 200) {
           this.setState({
             loading: false

@@ -142,7 +142,7 @@ class EditQuestion extends Component {
           this.setState({
             loading: false
           });
-          this.handleClick();
+          this.props.history.replace("questions");
         }
       })
       .catch(err => {
@@ -150,6 +150,7 @@ class EditQuestion extends Component {
           this.setState({
             loading: false
           });
+          alert(`${err}`);
         }
       });
   };
