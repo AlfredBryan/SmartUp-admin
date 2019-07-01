@@ -6,8 +6,7 @@ import ReactMde from "react-mde";
 import * as Showdown from "showdown";
 import "react-mde/lib/styles/css/react-mde-all.css";
 import Button from "@material-ui/core/Button";
-import {Helmet} from "react-helmet";
-
+import { Helmet } from "react-helmet";
 
 class NewAssessment extends Component {
   constructor(props) {
@@ -71,7 +70,7 @@ class NewAssessment extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  handleDescriptionChange = (description) => {
+  handleDescriptionChange = description => {
     this.setState({ description });
   };
 
@@ -79,7 +78,7 @@ class NewAssessment extends Component {
     const { loading, errorMessage } = this.state;
     return (
       <div>
-      <Helmet>
+        <Helmet>
           <meta charSet="utf-8" />
           <title>Assessment</title>
         </Helmet>
@@ -93,7 +92,7 @@ class NewAssessment extends Component {
                   className="form-horizontal"
                 >
                   <h3>New Assessment</h3>
-                  <hr></hr>
+                  <hr />
                   <div className="form-group">
                     <label className="col-lg-8 adjust-input control-label">
                       Name
@@ -114,9 +113,13 @@ class NewAssessment extends Component {
                       Description
                     </label>
                     <div className="col-lg-12">
-                    <ReactMde onChange={this.handleDescriptionChange} value={this.state.description} 
-                    generateMarkdownPreview={markdown =>
-                    Promise.resolve(this.converter.makeHtml(markdown))} />
+                      <ReactMde
+                        onChange={this.handleDescriptionChange}
+                        value={this.state.description}
+                        generateMarkdownPreview={markdown =>
+                          Promise.resolve(this.converter.makeHtml(markdown))
+                        }
+                      />
                     </div>
                   </div>
                   <p style={{ color: "red" }}>{errorMessage}</p>
@@ -129,7 +132,7 @@ class NewAssessment extends Component {
                         className="form-control new-btn"
                         onClick={this.postAssessment}
                       >
-                        {loading ? <Spinner /> : "Update"}
+                        {loading ? <Spinner /> : "Create"}
                       </Button>
                     </div>
                   </div>
