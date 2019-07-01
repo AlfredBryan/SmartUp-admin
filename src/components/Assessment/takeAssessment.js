@@ -11,6 +11,8 @@ import LastPageIcon from "@material-ui/icons/LastPage";
 import Fab from "@material-ui/core/Fab";
 import Tooltip from "@material-ui/core/Tooltip";
 import Button from "@material-ui/core/Button";
+import ReactMde from "react-mde";
+import * as Showdown from "showdown";
 
 class takeAssessment extends Component {
   constructor(props) {
@@ -22,15 +24,51 @@ class takeAssessment extends Component {
       possible_selections: [],
       selections: {}
     };
+
+    this.converter = new Showdown.Converter({
+        tables: true,
+        simplifiedAutoLink: true,
+        strikethrough: true,
+        tasklists: true
+    });
   }
+
+
+sendTheoryAnswer = (value, question_id) => {
+    const token = localStorage.getItem("token");
+    const { selections, assessment_id } = this.state;
+
+    axios
+      .post(
+        `https://smart-up.herokuapp.com/api/v1/assessments/${assessment_id}/answer`, 
+        {
+            answer: { 
+                assessment_id: assessment_id,  
+                question_id: question_id, 
+                content: value
+            }
+          },
+        {
+          headers: {
+            Authorization: token
+          }
+        }
+    ).then(res => {
+        selections[res.data.question_id] = res.data.content
+        this.setState({
+            selections: selections
+        });
+    }
+    ).catch(error => {});
+}  
 
 sendAnswer = (option) => {
     const token = localStorage.getItem("token");
     const { selections, assessment_id } = this.state;
     axios
       .post(
-        `https://smart-up.herokuapp.com/api/v1/assessments/${
-          this.state.assessment_id}/answer`, {
+        `https://smart-up.herokuapp.com/api/v1/assessments/${assessment_id}/answer`, 
+        {
             answer: { 
                 assessment_id: assessment_id,  
                 question_id: option.question_id, 
@@ -75,40 +113,24 @@ sendAnswer = (option) => {
         res.data.questions.map(question => {
             possible_selections.push(question.answer_options);
         })
-        this.setState({
-            possible_selections: possible_selections.flat()
-          });  
+        
         const result = res.data.questions.map(
-          ({ id, name, description, answer_options }, index) => (
+          ({ id, name, description, answer_options, question_type }, index) => (
             <div key={id} className="assessment_question">
               <h3>Question <span>{index + 1}</span> of <span>{res.data.questions.length}</span></h3>  
-              <h3>{this.Capitalize(name)}</h3>
+              <br/>
+              <h4>{this.Capitalize(name)}</h4>
               <blockquote>
                 <ReactMarkdown source={description} />
               </blockquote>
 
-              <RadioGroup
-                key={id}
-                name="selected_option"
-                selectedValue={this.realSelectedValue(id)}
-                onChange={this.handleAnswerSelect}
-              >
-                {answer_options.map(item => (
-                  <div key={item.id} className="col-md-6">
-                    <div className="card">
-                      <label key={item.id} className="answer_option">
-                        <Radio value={item.id} />
-                        {item.content}
-                      </label>
-                    </div>
-                  </div>
-                ))}
-              </RadioGroup>
+              {this.prepareAnswerSpace(answer_options, question_type, id)}
             </div>
           )
         );
         this.setState({
           questions: result,
+          possible_selections: possible_selections.flat()
         });
       })
       .catch(error => {});
@@ -150,9 +172,16 @@ sendAnswer = (option) => {
     return Object.keys(object).find(key => this.searchArray(value, object[key])["id"] === value);
   }
 
+  currentTheoryAnswer = id => {
+    const { selections } = this.state;
+    if (selections[id]) {   
+      return selections[id]; 
+    }
+  }
+
   realSelectedValue = id => {
     const { selections } = this.state;
-    if (selections[id]) { 
+    if (selections[id]) {   
       return selections[id]["id"]; 
     }
   }
@@ -165,13 +194,60 @@ sendAnswer = (option) => {
 
   handleAnswerSelect = (id) => { 
     const { possible_selections } = this.state;
+    // const { wrapper } = document.getElementById(`card_${id}`);
     let answer_option = this.searchArray(id, possible_selections)
+    // wrapper.classList.toggle('selected');
     this.sendAnswer(answer_option);
   };
 
+  prepareAnswerSpace = (answer_options, question_type, id) => {
+    let elements;
+    let answer_text = this.currentTheoryAnswer(id);
+
+    if(question_type === "theory") {
+        elements = (
+            <div className="form-group">
+        <label className="col-lg-8 adjust-input control-label">
+        Content
+        </label>
+        <div className="col-lg-12">
+        <ReactMde
+            onChange={(value) => this.sendTheoryAnswer(value, id)}
+            value={answer_text}
+            generateMarkdownPreview={markdown =>
+            Promise.resolve(this.converter.makeHtml(markdown))
+            }
+        />
+        </div>
+        </div>
+        )
+        
+      } else {
+       elements = (
+        <RadioGroup
+        key={id}
+        name="selected_option"
+        selectedValue={this.realSelectedValue(id)}
+        onChange={this.handleAnswerSelect}>
+        {answer_options.map(item => (
+          <div key={item.id} className="col-md-6">
+            <div className={(this.realSelectedValue(id) === item.id ? "card selected" : "card")} id={`card_${item.id}`}>
+              <label key={item.id} className="answer_option">
+                <Radio value={item.id} />
+                {item.content}
+              </label>
+            </div>
+          </div>
+        ))}
+      </RadioGroup>   
+       ) 
+      };
+    return elements  
+  }
+
   componentDidMount() {
-    this.fetchAssessment();
     this.fetchUserAnswers();
+    this.fetchAssessment();
   }
 
   render() {
@@ -187,6 +263,7 @@ sendAnswer = (option) => {
         <div className="main-content">
           <div className="container" id="take_assessment">
             <ul>{questions[currentPage - 1]}</ul>
+            <div className="clearfix"></div>
             <Pagination
               total={total}
               limit={limit}
