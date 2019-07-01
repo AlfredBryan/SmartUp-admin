@@ -88,6 +88,23 @@ sendAnswer = (option) => {
     }
     ).catch(error => {});
 }
+
+finishAssessment = () => {
+    const token = localStorage.getItem("token");
+    const { assessment_id } = this.state;
+    axios
+      .post(
+        `https://smart-up.herokuapp.com/api/v1/assessments/${assessment_id}/finish`,
+        {
+          headers: {
+            Authorization: token
+          }
+        }
+    ).then(res => {
+       this.props.history.replace("/profile");
+    }
+    ).catch(error => {});
+}
   Capitalize = str => {
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
@@ -194,9 +211,7 @@ sendAnswer = (option) => {
 
   handleAnswerSelect = (id) => { 
     const { possible_selections } = this.state;
-    // const { wrapper } = document.getElementById(`card_${id}`);
     let answer_option = this.searchArray(id, possible_selections)
-    // wrapper.classList.toggle('selected');
     this.sendAnswer(answer_option);
   };
 
@@ -335,6 +350,7 @@ sendAnswer = (option) => {
 
                   {!hasNextPage && (
                     <Button
+                      onClick={this.finishAssessment}  
                       variant="contained"
                       component="span"
                       color="primary"
