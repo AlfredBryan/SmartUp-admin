@@ -128,18 +128,22 @@ class showInstitution extends Component {
                       </h4>
                     </div>
                     <p className="description text-center">
-                      <Link
-                        className="pull-left"
-                        to={`/create_study_group/${institution.id}`}
-                      >
-                        <Button
-                          variant="contained"
-                          component="span"
-                          color="secondary"
+                      {user.id === owner_id ? (
+                        <Link
+                          className="pull-left"
+                          to={`/create_study_group/${institution.id}`}
                         >
-                          Add Study Group
-                        </Button>
-                      </Link>
+                          <Button
+                            variant="contained"
+                            component="span"
+                            color="secondary"
+                          >
+                            Add Study Group
+                          </Button>
+                        </Link>
+                      ) : (
+                        ""
+                      )}
                       {user.id === owner_id ? (
                         <Link
                           to={`/update_institution/${slug}`}
@@ -172,19 +176,23 @@ class showInstitution extends Component {
                 <div>
                   <div className="no-wards">
                     <h5>No Courses Yet</h5>
-                    <Link
-                      to={`/institutions/${slug}/new_course`}
-                      className="button-area"
-                    >
-                      <Button
-                        variant="contained"
-                        component="span"
-                        color="secondary"
-                        className="inst_btn"
+                    {user.status === "educator" || user.admin === true ? (
+                      <Link
+                        to={`/institutions/${slug}/new_course`}
+                        className="button-area"
                       >
-                        Add Course
-                      </Button>
-                    </Link>
+                        <Button
+                          variant="contained"
+                          component="span"
+                          color="secondary"
+                          className="inst_btn"
+                        >
+                          Add Course
+                        </Button>
+                      </Link>
+                    ) : (
+                      ""
+                    )}
                     <div className="wards-cover">
                       <h5>What is this section for? </h5>
                       <br />
@@ -199,19 +207,23 @@ class showInstitution extends Component {
                 <div className="col-sm-12 col-md-8">
                   <h4>Courses</h4>
                   <div className="row">
-                    <Link
-                      to={`/institutions/${slug}/new_course`}
-                      className="button-area"
-                    >
-                      <Button
-                        variant="contained"
-                        component="span"
-                        color="secondary"
-                        className="new-btn"
+                    {user.status === "educator" || user.admin === true ? (
+                      <Link
+                        to={`/institutions/${slug}/new_course`}
+                        className="button-area"
                       >
-                        Add Course
-                      </Button>
-                    </Link>
+                        <Button
+                          variant="contained"
+                          component="span"
+                          color="secondary"
+                          className="inst_btn"
+                        >
+                          Add Course
+                        </Button>
+                      </Link>
+                    ) : (
+                      ""
+                    )}
                     <ul className="course-listed pr-20">
                       {course_list.map(course => (
                         <Link key={course.id} to={`/courses/${course.slug}`}>

@@ -10,8 +10,6 @@ import Snackbar from "@material-ui/core/Snackbar";
 import Navigation from "components/Navigation/Navigation";
 import { Helmet } from "react-helmet";
 
-const token = localStorage.getItem("token");
-
 const styles = theme => ({
   root: {
     position: "relative",
@@ -38,6 +36,7 @@ class Dashboard extends Component {
     super(props);
     this.state = {
       email: "",
+      test: [],
       open: false
     };
   }
@@ -51,10 +50,6 @@ class Dashboard extends Component {
     this.setState({ open: false });
   };
   //ends
-
-  componentDidMount() {
-    this.handleClick();
-  }
 
   //capitalize function
   Capitalize = str => {
@@ -74,23 +69,23 @@ class Dashboard extends Component {
   };
   //ends
 
-  //Add ward function
-  addWard = e => {
-    e.preventDefault();
-    const { email } = this.state;
+  fetchTest = e => {
+    const token = localStorage.getItem("token");
     axios
-      .post(
-        "https://smart-up.herokuapp.com/api/v1/ward_requests",
-        { email },
-        {
-          headers: {
-            Authorization: token
-          }
+      .get("https://smart-up.herokuapp.com/api/v1/assessment_results", {
+        headers: {
+          Authorization: token
         }
-      )
-      .then(res => {});
+      })
+      .then(res => {
+        console.log(res);
+      });
   };
-  //Ends
+
+  componentDidMount() {
+    this.handleClick();
+    this.fetchTest();
+  }
 
   render() {
     const { classes } = this.props;
@@ -225,15 +220,67 @@ class Dashboard extends Component {
                 <div className="ward-section">
                   <h5 style={{ marginBottom: "20px" }}>My Wards</h5>
                   <div className="wards">
-                    <h6 style={{ marginLeft: "20px", paddingTop: "10px" }}>
-                      Wards
-                    </h6>
-                    <hr />
-                    <h6 style={{ marginLeft: "20px" }}>Educator</h6>
-                    <hr />
-                    <h6 style={{ marginLeft: "20px" }}>Educator</h6>
-                    <hr />
-                    <h6 style={{ marginLeft: "20px" }}>Educator</h6>
+                    <ul>
+                      <li>
+                        wards
+                        <span className="pull-right">
+                          <div class="c100 p12 small">
+                            <span>12%</span>
+                            <div class="slice">
+                              <div class="bar" />
+                              <div class="fill" />
+                            </div>
+                          </div>
+                        </span>
+                      </li>
+                      <li>
+                        wards
+                        <span className="pull-right">
+                          <div class="c100 p12 small">
+                            <span>12%</span>
+                            <div class="slice">
+                              <div class="bar" />
+                              <div class="fill" />
+                            </div>
+                          </div>
+                        </span>
+                      </li>
+                      <li>
+                        wards
+                        <span className="pull-right">
+                          <div class="c100 p12 small">
+                            <span>12%</span>
+                            <div class="slice">
+                              <div class="bar" />
+                              <div class="fill" />
+                            </div>
+                          </div>
+                        </span>
+                      </li>
+                      <li>
+                        wards
+                        <span className="pull-right">
+                          <div class="c100 p12 small">
+                            <span>12%</span>
+                            <div class="slice">
+                              <div class="bar" />
+                              <div class="fill" />
+                            </div>
+                          </div>
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div className="ward-section">
+                  <h5 style={{ marginBottom: "20px" }}>Attendance</h5>
+                  <div className="wards">
+                    <ul>
+                      <li>Attendance</li>
+                      <li>Attendance </li>
+                      <li>Attendance </li>
+                      <li>Attendance </li>
+                    </ul>
                   </div>
                 </div>
               </div>

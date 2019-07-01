@@ -19,7 +19,6 @@ class EditCourse extends Component {
       active: false,
       loading: false,
       course_slug: this.props.match.params.slug,
-      institution_id: this.props.match.params.slug,
       course: ""
     };
 
@@ -54,21 +53,13 @@ class EditCourse extends Component {
       });
   };
 
-  postCourse = e => {
+  updateCourse = e => {
     e.preventDefault();
     const token = localStorage.getItem("token");
-    const { name, description, active } = this.state;
-
-    let Id = this.state.institution_id;
-
-    let Url = "https://smart-up.herokuapp.com/api/v1/courses";
-
-    if (Id) {
-      Url += `?institution_id=${Id}`;
-    }
+    const { name, description, active, course_slug } = this.state;
     axios
       .put(
-        Url,
+        `https://smart-up.herokuapp.com/api/v1/courses/${course_slug}`,
         {
           course: {
             name,
@@ -86,19 +77,11 @@ class EditCourse extends Component {
         })
       )
       .then(res => {
-        this.setState({
-          loading: false,
-          course: res.data
-        });
-
-        if (res.data.id !== null) {
-          if (res.data.institution_id) {
-            this.props.history.replace(
-              `/institution/${Id}/courses/${res.data.slug}`
-            );
-          } else {
-            this.props.history.replace(`/courses/${res.data.slug}`);
-          }
+        if (res.status === 200) {
+          this.setState({
+            loading: false
+          });
+          this.props.history.replace(`/courses/${res.data.slug}`);
         }
       })
       .catch(err => {
@@ -191,7 +174,7 @@ class EditCourse extends Component {
                       component="span"
                       color="secondary"
                       className="form-control new-btn"
-                      onClick={this.postCourse}
+                      onClick={this.updateCourse}
                     >
                       {loading ? <Spinner /> : "Update"}
                     </Button>

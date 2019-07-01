@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 
 import "./style.css";
 import Navigation from "components/Navigation/Navigation";
@@ -65,6 +65,7 @@ class showAssessment extends Component {
 
   render() {
     const { assessment, questions } = this.state;
+    const user = JSON.parse(localStorage.getItem("user"));
     const ReactMarkdown = require("react-markdown");
     return (
       <div>
@@ -82,13 +83,17 @@ class showAssessment extends Component {
                   Take Assessment
                 </Button>
               </Link>
-              <Link to={`/edit_assessment/${assessment.id}`}>
-                <Tooltip title="Edit" aria-label="Edit">
-                  <Fab color="secondary">
-                    <EditIcon />
-                  </Fab>
-                </Tooltip>
-              </Link>
+              {user.status === "educator" || user.admin === true ? (
+                <Link to={`/edit_assessment/${assessment.id}`}>
+                  <Tooltip title="Edit" aria-label="Edit">
+                    <Fab color="secondary">
+                      <EditIcon />
+                    </Fab>
+                  </Tooltip>
+                </Link>
+              ) : (
+                ""
+              )}
             </span>
             <h3>{assessment.name}</h3>
             <span className="pull-right">

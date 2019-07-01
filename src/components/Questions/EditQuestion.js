@@ -142,7 +142,7 @@ class EditQuestion extends Component {
           this.setState({
             loading: false
           });
-          this.handleClick();
+          this.props.history.replace("questions");
         }
       })
       .catch(err => {
@@ -150,6 +150,7 @@ class EditQuestion extends Component {
           this.setState({
             loading: false
           });
+          alert(`${err}`);
         }
       });
   };
@@ -246,7 +247,16 @@ class EditQuestion extends Component {
 
   render() {
     const { classes } = this.props;
-    const { loading, correct, content, open, answer_options, name, description, question_type } = this.state;
+    const {
+      loading,
+      correct,
+      content,
+      open,
+      answer_options,
+      name,
+      description,
+      question_type
+    } = this.state;
     return (
       <React.Fragment>
         <Helmet>
@@ -307,17 +317,24 @@ class EditQuestion extends Component {
                   </div>
                 </div>
                 <div className="form-group">
-                    <label className="col-md-2 adjust-input control-label">
-                      Question Type
-                    </label>
-                    <div className="col-md-4">
-                      <select className="form-control" name="question_type" value={question_type} onChange={this.handleChange}>
-                        {["choice", "theory"].map(lt => (
-                          <option key={lt} value={lt}>{this.Capitalize(lt)}</option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>    
+                  <label className="col-lg-10 adjust-input control-label">
+                    Question Type
+                  </label>
+                  <div className="col-lg-10">
+                    <select
+                      className="form-control"
+                      name="question_type"
+                      value={question_type}
+                      onChange={this.handleChange}
+                    >
+                      {["choice", "theory"].map(lt => (
+                        <option key={lt} value={lt}>
+                          {this.Capitalize(lt)}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
                 <div className="form-group">
                   <span>
                     <label className="adjust-input control-label">

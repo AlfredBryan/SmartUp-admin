@@ -94,7 +94,6 @@ class Institution extends Component {
             ) : (
               ""
             )}
-
             <div className="container">
               <div>
                 <div className="row push-down">

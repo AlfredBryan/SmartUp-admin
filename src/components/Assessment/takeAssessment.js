@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Pagination from "react-paginating";
+import ReactMde from "react-mde";
+import * as Showdown from "showdown";
 
 import Navigation from "components/Navigation/Navigation";
 import { RadioGroup, Radio } from "react-radio-group";
@@ -11,8 +13,6 @@ import LastPageIcon from "@material-ui/icons/LastPage";
 import Fab from "@material-ui/core/Fab";
 import Tooltip from "@material-ui/core/Tooltip";
 import Button from "@material-ui/core/Button";
-import ReactMde from "react-mde";
-import * as Showdown from "showdown";
 
 class takeAssessment extends Component {
   constructor(props) {
@@ -355,6 +355,9 @@ finishAssessment = () => {
                       component="span"
                       color="primary"
                       className="finish-button"
+                      onClick={() => {
+                        this.props.history.replace("/profile");
+                      }}
                     >
                       Finish
                     </Button>

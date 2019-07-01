@@ -48,6 +48,7 @@ class showGroup extends Component {
       memberships: [],
       attendances: [],
       user_emails: "",
+      owner_id: "",
       loading: false,
       open: false,
       done: false
@@ -87,7 +88,8 @@ class showGroup extends Component {
         if (res.status === 200) {
           this.setState({
             group: res.data,
-            memberships: res.data.memberships
+            memberships: res.data.memberships,
+            owner_id: res.data.owner_id
           });
         }
       });
@@ -175,13 +177,14 @@ class showGroup extends Component {
 
   render() {
     const { classes } = this.props;
+    const user = JSON.parse(localStorage.getItem("user"));
     const {
       memberships,
       attendances,
       group,
       user_emails,
       done,
-      loading,
+      owner_id,
       open
     } = this.state;
 
@@ -243,13 +246,17 @@ class showGroup extends Component {
         <div className="main-content">
           <div id="show_group">
             <div>
-              <Link to={`/update_group/${group.id}`} className="button-area">
-                <Tooltip title="Edit Group" aria-label="Edit">
-                  <Fab color="secondary">
-                    <EditIcon />
-                  </Fab>
-                </Tooltip>
-              </Link>
+              {user.status === "educator" || user.admin === true ? (
+                <Link to={`/update_group/${group.id}`} className="button-area">
+                  <Tooltip title="Edit Group" aria-label="Edit">
+                    <Fab color="secondary">
+                      <EditIcon />
+                    </Fab>
+                  </Tooltip>
+                </Link>
+              ) : (
+                ""
+              )}
             </div>
             <div className="col-md-6">
               <h3>{group.name}</h3>
@@ -260,7 +267,11 @@ class showGroup extends Component {
                 <div className="form-group">
                   <div className="col-md-12">
                     <span onClick={this.AddUsers} className="pull-right">
-                      <Tooltip title="Add Users" aria-label="Edit">
+                      <Tooltip
+                        disabled={user.id !== owner_id}
+                        title="Add Users"
+                        aria-label="Edit"
+                      >
                         <Fab color="secondary">
                           <GroupAddIcon />
                         </Fab>
@@ -281,7 +292,9 @@ class showGroup extends Component {
                     <tr>
                       <th>Name</th>
                       <th>Email</th>
-                      <th>Actions</th>
+                      {user.status === "educator" || user.admin === true ? (
+                        <th>Actions</th>
+                      ) : null}
                     </tr>
                   </thead>
                   <tbody>
@@ -304,14 +317,16 @@ class showGroup extends Component {
                           </span>
                         </td>
                         <td>{mem.user.email}</td>
-                        <td>
-                          <i
-                            onClick={() => {
-                              this.deleteGroupUser(mem.id);
-                            }}
-                            className="fa fa-trash group_delete"
-                          />
-                        </td>
+                        {user.status === "educator" || user.admin === true ? (
+                          <td>
+                            <i
+                              onClick={() => {
+                                this.deleteGroupUser(mem.id);
+                              }}
+                              className="fa fa-trash group_delete"
+                            />
+                          </td>
+                        ) : null}
                       </tr>
                     ))}
                   </tbody>
@@ -323,11 +338,19 @@ class showGroup extends Component {
               )}
             </div>
             <div className="col-md-6">
-              <Link to={`/study_groups/${group.id}/new_attendance`}>
-                <Button variant="contained" component="span" color="secondary">
-                  New attendance Log
-                </Button>
-              </Link>
+              {user.status === "educator" ? (
+                <Link to={`/study_groups/${group.id}/new_attendance`}>
+                  <Button
+                    variant="contained"
+                    component="span"
+                    color="secondary"
+                  >
+                    New attendance Log
+                  </Button>
+                </Link>
+              ) : (
+                ""
+              )}
               {attendances.length > 0 ? (
                 <ul className="group_attendances">
                   {attendances.map(attendance => (

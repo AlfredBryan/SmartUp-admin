@@ -188,9 +188,12 @@ class AddWard extends Component {
   declineReqButton = (user, id) => {
     if (user.status !== "educator") {
       return (
-        <button
+        <Button
           onClick={() => this.cancelRequest(id)}
-          className="cancel-btn btn-danger"
+          className="cancel-btn"
+          variant="contained"
+          component="span"
+          color="secondary"
         >
           {this.state.loading ? (
             <Spinner />
@@ -199,7 +202,7 @@ class AddWard extends Component {
           ) : (
             "Decline"
           )}
-        </button>
+        </Button>
       );
     }
   };
@@ -207,12 +210,14 @@ class AddWard extends Component {
   acceptReqButton = (user, id) => {
     if (user.status === "student") {
       return (
-        <button
+        <Button
           onClick={() => this.acceptGuardian(id)}
-          className="btn btn-success"
+          variant="contained"
+          component="span"
+          color="primary"
         >
           {this.state.loading ? <Spinner /> : "Accept"}
-        </button>
+        </Button>
       );
     }
   };
@@ -294,12 +299,16 @@ class AddWard extends Component {
                       placeholder="Email ..."
                       onChange={this.handleChange}
                     />
-                    <button
+                    <Button
                       onClick={this.addWard}
                       className="ward-button btn-submit"
+                      className="cancel-btn"
+                      variant="contained"
+                      component="span"
+                      color="secondary"
                     >
                       {loading ? <Spinner /> : "Confirm"}
-                    </button>
+                    </Button>
                   </div>
                 </form>{" "}
               </div>

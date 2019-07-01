@@ -58,26 +58,34 @@ class showCourse extends Component {
           <div className="course_n_topics">
             <div className="align-course">
               <span className="pull-right">
-                <Link to={`/new_assessment/${course.id}`}>
-                  <Button
-                    variant="contained"
-                    component="span"
-                    color="secondary"
-                    className="topics-botton new-btn"
-                  >
-                    Add Assessment
-                  </Button>
-                </Link>
-                <Link to={`/new_topic/${course_slug}`}>
-                  <Button
-                    variant="contained"
-                    component="span"
-                    color="secondary"
-                    className="topics-botton new-btn"
-                  >
-                    Add Topic
-                  </Button>
-                </Link>
+                {user.status === "educator" || user.admin === true ? (
+                  <Link to={`/new_assessment/${course.id}`}>
+                    <Button
+                      variant="contained"
+                      component="span"
+                      color="secondary"
+                      className="topics-botton new-btn"
+                    >
+                      Add Assessment
+                    </Button>
+                  </Link>
+                ) : (
+                  ""
+                )}
+                {user.status === "educator" || user.admin === true ? (
+                  <Link to={`/new_topic/${course_slug}`}>
+                    <Button
+                      variant="contained"
+                      component="span"
+                      color="secondary"
+                      className="topics-botton new-btn"
+                    >
+                      Add Topic
+                    </Button>
+                  </Link>
+                ) : (
+                  ""
+                )}
                 {user.id === course_creator.id ? (
                   <Link to={`/update_course/${course_slug}`}>
                     <Tooltip title="Edit Course" aria-label="Edit">
