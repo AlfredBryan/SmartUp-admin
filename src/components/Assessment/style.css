@@ -72,6 +72,10 @@
     margin-bottom: 0;
 }
 
+.assessment_question .card.selected {
+    border-color: #39ff14;
+}
+
 .assessment_question label.answer_option input {
     margin: 2em;
 }
