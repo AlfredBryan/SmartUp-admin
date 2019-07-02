@@ -40,6 +40,8 @@ import takeAssessment from "components/Assessment/takeAssessment";
 import newAttendance from "components/Attendance/newAttendance";
 import showAttendance from "components/Attendance/showAttendance";
 import editAttendance from "components/Attendance/editAttendance";
+import Admin from "components/Admin/Admin";
+import ShowUser from "components/Admin/ShowUser";
 
 class App extends Component {
   render() {
@@ -50,6 +52,8 @@ class App extends Component {
         <Route exact path="/register" component={Register} />
         <AuthRoute>
           <Route exact path="/family" component={AddWard} />
+          <Route exact path="/users" component={Admin} />
+          <Route exact path="/display_user/:id" component={ShowUser} />
           <Route exact path="/courses" component={Courses} />
           <Route exact path="/new_course" component={newCourse} />
           <Route exact path="/new_topic/:slug" component={AddTopic} />
@@ -105,9 +109,21 @@ class App extends Component {
             path="/create_study_group/:id"
             component={createStudyGroup}
           />
-          <Route exact path="/study_groups/:id/new_attendance" component={newAttendance} />
-          <Route exact path="/study_groups/:study_group_id/attendances/:id" component={showAttendance} />
-          <Route exact path="/study_groups/:study_group_id/edit_attendance/:id" component={editAttendance} />
+          <Route
+            exact
+            path="/study_groups/:id/new_attendance"
+            component={newAttendance}
+          />
+          <Route
+            exact
+            path="/study_groups/:study_group_id/attendances/:id"
+            component={showAttendance}
+          />
+          <Route
+            exact
+            path="/study_groups/:study_group_id/edit_attendance/:id"
+            component={editAttendance}
+          />
           <Route exact path="/show_group/:id" component={showGroup} />
           <Route exact path="/update_course/:slug" component={EditCourse} />
           <Route exact path="/courses/:slug" component={showCourse} />

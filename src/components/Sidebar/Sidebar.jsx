@@ -44,7 +44,7 @@ class Sidebar extends Component {
   render() {
     const user = JSON.parse(localStorage.getItem("user"));
 
-    let { ward_button, question_button, assessment_button } = "";
+    let { ward_button, question_button, assessment_button, Admin_button } = "";
     if (user.status !== "educator") {
       ward_button = (
         <li>
@@ -129,6 +129,29 @@ class Sidebar extends Component {
               </NavLink>
             </li>
             {ward_button}
+            {(() => {
+              if (user.status === "educator") {
+                return (
+                  <li>
+                    <NavLink to="/users">
+                      <i className="fa fa-users" />
+                      <p>Students</p>
+                    </NavLink>
+                  </li>
+                );
+              } else if (user.admin === true) {
+                return (
+                  <li>
+                    <NavLink to="/users">
+                      <i className="fa fa-users" />
+                      <p>Users</p>
+                    </NavLink>
+                  </li>
+                );
+              } else {
+                return "";
+              }
+            })()}
             {question_button}
             <hr />
             <li onClick={this.logOut} className="side_logout">
