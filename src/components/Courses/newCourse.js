@@ -68,19 +68,12 @@ class newCourse extends Component {
           })
         )
         .then(res => {
-          this.setState({
-            loading: false,
-            course: res.data
-          });
-
-          if (res.data.id !== null) {
-            if (res.data.institution_id) {
-              this.props.history.replace(
-                `/institution/${Id}/courses/${res.data.slug}`
-              );
-            } else {
-              this.props.history.replace(`/courses/${res.data.slug}`);
-            }
+          if (res.status === 200) {
+            this.setState({
+              loading: false,
+              course: res.data
+            });
+            this.props.history.replace("/courses");
           }
         })
         .catch(err => {

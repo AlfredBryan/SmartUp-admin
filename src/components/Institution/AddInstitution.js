@@ -47,8 +47,7 @@ class AddInstitution extends Component {
       email: "",
       phone: "",
       logo: "",
-      loading: false,
-      response: ""
+      loading: false
     };
   }
 
@@ -72,7 +71,12 @@ class AddInstitution extends Component {
     e.preventDefault();
     const token = localStorage.getItem("token");
     let { name, motto, email, phone, logo } = this.state;
-    if (name.length < 3 && email.length < 8 && phone.length < 10) {
+    if (
+      name.length < 3 ||
+      email.length < 8 ||
+      phone.length < 10 ||
+      motto.length < 5
+    ) {
       swal({
         title: "Fields cannot be empty",
         text: "Please enter all fields",
@@ -102,12 +106,11 @@ class AddInstitution extends Component {
           })
         )
         .then(res => {
-          if (res) {
+          if (res.status === 200) {
             this.setState({
-              loading: false,
-              response: res.data
+              loading: false
             });
-            this.handleClick();
+            this.props.history.replace("/institutions");
           }
         })
         .catch(err => {
@@ -127,8 +130,7 @@ class AddInstitution extends Component {
   };
 
   render() {
-    const { loading, open, response } = this.state;
-    const { classes } = this.props;
+    const { loading } = this.state;
     return (
       <div>
         <Helmet>
@@ -136,27 +138,6 @@ class AddInstitution extends Component {
           <title>Institution</title>
         </Helmet>
         <Navigation />
-        <Snackbar
-          open={open}
-          autoHideDuration={4000}
-          onClose={this.handleClose}
-          ContentProps={{
-            "aria-describedby": "snackbar-fab-message-id",
-            className: classes.snackbarContent
-          }}
-          message={
-            <span id="snackbar-fab-message-id popup-text">
-              <span className="user-popup">{response.name}</span> Added
-              Successfully
-            </span>
-          }
-          action={
-            <Button color="inherit" size="small" onClick={this.handleClose}>
-              close
-            </Button>
-          }
-          className={classes.snackbar}
-        />
         <div className="main-content">
           <div className="container">
             <h2>Create Institution</h2>
