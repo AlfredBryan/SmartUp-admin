@@ -120,7 +120,7 @@ class createQuestion extends Component {
             this.setState({
               loading: false
             });
-            this.handleClick();
+            this.props.history.replace("/questions");
           }
         })
         .catch(err => {
@@ -215,17 +215,24 @@ class createQuestion extends Component {
                   </div>
                 </div>
                 <div className="form-group">
-                    <label className="col-md-2 adjust-input control-label">
-                      Question Type
-                    </label>
-                    <div className="col-md-4">
-                      <select className="form-control" name="question_type" value={this.state.question_type} onChange={this.handleChange}>
-                        {["choice", "theory"].map(lt => (
-                          <option key={lt} value={lt}>{this.Capitalize(lt)}</option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>        
+                  <label className="col-md-2 adjust-input control-label">
+                    Question Type
+                  </label>
+                  <div className="col-md-4">
+                    <select
+                      className="form-control"
+                      name="question_type"
+                      value={this.state.question_type}
+                      onChange={this.handleChange}
+                    >
+                      {["choice", "theory"].map(lt => (
+                        <option key={lt} value={lt}>
+                          {this.Capitalize(lt)}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
 
                 <p style={{ color: "red" }}>{errorMessage}</p>
                 <div className="form-group">

@@ -60,7 +60,7 @@ class NewAssessment extends Component {
             this.setState({
               loading: false
             });
-            alert(`Assessment Added`);
+            this.props.history.replace("/assessments");
           }
         });
     }

@@ -98,46 +98,40 @@ class UpdateUser extends Component {
       image,
       sex
     } = this.state;
-    if (first_name.length < 3 || surname.length < 3) {
-      this.setState({
-        errorMessage: "Fields Can't be Empty"
-      });
-    } else {
-      axios
-        .put(
-          "https://smart-up.herokuapp.com/api/v1/registration",
-          {
-            user: {
-              first_name,
-              surname,
-              address,
-              phone,
-              state,
-              date_of_birth,
-              sex,
-              image,
-              level
-            }
-          },
-          {
-            headers: {
-              Authorization: token
-            }
-          },
-          this.setState({
-            loading: true
-          })
-        )
-        .then(res => {
-          if (res.status === 200) {
-            this.setState({
-              loading: false
-            });
-            localStorage.setItem("user", JSON.stringify(res.data));
-            this.handleClick();
+    axios
+      .put(
+        "https://smart-up.herokuapp.com/api/v1/registration",
+        {
+          user: {
+            first_name,
+            surname,
+            address,
+            phone,
+            state,
+            date_of_birth,
+            sex,
+            image,
+            level
           }
-        });
-    }
+        },
+        {
+          headers: {
+            Authorization: token
+          }
+        },
+        this.setState({
+          loading: true
+        })
+      )
+      .then(res => {
+        if (res.status === 200) {
+          this.setState({
+            loading: false
+          });
+          localStorage.setItem("user", JSON.stringify(res.data));
+          this.props.history.replace("/profile");
+        }
+      });
   };
 
   handleChange = event => {

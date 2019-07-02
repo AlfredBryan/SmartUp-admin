@@ -85,7 +85,7 @@ class createStudyGroup extends Component {
             loading: false,
             pop_up: res.data.name
           });
-          this.handleClick();
+          this.props.history.replace("/study_groups");
         }
       });
   };
