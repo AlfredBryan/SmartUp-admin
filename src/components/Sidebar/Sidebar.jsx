@@ -44,7 +44,7 @@ class Sidebar extends Component {
   render() {
     const user = JSON.parse(localStorage.getItem("user"));
 
-    let { ward_button, question_button, assessment_button, Admin_button } = "";
+    let { ward_button, question_button } = "";
     if (user.status !== "educator") {
       ward_button = (
         <li>
@@ -62,17 +62,6 @@ class Sidebar extends Component {
           <NavLink to="/questions">
             <i className="fa fa-server" />
             <p>Questions</p>
-          </NavLink>
-        </li>
-      );
-    }
-
-    if (user.status !== "guardian") {
-      assessment_button = (
-        <li>
-          <NavLink activeClassName="active" to="/assessments">
-            <i className="fa fa-book" />
-            <p>Assessments</p>
           </NavLink>
         </li>
       );
@@ -121,7 +110,29 @@ class Sidebar extends Component {
                 <p>Courses</p>
               </NavLink>
             </li>
-            {assessment_button}
+            {(() => {
+              if (user.status === "educator" || user.admin === true) {
+                return (
+                  <li>
+                    <NavLink activeClassName="active" to="/assessments">
+                      <i className="fa fa-book" />
+                      <p>Assessments</p>
+                    </NavLink>
+                  </li>
+                );
+              } else if (user.status === "student") {
+                return (
+                  <li>
+                    <NavLink to="/student_assessment">
+                      <i className="fa fa-book" />
+                      <p>Assessments</p>
+                    </NavLink>
+                  </li>
+                );
+              } else {
+                return "";
+              }
+            })()}
             <li>
               <NavLink activeClassName="active" to="/study_groups">
                 <FontAwesomeIcon icon="users-cog" size="2x" />

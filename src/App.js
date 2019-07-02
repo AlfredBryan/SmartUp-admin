@@ -42,6 +42,7 @@ import showAttendance from "components/Attendance/showAttendance";
 import editAttendance from "components/Attendance/editAttendance";
 import Admin from "components/Admin/Admin";
 import ShowUser from "components/Admin/ShowUser";
+import StudentAssessment from "components/Assessment/StudentAssessment";
 
 class App extends Component {
   render() {
@@ -56,6 +57,11 @@ class App extends Component {
           <Route exact path="/display_user/:id" component={ShowUser} />
           <Route exact path="/courses" component={Courses} />
           <Route exact path="/new_course" component={newCourse} />
+          <Route
+            exact
+            path="/student_assessment"
+            component={StudentAssessment}
+          />
           <Route exact path="/new_topic/:slug" component={AddTopic} />
           <Route exact path="/questions" component={Questions} />
           <Route exact path="/new_question/:id" component={createQuestion} />
