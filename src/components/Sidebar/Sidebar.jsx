@@ -59,7 +59,7 @@ class Sidebar extends Component {
     if (user.status === "educator" || user.admin === true) {
       Answer_button = (
         <li>
-          <NavLink activeClassName="active" to="/answers">
+          <NavLink activeClassName="active" to="/assessment_answers">
             <i className="fa fa-question-circle" />
             <p>Answers</p>
           </NavLink>

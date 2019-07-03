@@ -6,6 +6,9 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import { Helmet } from "react-helmet";
 
+//Alert
+import swal from "sweetalert";
+
 //file upload
 import FileBase64 from "react-file-base64";
 
@@ -98,40 +101,54 @@ class UpdateUser extends Component {
       image,
       sex
     } = this.state;
-    axios
-      .put(
-        "https://smart-up.herokuapp.com/api/v1/registration",
-        {
-          user: {
-            first_name,
-            surname,
-            address,
-            phone,
-            state,
-            date_of_birth,
-            sex,
-            image,
-            level
-          }
-        },
-        {
-          headers: {
-            Authorization: token
-          }
-        },
-        this.setState({
-          loading: true
-        })
-      )
-      .then(res => {
-        if (res.status === 200) {
-          this.setState({
-            loading: false
-          });
-          localStorage.setItem("user", JSON.stringify(res.data));
-          this.props.history.replace("/profile");
-        }
+    if (
+      first_name.length < 3 ||
+      surname.length < 3 ||
+      address.length < 7 ||
+      phone.length < 10
+    ) {
+      swal({
+        title: "Fields cannot be empty",
+        text: "Please enter all fields",
+        icon: "warning",
+        dangerMode: true
       });
+    } else {
+      axios
+        .put(
+          "https://smart-up.herokuapp.com/api/v1/registration",
+          {
+            user: {
+              first_name,
+              surname,
+              address,
+              phone,
+              state,
+              date_of_birth,
+              sex,
+              image,
+              level
+            }
+          },
+          {
+            headers: {
+              Authorization: token
+            }
+          },
+          this.setState({
+            loading: true
+          })
+        )
+        .then(res => {
+          if (res.status === 200) {
+            this.setState({
+              loading: false
+            });
+            localStorage.setItem("user", JSON.stringify(res.data));
+            this.props.history.replace("/profile");
+          }
+        });
+    }
   };
 
   handleChange = event => {

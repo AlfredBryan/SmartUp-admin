@@ -1,6 +1,9 @@
 import React, { Component } from "react";
-import "./Dashboard.css";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import "./Dashboard.css";
 
 //popup notification
 import PropTypes from "prop-types";
@@ -37,7 +40,8 @@ class Dashboard extends Component {
     this.state = {
       email: "",
       test: [],
-      open: false
+      open: false,
+      wards: []
     };
   }
 
@@ -78,18 +82,36 @@ class Dashboard extends Component {
         }
       })
       .then(res => {
-        console.log(res);
+        this.setState({
+          test: res.data
+        });
+      });
+  };
+
+  fetchWards = () => {
+    const token = localStorage.getItem("token");
+    axios
+      .get("https://smart-up.herokuapp.com/api/v1/users", {
+        headers: {
+          Authorization: token
+        }
+      })
+      .then(res => {
+        this.setState({
+          wards: res.data
+        });
       });
   };
 
   componentDidMount() {
     this.handleClick();
     this.fetchTest();
+    this.fetchWards();
   }
 
   render() {
     const { classes } = this.props;
-    const { open } = this.state;
+    const { open, test, wards } = this.state;
     const user = JSON.parse(localStorage.getItem("user"));
     return (
       <React.Fragment>
@@ -218,70 +240,113 @@ class Dashboard extends Component {
                   </div>
                 </div> */}
                 <div className="ward-section">
-                  <h5 style={{ marginBottom: "20px" }}>My Wards</h5>
-                  <div className="wards">
-                    <ul>
-                      <li>
-                        wards
-                        <span className="pull-right">
-                          <div class="c100 p12 small">
-                            <span>12%</span>
-                            <div class="slice">
-                              <div class="bar" />
-                              <div class="fill" />
+                  {(() => {
+                    if (user.status === "student") {
+                      return (
+                        <div>
+                          <h5 style={{ marginBottom: "20px" }}>My Wards</h5>
+                          <div className="wards">
+                            <ul>
+                              <li>
+                                wards
+                                <span className="pull-right">
+                                  <div className="c100 p12 small">
+                                    <span>12%</span>
+                                    <div className="slice">
+                                      <div className="bar" />
+                                      <div className="fill" />
+                                    </div>
+                                  </div>
+                                </span>
+                              </li>
+                              <li>
+                                wards
+                                <span className="pull-right">
+                                  <div className="c100 p12 small">
+                                    <span>12%</span>
+                                    <div className="slice">
+                                      <div className="bar" />
+                                      <div className="fill" />
+                                    </div>
+                                  </div>
+                                </span>
+                              </li>
+                              <li>
+                                wards
+                                <span className="pull-right">
+                                  <div className="c100 p12 small">
+                                    <span>12%</span>
+                                    <div className="slice">
+                                      <div className="bar" />
+                                      <div className="fill" />
+                                    </div>
+                                  </div>
+                                </span>
+                              </li>
+                              <li>
+                                wards
+                                <span className="pull-right">
+                                  <div className="c100 p12 small">
+                                    <span>12%</span>
+                                    <div className="slice">
+                                      <div className="bar" />
+                                      <div className="fill" />
+                                    </div>
+                                  </div>
+                                </span>
+                              </li>
+                            </ul>
+                          </div>
+                          <div className="ward-section">
+                            <h5 style={{ marginBottom: "20px" }}>Attendance</h5>
+                            <div className="wards">
+                              <ul>
+                                <li>Attendance</li>
+                                <li>Attendance </li>
+                                <li>Attendance </li>
+                                <li>Attendance </li>
+                              </ul>
                             </div>
                           </div>
-                        </span>
-                      </li>
-                      <li>
-                        wards
-                        <span className="pull-right">
-                          <div class="c100 p12 small">
-                            <span>12%</span>
-                            <div class="slice">
-                              <div class="bar" />
-                              <div class="fill" />
-                            </div>
+                        </div>
+                      );
+                    }
+                  })()}
+                  {(() => {
+                    if (user.status === "guardian") {
+                      return (
+                        <div className="container">
+                          <h3>Wards</h3>
+                          <div className="row" id="assessments_home">
+                            {wards.map(stud => (
+                              <div key={stud.id} className="col-md-4">
+                                <div className="card">
+                                  <Link
+                                    to={`/display_user/${stud.id}`}
+                                    className="display-uni"
+                                  >
+                                    <i
+                                      style={{ fontSize: "4em" }}
+                                      className="fa fa-user"
+                                    />
+                                    <h6 className="assessment_name">
+                                      <span style={{ padding: "0.3em" }}>
+                                        {stud.surname}
+                                      </span>
+                                      {stud.first_name}
+                                    </h6>
+                                    <p className="assessment_course_name">
+                                      <strong>Grade</strong>:{stud.level}
+                                    </p>
+                                  </Link>
+                                </div>
+                              </div>
+                            ))}
                           </div>
-                        </span>
-                      </li>
-                      <li>
-                        wards
-                        <span className="pull-right">
-                          <div class="c100 p12 small">
-                            <span>12%</span>
-                            <div class="slice">
-                              <div class="bar" />
-                              <div class="fill" />
-                            </div>
-                          </div>
-                        </span>
-                      </li>
-                      <li>
-                        wards
-                        <span className="pull-right">
-                          <div class="c100 p12 small">
-                            <span>12%</span>
-                            <div class="slice">
-                              <div class="bar" />
-                              <div class="fill" />
-                            </div>
-                          </div>
-                        </span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div className="ward-section">
-                  <h5 style={{ marginBottom: "20px" }}>Attendance</h5>
-                  <div className="wards">
-                    <ul>
-                      <li>Attendance</li>
-                      <li>Attendance </li>
-                      <li>Attendance </li>
-                      <li>Attendance </li>
-                    </ul>
-                  </div>
+                        </div>
+                      );
+                    }
+                  })()}
                 </div>
               </div>
             </div>
