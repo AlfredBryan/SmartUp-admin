@@ -66,6 +66,7 @@ class App extends Component {
           />
           <Route exact path="/new_topic/:slug" component={AddTopic} />
           <Route exact path="/questions" component={Questions} />
+          <Route exact path="/questions/new" component={createQuestion} />
           <Route exact path="/new_question/:id" component={createQuestion} />
           <Route exact path="/edit_question/:id" component={EditQuestion} />
           <Route

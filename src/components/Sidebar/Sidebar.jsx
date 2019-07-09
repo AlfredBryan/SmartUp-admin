@@ -61,7 +61,7 @@ class Sidebar extends Component {
         <li>
           <NavLink activeClassName="active" to="/assessment_answers">
             <i className="fa fa-question-circle" />
-            <p>Answers</p>
+            <p>Marking</p>
           </NavLink>
         </li>
       );

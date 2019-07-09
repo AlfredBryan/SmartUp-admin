@@ -137,6 +137,7 @@ class Courses extends Component {
             </Helmet>
             <Navigation />
             <div className="main-content">
+              <div className="container">
               <div className="action-buttons">
                 {user.status === "educator" || user.admin === true ? (
                   <Link to="/new_course" className="pull-right">
@@ -150,8 +151,6 @@ class Courses extends Component {
                   ""
                 )}
               </div>
-
-              <div className="container">
                 <h3>Courses</h3>
                 <ul className="course-listed">
                   {course_list.map(course => (

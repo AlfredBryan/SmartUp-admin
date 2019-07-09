@@ -12,6 +12,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import EditIcon from "@material-ui/icons/Edit";
+import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
 import Tooltip from "@material-ui/core/Tooltip";
 
@@ -160,13 +161,26 @@ class Questions extends Component {
           />
           <div className="main-content">
             <div className="container questions">
+            <div className="action-buttons">
+                {user.status === "educator" || user.admin === true ? (
+                  <Link to="/questions/new" className="pull-right">
+                    <Tooltip title="Add Question" aria-label="Add Question">
+                      <Fab color="secondary">
+                        <AddIcon />
+                      </Fab>
+                    </Tooltip>
+                  </Link>
+                ) : (
+                  ""
+                )}
+              </div>
               <h3>Questions</h3>
               {questions.map(question => (
                 <div key={question.id} className="toggle-question">
                   <Collapsible
                     className="question"
                     trigger={this.Capitalize(question.name)}
-                    triggerSibling={this.Capitalize(question.question_type)}
+                    triggerSibling={question.question_type}
                   >
                     {user.status === "educator" || user.admin === true ? (
                       <span className="pull-right">

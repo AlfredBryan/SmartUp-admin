@@ -12,6 +12,10 @@ class Admin extends Component {
     };
   }
 
+  Capitalize = str => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
+
   getUsers = () => {
     const token = localStorage.getItem("token");
     axios
@@ -60,7 +64,7 @@ class Admin extends Component {
                       <Link to={`/display_user/${user.id}`}>{user.email}</Link>
                     </td>
                     <td>
-                      <Link to={`/display_user/${user.id}`}>{user.status}</Link>
+                      <Link to={`/display_user/${user.id}`}>{this.Capitalize(user.status)}</Link>
                     </td>
                   </tr>
                 ))}
