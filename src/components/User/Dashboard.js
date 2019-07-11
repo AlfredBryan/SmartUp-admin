@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 
 import "./Dashboard.css";
 
@@ -41,7 +42,11 @@ class Dashboard extends Component {
       email: "",
       test: [],
       open: false,
-      wards: []
+      wards: [],
+      economics: 35,
+      mathematics: 45,
+      english: 68,
+      biology: 75
     };
   }
 
@@ -111,7 +116,15 @@ class Dashboard extends Component {
 
   render() {
     const { classes } = this.props;
-    const { open, test, wards } = this.state;
+    const {
+      open,
+      test,
+      wards,
+      economics,
+      mathematics,
+      english,
+      biology
+    } = this.state;
     const user = JSON.parse(localStorage.getItem("user"));
     return (
       <React.Fragment>
@@ -244,58 +257,40 @@ class Dashboard extends Component {
                     if (user.status === "student") {
                       return (
                         <div>
-                          <h5 style={{ marginBottom: "20px" }}>My Wards</h5>
-                          <div className="wards">
-                            <ul>
-                              <li>
-                                wards
-                                <span className="pull-right">
-                                  <div className="c100 p12 small">
-                                    <span>12%</span>
-                                    <div className="slice">
-                                      <div className="bar" />
-                                      <div className="fill" />
-                                    </div>
-                                  </div>
-                                </span>
-                              </li>
-                              <li>
-                                wards
-                                <span className="pull-right">
-                                  <div className="c100 p12 small">
-                                    <span>12%</span>
-                                    <div className="slice">
-                                      <div className="bar" />
-                                      <div className="fill" />
-                                    </div>
-                                  </div>
-                                </span>
-                              </li>
-                              <li>
-                                wards
-                                <span className="pull-right">
-                                  <div className="c100 p12 small">
-                                    <span>12%</span>
-                                    <div className="slice">
-                                      <div className="bar" />
-                                      <div className="fill" />
-                                    </div>
-                                  </div>
-                                </span>
-                              </li>
-                              <li>
-                                wards
-                                <span className="pull-right">
-                                  <div className="c100 p12 small">
-                                    <span>12%</span>
-                                    <div className="slice">
-                                      <div className="bar" />
-                                      <div className="fill" />
-                                    </div>
-                                  </div>
-                                </span>
-                              </li>
-                            </ul>
+                          <h4 style={{ marginBottom: "20px" }}>Test Scores</h4>
+                          <div className="test-scores">
+                            <div className="flex-container">
+                              <h4 className="test-name"> Biology</h4>
+                              <CircularProgressbar
+                                value={biology}
+                                text={`${biology}%`}
+                                className="test-progress"
+                              />
+                            </div>
+                            <div className="flex-container">
+                              <h4 className="test-name"> Economics</h4>
+                              <CircularProgressbar
+                                value={economics}
+                                text={`${economics}%`}
+                                className="test-progress"
+                              />
+                            </div>
+                            <div className="flex-container">
+                              <h4 className="test-name"> English</h4>
+                              <CircularProgressbar
+                                value={english}
+                                text={`${english}%`}
+                                className="test-progress"
+                              />
+                            </div>
+                            <div className="flex-container">
+                              <h4 className="test-name">Mathematics</h4>
+                              <CircularProgressbar
+                                value={mathematics}
+                                text={`${mathematics}%`}
+                                className="test-progress"
+                              />
+                            </div>
                           </div>
                           <div className="ward-section">
                             <h5 style={{ marginBottom: "20px" }}>Attendance</h5>

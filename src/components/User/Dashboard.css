@@ -94,6 +94,52 @@
     margin-bottom: 12px;
 }
 
+.test-scores {
+    transition: 0.3s;
+    height: 200px;
+    width: 100%;
+    overflow: scroll;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(63, 63, 68, 0.1);
+}
+
+
+.CircularProgressbar-path {
+    stroke: rgb(17, 32, 243) !important
+}
+
+.CircularProgressbar-trail {
+    stroke: rgb(230, 24, 24);
+}
+
+.CircularProgressbar-text {
+    fill: black !important;
+}
+
+.CircularProgressbar-background {
+    fill: green;
+}
+
+.test-progress {
+    width: 7em;
+    padding: 0.5em 1em 0em 2em
+}
+
+.test-name {
+    flex: 1;
+    padding: 0.7em 0em 0em 2em
+}
+
+.flex-container {
+    display: flex;
+    background-color: white;
+    margin-bottom: 0.3em;
+}
+
+.ward-section {
+    margin-top: 10px;
+}
+
+
 .wards {
     transition: 0.3s;
     height: 200px;
@@ -111,134 +157,6 @@
     background: #ffffff;
     box-shadow: 0 0.115px 0.115px 0 rgba(0, 0, 0, 0.2);
     margin-top: 1px;
-}
-
-.pie,
-.c100 .bar{
-    position: absolute;
-    border: 0.08em solid #307bbb;
-    width: 0.84em;
-    height: 0.84em;
-    clip: rect(0em, 0.5em, 1em, 0em);
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    -o-border-radius: 50%;
-    border-radius: 50%;
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
-    transform: rotate(0deg);
-}
-
-.c100 {
-    position: relative;
-    font-size: 100px;
-    width: 1em;
-    height: 1em;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    -o-border-radius: 50%;
-    border-radius: 50%;
-    margin: 0 0.1em 0.1em 0;
-    background-color: #cccccc;
-}
-
-.c100 *,
-.c100 *:before,
-.c100 *:after {
-    -webkit-box-sizing: content-box;
-    -moz-box-sizing: content-box;
-    box-sizing: content-box;
-}
-
-.c100.small {
-    font-size: 80px;
-}
-
-.c100>span {
-    position: absolute;
-    width: 100%;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 5em;
-    line-height: 5em;
-    font-size: 0.2em;
-    color: #cccccc;
-    display: block;
-    text-align: center;
-    white-space: nowrap;
-    -webkit-transition-property: all;
-    -moz-transition-property: all;
-    -o-transition-property: all;
-    transition-property: all;
-    -webkit-transition-duration: 0.2s;
-    -moz-transition-duration: 0.2s;
-    -o-transition-duration: 0.2s;
-    transition-duration: 0.2s;
-    -webkit-transition-timing-function: ease-out;
-    -moz-transition-timing-function: ease-out;
-    -o-transition-timing-function: ease-out;
-    transition-timing-function: ease-out;
-}
-
-.c100.p12 .bar {
-    -webkit-transform: rotate(43.2deg);
-    -moz-transform: rotate(43.2deg);
-    -ms-transform: rotate(43.2deg);
-    -o-transform: rotate(43.2deg);
-    transform: rotate(43.2deg);
-}
-
-.c100 .slice {
-    position: absolute;
-    width: 1em;
-    height: 1em;
-    clip: rect(0em, 1em, 1em, 0.5em);
-}
-
-.c100:after {
-    position: absolute;
-    top: 0.08em;
-    left: 0.08em;
-    display: block;
-    content: " ";
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    -o-border-radius: 50%;
-    border-radius: 50%;
-    background-color: whitesmoke;
-    width: 0.84em;
-    height: 0.84em;
-    -webkit-transition-property: all;
-    -moz-transition-property: all;
-    -o-transition-property: all;
-    transition-property: all;
-    -webkit-transition-duration: 0.2s;
-    -moz-transition-duration: 0.2s;
-    -o-transition-duration: 0.2s;
-    transition-duration: 0.2s;
-    -webkit-transition-timing-function: ease-in;
-    -moz-transition-timing-function: ease-in;
-    -o-transition-timing-function: ease-in;
-    transition-timing-function: ease-in;
-}
-
-.ward-section {
-    margin-top: 10px;
-}
-
-.faq {
-    font-size: 1.1em;
-    color: #00b5e2;
-    cursor: pointer;
-    text-decoration: none;
-    margin-left: 15px;
-    margin-top: 0px;
 }
 
 

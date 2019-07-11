@@ -18,6 +18,7 @@
     "react": "16.8.6",
     "react-bootstrap": "^0.32.4",
     "react-chartist": "0.13.3",
+    "react-circular-progressbar": "^2.0.1",
     "react-collapsible": "^2.6.0",
     "react-datepicker": "^2.5.0",
     "react-dom": "16.8.6",
