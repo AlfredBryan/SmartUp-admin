@@ -7,13 +7,23 @@ class Authenticate extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: undefined
+      user: null,
+      user_status: null
     };
   }
 
+  isEmpty = obj => {
+    for (var prop in obj) {
+      if (obj.hasOwnProperty(prop)) {
+        return false;
+      }
+    }
+
+    return JSON.stringify(obj) === JSON.stringify({});
+  };
+
   componentDidMount() {
     const token = localStorage.getItem("token");
-    const user = JSON.parse(localStorage.getItem("user"));
     if (!token) {
       localStorage.clear("token");
       localStorage.clear("user");
@@ -24,9 +34,16 @@ class Authenticate extends Component {
         headers: { Authorization: token }
       })
       .then(res => {
-        this.setState({
-          user: user
-        });
+        if (Object.keys(res.data.errors).length > 0) {
+          localStorage.clear("token");
+          localStorage.clear("user");
+          this.props.history.push("/login");
+        } else {
+          this.setState({
+            user: res.data,
+            user_status: res.data.status
+          });
+        }
       })
       .catch(error => {
         if (error) {
@@ -38,7 +55,7 @@ class Authenticate extends Component {
   }
 
   render() {
-    if (this.state.user === undefined) {
+    if (this.state.user === null && this.state.user_status === null) {
       return (
         <div>
           <Loader />
