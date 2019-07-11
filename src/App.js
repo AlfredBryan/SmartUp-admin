@@ -70,6 +70,7 @@ class App extends Component {
             path="/student_assessment/:id"
             component={StudentShowAssessment}
           />
+          
           <Route exact path="/new_topic/:slug" component={AddTopic} />
           <Route exact path="/questions" component={Questions} />
           <Route exact path="/questions/new" component={createQuestion} />
