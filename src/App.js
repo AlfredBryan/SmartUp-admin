@@ -44,6 +44,7 @@ import Admin from "components/Admin/Admin";
 import ShowUser from "components/Admin/ShowUser";
 import StudentAssessment from "components/Assessment/StudentAssessment";
 import Answers from "components/Answers/Answers";
+import StudentShowAssessment from "components/Assessment/StudentShowAssessment";
 
 class App extends Component {
   render() {
@@ -63,6 +64,11 @@ class App extends Component {
             exact
             path="/student_assessment"
             component={StudentAssessment}
+          />
+          <Route
+            exact
+            path="/student_assessment/:id"
+            component={StudentShowAssessment}
           />
           <Route exact path="/new_topic/:slug" component={AddTopic} />
           <Route exact path="/questions" component={Questions} />

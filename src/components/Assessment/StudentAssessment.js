@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import AssessmentIcon from "@material-ui/icons/Assessment";
-import Button from "@material-ui/core/Button";
+import { Helmet } from "react-helmet";
 
+import "./style.css";
 import Navigation from "components/Navigation/Navigation";
 
 class StudentAssessment extends Component {
@@ -13,6 +13,10 @@ class StudentAssessment extends Component {
       assessment: []
     };
   }
+  componentDidMount() {
+    this.fetchAssessments();
+  }
+
   fetchAssessments = () => {
     const token = localStorage.getItem("token");
     axios
@@ -27,40 +31,38 @@ class StudentAssessment extends Component {
         });
       });
   };
-
-  componentDidMount() {
-    this.fetchAssessments();
-  }
-
   render() {
-    const ReactMarkdown = require("react-markdown");
     const { assessment } = this.state;
     return (
       <React.Fragment>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Assessments</title>
+        </Helmet>
         <Navigation />
         <div className="main-content">
           <div className="container">
-            {assessment.map(item => (
-              <div key={item.id}>
-                <h3>{item.name}</h3>
-                <Link
-                  className="pull-right"
-                  to={`/assessments/${item.id}/take_assessment`}
-                >
-                  <Button
-                    color="secondary"
-                    variant="contained"
-                    component="span"
-                  >
-                    <AssessmentIcon />
-                    Take Assessment
-                  </Button>
-                </Link>
-                <blockquote>
-                  <ReactMarkdown source={item.description} />
-                </blockquote>
+            <div className="row push-down">
+              <h3>Assessments</h3>
+              <div className="row" id="assessments_home">
+                {assessment.map(ass => (
+                  <div key={ass.id} className="col-md-4">
+                    <div className="card">
+                      <Link
+                        to={`/student_assessment/${ass.id}`}
+                        className="display-uni"
+                      >
+                        <i className="fa fa-vcard-o assessment_logo" />
+                        <h6 className="assessment_name">{ass.name}</h6>
+                        <p className="assessment_course_name">
+                          Course: {ass.course.name}
+                        </p>
+                      </Link>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </React.Fragment>
