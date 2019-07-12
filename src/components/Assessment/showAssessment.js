@@ -112,9 +112,27 @@ class showAssessment extends Component {
               <ul className="assessment_questions">
                 {questions.map(question => (
                   <li key={question.id} className="toggle-question">
-                    <Collapsible className="question" trigger={question.name}>
+                    <Collapsible
+                      className="question"
+                      trigger={question.name}
+                      triggerSibling={question.question_type}
+                    >
                       <blockquote>{question.description}</blockquote>
                       <div>{this.renderAnswerOptions(question)}</div>
+                      {question.question_type === "theory" ? (
+                        <form className="score_input">
+                          <input type="text" name="score" />
+                          <Button
+                            color="secondary"
+                            variant="contained"
+                            component="span"
+                          >
+                            Score
+                          </Button>
+                        </form>
+                      ) : (
+                        ""
+                      )}
                     </Collapsible>
                   </li>
                 ))}
