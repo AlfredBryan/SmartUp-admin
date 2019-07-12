@@ -9,6 +9,10 @@
 
 }
 
+.score_input {
+    padding: 0em 0em 1em 0em;
+}
+
 .assessment_body li {
     overflow: hidden;
     list-style: none;

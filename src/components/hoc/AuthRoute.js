@@ -28,6 +28,7 @@ class Authenticate extends Component {
       localStorage.clear("token");
       localStorage.clear("user");
       this.props.history.push("/login");
+      window.location.reload();
     }
     axios
       .get("https://smart-up.herokuapp.com/api/v1/session", {
@@ -38,6 +39,7 @@ class Authenticate extends Component {
           localStorage.clear("token");
           localStorage.clear("user");
           this.props.history.push("/login");
+          window.location.reload();
         } else {
           this.setState({
             user: res.data,
@@ -50,6 +52,7 @@ class Authenticate extends Component {
           localStorage.clear("token");
           localStorage.clear("user");
           this.props.history.push("/login");
+          window.location.reload();
         }
       });
   }

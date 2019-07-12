@@ -28,7 +28,6 @@ class Answers extends Component {
         }
       })
       .then(res => {
-        console.log(res);
         if (res.status === 200) {
           this.setState({
             answer_list: res.data
