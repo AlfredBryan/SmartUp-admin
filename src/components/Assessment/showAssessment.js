@@ -18,7 +18,9 @@ class showAssessment extends Component {
     this.state = {
       assessment_id: this.props.match.params.id,
       assessment: "",
-      questions: []
+      questions: [],
+      assessment_questions: [],
+      score: ""
     };
   }
   componentDidMount() {
@@ -44,9 +46,11 @@ class showAssessment extends Component {
         }
       )
       .then(res => {
+        console.log(res);
         this.setState({
           assessment: res.data,
-          questions: res.data.questions
+          questions: res.data.questions,
+          assessment_questions: res.data.assessment_questions
         });
       });
   };
@@ -63,8 +67,34 @@ class showAssessment extends Component {
     }
   };
 
+  setScore = id => {
+    const { assessment_id, score } = this.state;
+    const token = localStorage.getItem("token");
+    axios
+      .post(
+        `https://smart-up.herokuapp.com/api/v1/questions/${id}/set_score`,
+        {
+          assessment_id,
+          score
+        },
+        {
+          headers: {
+            Authorization: token
+          }
+        }
+      )
+      .then(res => {
+      });
+  };
+
+  handleChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
+
   render() {
-    const { assessment, questions } = this.state;
+    const { assessment, assessment_questions } = this.state;
     const user = JSON.parse(localStorage.getItem("user"));
     const ReactMarkdown = require("react-markdown");
     return (
@@ -97,11 +127,11 @@ class showAssessment extends Component {
             </span>
             <h3>{assessment.name}</h3>
             <span className="pull-right">
-              {questions.length < 1 ? (
+              {assessment_questions.length < 1 ? (
                 <span className="topics-span">No questions yet</span>
               ) : (
                 <span className="topics-span">
-                  Questions :{questions.length}
+                  Questions :{assessment_questions.length}
                 </span>
               )}
             </span>
@@ -110,24 +140,32 @@ class showAssessment extends Component {
                 <ReactMarkdown source={assessment.description} />
               </blockquote>
               <ul className="assessment_questions">
-                {questions.map(question => (
+                {assessment_questions.map(question => (
                   <li key={question.id} className="toggle-question">
                     <Collapsible
                       className="question"
-                      trigger={question.name}
-                      triggerSibling={question.question_type}
+                      trigger={question.question.name}
+                      triggerSibling={question.question.question_type}
                     >
-                      <blockquote>{question.description}</blockquote>
-                      <div>{this.renderAnswerOptions(question)}</div>
-                      {question.question_type === "theory" ? (
+                      <blockquote>{question.question.description}</blockquote>
+                      <div>{this.renderAnswerOptions(question.question)}</div>
+                      {question.question.question_type === "theory" ? (
                         <form className="score_input">
-                          <input type="text" name="score" />
+                          <input
+                            type="text"
+                            onChange={this.handleChange}
+                            name="score"
+                            value={question.max_score}
+                          />
                           <Button
                             color="secondary"
                             variant="contained"
                             component="span"
+                            onClick={() => {
+                              this.setScore(question.question.id);
+                            }}
                           >
-                            Score
+                            Max Score
                           </Button>
                         </form>
                       ) : (

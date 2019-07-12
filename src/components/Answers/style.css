@@ -1,3 +1,9 @@
 .diplay_answer {
     padding: 0em 2em 0em 0em;
 }
+
+.empty_marking {
+    background-color: #ffffff;
+    text-align: center;
+    padding: 4em;
+}

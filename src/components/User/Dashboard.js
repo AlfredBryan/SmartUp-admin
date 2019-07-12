@@ -40,7 +40,7 @@ class Dashboard extends Component {
     super(props);
     this.state = {
       email: "",
-      test: [],
+      scores: [],
       open: false,
       wards: [],
       economics: 35,
@@ -87,8 +87,9 @@ class Dashboard extends Component {
         }
       })
       .then(res => {
+        console.log(res);
         this.setState({
-          test: res.data
+          scores: res.data
         });
       });
   };
@@ -118,7 +119,7 @@ class Dashboard extends Component {
     const { classes } = this.props;
     const {
       open,
-      test,
+      scores,
       wards,
       economics,
       mathematics,
@@ -259,38 +260,18 @@ class Dashboard extends Component {
                         <div>
                           <h4 style={{ marginBottom: "20px" }}>Test Scores</h4>
                           <div className="test-scores">
-                            <div className="flex-container">
-                              <h4 className="test-name"> Biology</h4>
-                              <CircularProgressbar
-                                value={biology}
-                                text={`${biology}%`}
-                                className="test-progress"
-                              />
-                            </div>
-                            <div className="flex-container">
-                              <h4 className="test-name"> Economics</h4>
-                              <CircularProgressbar
-                                value={economics}
-                                text={`${economics}%`}
-                                className="test-progress"
-                              />
-                            </div>
-                            <div className="flex-container">
-                              <h4 className="test-name"> English</h4>
-                              <CircularProgressbar
-                                value={english}
-                                text={`${english}%`}
-                                className="test-progress"
-                              />
-                            </div>
-                            <div className="flex-container">
-                              <h4 className="test-name">Mathematics</h4>
-                              <CircularProgressbar
-                                value={mathematics}
-                                text={`${mathematics}%`}
-                                className="test-progress"
-                              />
-                            </div>
+                            {scores.map(score => (
+                              <div className="flex-container">
+                                <h4 className="test-name">
+                                  {score.assessment.name}
+                                </h4>
+                                <CircularProgressbar
+                                  value={score.score}
+                                  text={`${score.score}%`}
+                                  className="test-progress"
+                                />
+                              </div>
+                            ))}
                           </div>
                           <div className="ward-section">
                             <h5 style={{ marginBottom: "20px" }}>Attendance</h5>

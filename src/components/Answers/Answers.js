@@ -53,9 +53,7 @@ class Answers extends Component {
           }
         }
       )
-      .then(res => {
-        console.log(res);
-      });
+      .then(res => {});
   };
 
   handleChange = e => {
@@ -77,55 +75,61 @@ class Answers extends Component {
         <div className="main-content">
           <div className="container">
             <h3>Answers</h3>
-            {answer_list.map(answer => (
-              <div key={answer.id} className="toggle-question">
-                <Collapsible
-                  className="question"
-                  trigger={
-                    <span>
-                      <strong className="diplay_answer">Question</strong>
-                      {answer.question.name}
-                    </span>
-                  }
-                  triggerSibling={answer.state}
-                >
-                  <span className="pull-right" />
-                  <blockquote>
-                    <ReactMarkdown source={answer.question.description} />
-                  </blockquote>
-                  <div>
-                    <h4>Answer</h4>
-                    <blockquote>
-                      <ReactMarkdown source={answer.content} />
-                    </blockquote>
-                    <form onSubmit={this.markAnswer} className="form-group">
-                      <div className="col-lg-4">
-                        <input
-                          className="form-control"
-                          type="text"
-                          value={score}
-                          name="score"
-                          onChange={this.handleChange}
-                        />
+            {answer_list.length < 1 ? (
+              <div className="empty_marking">Nothing to mark</div>
+            ) : (
+              <div>
+                {answer_list.map(answer => (
+                  <div key={answer.id} className="toggle-question">
+                    <Collapsible
+                      className="question"
+                      trigger={
+                        <span>
+                          <strong className="diplay_answer">Question</strong>
+                          {answer.question.name}
+                        </span>
+                      }
+                      triggerSibling={answer.state}
+                    >
+                      <span className="pull-right" />
+                      <blockquote>
+                        <ReactMarkdown source={answer.question.description} />
+                      </blockquote>
+                      <div>
+                        <h4>Answer</h4>
+                        <blockquote>
+                          <ReactMarkdown source={answer.content} />
+                        </blockquote>
+                        <form onSubmit={this.markAnswer} className="form-group">
+                          <div className="col-lg-4">
+                            <input
+                              className="form-control"
+                              type="text"
+                              value={score}
+                              name="score"
+                              onChange={this.handleChange}
+                            />
+                          </div>
+                          <div className="col-lg-2">
+                            <Button
+                              variant="contained"
+                              component="span"
+                              color="secondary"
+                              className="form-control new-btn"
+                              onClick={() => {
+                                this.markAnswer(answer.id);
+                              }}
+                            >
+                              Mark
+                            </Button>
+                          </div>
+                        </form>
                       </div>
-                      <div className="col-lg-2">
-                        <Button
-                          variant="contained"
-                          component="span"
-                          color="secondary"
-                          className="form-control new-btn"
-                          onClick={() => {
-                            this.markAnswer(answer.id);
-                          }}
-                        >
-                          Mark
-                        </Button>
-                      </div>
-                    </form>
+                    </Collapsible>
                   </div>
-                </Collapsible>
+                ))}
               </div>
-            ))}
+            )}
           </div>
         </div>
       </React.Fragment>
