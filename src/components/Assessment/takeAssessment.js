@@ -94,8 +94,8 @@ class takeAssessment extends Component {
     const token = localStorage.getItem("token");
     const { assessment_id } = this.state;
     axios
-      .post(
-        `https://smart-up.herokuapp.com/api/v1/assessments/${assessment_id}/finish`,
+      .get(
+        `https://smart-up.herokuapp.com/api/v1/assessments/${assessment_id}/complete_assessment`,
         {
           headers: {
             Authorization: token
@@ -103,7 +103,9 @@ class takeAssessment extends Component {
         }
       )
       .then(res => {
-        this.props.history.replace("/profile");
+        if (res.status == 200) {
+          this.props.history.replace("/profile");
+        }
       })
       .catch(error => {});
   };
@@ -372,9 +374,6 @@ class takeAssessment extends Component {
                       component="span"
                       color="primary"
                       className="finish-button"
-                      onClick={() => {
-                        this.props.history.replace("/profile");
-                      }}
                     >
                       Finish
                     </Button>
