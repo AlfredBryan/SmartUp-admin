@@ -265,11 +265,16 @@ class Dashboard extends Component {
                                 <h4 className="test-name">
                                   {score.assessment.name}
                                 </h4>
-                                <CircularProgressbar
-                                  value={score.score}
-                                  text={`${score.score}%`}
-                                  className="test-progress"
-                                />
+                                <span>
+                                  <div>
+                                    {score.grade}
+                                    <CircularProgressbar
+                                      value={score.score}
+                                      text={`${score.score}%`}
+                                      className="test-progress"
+                                    />
+                                  </div>
+                                </span>
                               </div>
                             ))}
                           </div>
