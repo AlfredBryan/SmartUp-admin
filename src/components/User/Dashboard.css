@@ -19,6 +19,20 @@
     margin: 0em 1.6em
 }
 
+#no-scores {
+    background-color: #ffffff;
+    text-align: center;
+    padding: 3em;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+#no-attendance {
+    background-color: #ffffff;
+    text-align: center;
+    padding: 3em;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2);
+}
+
 .nav-menu a:hover {
 
     background: #ddddf7 !important;
@@ -95,11 +109,23 @@
 }
 
 .test-scores {
-    transition: 0.3s;
+    transition: 1.3s;
     height: 200px;
     width: 100%;
     overflow: scroll;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(63, 63, 68, 0.1);
+}
+
+.attendance-list {
+    transition: 1.3s;
+    height: 200px;
+    width: 100%;
+    overflow: scroll;
+}
+
+.show-attendance {
+    background-color: white;
+    margin-bottom: 0.3em;
+    padding: 2em
 }
 
 
@@ -107,17 +133,17 @@
     stroke: rgb(17, 32, 243) !important
 }
 
-.CircularProgressbar-trail {
+/* .CircularProgressbar-trail {
     stroke: rgb(230, 24, 24);
-}
+}*/
 
 .CircularProgressbar-text {
     fill: black !important;
 }
 
-.CircularProgressbar-background {
+/* .CircularProgressbar-background {
     fill: green;
-}
+} */
 
 .test-progress {
     width: 7em;
@@ -445,7 +471,7 @@
     }
 
     .profile_data {
-        margin: 0em 0em 1.5em 2.8em;
+        margin: 0em 0em 1.5em 3.5em;
         color: grey;
     }
 

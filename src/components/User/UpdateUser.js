@@ -59,7 +59,7 @@ class UpdateUser extends Component {
       state: "select",
       image: "",
       date_of_birth: new Date(),
-      sex: "male",
+      sex: "select",
       level: "1",
       open: false,
       loading: false,
@@ -220,6 +220,7 @@ class UpdateUser extends Component {
     const { classes } = this.props;
     const { open, loading, errorMessage } = this.state;
     const user = JSON.parse(localStorage.getItem("user"));
+    console.log(this.state.sex);
 
     return (
       <div>
@@ -401,6 +402,7 @@ class UpdateUser extends Component {
                     value={this.state.sex}
                     onChange={this.handleChange}
                   >
+                    <option value="">--Select--</option>
                     {["male", "female"].map(sx => (
                       <option key={sx} value={sx}>
                         {this.Capitalize(sx)}

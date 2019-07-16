@@ -76,7 +76,9 @@ class Answers extends Component {
           <div className="container">
             <h3>Answers</h3>
             {answer_list.length < 1 ? (
-              <div className="empty_marking">Nothing to mark</div>
+              <div className="empty_marking">
+                <h3>Nothing to mark</h3>
+              </div>
             ) : (
               <div>
                 {answer_list.map(answer => (

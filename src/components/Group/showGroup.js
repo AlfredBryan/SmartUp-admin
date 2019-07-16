@@ -360,7 +360,7 @@ class showGroup extends Component {
                           attendance.id
                         }`}
                       >
-                        {attendance.name} for{" "}
+                        {attendance.name} for
                         <b>
                           <Moment format="Do MMMM YYYY">
                             {attendance.marked_on}

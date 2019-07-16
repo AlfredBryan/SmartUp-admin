@@ -192,6 +192,7 @@ class showAttendance extends Component {
 
   render() {
     const { classes } = this.props;
+    const user = JSON.parse(localStorage.getItem("user"));
     const {
       attendance_users,
       members,
@@ -233,18 +234,22 @@ class showAttendance extends Component {
         <div className="main-content">
           <div id="show_attendance">
             <div>
-              <Link
-                to={`/study_groups/${study_group_id}/edit_attendance/${
-                  attendance.id
-                }`}
-                className="button-area"
-              >
-                <Tooltip title="Edit Group" aria-label="Edit">
-                  <Fab color="secondary">
-                    <EditIcon />
-                  </Fab>
-                </Tooltip>
-              </Link>
+              {user.status === "educator" || user.admin === true ? (
+                <Link
+                  to={`/study_groups/${study_group_id}/edit_attendance/${
+                    attendance.id
+                  }`}
+                  className="button-area"
+                >
+                  <Tooltip title="Edit Group" aria-label="Edit">
+                    <Fab color="secondary">
+                      <EditIcon />
+                    </Fab>
+                  </Tooltip>
+                </Link>
+              ) : (
+                ""
+              )}
             </div>
             <div className="col-md-6">
               <h3>{attendance.name}</h3>
@@ -305,13 +310,17 @@ class showAttendance extends Component {
                 </h4>
                 <div className="form-group">
                   <div className="col-md-12">
-                    <span onClick={this.AddUsers} className="pull-right">
-                      <Tooltip title="Mark user" aria-label="Mark">
-                        <Fab color="secondary">
-                          <DoneAllIcon />
-                        </Fab>
-                      </Tooltip>
-                    </span>
+                    {user.status === "educator" || user.admin === true ? (
+                      <span onClick={this.AddUsers} className="pull-right">
+                        <Tooltip title="Mark user" aria-label="Mark">
+                          <Fab color="secondary">
+                            <DoneAllIcon />
+                          </Fab>
+                        </Tooltip>
+                      </span>
+                    ) : (
+                      ""
+                    )}
                     <Select
                       className="col-md-8"
                       class="form-control m-bot15"

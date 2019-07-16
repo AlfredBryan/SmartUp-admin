@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Moment from "react-moment";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
@@ -43,10 +44,7 @@ class Dashboard extends Component {
       scores: [],
       open: false,
       wards: [],
-      economics: 35,
-      mathematics: 45,
-      english: 68,
-      biology: 75
+      attendance: []
     };
   }
 
@@ -87,10 +85,26 @@ class Dashboard extends Component {
         }
       })
       .then(res => {
-        console.log(res);
         this.setState({
           scores: res.data
         });
+      });
+  };
+
+  fetchAttendance = () => {
+    const token = localStorage.getItem("token");
+    axios
+      .get("https://smart-up.herokuapp.com/api/v1/attendances", {
+        headers: {
+          Authorization: token
+        }
+      })
+      .then(res => {
+        if (res.status === 200) {
+          this.setState({
+            attendance: res.data
+          });
+        }
       });
   };
 
@@ -113,19 +127,12 @@ class Dashboard extends Component {
     this.handleClick();
     this.fetchTest();
     this.fetchWards();
+    this.fetchAttendance();
   }
 
   render() {
     const { classes } = this.props;
-    const {
-      open,
-      scores,
-      wards,
-      economics,
-      mathematics,
-      english,
-      biology
-    } = this.state;
+    const { open, scores, wards, attendance } = this.state;
     const user = JSON.parse(localStorage.getItem("user"));
     return (
       <React.Fragment>
@@ -207,87 +214,64 @@ class Dashboard extends Component {
                 </div>
               </div>
               <div className="col-xs-12 col-sm-8 col-md-8">
-                {/* <div className="card-length">
-                  <div className="flex-div">
-                    <div className="card">
-                      <i
-                        style={{
-                          marginTop: "30px",
-                          fontSize: "40px",
-                          color: "#0a306d"
-                        }}
-                        className="fa fa-vcard-o"
-                      />
-                      <h6 style={{ marginTop: "10px" }}>Get live help</h6>
-                      <p style={{ fontSize: "12px", color: "grey" }}>
-                        1:1 mentorship session
-                      </p>
-                    </div>
-                    <div className="card left">
-                      <i
-                        style={{
-                          marginTop: "30px",
-                          fontSize: "40px",
-                          color: "#0a306d"
-                        }}
-                        className="fa fa-empire"
-                      />
-                      <h6 style={{ marginTop: "10px" }}>Get freelance help</h6>
-                      <p style={{ fontSize: "12px", color: "grey" }}>
-                        Pay with escrow
-                      </p>
-                    </div>
-                    <div style={{ textAlign: "center" }} className="card left">
-                      <i
-                        style={{
-                          marginTop: "30px",
-                          fontSize: "40px",
-                          color: "#0a306d"
-                        }}
-                        className="fa fa-gg"
-                      />
-                      <h6 style={{ marginTop: "10px" }}>Get code reviewed</h6>
-                      <p style={{ fontSize: "12px", color: "grey" }}>
-                        Pay with escrow
-                      </p>
-                    </div>
-                  </div>
-                </div> */}
                 <div className="ward-section">
                   {(() => {
                     if (user.status === "student") {
                       return (
                         <div>
                           <h4 style={{ marginBottom: "20px" }}>Test Scores</h4>
-                          <div className="test-scores">
-                            {scores.map(score => (
-                              <div className="flex-container">
-                                <h4 className="test-name">
-                                  {score.assessment.name}
-                                </h4>
-                                <span>
-                                  <div>
-                                    {score.grade}
-                                    <CircularProgressbar
-                                      value={score.score}
-                                      text={`${score.score}%`}
-                                      className="test-progress"
-                                    />
-                                  </div>
-                                </span>
-                              </div>
-                            ))}
-                          </div>
-                          <div className="ward-section">
-                            <h5 style={{ marginBottom: "20px" }}>Attendance</h5>
-                            <div className="wards">
-                              <ul>
-                                <li>Attendance</li>
-                                <li>Attendance </li>
-                                <li>Attendance </li>
-                                <li>Attendance </li>
-                              </ul>
+                          {scores.length < 1 ? (
+                            <div id="no-scores">
+                              <h3>No Test Scores Yet</h3>
                             </div>
+                          ) : (
+                            <div className="test-scores">
+                              {scores.map(score => (
+                                <Link key={score.id} to={`/test_display/${score.id}`}>
+                                <div  className="flex-container">
+                                  <h5 className="test-name">
+                                    {score.assessment.name}
+                                  </h5>
+                                  <span>
+                                    <div>
+                                      {score.grade}
+                                      <CircularProgressbar
+                                        value={score.score}
+                                        text={`${score.score}%`}
+                                        className="test-progress"
+                                      />
+                                    </div>
+                                  </span>
+                                </div>
+                                </Link>
+                              ))}
+                            </div>
+                          )}
+                          <div className="ward-section">
+                            <h4 style={{ marginBottom: "20px" }}>Attendance</h4>
+                            {attendance.length < 1 ? (
+                              <div id="no-attendance">
+                                <h3>No Attendance Yet</h3>
+                              </div>
+                            ) : (
+                              <div className="attendance-list">
+                                {attendance.map(attend => (
+                                  <div
+                                    className="show-attendance"
+                                    key={attend.id}
+                                  >
+                                    {attend.name}
+                                    <span className="pull-right">
+                                      <b>
+                                        <Moment format="Do MMMM YYYY">
+                                          {attendance.marked_on}
+                                        </Moment>
+                                      </b>
+                                    </span>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
                           </div>
                         </div>
                       );

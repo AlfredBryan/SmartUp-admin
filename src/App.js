@@ -45,6 +45,7 @@ import ShowUser from "components/Admin/ShowUser";
 import StudentAssessment from "components/Assessment/StudentAssessment";
 import Answers from "components/Answers/Answers";
 import StudentShowAssessment from "components/Assessment/StudentShowAssessment";
+import ShowTest from "components/User/ShowTest";
 
 class App extends Component {
   render() {
@@ -70,7 +71,7 @@ class App extends Component {
             path="/student_assessment/:id"
             component={StudentShowAssessment}
           />
-          
+
           <Route exact path="/new_topic/:slug" component={AddTopic} />
           <Route exact path="/questions" component={Questions} />
           <Route exact path="/questions/new" component={createQuestion} />
@@ -118,6 +119,7 @@ class App extends Component {
             path="/institutions/:institution_slug/courses/:slug"
             component={showCourse}
           />
+          <Route exact path="/test_display/:id" component={ShowTest} />
           <Route exact path="/study_groups" component={StudyGroups} />
           <Route exact path="/update_group/:id" component={EditGroup} />
           <Route
