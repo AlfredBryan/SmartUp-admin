@@ -33,6 +33,8 @@ const styles = theme => ({
 });
 //ends
 
+const Url = process.env.REACT_APP_BASE_URL;
+
 class createStudyGroup extends Component {
   constructor(props) {
     super(props);
@@ -62,7 +64,7 @@ class createStudyGroup extends Component {
     const { name, level, institution_id } = this.state;
     axios
       .post(
-        "https://smart-up.herokuapp.com/api/v1/study_groups",
+        `${Url}/api/v1/study_groups`,
         {
           study_group: {
             name,

@@ -48,6 +48,8 @@ const styles = theme => ({
   }
 });
 
+const Url = process.env.REACT_APP_BASE_URL;
+
 class EditQuestion extends Component {
   constructor(props) {
     super(props);
@@ -94,16 +96,11 @@ class EditQuestion extends Component {
   fetchQuestion = () => {
     const token = localStorage.getItem("token");
     axios
-      .get(
-        `https://smart-up.herokuapp.com/api/v1/questions/${
-          this.state.question_id
-        }`,
-        {
-          headers: {
-            Authorization: token
-          }
+      .get(`${Url}/api/v1/questions/${this.state.question_id}`, {
+        headers: {
+          Authorization: token
         }
-      )
+      })
       .then(res => {
         this.setState({
           answer_options: res.data.answer_options,
@@ -120,7 +117,7 @@ class EditQuestion extends Component {
     let { name, description, question_id, question_type } = this.state;
     axios
       .put(
-        `https://smart-up.herokuapp.com/api/v1/questions/${question_id}`,
+        `${Url}/api/v1/questions/${question_id}`,
         {
           question: {
             name,
@@ -184,7 +181,7 @@ class EditQuestion extends Component {
     } else {
       axios
         .post(
-          `https://smart-up.herokuapp.com/api/v1/questions/${question_id}/answer_options`,
+          `${Url}/api/v1/questions/${question_id}/answer_options`,
           {
             answer_option: {
               question_id,
@@ -224,14 +221,11 @@ class EditQuestion extends Component {
   deleteOption = (question_id, id) => {
     const token = localStorage.getItem("token");
     axios
-      .delete(
-        `https://smart-up.herokuapp.com/api/v1/questions/${question_id}/answer_options/${id}`,
-        {
-          headers: {
-            Authorization: token
-          }
+      .delete(`${Url}/api/v1/questions/${question_id}/answer_options/${id}`, {
+        headers: {
+          Authorization: token
         }
-      )
+      })
       .then(res => {
         if (res.statusText === "No Content") {
           this.fetchQuestion();

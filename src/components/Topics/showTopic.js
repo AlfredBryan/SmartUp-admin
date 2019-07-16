@@ -13,6 +13,8 @@ import ReactPlayer from "react-player";
 
 import "./style.css";
 
+const Url = process.env.REACT_APP_BASE_URL;
+
 class showTopic extends Component {
   constructor(props) {
     super(props);
@@ -31,14 +33,11 @@ class showTopic extends Component {
     const token = localStorage.getItem("token");
     let { course_slug, topic_id } = this.state;
     axios
-      .get(
-        `https://smart-up.herokuapp.com/api/v1/courses/${course_slug}/topics/${topic_id}`,
-        {
-          headers: {
-            Authorization: token
-          }
+      .get(`${Url}/api/v1/courses/${course_slug}/topics/${topic_id}`, {
+        headers: {
+          Authorization: token
         }
-      )
+      })
       .then(res => {
         this.setState({
           topic: res.data
@@ -50,14 +49,11 @@ class showTopic extends Component {
     const token = localStorage.getItem("token");
     let { course_slug, topic_id } = this.state;
     axios
-      .delete(
-        `https://smart-up.herokuapp.com/api/v1/courses/${course_slug}/topics/${topic_id}`,
-        {
-          headers: {
-            Authorization: token
-          }
+      .delete(`${Url}/api/v1/courses/${course_slug}/topics/${topic_id}`, {
+        headers: {
+          Authorization: token
         }
-      )
+      })
       .then(res => {
         if (res.status === 204) {
           alert("Topic Deleted successfully");

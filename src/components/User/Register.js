@@ -5,6 +5,8 @@ import axios from "axios";
 import Spinner from "../hoc/spinner";
 import { Helmet } from "react-helmet";
 
+const Url = process.env.REACT_APP_BASE_URL;
+
 class Register extends Component {
   constructor(props) {
     super(props);
@@ -46,7 +48,7 @@ class Register extends Component {
     } else {
       axios
         .post(
-          "https://smart-up.herokuapp.com/api/v1/registration",
+          `${Url}/api/v1/registration`,
           {
             user: { email, password, status }
           },

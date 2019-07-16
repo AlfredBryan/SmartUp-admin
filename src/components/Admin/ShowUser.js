@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Navigation from "components/Navigation/Navigation";
 import axios from "axios";
 
+const Url = process.env.REACT_APP_BASE_URL;
+
 class ShowUser extends Component {
   constructor(props) {
     super(props);
@@ -15,13 +17,12 @@ class ShowUser extends Component {
     const token = localStorage.getItem("token");
     const { user_id } = this.state;
     axios
-      .get(`https://smart-up.herokuapp.com/api/v1/users/${user_id}`, {
+      .get(`${Url}/api/v1/users/${user_id}`, {
         headers: {
           Authorization: token
         }
       })
       .then(res => {
-        console.log(res);
         if (res.status === 200) {
           this.setState({
             user: res.data

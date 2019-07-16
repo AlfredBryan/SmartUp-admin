@@ -34,6 +34,8 @@ const styles = theme => ({
 });
 //ends
 
+const Url = process.env.REACT_APP_BASE_URL;
+
 class newAttendance extends Component {
   constructor(props) {
     super(props);
@@ -62,7 +64,7 @@ class newAttendance extends Component {
     const { name, marked_on, study_group_id } = this.state;
     axios
       .post(
-        "https://smart-up.herokuapp.com/api/v1/attendances",
+        `${Url}/api/v1/attendances`,
         {
           attendance: {
             study_group_id,

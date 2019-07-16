@@ -44,6 +44,8 @@ const styles = theme => ({
   }
 });
 
+const Url = process.env.REACT_APP_BASE_URL;
+
 class Questions extends Component {
   constructor(props) {
     super(props);
@@ -77,7 +79,7 @@ class Questions extends Component {
   fetchQuestions = () => {
     const token = localStorage.getItem("token");
     axios
-      .get("https://smart-up.herokuapp.com/api/v1/questions", {
+      .get(`${Url}/api/v1/questions`, {
         headers: {
           Authorization: token
         }
@@ -99,14 +101,11 @@ class Questions extends Component {
   deleteOption = (question_id, id) => {
     const token = localStorage.getItem("token");
     axios
-      .delete(
-        `https://smart-up.herokuapp.com/api/v1/questions/${question_id}/answer_options/${id}`,
-        {
-          headers: {
-            Authorization: token
-          }
+      .delete(`${Url}/api/v1/questions/${question_id}/answer_options/${id}`, {
+        headers: {
+          Authorization: token
         }
-      )
+      })
       .then(res => {
         if (res.statusText === "No Content") {
           this.fetchQuestions();
@@ -161,7 +160,7 @@ class Questions extends Component {
           />
           <div className="main-content">
             <div className="container questions">
-            <div className="action-buttons">
+              <div className="action-buttons">
                 {user.status === "educator" || user.admin === true ? (
                   <Link to="/questions/new" className="pull-right">
                     <Tooltip title="Add Question" aria-label="Add Question">

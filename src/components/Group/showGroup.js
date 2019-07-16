@@ -39,6 +39,8 @@ const styles = theme => ({
   }
 });
 
+const Url = process.env.REACT_APP_BASE_URL;
+
 class showGroup extends Component {
   constructor(props) {
     super(props);
@@ -76,14 +78,11 @@ class showGroup extends Component {
     const token = localStorage.getItem("token");
     const { study_group_id } = this.state;
     axios
-      .get(
-        `https://smart-up.herokuapp.com/api/v1/study_groups/${study_group_id}`,
-        {
-          headers: {
-            Authorization: token
-          }
+      .get(`${Url}/api/v1/study_groups/${study_group_id}`, {
+        headers: {
+          Authorization: token
         }
-      )
+      })
       .then(res => {
         if (res.status === 200) {
           this.setState({
@@ -99,14 +98,11 @@ class showGroup extends Component {
     const token = localStorage.getItem("token");
     const { study_group_id } = this.state;
     axios
-      .get(
-        `https://smart-up.herokuapp.com/api/v1/attendances?group_id=${study_group_id}`,
-        {
-          headers: {
-            Authorization: token
-          }
+      .get(`${Url}/api/v1/attendances?group_id=${study_group_id}`, {
+        headers: {
+          Authorization: token
         }
-      )
+      })
       .then(res => {
         this.setState({
           attendances: res.data
@@ -120,7 +116,7 @@ class showGroup extends Component {
     const { study_group_id, user_emails } = this.state;
     axios
       .post(
-        "https://smart-up.herokuapp.com/api/v1/group_memberships",
+        `${Url}/api/v1/group_memberships`,
         {
           group_membership: {
             study_group_id,
@@ -155,9 +151,8 @@ class showGroup extends Component {
 
   deleteGroupUser = id => {
     const token = localStorage.getItem("token");
-
     axios
-      .delete(`https://smart-up.herokuapp.com/api/v1/group_memberships/${id}`, {
+      .delete(`${Url}/api/v1/group_memberships/${id}`, {
         headers: {
           Authorization: token
         }

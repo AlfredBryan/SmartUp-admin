@@ -9,6 +9,8 @@ import { Helmet } from "react-helmet";
 import Button from "@material-ui/core/Button";
 import "react-mde/lib/styles/css/react-mde-all.css";
 
+const Url = process.env.REACT_APP_BASE_URL;
+
 class EditTopic extends Component {
   constructor(props) {
     super(props);
@@ -37,7 +39,7 @@ class EditTopic extends Component {
     const { topic_id, course_slug } = this.state;
     axios
       .get(
-        `https://smart-up.herokuapp.com/api/v1/courses/${course_slug}/topics/${topic_id}`,
+        `${Url}/api/v1/courses/${course_slug}/topics/${topic_id}`,
 
         {
           headers: {
@@ -80,7 +82,7 @@ class EditTopic extends Component {
     } else {
       axios
         .put(
-          `https://smart-up.herokuapp.com/api/v1/courses/${course_slug}/topics/${topic_id}`,
+          `${Url}/api/v1/courses/${course_slug}/topics/${topic_id}`,
           {
             topic: {
               name,

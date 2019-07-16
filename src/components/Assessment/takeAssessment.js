@@ -14,6 +14,8 @@ import Fab from "@material-ui/core/Fab";
 import Tooltip from "@material-ui/core/Tooltip";
 import Button from "@material-ui/core/Button";
 
+const Url = process.env.REACT_APP_BASE_URL;
+
 class takeAssessment extends Component {
   constructor(props) {
     super(props);
@@ -39,7 +41,7 @@ class takeAssessment extends Component {
 
     axios
       .post(
-        `https://smart-up.herokuapp.com/api/v1/assessments/${assessment_id}/answer`,
+        `${Url}/api/v1/assessments/${assessment_id}/answer`,
         {
           answer: {
             assessment_id: assessment_id,
@@ -67,7 +69,7 @@ class takeAssessment extends Component {
     const { selections, assessment_id } = this.state;
     axios
       .post(
-        `https://smart-up.herokuapp.com/api/v1/assessments/${assessment_id}/answer`,
+        `${Url}/api/v1/assessments/${assessment_id}/answer`,
         {
           answer: {
             assessment_id: assessment_id,
@@ -94,14 +96,11 @@ class takeAssessment extends Component {
     const token = localStorage.getItem("token");
     const { assessment_id } = this.state;
     axios
-      .get(
-        `https://smart-up.herokuapp.com/api/v1/assessments/${assessment_id}/complete_assessment`,
-        {
-          headers: {
-            Authorization: token
-          }
+      .get(`${Url}/api/v1/assessments/${assessment_id}/complete_assessment`, {
+        headers: {
+          Authorization: token
         }
-      )
+      })
       .then(res => {
         if (res.status == 200) {
           this.props.history.replace("/profile");
@@ -119,16 +118,11 @@ class takeAssessment extends Component {
     const ReactMarkdown = require("react-markdown");
 
     axios
-      .get(
-        `https://smart-up.herokuapp.com/api/v1/assessments/${
-          this.state.assessment_id
-        }`,
-        {
-          headers: {
-            Authorization: token
-          }
+      .get(`${Url}/api/v1/assessments/${this.state.assessment_id}`, {
+        headers: {
+          Authorization: token
         }
-      )
+      })
       .then(res => {
         res.data.questions.map(question => {
           possible_selections.push(question.answer_options);
@@ -166,9 +160,7 @@ class takeAssessment extends Component {
 
     axios
       .get(
-        `https://smart-up.herokuapp.com/api/v1/assessments/${assessment_id}/answers?user_id=${
-          user.id
-        }`,
+        `${Url}/api/v1/assessments/${assessment_id}/answers?user_id=${user.id}`,
         {
           headers: {
             Authorization: token

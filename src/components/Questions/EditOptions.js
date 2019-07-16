@@ -6,6 +6,8 @@ import Checkbox from "@material-ui/core/Checkbox";
 import { Helmet } from "react-helmet";
 import "./style.css";
 
+const Url = process.env.REACT_APP_BASE_URL;
+
 class EditOptions extends Component {
   constructor(props) {
     super(props);
@@ -36,16 +38,11 @@ class EditOptions extends Component {
   fetchQuestion = () => {
     const token = localStorage.getItem("token");
     axios
-      .get(
-        `https://smart-up.herokuapp.com/api/v1/questions/${
-          this.state.question_id
-        }`,
-        {
-          headers: {
-            Authorization: token
-          }
+      .get(`${Url}/api/v1/questions/${this.state.question_id}`, {
+        headers: {
+          Authorization: token
         }
-      )
+      })
       .then(res => {
         this.setState({
           name: this.Capitalize(res.data.name),
@@ -69,7 +66,7 @@ class EditOptions extends Component {
     } else {
       axios
         .put(
-          `https://smart-up.herokuapp.com/api/v1/questions/${question_id}/answer_options`,
+          `${Url}/api/v1/questions/${question_id}/answer_options`,
           {
             answer_option: {
               question_id,

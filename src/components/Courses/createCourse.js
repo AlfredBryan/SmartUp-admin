@@ -5,6 +5,8 @@ import Spinner from "../hoc/spinner";
 import "./course.css";
 import axios from "axios";
 
+const apiUrl = process.env.REACT_APP_BASE_URL;
+
 class createCourse extends Component {
   constructor(props) {
     super(props);
@@ -22,7 +24,7 @@ class createCourse extends Component {
     const token = localStorage.getItem("token");
     const { name, description, active } = this.state;
 
-    let Url = "https://smart-up.herokuapp.com/api/v1/courses";
+    let Url = `${apiUrl}/api/v1/courses`;
 
     if (institution) {
       Url += `?institution_id=${institution.id}`;

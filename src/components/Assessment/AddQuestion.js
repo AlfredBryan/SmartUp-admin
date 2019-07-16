@@ -11,6 +11,8 @@ import * as Showdown from "showdown";
 import Button from "@material-ui/core/Button";
 import "react-mde/lib/styles/css/react-mde-all.css";
 
+const Url = process.env.REACT_APP_BASE_URL;
+
 class AddQuestion extends Component {
   constructor(props) {
     super(props);
@@ -37,7 +39,7 @@ class AddQuestion extends Component {
   fetchQuestions = () => {
     const token = localStorage.getItem("token");
     axios
-      .get("https://smart-up.herokuapp.com/api/v1/questions", {
+      .get(`${Url}/api/v1/questions`, {
         headers: {
           Authorization: token
         }
@@ -60,14 +62,11 @@ class AddQuestion extends Component {
     const token = localStorage.getItem("token");
     const { assessment_id } = this.state;
     axios
-      .get(
-        `https://smart-up.herokuapp.com/api/v1/assessments/${assessment_id}`,
-        {
-          headers: {
-            Authorization: token
-          }
+      .get(`${Url}/api/v1/assessments/${assessment_id}`, {
+        headers: {
+          Authorization: token
         }
-      )
+      })
       .then(res => {
         if (res.status === 200 && res.statusText === "OK") {
           this.setState({
@@ -108,7 +107,7 @@ class AddQuestion extends Component {
     } else {
       axios
         .post(
-          `https://smart-up.herokuapp.com/api/v1/assessments/${assessment_id}/assessment_questions`,
+          `${Url}/api/v1/assessments/${assessment_id}/assessment_questions`,
           {
             assessment_question: {
               question_id: selectedOption.value.id,
@@ -143,7 +142,7 @@ class AddQuestion extends Component {
     const { assessment_id } = this.state;
     axios
       .delete(
-        `https://smart-up.herokuapp.com/api/v1/assessments/${assessment_id}/assessment_questions/${question_id}`,
+        `${Url}/api/v1/assessments/${assessment_id}/assessment_questions/${question_id}`,
 
         {
           headers: {
@@ -163,7 +162,7 @@ class AddQuestion extends Component {
 
     axios
       .put(
-        `https://smart-up.herokuapp.com/api/v1/assessments/${assessment_id}`,
+        `${Url}/api/v1/assessments/${assessment_id}`,
         {
           assessment: {
             name: name,

@@ -12,6 +12,8 @@ import Button from "@material-ui/core/Button";
 import Fab from "@material-ui/core/Fab";
 import Tooltip from "@material-ui/core/Tooltip";
 
+const Url = process.env.REACT_APP_BASE_URL;
+
 class showAssessment extends Component {
   constructor(props) {
     super(props);
@@ -35,9 +37,7 @@ class showAssessment extends Component {
     const token = localStorage.getItem("token");
     axios
       .get(
-        `https://smart-up.herokuapp.com/api/v1/assessments/${
-          this.state.assessment_id
-        }`,
+        `${Url}/api/v1/assessments/${this.state.assessment_id}`,
 
         {
           headers: {
@@ -46,7 +46,6 @@ class showAssessment extends Component {
         }
       )
       .then(res => {
-        console.log(res);
         this.setState({
           assessment: res.data,
           questions: res.data.questions,
@@ -72,7 +71,7 @@ class showAssessment extends Component {
     const token = localStorage.getItem("token");
     axios
       .post(
-        `https://smart-up.herokuapp.com/api/v1/questions/${id}/set_score`,
+        `${Url}/api/v1/questions/${id}/set_score`,
         {
           assessment_id,
           score
@@ -83,8 +82,7 @@ class showAssessment extends Component {
           }
         }
       )
-      .then(res => {
-      });
+      .then(res => {});
   };
 
   handleChange = e => {

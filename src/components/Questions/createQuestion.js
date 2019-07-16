@@ -42,6 +42,8 @@ const styles = theme => ({
   }
 });
 
+const Url = process.env.REACT_APP_BASE_URL;
+
 class createQuestion extends Component {
   constructor(props) {
     super(props);
@@ -97,7 +99,7 @@ class createQuestion extends Component {
     } else {
       axios
         .post(
-          "https://smart-up.herokuapp.com/api/v1/questions",
+          `${Url}/api/v1/questions`,
           {
             question: {
               name,

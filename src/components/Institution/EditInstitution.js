@@ -37,6 +37,8 @@ const styles = theme => ({
   }
 });
 
+const Url = process.env.REACT_APP_BASE_URL;
+
 class EditInstitution extends Component {
   constructor(props) {
     super(props);
@@ -74,7 +76,7 @@ class EditInstitution extends Component {
     const token = localStorage.getItem("token");
     let id = this.state.slug;
     axios
-      .get(`https://smart-up.herokuapp.com/api/v1/institutions/${id}`, {
+      .get(`${Url}/api/v1/institutions/${id}`, {
         headers: {
           Authorization: token
         }
@@ -105,7 +107,7 @@ class EditInstitution extends Component {
     } else {
       axios
         .put(
-          `https://smart-up.herokuapp.com/api/v1/institutions/${institution_id}`,
+          `${Url}/api/v1/institutions/${institution_id}`,
           {
             institution: {
               name,

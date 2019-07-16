@@ -6,6 +6,8 @@ import Button from "@material-ui/core/Button";
 import Navigation from "components/Navigation/Navigation";
 import "./style.css";
 
+const Url = process.env.REACT_APP_BASE_URL;
+
 class Answers extends Component {
   constructor(props) {
     super(props);
@@ -22,7 +24,7 @@ class Answers extends Component {
   fetchAnswers = () => {
     const token = localStorage.getItem("token");
     axios
-      .get("https://smart-up.herokuapp.com/api/v1/answers/marking", {
+      .get(`${Url}/api/v1/answers/marking`, {
         headers: {
           Authorization: token
         }
@@ -41,7 +43,7 @@ class Answers extends Component {
     const { score } = this.state;
     axios
       .post(
-        `https://smart-up.herokuapp.com/api/v1/answers/${id}/score`,
+        `${Url}/api/v1/answers/${id}/score`,
         {
           answer: {
             score

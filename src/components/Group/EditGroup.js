@@ -34,6 +34,8 @@ const styles = theme => ({
 });
 //ends
 
+const Url = process.env.REACT_APP_BASE_URL;
+
 class EditGroup extends Component {
   constructor(props) {
     super(props);
@@ -52,14 +54,11 @@ class EditGroup extends Component {
     const token = localStorage.getItem("token");
     const { study_group_id } = this.state;
     axios
-      .get(
-        `https://smart-up.herokuapp.com/api/v1/study_groups/${study_group_id}`,
-        {
-          headers: {
-            Authorization: token
-          }
+      .get(`${Url}/api/v1/study_groups/${study_group_id}`, {
+        headers: {
+          Authorization: token
         }
-      )
+      })
       .then(res => {
         if (res.status === 200) {
           this.setState({
@@ -87,7 +86,7 @@ class EditGroup extends Component {
     const { study_group_id, name, level } = this.state;
     axios
       .put(
-        `https://smart-up.herokuapp.com/api/v1/study_groups/${study_group_id}`,
+        `${Url}/api/v1/study_groups/${study_group_id}`,
         {
           study_group: {
             name,

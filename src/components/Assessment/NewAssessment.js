@@ -8,6 +8,8 @@ import "react-mde/lib/styles/css/react-mde-all.css";
 import Button from "@material-ui/core/Button";
 import { Helmet } from "react-helmet";
 
+const Url = process.env.REACT_APP_BASE_URL;
+
 class NewAssessment extends Component {
   constructor(props) {
     super(props);
@@ -38,7 +40,7 @@ class NewAssessment extends Component {
     } else {
       axios
         .post(
-          "https://smart-up.herokuapp.com/api/v1/assessments",
+          `${Url}/api/v1/assessments`,
           {
             assessment: {
               name,

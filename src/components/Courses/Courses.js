@@ -37,6 +37,8 @@ const styles = theme => ({
   }
 });
 
+const apiUrl = process.env.REACT_APP_BASE_URL;
+
 class Courses extends Component {
   constructor(props) {
     super(props);
@@ -58,7 +60,7 @@ class Courses extends Component {
 
     const institution = this.props.match.params.id;
 
-    let Url = "https://smart-up.herokuapp.com/api/v1/courses";
+    let Url = `${apiUrl}/api/v1/courses`;
 
     if (institution) {
       Url += `?institution_id=${institution.id}`;

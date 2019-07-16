@@ -3,6 +3,8 @@ import axios from "axios";
 import { withRouter } from "react-router-dom";
 import Loader from "./Loader";
 
+const Url = process.env.REACT_APP_BASE_URL;
+
 class Authenticate extends Component {
   constructor(props) {
     super(props);
@@ -31,7 +33,7 @@ class Authenticate extends Component {
       window.location.reload();
     }
     axios
-      .get("https://smart-up.herokuapp.com/api/v1/session", {
+      .get(`${Url}/api/v1/session`, {
         headers: { Authorization: token }
       })
       .then(res => {
