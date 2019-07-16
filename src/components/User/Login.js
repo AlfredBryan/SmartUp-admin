@@ -5,6 +5,8 @@ import "./style.css";
 import Spinner from "../hoc/spinner";
 import { Helmet } from "react-helmet";
 
+const Url = process.env.REACT_APP_BASE_URL;
+
 class UserAuth extends Component {
   constructor(props) {
     super(props);
@@ -33,7 +35,7 @@ class UserAuth extends Component {
     } else {
       axios
         .post(
-          "https://smart-up.herokuapp.com/api/v1/session",
+          `${Url}/api/v1/session`,
           {
             email,
             password

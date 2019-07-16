@@ -33,6 +33,8 @@ const styles = theme => ({
   }
 });
 
+const Url = process.env.REACT_APP_BASE_URL;
+
 class AddWard extends Component {
   constructor(props) {
     super(props);
@@ -67,7 +69,7 @@ class AddWard extends Component {
   getList = e => {
     const token = localStorage.getItem("token");
     axios
-      .get("https://smart-up.herokuapp.com/api/v1/ward_requests", {
+      .get(`${Url}/api/v1/ward_requests`, {
         headers: {
           Authorization: token
         }
@@ -82,14 +84,11 @@ class AddWard extends Component {
   getFamily = async () => {
     const token = localStorage.getItem("token");
     try {
-      const res = await axios.get(
-        "https://smart-up.herokuapp.com/api/v1/registration/family",
-        {
-          headers: {
-            Authorization: token
-          }
+      const res = await axios.get(`${Url}/api/v1/registration/family`, {
+        headers: {
+          Authorization: token
         }
-      );
+      });
       this.setState({
         family_details: res.data
       });
@@ -102,14 +101,11 @@ class AddWard extends Component {
   acceptGuardian = id => {
     const token = localStorage.getItem("token");
     axios
-      .get(
-        `https://smart-up.herokuapp.com/api/v1/ward_requests/${id}/approve`,
-        {
-          headers: {
-            Authorization: token
-          }
+      .get(`${Url}/api/v1/ward_requests/${id}/approve`, {
+        headers: {
+          Authorization: token
         }
-      )
+      })
       .then(res => {
         if (res) {
           this.setState({
@@ -124,7 +120,7 @@ class AddWard extends Component {
   cancelRequest = id => {
     const token = localStorage.getItem("token");
     axios
-      .delete(`https://smart-up.herokuapp.com/api/v1/ward_requests/${id}`, {
+      .delete(`${Url}/api/v1/ward_requests/${id}`, {
         headers: {
           Authorization: token
         }
@@ -150,7 +146,7 @@ class AddWard extends Component {
     } else {
       axios
         .post(
-          "https://smart-up.herokuapp.com/api/v1/ward_requests",
+          `${Url}/api/v1/ward_requests`,
           { ward_request: { email } },
           {
             headers: {

@@ -10,6 +10,8 @@ import * as Showdown from "showdown";
 import "react-mde/lib/styles/css/react-mde-all.css";
 import { Helmet } from "react-helmet";
 
+const Url = process.env.REACT_APP_BASE_URL;
+
 class EditCourse extends Component {
   constructor(props) {
     super(props);
@@ -34,9 +36,7 @@ class EditCourse extends Component {
     const token = localStorage.getItem("token");
     axios
       .get(
-        `https://smart-up.herokuapp.com/api/v1/courses/${
-          this.state.course_slug
-        }`,
+        `${Url}/api/v1/courses/${this.state.course_slug}`,
 
         {
           headers: {
@@ -59,7 +59,7 @@ class EditCourse extends Component {
     const { name, description, active, course_slug } = this.state;
     axios
       .put(
-        `https://smart-up.herokuapp.com/api/v1/courses/${course_slug}`,
+        `${Url}/api/v1/courses/${course_slug}`,
         {
           course: {
             name,

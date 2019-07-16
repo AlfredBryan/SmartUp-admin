@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 
 import Navigation from "components/Navigation/Navigation";
 
+const Url = process.env.REACT_APP_BASE_URL;
+
 class Admin extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +21,7 @@ class Admin extends Component {
   getUsers = () => {
     const token = localStorage.getItem("token");
     axios
-      .get("https://smart-up.herokuapp.com/api/v1/users", {
+      .get(`${Url}/api/v1/users`, {
         headers: {
           Authorization: token
         }
@@ -64,7 +66,9 @@ class Admin extends Component {
                       <Link to={`/display_user/${user.id}`}>{user.email}</Link>
                     </td>
                     <td>
-                      <Link to={`/display_user/${user.id}`}>{this.Capitalize(user.status)}</Link>
+                      <Link to={`/display_user/${user.id}`}>
+                        {this.Capitalize(user.status)}
+                      </Link>
                     </td>
                   </tr>
                 ))}

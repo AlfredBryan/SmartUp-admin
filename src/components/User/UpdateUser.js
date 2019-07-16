@@ -48,6 +48,8 @@ const styles = theme => ({
   }
 });
 
+const Url = process.env.REACT_APP_BASE_URL;
+
 class UpdateUser extends Component {
   constructor(props) {
     super(props);
@@ -116,7 +118,7 @@ class UpdateUser extends Component {
     } else {
       axios
         .put(
-          "https://smart-up.herokuapp.com/api/v1/registration",
+          `${Url}/api/v1/registration`,
           {
             user: {
               first_name,

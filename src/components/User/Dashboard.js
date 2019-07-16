@@ -36,6 +36,8 @@ const styles = theme => ({
   }
 });
 
+const Url = process.env.REACT_APP_BASE_URL;
+
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -79,7 +81,7 @@ class Dashboard extends Component {
   fetchTest = e => {
     const token = localStorage.getItem("token");
     axios
-      .get("https://smart-up.herokuapp.com/api/v1/assessment_results", {
+      .get(`${Url}/api/v1/assessment_results`, {
         headers: {
           Authorization: token
         }
@@ -94,7 +96,7 @@ class Dashboard extends Component {
   fetchAttendance = () => {
     const token = localStorage.getItem("token");
     axios
-      .get("https://smart-up.herokuapp.com/api/v1/attendances", {
+      .get(`${Url}/api/v1/attendances`, {
         headers: {
           Authorization: token
         }
@@ -111,7 +113,7 @@ class Dashboard extends Component {
   fetchWards = () => {
     const token = localStorage.getItem("token");
     axios
-      .get("https://smart-up.herokuapp.com/api/v1/users", {
+      .get(`${Url}/api/v1/users`, {
         headers: {
           Authorization: token
         }
@@ -227,22 +229,25 @@ class Dashboard extends Component {
                           ) : (
                             <div className="test-scores">
                               {scores.map(score => (
-                                <Link key={score.id} to={`/test_display/${score.id}`}>
-                                <div  className="flex-container">
-                                  <h5 className="test-name">
-                                    {score.assessment.name}
-                                  </h5>
-                                  <span>
-                                    <div>
-                                      {score.grade}
-                                      <CircularProgressbar
-                                        value={score.score}
-                                        text={`${score.score}%`}
-                                        className="test-progress"
-                                      />
-                                    </div>
-                                  </span>
-                                </div>
+                                <Link
+                                  key={score.id}
+                                  to={`/test_display/${score.id}`}
+                                >
+                                  <div className="flex-container">
+                                    <h5 className="test-name">
+                                      {score.assessment.name}
+                                    </h5>
+                                    <span>
+                                      <div>
+                                        {score.grade}
+                                        <CircularProgressbar
+                                          value={score.score}
+                                          text={`${score.score}%`}
+                                          className="test-progress"
+                                        />
+                                      </div>
+                                    </span>
+                                  </div>
                                 </Link>
                               ))}
                             </div>

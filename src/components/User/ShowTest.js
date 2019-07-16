@@ -4,6 +4,8 @@ import Navigation from "components/Navigation/Navigation";
 
 import "./ShowTest.css";
 
+const Url = process.env.REACT_APP_BASE_URL;
+
 class ShowTest extends Component {
   constructor(props) {
     super(props);
@@ -18,16 +20,12 @@ class ShowTest extends Component {
     const token = localStorage.getItem("token");
     const { test_id } = this.state;
     axios
-      .get(
-        `https://smart-up.herokuapp.com/api/v1/assessment_results/${test_id}`,
-        {
-          headers: {
-            Authorization: token
-          }
+      .get(`${Url}/api/v1/assessment_results/${test_id}`, {
+        headers: {
+          Authorization: token
         }
-      )
+      })
       .then(res => {
-        console.log(res)
         this.setState({
           assessment: res.data.assessment,
           answers: res.data.answers

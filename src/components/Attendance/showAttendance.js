@@ -38,6 +38,8 @@ const styles = theme => ({
   }
 });
 
+const Url = process.env.REACT_APP_BASE_URL;
+
 class showAttendance extends Component {
   constructor(props) {
     super(props);
@@ -68,14 +70,11 @@ class showAttendance extends Component {
     const token = localStorage.getItem("token");
     const { attendance_id } = this.state;
     axios
-      .get(
-        `https://smart-up.herokuapp.com/api/v1/attendances/${attendance_id}`,
-        {
-          headers: {
-            Authorization: token
-          }
+      .get(`${Url}/api/v1/attendances/${attendance_id}`, {
+        headers: {
+          Authorization: token
         }
-      )
+      })
       .then(res => {
         if (res.status === 200) {
           this.setState({
@@ -98,7 +97,7 @@ class showAttendance extends Component {
     } else {
       axios
         .post(
-          "https://smart-up.herokuapp.com/api/v1/attendance_users",
+          `${Url}/api/v1/attendance_users`,
           {
             attendance_user: {
               attendance_id: attendance_id,
@@ -136,16 +135,11 @@ class showAttendance extends Component {
   fetchGroup = () => {
     const token = localStorage.getItem("token");
     axios
-      .get(
-        `https://smart-up.herokuapp.com/api/v1/study_groups/${
-          this.state.study_group_id
-        }`,
-        {
-          headers: {
-            Authorization: token
-          }
+      .get(`${Url}/api/v1/study_groups/${this.state.study_group_id}`, {
+        headers: {
+          Authorization: token
         }
-      )
+      })
       .then(res => {
         this.setState({
           members: res.data.members
@@ -156,7 +150,7 @@ class showAttendance extends Component {
   deleteAttendanceUser = id => {
     const token = localStorage.getItem("token");
     axios
-      .delete(`https://smart-up.herokuapp.com/api/v1/attendance_users/${id}`, {
+      .delete(`${Url}/api/v1/attendance_users/${id}`, {
         headers: {
           Authorization: token
         }

@@ -12,12 +12,14 @@ import Button from "@material-ui/core/Button";
 import Fab from "@material-ui/core/Fab";
 import Tooltip from "@material-ui/core/Tooltip";
 
+const Url = process.env.REACT_APP_BASE_URL;
+
 class StudentShowAssessment extends Component {
   constructor(props) {
     super(props);
     this.state = {
       assessment_id: this.props.match.params.id,
-      assessment: "",
+      assessment: ""
     };
   }
   componentDidMount() {
@@ -32,9 +34,7 @@ class StudentShowAssessment extends Component {
     const token = localStorage.getItem("token");
     axios
       .get(
-        `https://smart-up.herokuapp.com/api/v1/assessments/${
-          this.state.assessment_id
-        }`,
+        `${Url}/api/v1/assessments/${this.state.assessment_id}`,
 
         {
           headers: {
@@ -49,7 +49,6 @@ class StudentShowAssessment extends Component {
         });
       });
   };
-
 
   render() {
     const { assessment } = this.state;

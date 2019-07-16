@@ -34,6 +34,8 @@ const styles = theme => ({
 });
 //ends
 
+const Url = process.env.REACT_APP_BASE_URL;
+
 class editAttendance extends Component {
   constructor(props) {
     super(props);
@@ -64,9 +66,7 @@ class editAttendance extends Component {
     const { name, marked_on, study_group_id, attendance_id } = this.state;
     axios
       .put(
-        `https://smart-up.herokuapp.com/api/v1/attendances/${
-          this.state.attendance_id
-        }`,
+        `${Url}/api/v1/attendances/${this.state.attendance_id}`,
         {
           attendance: {
             name,
@@ -97,14 +97,11 @@ class editAttendance extends Component {
     const token = localStorage.getItem("token");
     const { attendance_id } = this.state;
     axios
-      .get(
-        `https://smart-up.herokuapp.com/api/v1/attendances/${attendance_id}`,
-        {
-          headers: {
-            Authorization: token
-          }
+      .get(`${Url}/api/v1/attendances/${attendance_id}`, {
+        headers: {
+          Authorization: token
         }
-      )
+      })
       .then(res => {
         if (res.status === 200) {
           this.setState({

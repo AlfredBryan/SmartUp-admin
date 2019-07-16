@@ -6,6 +6,8 @@ import { Helmet } from "react-helmet";
 import "./style.css";
 import Navigation from "components/Navigation/Navigation";
 
+const Url = process.env.REACT_APP_BASE_URL;
+
 class StudentAssessment extends Component {
   constructor(props) {
     super(props);
@@ -20,7 +22,7 @@ class StudentAssessment extends Component {
   fetchAssessments = () => {
     const token = localStorage.getItem("token");
     axios
-      .get("https://smart-up.herokuapp.com/api/v1/assessments", {
+      .get(`${Url}/api/v1/assessments`, {
         headers: {
           Authorization: token
         }

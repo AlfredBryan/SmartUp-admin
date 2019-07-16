@@ -11,6 +11,8 @@ import ReactMde from "react-mde";
 import * as Showdown from "showdown";
 import "react-mde/lib/styles/css/react-mde-all.css";
 
+const apiUrl = process.env.REACT_APP_BASE_URL;
+
 class newCourse extends Component {
   constructor(props) {
     super(props);
@@ -43,7 +45,7 @@ class newCourse extends Component {
     } else {
       let Id = this.state.institution_id;
 
-      let Url = "https://smart-up.herokuapp.com/api/v1/courses";
+      let Url = `${apiUrl}/api/v1/courses`;
 
       if (Id) {
         Url += `?institution_id=${Id}`;

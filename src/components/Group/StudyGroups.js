@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Helmet } from "react-helmet";
 
-
 import Navigation from "components/Navigation/Navigation";
+
+const Url = process.env.REACT_APP_BASE_URL;
 
 class StudyGroups extends Component {
   constructor(props) {
@@ -18,7 +19,7 @@ class StudyGroups extends Component {
   fetchGroups = () => {
     const token = localStorage.getItem("token");
     axios
-      .get("https://smart-up.herokuapp.com/api/v1/study_groups", {
+      .get(`${Url}/api/v1/study_groups`, {
         headers: { Authorization: token }
       })
       .then(res => {

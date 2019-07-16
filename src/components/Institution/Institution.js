@@ -23,6 +23,8 @@ const styles = theme => ({
   }
 });
 
+const Url = process.env.REACT_APP_BASE_URL;
+
 class Institution extends Component {
   constructor(props) {
     super(props);
@@ -40,7 +42,7 @@ class Institution extends Component {
   fetchUniversity = () => {
     const token = localStorage.getItem("token");
     axios
-      .get("https://smart-up.herokuapp.com/api/v1/institutions", {
+      .get(`${Url}/api/v1/institutions`, {
         headers: {
           Authorization: token
         }

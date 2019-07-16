@@ -4,6 +4,8 @@ import axios from "axios";
 
 import Navigation from "components/Navigation/Navigation";
 
+const Url = process.env.REACT_APP_BASE_URL;
+
 class Attendance extends Component {
   constructor(props) {
     super(props);
@@ -16,9 +18,8 @@ class Attendance extends Component {
     e.preventDefault();
     const token = localStorage.getItem("token");
     axios
-      .post(`/api/v1/attendances`, {}, { headers: { Authorization: token } })
+      .post(`${Url}/api/v1/attendances`, {}, { headers: { Authorization: token } })
       .then(res => {
-        console.log(res);
       });
   };
 

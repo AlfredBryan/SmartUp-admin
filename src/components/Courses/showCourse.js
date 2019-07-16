@@ -10,6 +10,8 @@ import { Helmet } from "react-helmet";
 
 import Navigation from "components/Navigation/Navigation";
 
+const Url = process.env.REACT_APP_BASE_URL;
+
 class showCourse extends Component {
   constructor(props) {
     super(props);
@@ -29,7 +31,7 @@ class showCourse extends Component {
     const token = localStorage.getItem("token");
     let { course_slug } = this.state;
     axios
-      .get(`https://smart-up.herokuapp.com/api/v1/courses/${course_slug}/`, {
+      .get(`${Url}/api/v1/courses/${course_slug}/`, {
         headers: {
           Authorization: token
         }

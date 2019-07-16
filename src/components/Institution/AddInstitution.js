@@ -38,6 +38,8 @@ const styles = theme => ({
   }
 });
 
+const Url = process.env.REACT_APP_BASE_URL;
+
 class AddInstitution extends Component {
   constructor(props) {
     super(props);
@@ -86,7 +88,7 @@ class AddInstitution extends Component {
     } else {
       axios
         .post(
-          "https://smart-up.herokuapp.com/api/v1/institutions",
+          `${Url}/api/v1/institutions`,
           {
             institution: {
               name,

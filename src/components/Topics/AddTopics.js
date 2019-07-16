@@ -9,6 +9,8 @@ import * as Showdown from "showdown";
 import Button from "@material-ui/core/Button";
 import "react-mde/lib/styles/css/react-mde-all.css";
 
+const Url = process.env.REACT_APP_BASE_URL;
+
 class AddTopic extends Component {
   constructor(props) {
     super(props);
@@ -49,7 +51,7 @@ class AddTopic extends Component {
 
       axios
         .post(
-          `https://smart-up.herokuapp.com/api/v1/courses/${course_slug}/topics`,
+          `${Url}/api/v1/courses/${course_slug}/topics`,
           {
             topic: {
               name,

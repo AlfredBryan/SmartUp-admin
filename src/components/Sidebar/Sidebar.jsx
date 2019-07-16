@@ -5,6 +5,8 @@ import axios from "axios";
 import AdminNavbarLinks from "../Navbars/AdminNavbarLinks.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+const Url = process.env.REACT_APP_BASE_URL;
+
 class Sidebar extends Component {
   constructor(props) {
     super(props);
@@ -23,14 +25,11 @@ class Sidebar extends Component {
   logOut = async () => {
     const token = localStorage.getItem("token");
     try {
-      const res = await axios.delete(
-        "https://smart-up.herokuapp.com/api/v1/session",
-        {
-          headers: {
-            Authorization: token
-          }
+      const res = await axios.delete(`${Url}/api/v1/session`, {
+        headers: {
+          Authorization: token
         }
-      );
+      });
       return res;
     } catch (e) {
       return e.message;
