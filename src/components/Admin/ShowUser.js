@@ -56,9 +56,8 @@ class ShowUser extends Component {
 
   fetchAttendance = () => {
     const token = localStorage.getItem("token");
-    const { user_id } = this.state;
     axios
-      .get(`${Url}/api/v1/attendances/${user_id}`, {
+      .get(`${Url}/api/v1/attendances`, {
         headers: {
           Authorization: token
         }
@@ -97,7 +96,7 @@ class ShowUser extends Component {
   }
 
   render() {
-    const { user, scores, attendance } = this.state;
+    const { user, scores, attendance, user_id } = this.state;
     return (
       <React.Fragment>
         <Navigation />
@@ -187,6 +186,20 @@ class ShowUser extends Component {
                         {attendance.map(attend => (
                           <div className="show-attendance" key={attend.id}>
                             {attend.name}
+                            <span className="pull-right">
+                              {attend.attendees.map(att => (
+                                <div key={att.id}>
+                                  {user.id === att.id ? (
+                                    <i
+                                      className="fa fa-check fa-2x"
+                                      id="correct-answer"
+                                    />
+                                  ) : (
+                                    ""
+                                  )}
+                                </div>
+                              ))}
+                            </span>
                             <span className="pull-right">
                               <b>
                                 <Moment format="Do MMMM YYYY">
