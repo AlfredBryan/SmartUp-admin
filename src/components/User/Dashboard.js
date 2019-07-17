@@ -95,6 +95,7 @@ class Dashboard extends Component {
 
   fetchAttendance = () => {
     const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("user"));
     axios
       .get(`${Url}/api/v1/attendances`, {
         headers: {
@@ -104,7 +105,8 @@ class Dashboard extends Component {
       .then(res => {
         if (res.status === 200) {
           this.setState({
-            attendance: res.data
+            attendance: res.data,
+            attended: res.data.attendees
           });
         }
       });
@@ -134,7 +136,7 @@ class Dashboard extends Component {
 
   render() {
     const { classes } = this.props;
-    const { open, scores, wards, attendance } = this.state;
+    const { open, scores, wards, attendance, attended } = this.state;
     const user = JSON.parse(localStorage.getItem("user"));
     return (
       <React.Fragment>
@@ -287,7 +289,7 @@ class Dashboard extends Component {
                       return (
                         <div className="container">
                           <h3>Wards</h3>
-                          <div className="row" id="assessments_home">
+                          <div className="row ward-list" id="assessments_home">
                             {wards.map(stud => (
                               <div key={stud.id} className="col-md-4">
                                 <div className="card">

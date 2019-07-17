@@ -339,16 +339,21 @@ class AddWard extends Component {
                   <div className="container">
                     <div className="row">
                       <div className="col-xs-12 col-sm-8 col-md-8">
-                        <div className="row">
+                        <div className="row" id="assessments_home">
                           {family_details.map(d => (
-                            <div
-                              key={d.id}
-                              className="card family-member-info text-center col-xs-12 col-sm-3 col-md-3"
-                              id="family-card"
-                            >
-                              <i className="fa fa-vcard-o" />
-                              <h6>{d.full_name}</h6>
-                              <p>{d.email}</p>
+                            <div key={d.id} className="col-md-4">
+                              <div className="card">
+                                <i
+                                  style={{ fontSize: "30px", color: "blue" }}
+                                  className="fa fa-vcard-o"
+                                />
+                                <h6 className="assessment_name">
+                                  {d.full_name}
+                                </h6>
+                                <p className="assessment_course_name">
+                                  {d.email}
+                                </p>
+                              </div>
                             </div>
                           ))}
                         </div>
