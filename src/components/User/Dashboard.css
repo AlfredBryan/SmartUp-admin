@@ -117,7 +117,7 @@
 
 .attendance-list {
     transition: 1.3s;
-    height: 200px;
+    height: 50%;
     width: 100%;
     overflow: scroll;
 }
@@ -168,7 +168,7 @@
 
 .wards {
     transition: 0.3s;
-    height: 200px;
+    height: 50%;
     width: 100%;
     overflow: scroll;
 }

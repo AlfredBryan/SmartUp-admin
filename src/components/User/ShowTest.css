@@ -1,0 +1,32 @@
+.answer-card {
+    display: flex;
+    background-color: #ffffff;
+}
+
+#correct-answer {
+    color: green;
+}
+
+#wrong-answer {
+    color: red;
+}
+
+#answer-content {
+   flex: 14;
+   padding: 0.8em 2em 0em 2em
+}
+
+#answer-tick {
+    flex: 1;
+}
+
+@media screen and (max-width: 768px) {
+    #answer-content {
+        flex: 5;
+     }
+     
+     #answer-tick {
+         flex: 1;
+     }
+
+}

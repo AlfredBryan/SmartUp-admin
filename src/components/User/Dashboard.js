@@ -14,6 +14,7 @@ import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 import Navigation from "components/Navigation/Navigation";
 import { Helmet } from "react-helmet";
+import { throwStatement } from "@babel/types";
 
 const styles = theme => ({
   root: {
@@ -105,8 +106,7 @@ class Dashboard extends Component {
       .then(res => {
         if (res.status === 200) {
           this.setState({
-            attendance: res.data,
-            attended: res.data.attendees
+            attendance: res.data
           });
         }
       });
@@ -136,7 +136,7 @@ class Dashboard extends Component {
 
   render() {
     const { classes } = this.props;
-    const { open, scores, wards, attendance, attended } = this.state;
+    const { open, scores, wards, attendance } = this.state;
     const user = JSON.parse(localStorage.getItem("user"));
     return (
       <React.Fragment>
@@ -268,6 +268,20 @@ class Dashboard extends Component {
                                     key={attend.id}
                                   >
                                     {attend.name}
+                                    <span className="pull-right">
+                                      {attend.attendees.map(att => (
+                                        <div key={att.id}>
+                                          {user.id === att.id ? (
+                                            <i
+                                              className="fa fa-check fa-2x"
+                                              id="correct-answer"
+                                            />
+                                          ) : (
+                                            ""
+                                          )}
+                                        </div>
+                                      ))}
+                                    </span>
                                     <span className="pull-right">
                                       <b>
                                         <Moment format="Do MMMM YYYY">
