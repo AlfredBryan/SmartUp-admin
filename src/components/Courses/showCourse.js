@@ -7,6 +7,8 @@ import Fab from "@material-ui/core/Fab";
 import Tooltip from "@material-ui/core/Tooltip";
 import Button from "@material-ui/core/Button";
 import { Helmet } from "react-helmet";
+//file upload
+import FileBase64 from "react-file-base64";
 
 import Navigation from "components/Navigation/Navigation";
 
@@ -19,7 +21,8 @@ class showCourse extends Component {
       course: "",
       topics: [],
       course_slug: this.props.match.params.slug,
-      course_creator: ""
+      course_creator: "",
+      image: ""
     };
   }
 
@@ -43,6 +46,11 @@ class showCourse extends Component {
           course_creator: res.data.creator
         });
       });
+  };
+
+  //File upload begins
+  uploadImageFile = file => {
+    this.setState({ image: file.base64 });
   };
 
   render() {
@@ -102,6 +110,19 @@ class showCourse extends Component {
               </span>
               <div>
                 <h3 className="course-name">{course.name}</h3>
+                {user.id === course_creator.id ? (
+                  <div class="col-md-12">
+                    <label class="file-upload btn btn-danger">
+                      Add Files...
+                      <FileBase64
+                        multiple={true}
+                        onDone={this.uploadImageFile}
+                      />
+                    </label>
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
               <div className="topics-cover container">
                 <span className="pull-right">
