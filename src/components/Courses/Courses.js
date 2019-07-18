@@ -9,6 +9,8 @@ import PropTypes from "prop-types";
 import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
 import Tooltip from "@material-ui/core/Tooltip";
+//file upload
+import FileBase64 from "react-file-base64";
 
 import Navigation from "components/Navigation/Navigation";
 
@@ -47,13 +49,19 @@ class Courses extends Component {
       visible: false,
       course_list: [],
       slug: "",
-      error: false
+      error: false,
+      image: ""
     };
   }
 
   componentDidMount() {
     this.fetchCourses();
   }
+
+  //File upload begins
+  uploadImageFile = file => {
+    this.setState({ image: file.base64 });
+  };
 
   fetchCourses = () => {
     const token = localStorage.getItem("token");
@@ -103,6 +111,16 @@ class Courses extends Component {
             </Helmet>
             <Navigation />
             <div className="main-content">
+              {user.status === "educator" || user.admin === true ? (
+                <div class="col-md-12">
+                  <label class="file-upload btn btn-danger">
+                    Add Files...
+                    <FileBase64 multiple={true} onDone={this.uploadImageFile} />
+                  </label>
+                </div>
+              ) : (
+                ""
+              )}
               <div className="container">
                 <div className="row">
                   <div className="container">
@@ -118,7 +136,6 @@ class Courses extends Component {
                       ) : (
                         ""
                       )}
-
                       <div className="wards-cover text-center">
                         <br />
                         <p>No Courses yet.</p>
@@ -139,20 +156,30 @@ class Courses extends Component {
             </Helmet>
             <Navigation />
             <div className="main-content">
+              {user.status === "educator" || user.admin === true ? (
+                <div class="col-md-12">
+                  <label class="file-upload btn btn-danger">
+                    Add Files...
+                    <FileBase64 multiple={true} onDone={this.uploadImageFile} />
+                  </label>
+                </div>
+              ) : (
+                ""
+              )}
               <div className="container">
-              <div className="action-buttons">
-                {user.status === "educator" || user.admin === true ? (
-                  <Link to="/new_course" className="pull-right">
-                    <Tooltip title="Add Course" aria-label="Add">
-                      <Fab color="secondary">
-                        <AddIcon />
-                      </Fab>
-                    </Tooltip>
-                  </Link>
-                ) : (
-                  ""
-                )}
-              </div>
+                <div className="action-buttons">
+                  {user.status === "educator" || user.admin === true ? (
+                    <Link to="/new_course" className="pull-right">
+                      <Tooltip title="Add Course" aria-label="Add">
+                        <Fab color="secondary">
+                          <AddIcon />
+                        </Fab>
+                      </Tooltip>
+                    </Link>
+                  ) : (
+                    ""
+                  )}
+                </div>
                 <h3>Courses</h3>
                 <ul className="course-listed">
                   {course_list.map(course => (
