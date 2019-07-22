@@ -285,28 +285,32 @@ class AddWard extends Component {
                     </li>
                   ))}
                 </div>
-                <form className="ward-form" onSubmit={this.addWard}>
-                  <div className="d-flex">
-                    <input
-                      className="ward-input"
-                      type="text"
-                      name="email"
-                      value={this.state.ward_request.email}
-                      placeholder="Email ..."
-                      onChange={this.handleChange}
-                    />
-                    <Button
-                      onClick={this.addWard}
-                      className="ward-button btn-submit"
-                      className="cancel-btn"
-                      variant="contained"
-                      component="span"
-                      color="secondary"
-                    >
-                      {loading ? <Spinner /> : "Confirm"}
-                    </Button>
-                  </div>
-                </form>{" "}
+                {user.status !== "student" ? (
+                  <form className="ward-form" onSubmit={this.addWard}>
+                    <div className="d-flex">
+                      <input
+                        className="ward-input"
+                        type="text"
+                        name="email"
+                        value={this.state.ward_request.email}
+                        placeholder="Email ..."
+                        onChange={this.handleChange}
+                      />
+                      <Button
+                        onClick={this.addWard}
+                        className="ward-button btn-submit"
+                        className="cancel-btn"
+                        variant="contained"
+                        component="span"
+                        color="secondary"
+                      >
+                        {loading ? <Spinner /> : "Confirm"}
+                      </Button>
+                    </div>
+                  </form>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
           </div>
@@ -374,27 +378,31 @@ class AddWard extends Component {
                       </li>
                     ))}
                   </div>
-                  <form className="ward-form" onSubmit={this.addWard}>
-                    <div className="d-flex">
-                      <input
-                        className="ward-input"
-                        type="text"
-                        name="email"
-                        value={this.state.ward_request.email}
-                        placeholder="Email ..."
-                        onChange={this.handleChange}
-                      />
-                      <Button
-                        variant="contained"
-                        component="span"
-                        color="secondary"
-                        className="ward-button"
-                        onClick={this.addWard}
-                      >
-                        {loading ? <Spinner /> : "Confirm"}
-                      </Button>
-                    </div>
-                  </form>{" "}
+                  {user.status !== "student" ? (
+                    <form className="ward-form" onSubmit={this.addWard}>
+                      <div className="d-flex">
+                        <input
+                          className="ward-input"
+                          type="text"
+                          name="email"
+                          value={this.state.ward_request.email}
+                          placeholder="Email ..."
+                          onChange={this.handleChange}
+                        />
+                        <Button
+                          variant="contained"
+                          component="span"
+                          color="secondary"
+                          className="ward-button"
+                          onClick={this.addWard}
+                        >
+                          {loading ? <Spinner /> : "Confirm"}
+                        </Button>
+                      </div>
+                    </form>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
             </div>

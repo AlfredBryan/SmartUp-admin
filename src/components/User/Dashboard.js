@@ -305,7 +305,10 @@ class Dashboard extends Component {
                           <h3>Wards</h3>
                           <div className="row ward-list" id="assessments_home">
                             {wards.map(stud => (
-                              <div key={stud.id} className="col-md-4">
+                              <div
+                                key={stud.id}
+                                className="col-md-4"
+                              >
                                 <div className="card">
                                   <Link
                                     to={`/display_user/${stud.id}`}

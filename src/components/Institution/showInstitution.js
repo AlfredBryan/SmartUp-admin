@@ -216,10 +216,17 @@ class showInstitution extends Component {
                 <div>
                   <div className="no-wards">
                     <div className="col-md-12">
-                      <label className="file-upload btn">
-                        Bulk Upload...
-                        <FileBase64 multiple={true} onDone={this.multiUpload} />
-                      </label>
+                      {user.status === "educator" || user.admin === true ? (
+                        <label className="file-upload btn">
+                          Bulk Upload...
+                          <FileBase64
+                            multiple={true}
+                            onDone={this.multiUpload}
+                          />
+                        </label>
+                      ) : (
+                        ""
+                      )}
                       <Button
                         variant="contained"
                         component="span"
@@ -261,10 +268,14 @@ class showInstitution extends Component {
               ) : (
                 <div className="col-sm-12 col-md-8">
                   <div class="col-md-12">
-                    <label class="file-upload btn">
-                      Bulk Upload...
-                      <FileBase64 multiple={true} onDone={this.multiUpload} />
-                    </label>
+                    {user.status === "educator" || user.admin === true ? (
+                      <label className="file-upload btn">
+                        Bulk Upload...
+                        <FileBase64 multiple={true} onDone={this.multiUpload} />
+                      </label>
+                    ) : (
+                      ""
+                    )}
                     <Button
                       variant="contained"
                       component="span"
