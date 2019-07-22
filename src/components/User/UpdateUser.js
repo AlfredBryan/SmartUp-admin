@@ -222,8 +222,6 @@ class UpdateUser extends Component {
     const { classes } = this.props;
     const { open, loading, errorMessage } = this.state;
     const user = JSON.parse(localStorage.getItem("user"));
-    console.log(this.state.sex);
-
     return (
       <div>
         <Helmet>

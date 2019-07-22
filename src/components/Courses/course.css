@@ -6,7 +6,25 @@
     line-height: 1.42857;
 }
 
-label.file-upload {
+.bulk-btn {
+    padding: 2.3em !important;
+}
+
+.file-upload {
+    color: black;
+    border-color: black;
+}
+
+.file-upload:hover {
+    color: black;
+    border-color: black;
+}
+
+.file-upload input[type=file] {
+    font-size: .7em;
+}
+
+/* label.file-upload {
     position: relative;
     overflow: hidden
 }
@@ -25,7 +43,7 @@ label.file-upload input[type=file] {
     background: #fff;
     cursor: inherit;
     display: block
-}
+} */
 
 .add-icon {
     margin-left: 37em
