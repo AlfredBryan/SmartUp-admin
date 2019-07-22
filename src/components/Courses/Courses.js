@@ -5,6 +5,7 @@ import "./course.css";
 import axios from "axios";
 
 import { withStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
 import PropTypes from "prop-types";
 import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
@@ -13,6 +14,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import FileBase64 from "react-file-base64";
 
 import Navigation from "components/Navigation/Navigation";
+import Spinner from "components/hoc/spinner";
 
 const styles = theme => ({
   root: {
@@ -50,7 +52,7 @@ class Courses extends Component {
       course_list: [],
       slug: "",
       error: false,
-      image: ""
+      csv_file: ""
     };
   }
 
@@ -60,7 +62,7 @@ class Courses extends Component {
 
   //File upload begins
   uploadImageFile = file => {
-    this.setState({ image: file.base64 });
+    this.setState({ csv_file: file.base64 });
   };
 
   fetchCourses = () => {
@@ -93,7 +95,7 @@ class Courses extends Component {
   };
 
   render() {
-    const { course_list, error } = this.state;
+    const { course_list, error, loading } = this.state;
     const user = JSON.parse(localStorage.getItem("user"));
     if (error) {
       return (
@@ -113,10 +115,18 @@ class Courses extends Component {
             <div className="main-content">
               {user.status === "educator" || user.admin === true ? (
                 <div class="col-md-12">
-                  <label class="file-upload btn btn-danger">
-                    Add Files...
+                  <label class="file-upload btn">
+                    Bulk Upload...
                     <FileBase64 multiple={true} onDone={this.uploadImageFile} />
                   </label>
+                  <Button
+                    variant="contained"
+                    component="span"
+                    color="secondary"
+                    className="bulk-btn"
+                  >
+                    {loading ? <Spinner /> : "Submit"}
+                  </Button>
                 </div>
               ) : (
                 ""
@@ -158,10 +168,18 @@ class Courses extends Component {
             <div className="main-content">
               {user.status === "educator" || user.admin === true ? (
                 <div class="col-md-12">
-                  <label class="file-upload btn btn-danger">
-                    Add Files...
+                  <label class="file-upload btn">
+                    Bulk Upload...
                     <FileBase64 multiple={true} onDone={this.uploadImageFile} />
                   </label>
+                  <Button
+                    variant="contained"
+                    component="span"
+                    color="secondary"
+                    className="bulk-btn"
+                  >
+                    {loading ? <Spinner /> : "Submit"}
+                  </Button>
                 </div>
               ) : (
                 ""

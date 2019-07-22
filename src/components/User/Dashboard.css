@@ -165,6 +165,10 @@
     margin-top: 10px;
 }
 
+.wards_card {
+    width: 50%;
+}
+
 
 .wards {
     transition: 0.3s;
@@ -468,6 +472,10 @@
         margin-left: 0% !important;
         padding-top: 5em !important;
         /* width: 50% !important */
+    }
+
+    .wards_card {
+        width: 20% !important;
     }
 
     .profile_data {

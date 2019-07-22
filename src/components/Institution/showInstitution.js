@@ -8,9 +8,12 @@ import Button from "@material-ui/core/Button";
 import { Helmet } from "react-helmet";
 
 import PropTypes from "prop-types";
+//file upload
+import FileBase64 from "react-file-base64";
 import axios from "axios";
 
 import Navigation from "components/Navigation/Navigation";
+import Spinner from "components/hoc/spinner";
 
 const styles = theme => ({
   root: {
@@ -46,7 +49,9 @@ class showInstitution extends Component {
       slug: this.props.match.params.slug,
       course_list: [],
       owner_id: "",
-      institution: ""
+      institution: "",
+      csv_file: [],
+      loading: false
     };
   }
 
@@ -64,6 +69,34 @@ class showInstitution extends Component {
           course_list: res.data
         });
       });
+  };
+
+  bulkUpload = e => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+    const { slug, csv_file } = this.state;
+    let institution_id = slug;
+    axios
+      .post(
+        `${Url}/api/v1/courses/import_data`,
+        {
+          csv_file,
+          institution_id
+        },
+        {
+          headers: {
+            Authorization: token
+          }
+        }
+      )
+      .then(res => {
+        console.log(res);
+      });
+  };
+
+  //File upload begins
+  multiUpload = file => {
+    this.setState({ csv_file: file.map(elements => elements.base64) });
   };
 
   fetchInstitution() {
@@ -89,8 +122,16 @@ class showInstitution extends Component {
   }
 
   render() {
-    const { course_list, institution, slug, owner_id } = this.state;
+    const {
+      course_list,
+      institution,
+      slug,
+      owner_id,
+      loading,
+      csv_file
+    } = this.state;
     const user = JSON.parse(localStorage.getItem("user"));
+    console.log(csv_file);
     return (
       <div>
         <Helmet>
@@ -174,6 +215,28 @@ class showInstitution extends Component {
               {course_list.length < 1 ? (
                 <div>
                   <div className="no-wards">
+                    <div className="col-md-12">
+                      {user.status === "educator" || user.admin === true ? (
+                        <label className="file-upload btn">
+                          Bulk Upload...
+                          <FileBase64
+                            multiple={true}
+                            onDone={this.multiUpload}
+                          />
+                        </label>
+                      ) : (
+                        ""
+                      )}
+                      <Button
+                        variant="contained"
+                        component="span"
+                        color="secondary"
+                        className="bulk-btn"
+                        onClick={this.bulkUpload}
+                      >
+                        {loading ? <Spinner /> : "Submit"}
+                      </Button>
+                    </div>
                     <h5>No Courses Yet</h5>
                     {user.status === "educator" || user.admin === true ? (
                       <Link
@@ -204,6 +267,24 @@ class showInstitution extends Component {
                 </div>
               ) : (
                 <div className="col-sm-12 col-md-8">
+                  <div class="col-md-12">
+                    {user.status === "educator" || user.admin === true ? (
+                      <label className="file-upload btn">
+                        Bulk Upload...
+                        <FileBase64 multiple={true} onDone={this.multiUpload} />
+                      </label>
+                    ) : (
+                      ""
+                    )}
+                    <Button
+                      variant="contained"
+                      component="span"
+                      color="secondary"
+                      className="bulk-btn"
+                    >
+                      {loading ? <Spinner /> : "Submit"}
+                    </Button>
+                  </div>
                   <h4>Courses</h4>
                   <div className="row">
                     {user.status === "educator" || user.admin === true ? (

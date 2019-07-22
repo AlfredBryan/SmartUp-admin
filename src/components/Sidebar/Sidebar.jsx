@@ -43,13 +43,53 @@ class Sidebar extends Component {
   render() {
     const user = JSON.parse(localStorage.getItem("user"));
 
-    let { ward_button, question_button, Answer_button } = "";
+    let {
+      ward_button,
+      question_button,
+      Answer_button,
+      studygroup_button,
+      course_button,
+      institution_button
+    } = "";
     if (user.status !== "educator") {
       ward_button = (
         <li>
           <NavLink to="/family">
             <i className="fa fa-users" />
             <p>{user.status === "guardian" ? "Wards" : "Guardians"}</p>
+          </NavLink>
+        </li>
+      );
+    }
+
+    if (user.status !== "guardian") {
+      studygroup_button = (
+        <li>
+          <NavLink activeClassName="active" to="/study_groups">
+            <FontAwesomeIcon icon="users-cog" size="2x" />
+            <p>Study Groups</p>
+          </NavLink>
+        </li>
+      );
+    }
+
+    if (user.status !== "guardian") {
+      course_button = (
+        <li>
+          <NavLink activeClassName="active" to="/courses">
+            <i className="fa fa-graduation-cap" />
+            <p>Courses</p>
+          </NavLink>
+        </li>
+      );
+    }
+
+    if (user.status !== "guardian") {
+      institution_button = (
+        <li>
+          <NavLink activeClassName="active" to="/institutions">
+            <i className="fa fa-university" />
+            <p>Institutions</p>
           </NavLink>
         </li>
       );
@@ -108,18 +148,8 @@ class Sidebar extends Component {
                 <p>My Profile</p>
               </NavLink>
             </li>
-            <li>
-              <NavLink activeClassName="active" to="/institutions">
-                <i className="fa fa-university" />
-                <p>Institutions</p>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink activeClassName="active" to="/courses">
-                <i className="fa fa-graduation-cap" />
-                <p>Courses</p>
-              </NavLink>
-            </li>
+            {institution_button}
+            {course_button}
             {(() => {
               if (user.status === "educator" || user.admin === true) {
                 return (
@@ -144,12 +174,7 @@ class Sidebar extends Component {
               }
             })()}
             {Answer_button}
-            <li>
-              <NavLink activeClassName="active" to="/study_groups">
-                <FontAwesomeIcon icon="users-cog" size="2x" />
-                <p>Study Groups</p>
-              </NavLink>
-            </li>
+            {studygroup_button}
             {ward_button}
             {(() => {
               if (user.status === "educator") {

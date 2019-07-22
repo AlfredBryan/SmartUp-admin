@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import axios from "axios";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import { DatePickerInput } from "rc-datepicker";
+import "rc-datepicker/lib/style.css";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import { Helmet } from "react-helmet";
+import moment from "moment";
 
 //Alert
 import swal from "sweetalert";
@@ -60,7 +61,7 @@ class UpdateUser extends Component {
       phone: "",
       state: "select",
       image: "",
-      date_of_birth: new Date(),
+      date_of_birth: "",
       sex: "select",
       level: "1",
       open: false,
@@ -106,8 +107,11 @@ class UpdateUser extends Component {
     if (
       first_name.length < 3 ||
       surname.length < 3 ||
-      address.length < 7 ||
-      phone.length < 10
+      address.length < 5 ||
+      phone.length < 10 ||
+      sex.length < 4 ||
+      level.length < 1 ||
+      image.length < 3
     ) {
       swal({
         title: "Fields cannot be empty",
@@ -157,9 +161,9 @@ class UpdateUser extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  handleDateChange = date => {
+  handleDateChange = dateString => {
     this.setState({
-      date_of_birth: date
+      date_of_birth: dateString + 1
     });
   };
 
@@ -174,7 +178,8 @@ class UpdateUser extends Component {
       state: user.state,
       sex: user.sex,
       level: user.level,
-      image: user.image_url
+      image: user.image_url,
+      date_of_birth: moment(user.date_of_birth).format("L")
     });
   }
   //ends
@@ -219,11 +224,23 @@ class UpdateUser extends Component {
       "Yobe",
       "Zamfara"
     ];
+    const level = [
+      "Primary 1",
+      "Primary 2",
+      "Primary 3",
+      "Primary 4",
+      "Primary 5",
+      "Primary 6",
+      "JSS 1",
+      "JSS 2",
+      "JSS 3",
+      "SSS 1",
+      "SSS 2",
+      "SSS 3"
+    ];
     const { classes } = this.props;
-    const { open, loading, errorMessage } = this.state;
+    const { open, loading, errorMessage, date_of_birth } = this.state;
     const user = JSON.parse(localStorage.getItem("user"));
-    console.log(this.state.sex);
-
     return (
       <div>
         <Helmet>
@@ -362,38 +379,38 @@ class UpdateUser extends Component {
               <div className="form-group">
                 <label className="col-lg-3 control-label">Date of Birth:</label>
                 <div className="col-lg-8">
-                  <DatePicker
-                    selected={this.state.date_of_birth}
+                  <DatePickerInput
                     onChange={this.handleDateChange}
-                    peekNextMonth
-                    showMonthDropdown
-                    showYearDropdown
-                    dropdownMode="select"
-                    dateFormat="dd/MM/yyyy"
+                    value={moment(date_of_birth)}
+                    className="my-custom-datepicker-component"
                   />
                 </div>
               </div>
-              <div className="form-group">
-                <label className="col-lg-3 control-label">Level:</label>
-                <div className="col-lg-8">
-                  <select
-                    className="form-control"
-                    name="level"
-                    value={this.state.level}
-                    onChange={this.handleChange}
-                    id=""
-                  >
-                    {Array.from(new Array(12), (val, index) => index + 1).map(
-                      l => (
-                        <option key={l} value={l}>
-                          {" "}
-                          Grade {l}
-                        </option>
-                      )
-                    )}
-                  </select>
+              {user.status !== "guardian" ? (
+                <div className="form-group">
+                  <label className="col-lg-3 control-label">Level:</label>
+                  <div className="col-lg-8">
+                    <select
+                      className="form-control"
+                      name="level"
+                      value={this.state.level}
+                      onChange={this.handleChange}
+                      id=""
+                    >
+                      {Array.from(new Array(12), (val, index) => index + 1).map(
+                        l => (
+                          <option key={l} value={l}>
+                            {" "}
+                            Grade {l}
+                          </option>
+                        )
+                      )}
+                    </select>
+                  </div>
                 </div>
-              </div>
+              ) : (
+                ""
+              )}
               <div className="form-group">
                 <label className="col-lg-3 control-label">Sex:</label>
                 <div className="col-lg-8">
