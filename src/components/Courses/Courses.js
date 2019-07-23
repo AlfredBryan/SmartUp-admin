@@ -60,9 +60,22 @@ class Courses extends Component {
     this.fetchCourses();
   }
 
-  //File upload begins
-  uploadImageFile = file => {
-    this.setState({ csv_file: file.base64 });
+  bulkUpload = e => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+    let file = document.querySelector("#csv_file").files[0];
+    let formData = new FormData();
+    formData.append("csv_file", file);
+    axios
+      .post(`${apiUrl}/api/v1/courses/import_data`, formData, {
+        headers: {
+          Authorization: token,
+          "Content-Type": "multipart/form-data"
+        }
+      })
+      .then(res => {
+        console.log(res);
+      });
   };
 
   fetchCourses = () => {
@@ -114,19 +127,27 @@ class Courses extends Component {
             <Navigation />
             <div className="main-content">
               {user.status === "educator" || user.admin === true ? (
-                <div class="col-md-12">
-                  <label class="file-upload btn">
-                    Bulk Upload...
-                    <FileBase64 multiple={true} onDone={this.uploadImageFile} />
+                <div className="pull-right">
+                  <label className="file-upload btn">
+                    Bulk Upload Courses...
+                    <input type="file" id="csv_file" accept=".csv" />
                   </label>
                   <Button
                     variant="contained"
                     component="span"
                     color="secondary"
                     className="bulk-btn"
+                    onClick={this.bulkUpload}
                   >
                     {loading ? <Spinner /> : "Submit"}
                   </Button>
+                  <Link to="/new_course">
+                    <Tooltip title="Add Course" aria-label="Add">
+                      <Fab color="secondary">
+                        <AddIcon />
+                      </Fab>
+                    </Tooltip>
+                  </Link>
                 </div>
               ) : (
                 ""
@@ -135,17 +156,6 @@ class Courses extends Component {
                 <div className="row">
                   <div className="container">
                     <div className="no-wards">
-                      {user.status === "educator" || user.admin === true ? (
-                        <Link to="/new_course" className="pull-right">
-                          <Tooltip title="Add Course" aria-label="Add">
-                            <Fab color="secondary">
-                              <AddIcon />
-                            </Fab>
-                          </Tooltip>
-                        </Link>
-                      ) : (
-                        ""
-                      )}
                       <div className="wards-cover text-center">
                         <br />
                         <p>No Courses yet.</p>
@@ -166,27 +176,22 @@ class Courses extends Component {
             </Helmet>
             <Navigation />
             <div className="main-content">
-              {user.status === "educator" || user.admin === true ? (
-                <div class="col-md-12">
-                  <label class="file-upload btn">
-                    Bulk Upload...
-                    <FileBase64 multiple={true} onDone={this.uploadImageFile} />
-                  </label>
-                  <Button
-                    variant="contained"
-                    component="span"
-                    color="secondary"
-                    className="bulk-btn"
-                  >
-                    {loading ? <Spinner /> : "Submit"}
-                  </Button>
-                </div>
-              ) : (
-                ""
-              )}
               <div className="container">
-                <div className="action-buttons">
-                  {user.status === "educator" || user.admin === true ? (
+                {user.status === "educator" || user.admin === true ? (
+                  <div className="pull-right">
+                    <label className="file-upload btn">
+                      Bulk Upload Courses...
+                      <input type="file" id="csv_file" accept=".csv" />
+                    </label>
+                    <Button
+                      variant="contained"
+                      component="span"
+                      color="secondary"
+                      className="bulk-btn"
+                      onClick={this.bulkUpload}
+                    >
+                      {loading ? <Spinner /> : "Submit"}
+                    </Button>
                     <Link to="/new_course" className="pull-right">
                       <Tooltip title="Add Course" aria-label="Add">
                         <Fab color="secondary">
@@ -194,11 +199,11 @@ class Courses extends Component {
                         </Fab>
                       </Tooltip>
                     </Link>
-                  ) : (
-                    ""
-                  )}
-                </div>
-                <h3>Courses</h3>
+                  </div>
+                ) : (
+                  ""
+                )}
+                <h3 style={{paddingBottom: "1em"}}>Courses</h3>
                 <ul className="course-listed">
                   {course_list.map(course => (
                     <Link key={course.id} to={`/courses/${course.slug}`}>

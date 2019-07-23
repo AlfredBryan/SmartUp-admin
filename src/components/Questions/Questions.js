@@ -15,6 +15,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
 import Tooltip from "@material-ui/core/Tooltip";
+import Spinner from "components/hoc/spinner";
 
 const styles = theme => ({
   container: {
@@ -54,7 +55,8 @@ class Questions extends Component {
       answer_options: [],
       question_type: "",
       open: false,
-      error: false
+      error: false,
+      loading: false
     };
   }
 
@@ -98,6 +100,25 @@ class Questions extends Component {
       .catch(error => {});
   };
 
+  bulkUpload = e => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+    const { slug } = this.state;
+    let file = document.querySelector("#csv_file").files[0];
+    let formData = new FormData();
+    formData.append("csv_file", file);
+    axios
+      .post(`${Url}/api/v1/questions/import_data`, formData, {
+        headers: {
+          Authorization: token,
+          "Content-Type": "multipart/form-data"
+        }
+      })
+      .then(res => {
+        console.log(res);
+      });
+  };
+
   deleteOption = (question_id, id) => {
     const token = localStorage.getItem("token");
     axios
@@ -120,7 +141,7 @@ class Questions extends Component {
   };
 
   render() {
-    const { questions, error, open } = this.state;
+    const { questions, error, open, loading } = this.state;
     const { classes } = this.props;
     const user = JSON.parse(localStorage.getItem("user"));
     const ReactMarkdown = require("react-markdown");
@@ -162,13 +183,28 @@ class Questions extends Component {
             <div className="container questions">
               <div className="action-buttons">
                 {user.status === "educator" || user.admin === true ? (
-                  <Link to="/questions/new" className="pull-right">
+                  <div className="pull-right">
+                  <label className="file-upload btn">
+                      Bulk Upload...
+                      <input type="file" id="csv_file" accept=".csv" />
+                    </label>
+                        <Button
+                          variant="contained"
+                          component="span"
+                          color="secondary"
+                          className="bulk-btn"
+                          onClick={this.bulkUpload}
+                        >
+                          {loading ? <Spinner /> : "Submit"}
+                        </Button>
+                        <Link to="/questions/new">
                     <Tooltip title="Add Question" aria-label="Add Question">
                       <Fab color="secondary">
                         <AddIcon />
                       </Fab>
                     </Tooltip>
                   </Link>
+                  </div>
                 ) : (
                   ""
                 )}

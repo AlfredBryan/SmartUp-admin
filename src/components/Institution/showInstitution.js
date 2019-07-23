@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import EditIcon from "@material-ui/icons/Edit";
+import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
 import Tooltip from "@material-ui/core/Tooltip";
 import { withStyles } from "@material-ui/core/styles";
@@ -50,7 +51,7 @@ class showInstitution extends Component {
       course_list: [],
       owner_id: "",
       institution: "",
-      csv_file: [],
+      csv_file: {},
       loading: false
     };
   }
@@ -74,29 +75,22 @@ class showInstitution extends Component {
   bulkUpload = e => {
     e.preventDefault();
     const token = localStorage.getItem("token");
-    const { slug, csv_file } = this.state;
-    let institution_id = slug;
+    const { slug } = this.state;
+    let file = document.querySelector("#csv_file").files[0];
+
+    let formData = new FormData();
+    formData.append("csv_file", file);
+    formData.append("institution_id", slug);
     axios
-      .post(
-        `${Url}/api/v1/courses/import_data`,
-        {
-          csv_file,
-          institution_id
-        },
-        {
-          headers: {
-            Authorization: token
-          }
+      .post(`${Url}/api/v1/courses/import_data`, formData, {
+        headers: {
+          Authorization: token,
+          "Content-Type": "multipart/form-data"
         }
-      )
+      })
       .then(res => {
         console.log(res);
       });
-  };
-
-  //File upload begins
-  multiUpload = file => {
-    this.setState({ csv_file: file.map(elements => elements.base64) });
   };
 
   fetchInstitution() {
@@ -122,16 +116,8 @@ class showInstitution extends Component {
   }
 
   render() {
-    const {
-      course_list,
-      institution,
-      slug,
-      owner_id,
-      loading,
-      csv_file
-    } = this.state;
+    const { course_list, institution, slug, owner_id, loading } = this.state;
     const user = JSON.parse(localStorage.getItem("user"));
-    console.log(csv_file);
     return (
       <div>
         <Helmet>
@@ -215,46 +201,33 @@ class showInstitution extends Component {
               {course_list.length < 1 ? (
                 <div>
                   <div className="no-wards">
-                    <div className="col-md-12">
-                      {user.status === "educator" || user.admin === true ? (
-                        <label className="file-upload btn">
-                          Bulk Upload...
-                          <FileBase64
-                            multiple={true}
-                            onDone={this.multiUpload}
-                          />
-                        </label>
-                      ) : (
-                        ""
-                      )}
-                      <Button
-                        variant="contained"
-                        component="span"
-                        color="secondary"
-                        className="bulk-btn"
-                        onClick={this.bulkUpload}
-                      >
-                        {loading ? <Spinner /> : "Submit"}
-                      </Button>
-                    </div>
-                    <h5>No Courses Yet</h5>
                     {user.status === "educator" || user.admin === true ? (
-                      <Link
-                        to={`/institutions/${slug}/new_course`}
-                        className="button-area"
-                      >
+                      <div className="pull-right">
+                        <label className="file-upload btn">
+                          Bulk Upload Courses...
+                          <input type="file" id="csv_file" accept=".csv" />
+                        </label>
                         <Button
                           variant="contained"
                           component="span"
                           color="secondary"
-                          className="inst_btn"
+                          className="bulk-btn"
+                          onClick={this.bulkUpload}
                         >
-                          Add Course
+                          {loading ? <Spinner /> : "Submit"}
                         </Button>
-                      </Link>
+                        <Link to={`/institutions/${slug}/new_course`}>
+                          <Tooltip title="Add Course" aria-label="Add">
+                            <Fab color="secondary">
+                              <AddIcon />
+                            </Fab>
+                          </Tooltip>
+                        </Link>
+                      </div>
                     ) : (
                       ""
                     )}
+                    <h5>No Courses Yet</h5>
                     <div className="wards-cover">
                       <h5>What is this section for? </h5>
                       <br />
@@ -271,7 +244,12 @@ class showInstitution extends Component {
                     {user.status === "educator" || user.admin === true ? (
                       <label className="file-upload btn">
                         Bulk Upload...
-                        <FileBase64 multiple={true} onDone={this.multiUpload} />
+                        <input
+                          type="file"
+                          accept=".csv"
+                          name="csv_file"
+                          id="csv_file"
+                        />
                       </label>
                     ) : (
                       ""

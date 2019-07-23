@@ -11,6 +11,7 @@ import { Helmet } from "react-helmet";
 import FileBase64 from "react-file-base64";
 
 import Navigation from "components/Navigation/Navigation";
+import Spinner from "components/hoc/spinner";
 
 const Url = process.env.REACT_APP_BASE_URL;
 
@@ -22,7 +23,8 @@ class showCourse extends Component {
       topics: [],
       course_slug: this.props.match.params.slug,
       course_creator: "",
-      image: ""
+      image: "",
+      loading: false
     };
   }
 
@@ -47,6 +49,24 @@ class showCourse extends Component {
         });
       });
   };
+  bulkUpload = e => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+    const { course_slug } = this.state;
+    let file = document.querySelector("#csv_file").files[0];
+    let formData = new FormData();
+    formData.append("csv_file", file);
+    axios
+      .post(`${Url}/api/v1/courses/${course_slug}/topics/import_data`, formData, {
+        headers: {
+          Authorization: token,
+          "Content-Type": "multipart/form-data"
+        }
+      })
+      .then(res => {
+        console.log(res);
+      });
+  };
 
   //File upload begins
   uploadImageFile = file => {
@@ -54,7 +74,7 @@ class showCourse extends Component {
   };
 
   render() {
-    const { course, topics, course_slug, course_creator } = this.state;
+    const { course, topics, course_slug, course_creator, loading } = this.state;
     const user = JSON.parse(localStorage.getItem("user"));
     const ReactMarkdown = require("react-markdown");
     return (
@@ -69,30 +89,41 @@ class showCourse extends Component {
             <div className="align-course">
               <span className="pull-right">
                 {user.status === "educator" || user.admin === true ? (
-                  <Link to={`/new_assessment/${course.id}`}>
+                  <div className="pull-right">
+                    <label className="file-upload btn">
+                      Bulk Upload Topics...
+                      <input type="file" id="csv_file" accept=".csv" />
+                    </label>
                     <Button
                       variant="contained"
                       component="span"
                       color="secondary"
-                      className="topics-botton new-btn"
+                      className="bulk-btn"
+                      onClick={this.bulkUpload}
                     >
-                      Add Assessment
+                      {loading ? <Spinner /> : "Submit"}
                     </Button>
-                  </Link>
-                ) : (
-                  ""
-                )}
-                {user.status === "educator" || user.admin === true ? (
-                  <Link to={`/new_topic/${course_slug}`}>
-                    <Button
-                      variant="contained"
-                      component="span"
-                      color="secondary"
-                      className="topics-botton new-btn"
-                    >
-                      Add Topic
-                    </Button>
-                  </Link>
+                    <Link to={`/new_assessment/${course.id}`}>
+                      <Button
+                        variant="contained"
+                        component="span"
+                        color="secondary"
+                        className="topics-botton new-btn"
+                      >
+                        Add Assessment
+                      </Button>
+                    </Link>
+                    <Link to={`/new_topic/${course_slug}`}>
+                      <Button
+                        variant="contained"
+                        component="span"
+                        color="secondary"
+                        className="topics-botton new-btn"
+                      >
+                        Add Topic
+                      </Button>
+                    </Link>
+                  </div>
                 ) : (
                   ""
                 )}
