@@ -103,19 +103,35 @@ class Questions extends Component {
   bulkUpload = e => {
     e.preventDefault();
     const token = localStorage.getItem("token");
-    const { slug } = this.state;
     let file = document.querySelector("#csv_file").files[0];
     let formData = new FormData();
     formData.append("csv_file", file);
     axios
-      .post(`${Url}/api/v1/questions/import_data`, formData, {
-        headers: {
-          Authorization: token,
-          "Content-Type": "multipart/form-data"
+      .post(
+        `${Url}/api/v1/questions/import_data`,
+        formData,
+        {
+          headers: {
+            Authorization: token,
+            "Content-Type": "multipart/form-data"
+          }
+        },
+        this.setState({ loading: true })
+      )
+      .then(res => {
+        if (res.status === 200) {
+          this.fetchQuestions();
+          this.setState({
+            loading: false
+          });
         }
       })
-      .then(res => {
-        console.log(res);
+      .catch(err => {
+        if (err) {
+          this.setState({
+            loading: false
+          });
+        }
       });
   };
 
@@ -184,26 +200,26 @@ class Questions extends Component {
               <div className="action-buttons">
                 {user.status === "educator" || user.admin === true ? (
                   <div className="pull-right">
-                  <label className="file-upload btn">
+                    <label className="file-upload btn">
                       Bulk Upload...
                       <input type="file" id="csv_file" accept=".csv" />
                     </label>
-                        <Button
-                          variant="contained"
-                          component="span"
-                          color="secondary"
-                          className="bulk-btn"
-                          onClick={this.bulkUpload}
-                        >
-                          {loading ? <Spinner /> : "Submit"}
-                        </Button>
-                        <Link to="/questions/new">
-                    <Tooltip title="Add Question" aria-label="Add Question">
-                      <Fab color="secondary">
-                        <AddIcon />
-                      </Fab>
-                    </Tooltip>
-                  </Link>
+                    <Button
+                      variant="contained"
+                      component="span"
+                      color="secondary"
+                      className="bulk-btn"
+                      onClick={this.bulkUpload}
+                    >
+                      {loading ? <Spinner /> : "Submit"}
+                    </Button>
+                    <Link to="/questions/new">
+                      <Tooltip title="Add Question" aria-label="Add Question">
+                        <Fab color="secondary">
+                          <AddIcon />
+                        </Fab>
+                      </Tooltip>
+                    </Link>
                   </div>
                 ) : (
                   ""

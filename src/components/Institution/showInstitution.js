@@ -82,14 +82,33 @@ class showInstitution extends Component {
     formData.append("csv_file", file);
     formData.append("institution_id", slug);
     axios
-      .post(`${Url}/api/v1/courses/import_data`, formData, {
-        headers: {
-          Authorization: token,
-          "Content-Type": "multipart/form-data"
+      .post(
+        `${Url}/api/v1/courses/import_data`,
+        formData,
+        {
+          headers: {
+            Authorization: token,
+            "Content-Type": "multipart/form-data"
+          }
+        },
+        this.setState({
+          loading: true
+        })
+      )
+      .then(res => {
+        if (res.status === 200) {
+          this.fetchCourses();
+          this.setState({
+            loading: false
+          });
         }
       })
-      .then(res => {
-        console.log(res);
+      .then(err => {
+        if (err) {
+          this.setState({
+            loading: false
+          });
+        }
       });
   };
 
@@ -203,7 +222,7 @@ class showInstitution extends Component {
                   <div className="no-wards">
                     {user.status === "educator" || user.admin === true ? (
                       <div className="pull-right">
-                        <label className="file-upload btn">
+                        {/* <label className="file-upload btn">
                           Bulk Upload Courses...
                           <input type="file" id="csv_file" accept=".csv" />
                         </label>
@@ -215,7 +234,7 @@ class showInstitution extends Component {
                           onClick={this.bulkUpload}
                         >
                           {loading ? <Spinner /> : "Submit"}
-                        </Button>
+                        </Button> */}
                         <Link to={`/institutions/${slug}/new_course`}>
                           <Tooltip title="Add Course" aria-label="Add">
                             <Fab color="secondary">
@@ -240,7 +259,7 @@ class showInstitution extends Component {
                 </div>
               ) : (
                 <div className="col-sm-12 col-md-8">
-                  <div class="col-md-12">
+                  {/* <div class="col-md-12">
                     {user.status === "educator" || user.admin === true ? (
                       <label className="file-upload btn">
                         Bulk Upload...
@@ -262,7 +281,7 @@ class showInstitution extends Component {
                     >
                       {loading ? <Spinner /> : "Submit"}
                     </Button>
-                  </div>
+                  </div> */}
                   <h4>Courses</h4>
                   <div className="row">
                     {user.status === "educator" || user.admin === true ? (

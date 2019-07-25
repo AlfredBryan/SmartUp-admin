@@ -67,14 +67,31 @@ class Courses extends Component {
     let formData = new FormData();
     formData.append("csv_file", file);
     axios
-      .post(`${apiUrl}/api/v1/courses/import_data`, formData, {
-        headers: {
-          Authorization: token,
-          "Content-Type": "multipart/form-data"
+      .post(
+        `${apiUrl}/api/v1/courses/import_data`,
+        formData,
+        {
+          headers: {
+            Authorization: token,
+            "Content-Type": "multipart/form-data"
+          }
+        },
+        this.setState({
+          loading: true
+        })
+      )
+      .then(res => {
+        if (res.status === 200) {
+          this.fetchCourses();
+          this.setState({
+            loading: false
+          });
         }
       })
-      .then(res => {
-        console.log(res);
+      .then(err => {
+        this.setState({
+          loading: false
+        });
       });
   };
 
@@ -128,7 +145,7 @@ class Courses extends Component {
             <div className="main-content">
               {user.status === "educator" || user.admin === true ? (
                 <div className="pull-right">
-                  <label className="file-upload btn">
+                  {/* <label className="file-upload btn">
                     Bulk Upload Courses...
                     <input type="file" id="csv_file" accept=".csv" />
                   </label>
@@ -140,7 +157,7 @@ class Courses extends Component {
                     onClick={this.bulkUpload}
                   >
                     {loading ? <Spinner /> : "Submit"}
-                  </Button>
+                  </Button> */}
                   <Link to="/new_course">
                     <Tooltip title="Add Course" aria-label="Add">
                       <Fab color="secondary">
@@ -179,7 +196,7 @@ class Courses extends Component {
               <div className="container">
                 {user.status === "educator" || user.admin === true ? (
                   <div className="pull-right">
-                    <label className="file-upload btn">
+                    {/* <label className="file-upload btn">
                       Bulk Upload Courses...
                       <input type="file" id="csv_file" accept=".csv" />
                     </label>
@@ -191,7 +208,7 @@ class Courses extends Component {
                       onClick={this.bulkUpload}
                     >
                       {loading ? <Spinner /> : "Submit"}
-                    </Button>
+                    </Button> */}
                     <Link to="/new_course" className="pull-right">
                       <Tooltip title="Add Course" aria-label="Add">
                         <Fab color="secondary">
@@ -203,7 +220,7 @@ class Courses extends Component {
                 ) : (
                   ""
                 )}
-                <h3 style={{paddingBottom: "1em"}}>Courses</h3>
+                <h3 style={{ paddingBottom: "1em" }}>Courses</h3>
                 <ul className="course-listed">
                   {course_list.map(course => (
                     <Link key={course.id} to={`/courses/${course.slug}`}>

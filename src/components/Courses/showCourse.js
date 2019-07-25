@@ -49,6 +49,7 @@ class showCourse extends Component {
         });
       });
   };
+
   bulkUpload = e => {
     e.preventDefault();
     const token = localStorage.getItem("token");
@@ -57,15 +58,31 @@ class showCourse extends Component {
     let formData = new FormData();
     formData.append("csv_file", file);
     axios
-      .post(`${Url}/api/v1/courses/${course_slug}/topics/import_data`, formData, {
-        headers: {
-          Authorization: token,
-          "Content-Type": "multipart/form-data"
+      .post(
+        `${Url}/api/v1/courses/${course_slug}/topics/import_data`,
+        formData,
+        {
+          headers: {
+            Authorization: token,
+            "Content-Type": "multipart/form-data"
+          }
+        },
+        this.setState({ loading: true })
+      )
+      .then(res => {
+        if (res.status === 200) {
+          this.fetchCourse();
+          this.setState({
+            loading: false
+          });
+        }
+      }).then(err => {
+        if (err) {
+          this.setState({
+            loading: false
+          })
         }
       })
-      .then(res => {
-        console.log(res);
-      });
   };
 
   //File upload begins
