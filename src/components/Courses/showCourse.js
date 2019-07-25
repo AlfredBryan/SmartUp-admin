@@ -76,13 +76,14 @@ class showCourse extends Component {
             loading: false
           });
         }
-      }).then(err => {
+      })
+      .then(err => {
         if (err) {
           this.setState({
             loading: false
-          })
+          });
         }
-      })
+      });
   };
 
   //File upload begins
@@ -156,22 +157,7 @@ class showCourse extends Component {
                   ""
                 )}
               </span>
-              <div>
-                <h3 className="course-name">{course.name}</h3>
-                {user.id === course_creator.id ? (
-                  <div class="col-md-12">
-                    <label class="file-upload btn btn-danger">
-                      Add Files...
-                      <FileBase64
-                        multiple={true}
-                        onDone={this.uploadImageFile}
-                      />
-                    </label>
-                  </div>
-                ) : (
-                  ""
-                )}
-              </div>
+              <h3 className="course-name">{course.name}</h3>
               <div className="topics-cover container">
                 <span className="pull-right">
                   {course.topics < 1 ? (
