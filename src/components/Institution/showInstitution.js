@@ -222,7 +222,7 @@ class showInstitution extends Component {
                   <div className="no-wards">
                     {user.status === "educator" || user.admin === true ? (
                       <div className="pull-right">
-                        {/* <label className="file-upload btn">
+                        <label className="file-upload btn">
                           Bulk Upload Courses...
                           <input type="file" id="csv_file" accept=".csv" />
                         </label>
@@ -234,7 +234,7 @@ class showInstitution extends Component {
                           onClick={this.bulkUpload}
                         >
                           {loading ? <Spinner /> : "Submit"}
-                        </Button> */}
+                        </Button>
                         <Link to={`/institutions/${slug}/new_course`}>
                           <Tooltip title="Add Course" aria-label="Add">
                             <Fab color="secondary">
@@ -259,7 +259,7 @@ class showInstitution extends Component {
                 </div>
               ) : (
                 <div className="col-sm-12 col-md-8">
-                  {/* <div class="col-md-12">
+                  <div class="col-md-12">
                     {user.status === "educator" || user.admin === true ? (
                       <label className="file-upload btn">
                         Bulk Upload...
@@ -281,7 +281,7 @@ class showInstitution extends Component {
                     >
                       {loading ? <Spinner /> : "Submit"}
                     </Button>
-                  </div> */}
+                  </div>
                   <h4>Courses</h4>
                   <div className="row">
                     {user.status === "educator" || user.admin === true ? (

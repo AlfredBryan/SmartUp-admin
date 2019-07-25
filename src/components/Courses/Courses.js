@@ -145,7 +145,7 @@ class Courses extends Component {
             <div className="main-content">
               {user.status === "educator" || user.admin === true ? (
                 <div className="pull-right">
-                  {/* <label className="file-upload btn">
+                  <label className="file-upload btn">
                     Bulk Upload Courses...
                     <input type="file" id="csv_file" accept=".csv" />
                   </label>
@@ -157,7 +157,7 @@ class Courses extends Component {
                     onClick={this.bulkUpload}
                   >
                     {loading ? <Spinner /> : "Submit"}
-                  </Button> */}
+                  </Button>
                   <Link to="/new_course">
                     <Tooltip title="Add Course" aria-label="Add">
                       <Fab color="secondary">
@@ -196,7 +196,7 @@ class Courses extends Component {
               <div className="container">
                 {user.status === "educator" || user.admin === true ? (
                   <div className="pull-right">
-                    {/* <label className="file-upload btn">
+                    <label className="file-upload btn">
                       Bulk Upload Courses...
                       <input type="file" id="csv_file" accept=".csv" />
                     </label>
@@ -208,7 +208,7 @@ class Courses extends Component {
                       onClick={this.bulkUpload}
                     >
                       {loading ? <Spinner /> : "Submit"}
-                    </Button> */}
+                    </Button>
                     <Link to="/new_course" className="pull-right">
                       <Tooltip title="Add Course" aria-label="Add">
                         <Fab color="secondary">
