@@ -262,12 +262,15 @@ class AddQuestion extends Component {
                         options={this.questionOptions(questions)}
                         required
                       />
-                      <button
+                      <Button
                         onClick={this.postQuestion}
-                        className="option_btn"
+                        variant="contained"
+                        component="span"
+                        color="secondary"
+                        className="new-btn"
                       >
                         Add Question
-                      </button>
+                      </Button>
                     </div>
                     <div className="col-md-12">
                       <div className="">

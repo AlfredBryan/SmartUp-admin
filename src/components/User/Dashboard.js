@@ -299,16 +299,61 @@ class Dashboard extends Component {
                     }
                   })()}
                   {(() => {
+                    if (user.status === "educator") {
+                      return (
+                        <div>
+                          <div className="ward-section">
+                            <h4 style={{ marginBottom: "20px" }}>Attendance</h4>
+                            {attendance.length < 1 ? (
+                              <div id="no-attendance">
+                                <h3>No Attendance Yet</h3>
+                              </div>
+                            ) : (
+                              <div className="attendance-list">
+                                {attendance.map(attend => (
+                                  <div
+                                    className="show-attendance"
+                                    key={attend.id}
+                                  >
+                                    {attend.name}
+                                    <span className="pull-right">
+                                      {attend.attendees.map(att => (
+                                        <div key={att.id}>
+                                          {user.id === att.id ? (
+                                            <i
+                                              className="fa fa-check fa-2x"
+                                              id="correct-answer"
+                                            />
+                                          ) : (
+                                            ""
+                                          )}
+                                        </div>
+                                      ))}
+                                    </span>
+                                    <span className="pull-right">
+                                      <b>
+                                        <Moment format="Do MMMM YYYY">
+                                          {attendance.marked_on}
+                                        </Moment>
+                                      </b>
+                                    </span>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    }
+                  })()}
+                  {(() => {
                     if (user.status === "guardian") {
                       return (
                         <div className="container">
                           <h3>Wards</h3>
                           <div className="row ward-list" id="assessments_home">
                             {wards.map(stud => (
-                              <div
-                                key={stud.id}
-                                className="col-md-4"
-                              >
+                              <div key={stud.id} className="col-md-4">
                                 <div className="card">
                                   <Link
                                     to={`/display_user/${stud.id}`}

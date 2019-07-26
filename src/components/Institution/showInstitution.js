@@ -259,48 +259,34 @@ class showInstitution extends Component {
                 </div>
               ) : (
                 <div className="col-sm-12 col-md-8">
-                  <div class="col-md-12">
-                    {user.status === "educator" || user.admin === true ? (
+                  {user.status === "educator" || user.admin === true ? (
+                    <div className="pull-right">
                       <label className="file-upload btn">
-                        Bulk Upload...
-                        <input
-                          type="file"
-                          accept=".csv"
-                          name="csv_file"
-                          id="csv_file"
-                        />
+                        Bulk Upload Courses...
+                        <input type="file" id="csv_file" accept=".csv" />
                       </label>
-                    ) : (
-                      ""
-                    )}
-                    <Button
-                      variant="contained"
-                      component="span"
-                      color="secondary"
-                      className="bulk-btn"
-                    >
-                      {loading ? <Spinner /> : "Submit"}
-                    </Button>
-                  </div>
-                  <h4>Courses</h4>
-                  <div className="row">
-                    {user.status === "educator" || user.admin === true ? (
-                      <Link
-                        to={`/institutions/${slug}/new_course`}
-                        className="button-area"
+                      <Button
+                        variant="contained"
+                        component="span"
+                        color="secondary"
+                        className="bulk-btn"
+                        onClick={this.bulkUpload}
                       >
-                        <Button
-                          variant="contained"
-                          component="span"
-                          color="secondary"
-                          className="inst_btn"
-                        >
-                          Add Course
-                        </Button>
+                        {loading ? <Spinner /> : "Submit"}
+                      </Button>
+                      <Link to={`/institutions/${slug}/new_course`}>
+                        <Tooltip title="Add Course" aria-label="Add">
+                          <Fab color="secondary">
+                            <AddIcon />
+                          </Fab>
+                        </Tooltip>
                       </Link>
-                    ) : (
-                      ""
-                    )}
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                  <h4 style={{ paddingBottom: "1em" }}>Courses</h4>
+                  <div className="row">
                     <ul className="course-listed pr-20">
                       {course_list.map(course => (
                         <Link key={course.id} to={`/courses/${course.slug}`}>
