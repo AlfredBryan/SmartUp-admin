@@ -40,14 +40,14 @@ class ShowUser extends Component {
 
   fetchTest = e => {
     const token = localStorage.getItem("token");
-    const { user_id } = this.state;
     axios
-      .get(`${Url}/api/v1/assessment_results/${user_id}`, {
+      .get(`${Url}/api/v1/assessment_results`, {
         headers: {
           Authorization: token
         }
       })
       .then(res => {
+        console.log(res.data);
         this.setState({
           scores: res.data
         });
@@ -96,7 +96,7 @@ class ShowUser extends Component {
   }
 
   render() {
-    const { user, scores, attendance, user_id } = this.state;
+    const { user, scores, attendance } = this.state;
     return (
       <React.Fragment>
         <Navigation />
@@ -160,19 +160,21 @@ class ShowUser extends Component {
                     </div>
                   ) : (
                     <div className="test-scores">
-                      <div key={scores.id} className="flex-container">
-                        <h5 className="test-name">{scores.assessment.name}</h5>
-                        <span>
-                          <div>
-                            {scores.grade}
-                            <CircularProgressbar
-                              value={scores.score}
-                              text={`${scores.score}%`}
-                              className="test-progress"
-                            />
-                          </div>
-                        </span>
-                      </div>
+                      {scores.map(score => (
+                        <div key={score.id} className="flex-container">
+                          <h5 className="test-name">{score.assessment.name}</h5>
+                          <span>
+                            <div>
+                              {score.grade}
+                              <CircularProgressbar
+                                value={score.score}
+                                text={`${score.score}%`}
+                                className="test-progress"
+                              />
+                            </div>
+                          </span>
+                        </div>
+                      ))}
                     </div>
                   )}
                   <div className="ward-section">
