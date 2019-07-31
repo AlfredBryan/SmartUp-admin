@@ -154,14 +154,12 @@ class UserAuth extends Component {
               <p className="alt-login-text">You can also sign in via</p>
               <div className="login-footer">
                 <div className="login-footer1 social-icon">
-                  <i className="fa fa-facebook-square icon">
+                  <i className="fa fa-facebook-square"/>
                     <span>Facebook</span>
-                  </i>
                 </div>
                 <div className="login-footer2 social-icon">
-                  <i className="fa fa-google icon">
+                  <i className="fa fa-google"/>
                     <span>Google</span>
-                  </i>
                 </div>
               </div>
             </div>

@@ -32,7 +32,7 @@
 
 .login-form {
     display: inline-block;
-    width:20em ;
+    width: 20em;
     background-color: #ffff;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.12);
     border-radius: 0.25em;
@@ -68,13 +68,13 @@
 
 .login-footer {
     display: flex;
-    text-align: center;
 }
 
 .login-footer1 {
     flex: 1;
-    padding: 6px;
+    padding: 1em;
     background-color: #3b5998 !important;
+    display: flex;
 }
 
 .nav-tabs li {
@@ -93,20 +93,24 @@
 
 .login-footer2 {
     flex: 1;
-    padding: 6px;
+    padding: 1em;
     background-color: red;
+    display: flex;
+}
+
+.login-footer2 i {
+    padding: 2px;
+    margin-left: 0.6em
+}
+
+.login-footer1 i {
+    padding: 2px;
 }
 
 .social-icon {
     border: 0.6px solid rgba(151, 151, 151, 0.12);
-    border-radius: 28px;
-    height: 40px;
-    width: 30px !important;
+    border-radius: 20px;
     color: white !important;
-}
-
-.social-icon span {
-    margin-left: 0em;
 }
 
 li>a {
@@ -178,4 +182,19 @@ li>a {
         height: 35px;
         margin-top: 40px;
     }
+}
+
+@media screen and (max-width: 768px) {
+    /* .login-footer2 {
+        flex: 1;
+        padding: 6px;
+        background-color: red;
+    }
+    .login-footer1 {
+        flex: 1;
+        margin: 0em 2em 0em 2em;
+        padding: 0em;
+        background-color: #3b5998 !important;
+    } */
+
 }

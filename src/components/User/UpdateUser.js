@@ -400,7 +400,6 @@ class UpdateUser extends Component {
                       {Array.from(new Array(12), (val, index) => index + 1).map(
                         l => (
                           <option key={l} value={l}>
-                            {" "}
                             Grade {l}
                           </option>
                         )

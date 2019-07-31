@@ -10,11 +10,8 @@ import "./Dashboard.css";
 //popup notification
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import Snackbar from "@material-ui/core/Snackbar";
 import Navigation from "components/Navigation/Navigation";
 import { Helmet } from "react-helmet";
-import { throwStatement } from "@babel/types";
 
 const styles = theme => ({
   root: {
@@ -145,27 +142,6 @@ class Dashboard extends Component {
           <title>SmartUp</title>
         </Helmet>
         <Navigation />
-        <Snackbar
-          open={open}
-          autoHideDuration={4000}
-          onClose={this.handleClose}
-          ContentProps={{
-            "aria-describedby": "snackbar-fab-message-id",
-            className: classes.snackbarContent
-          }}
-          message={
-            <span id="snackbar-fab-message-id popup-text">
-              Welcome to your profile{" "}
-              <span className="user-popup">{user.first_name}</span>
-            </span>
-          }
-          action={
-            <Button color="inherit" size="small" onClick={this.handleClose}>
-              close
-            </Button>
-          }
-          className={classes.snackbar}
-        />
         <div className="main-content">
           <div className="container">
             <div className="row">
