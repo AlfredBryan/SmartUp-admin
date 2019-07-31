@@ -132,9 +132,22 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { classes } = this.props;
-    const { open, scores, wards, attendance } = this.state;
+    const { scores, wards, attendance } = this.state;
     const user = JSON.parse(localStorage.getItem("user"));
+    const user_class = [
+      { id: 1, name: "Primary 1" },
+      { id: 2, name: "Primary 2" },
+      { id: 3, name: "Primary 3" },
+      { id: 4, name: "Primary 4" },
+      { id: 5, name: "Primary 5" },
+      { id: 6, name: "Primary 6" },
+      { id: 7, name: "JSS 1" },
+      { id: 8, name: "JSS 2" },
+      { id: 9, name: "JSS 3" },
+      { id: 10, name: "SS 1" },
+      { id: 11, name: "SS 2" },
+      { id: 12, name: "SS 3" }
+    ];
     return (
       <React.Fragment>
         <Helmet>
@@ -173,7 +186,11 @@ class Dashboard extends Component {
                     <p className="profile_data">
                       <small>{this.Capitalize(user.sex || "")}</small>{" "}
                       <small className="profile_divider" />
-                      <small>{user.level}</small>
+                      {user_class.map(cl => (
+                        <small key={cl.id}>
+                          {user.level === cl.id ? <small>{cl.name}</small> : ""}
+                        </small>
+                      ))}
                       <small className="profile_divider" />
                       <small>{this.getAge(user.date_of_birth)}YRS</small>
                     </p>

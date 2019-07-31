@@ -6,7 +6,7 @@
 }
 
 .profile_data {
-    margin: 0em 5.6em 1.5em;
+    margin: 0em 5em 1.5em;
     color: grey;
 }
 
@@ -16,7 +16,7 @@
 
 .profile_divider {
     border-right: 1px solid grey;
-    margin: 0em 1.6em
+    margin: 0em 1em
 }
 
 #no-scores {

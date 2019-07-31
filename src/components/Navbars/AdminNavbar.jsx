@@ -6,12 +6,11 @@ import AdminNavbarLinks from "./AdminNavbarLinks.jsx";
 class Header extends Component {
   constructor(props) {
     super(props);
-    this.mobileSidebarToggle = this.mobileSidebarToggle.bind(this);
     this.state = {
       sidebarExists: false
     };
   }
-  mobileSidebarToggle(e) {
+  mobileSidebarToggle = e => {
     if (this.state.sidebarExists === false) {
       this.setState({
         sidebarExists: true
@@ -26,7 +25,7 @@ class Header extends Component {
       document.documentElement.classList.toggle("nav-open");
     };
     document.body.appendChild(node);
-  }
+  };
   render() {
     return (
       <Navbar fluid>

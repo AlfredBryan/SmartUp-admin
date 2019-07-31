@@ -179,7 +179,7 @@ class UpdateUser extends Component {
       sex: user.sex,
       level: user.level,
       image: user.image_url,
-      date_of_birth: moment(user.date_of_birth).format("L")
+      date_of_birth: moment(user.date_of_birth).format("l")
     });
   }
   //ends
@@ -225,18 +225,18 @@ class UpdateUser extends Component {
       "Zamfara"
     ];
     const level = [
-      "Primary 1",
-      "Primary 2",
-      "Primary 3",
-      "Primary 4",
-      "Primary 5",
-      "Primary 6",
-      "JSS 1",
-      "JSS 2",
-      "JSS 3",
-      "SSS 1",
-      "SSS 2",
-      "SSS 3"
+      { id: 1, name: "Primary 1" },
+      { id: 2, name: "Primary 2" },
+      { id: 3, name: "Primary 3" },
+      { id: 4, name: "Primary 4" },
+      { id: 5, name: "Primary 5" },
+      { id: 6, name: "Primary 6" },
+      { id: 7, name: "JSS 1" },
+      { id: 8, name: "JSS 2" },
+      { id: 9, name: "JSS 3" },
+      { id: 10, name: "SS 1" },
+      { id: 11, name: "SS 2" },
+      { id: 12, name: "SS 3" }
     ];
     const { classes } = this.props;
     const { open, loading, errorMessage, date_of_birth } = this.state;
@@ -397,13 +397,11 @@ class UpdateUser extends Component {
                       onChange={this.handleChange}
                       id=""
                     >
-                      {Array.from(new Array(12), (val, index) => index + 1).map(
-                        l => (
-                          <option key={l} value={l}>
-                            Grade {l}
-                          </option>
-                        )
-                      )}
+                      {level.map(l => (
+                        <option key={l.id} value={l.id}>
+                          {l.name}
+                        </option>
+                      ))}
                     </select>
                   </div>
                 </div>
