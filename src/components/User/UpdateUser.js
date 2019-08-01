@@ -304,7 +304,7 @@ class UpdateUser extends Component {
               className="form-horizontal form-horizontal-info"
             >
               <div className="form-group">
-                <label className="col-lg-3 control-label">First name:</label>
+                <label className="col-lg-3 control-label">First name</label>
                 <div className="col-lg-8">
                   <input
                     className="form-control"
@@ -317,7 +317,7 @@ class UpdateUser extends Component {
                 </div>
               </div>
               <div className="form-group">
-                <label className="col-lg-3 control-label">Surname:</label>
+                <label className="col-lg-3 control-label">Surname</label>
                 <div className="col-lg-8">
                   <input
                     className="form-control"
@@ -330,7 +330,7 @@ class UpdateUser extends Component {
                 </div>
               </div>
               <div className="form-group">
-                <label className="col-lg-3 control-label">Address:</label>
+                <label className="col-lg-3 control-label">Address</label>
                 <div className="col-lg-8">
                   <input
                     className="form-control"
@@ -343,7 +343,7 @@ class UpdateUser extends Component {
                 </div>
               </div>
               <div className="form-group">
-                <label className="col-lg-3 control-label">State:</label>
+                <label className="col-lg-3 control-label">State</label>
                 <div className="col-lg-8">
                   <div className="ui-select">
                     <select
@@ -364,7 +364,7 @@ class UpdateUser extends Component {
                 </div>
               </div>
               <div className="form-group">
-                <label className="col-lg-3 control-label">Phone:</label>
+                <label className="col-lg-3 control-label">Phone</label>
                 <div className="col-lg-8">
                   <input
                     className="form-control"
@@ -377,7 +377,7 @@ class UpdateUser extends Component {
                 </div>
               </div>
               <div className="form-group">
-                <label className="col-lg-3 control-label">Date of Birth:</label>
+                <label className="col-lg-3 control-label">Date of Birth</label>
                 <div className="col-lg-8">
                   <DatePickerInput
                     onChange={this.handleDateChange}
@@ -388,7 +388,7 @@ class UpdateUser extends Component {
               </div>
               {user.status !== "guardian" ? (
                 <div className="form-group">
-                  <label className="col-lg-3 control-label">Level:</label>
+                  <label className="col-lg-3 control-label">Class</label>
                   <div className="col-lg-8">
                     <select
                       className="form-control"
@@ -409,7 +409,7 @@ class UpdateUser extends Component {
                 ""
               )}
               <div className="form-group">
-                <label className="col-lg-3 control-label">Sex:</label>
+                <label className="col-lg-3 control-label">Sex</label>
                 <div className="col-lg-8">
                   <select
                     className="form-control"

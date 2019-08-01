@@ -233,7 +233,7 @@ class showAttendance extends Component {
                   to={`/study_groups/${study_group_id}/edit_attendance/${
                     attendance.id
                   }`}
-                  className="button-area"
+                  className="pull-right"
                 >
                   <Tooltip title="Edit Group" aria-label="Edit">
                     <Fab color="secondary">

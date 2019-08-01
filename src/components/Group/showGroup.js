@@ -282,7 +282,7 @@ class showGroup extends Component {
                 </div>
               </form>
               {memberships.length > 0 ? (
-                <table className="table-striped">
+                <table className="table-striped table-responsive">
                   <thead>
                     <tr>
                       <th>Name</th>

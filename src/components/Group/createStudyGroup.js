@@ -40,7 +40,7 @@ class createStudyGroup extends Component {
     super(props);
     this.state = {
       name: "",
-      level: "1",
+      level: "",
       pop_up: "",
       institution_id: this.props.match.params.id,
       loading: false,
@@ -101,6 +101,20 @@ class createStudyGroup extends Component {
   render() {
     const { loading, name, level, pop_up, open } = this.state;
     const { classes } = this.props;
+    const group_level = [
+      { id: 1, name: "Primary 1" },
+      { id: 2, name: "Primary 2" },
+      { id: 3, name: "Primary 3" },
+      { id: 4, name: "Primary 4" },
+      { id: 5, name: "Primary 5" },
+      { id: 6, name: "Primary 6" },
+      { id: 7, name: "JSS 1" },
+      { id: 8, name: "JSS 2" },
+      { id: 9, name: "JSS 3" },
+      { id: 10, name: "SS 1" },
+      { id: 11, name: "SS 2" },
+      { id: 12, name: "SS 3" }
+    ];
     return (
       <React.Fragment>
         <Helmet>
@@ -136,7 +150,7 @@ class createStudyGroup extends Component {
               <form onSubmit={this.handleSubmit} className="form-horizontal">
                 <div className="form-group">
                   <label className="col-lg-3 control-label">
-                    Study Group name:
+                    Study Group name
                   </label>
                   <div className="col-lg-8">
                     <input
@@ -150,7 +164,7 @@ class createStudyGroup extends Component {
                   </div>
                 </div>
                 <div className="form-group">
-                  <label className="col-lg-3 control-label">Level:</label>
+                  <label className="col-lg-3 control-label">Class</label>
                   <div className="col-lg-8">
                     <select
                       className="form-control"
@@ -158,14 +172,12 @@ class createStudyGroup extends Component {
                       value={level}
                       onChange={this.handleChange}
                     >
-                      {Array.from(new Array(12), (val, index) => index + 1).map(
-                        lev => (
-                          <option key={lev} value={lev}>
-                            {" "}
-                            Level {lev}
-                          </option>
-                        )
-                      )}
+                      <option value="">--Select--</option>
+                      {group_level.map(l => (
+                        <option key={l.id} value={l.id}>
+                          {l.name}
+                        </option>
+                      ))}
                     </select>
                   </div>
                 </div>

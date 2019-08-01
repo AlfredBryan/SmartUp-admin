@@ -1,0 +1,28 @@
+#no_users {
+    text-align: center;
+    background-color: #ffffff;
+    padding: 2em;
+    box-shadow: 0 0.3px 0.3px 0 rgba(0, 0, 0, 0.2);
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    margin: 2em 0em;
+    box-shadow: 0 0.3px 0.3px 0 rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
+}
+
+td,
+th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+}
+
+@media screen and (max-width: 768px) {
+    table {
+        display: block;
+    }
+}

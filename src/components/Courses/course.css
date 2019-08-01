@@ -394,14 +394,12 @@ a:hover {
         height: 35em;
         overflow: scroll;
         margin-left: 1em !important;
-        /* background-color: rgba(0, 0, 0, 0.1); */
-        /* box-shadow: 0 0.3px 0.3px 0 rgba(0, 0, 0, 0.2); */
     }
 
     .button-area {
         right: 0% !important;
         left: 75%;
-        top: 5.5%;
+        top: 15%;
     }
 
 }
