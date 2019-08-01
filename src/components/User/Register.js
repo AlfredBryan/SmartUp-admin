@@ -173,14 +173,12 @@ class Register extends Component {
               <p className="alt-login-text">You can also register via</p>
               <div className="login-footer">
                 <div className="login-footer1 social-icon">
-                  <i className="fa fa-facebook-square icon">
-                    <span>Facebook</span>
-                  </i>
+                  <i className="fa fa-facebook-square" />
+                  <span>Facebook</span>
                 </div>
                 <div className="login-footer2 social-icon">
-                  <i className="fa fa-google icon">
-                    <span>Google</span>
-                  </i>
+                  <i className="fa fa-google" />
+                  <span>Google</span>
                 </div>
               </div>
             </div>
