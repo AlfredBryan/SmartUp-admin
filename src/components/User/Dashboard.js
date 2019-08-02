@@ -93,7 +93,6 @@ class Dashboard extends Component {
 
   fetchAttendance = () => {
     const token = localStorage.getItem("token");
-    const user = JSON.parse(localStorage.getItem("user"));
     axios
       .get(`${Url}/api/v1/attendances`, {
         headers: {
@@ -178,28 +177,27 @@ class Dashboard extends Component {
                       <h4 className="title">
                         <strong>Hi,</strong>
                         <strong style={{ padding: "0.5em" }}>
-                          {user.surname}
+                          {user.first_name}
                         </strong>
                         <br />
                       </h4>
                     </div>
                     <p className="profile_data">
-                      <small>{this.Capitalize(user.sex || "")}</small>{" "}
-                      <small className="profile_divider" />
+                      <small>{this.Capitalize(user.sex || "")}</small>
+                      <span className="p-divder-1">|</span>
                       {user_class.map(cl => (
                         <small key={cl.id}>
                           {user.level === cl.id ? <small>{cl.name}</small> : ""}
                         </small>
                       ))}
-                      <small className="profile_divider" />
+                      <span className="p-divder-2">|</span>
                       <small>{this.getAge(user.date_of_birth)}YRS</small>
                     </p>
                     <hr className="profile_hr" />
-                    <p className="description text-center">
-                      {user.address}
-                      <br />
-                      {user.email}
-                    </p>
+                    <div className="description">
+                      <div id="user_details">{user.address}</div>
+                      <div id="user_details">{user.email}</div>
+                    </div>
                   </div>
                   <hr />
                   <div className="text-center footer-social">
