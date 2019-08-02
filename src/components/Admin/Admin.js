@@ -57,7 +57,7 @@ class Admin extends Component {
                 );
               } else if (user_list.length > 0 && user.status === "educator") {
                 return (
-                  <table className="table-striped">
+                  <table className="table-responsive table-striped">
                     <thead>
                       <tr>
                         <th>Name</th>

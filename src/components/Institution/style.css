@@ -12,6 +12,13 @@
     margin-left: 0.0065em !important
 }
 
+.inst-button-area {
+    right: 24%;
+    top: 8.5%;
+    position: fixed;
+    z-index: 1000;
+}
+
 .course-list-uni {
     width: 40em;
     margin-top: 4rem;
@@ -98,4 +105,13 @@
     .push-down {
         margin-top: 10em;
     }
+}
+
+@media screen and (max-width: 768px) {
+    .inst-button-area {
+        right: 0% !important;
+        left: 75%;
+        top: 13%;
+    }
+
 }

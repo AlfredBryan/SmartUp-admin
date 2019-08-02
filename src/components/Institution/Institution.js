@@ -86,7 +86,7 @@ class Institution extends Component {
           <Navigation />
           <div className="main-content">
             {user.status === "educator" || user.admin === true ? (
-              <Link to="/new_institution" className="button-area">
+              <Link to="/new_institution" className="inst-button-area">
                 <Tooltip title="Add Institution" aria-label="Add">
                   <Fab color="secondary" className={classes.fab}>
                     <AddIcon />
