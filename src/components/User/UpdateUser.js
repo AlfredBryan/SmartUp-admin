@@ -182,6 +182,19 @@ class UpdateUser extends Component {
       date_of_birth: moment(user.date_of_birth).format("l")
     });
   }
+
+  map_user_level = level => {
+    switch (true) {
+      case level <= 6:
+        return `Primary ${level}`;
+      case level > 6 && level <= 9:
+        return `JSS ${level - 6}`;
+      case level > 9 && level <= 12:
+        return `SS ${level - 9}`;
+      default:
+        return level;
+    }
+  };
   //ends
 
   render() {
@@ -223,20 +236,6 @@ class UpdateUser extends Component {
       "Taraba",
       "Yobe",
       "Zamfara"
-    ];
-    const level = [
-      { id: 1, name: "Primary 1" },
-      { id: 2, name: "Primary 2" },
-      { id: 3, name: "Primary 3" },
-      { id: 4, name: "Primary 4" },
-      { id: 5, name: "Primary 5" },
-      { id: 6, name: "Primary 6" },
-      { id: 7, name: "JSS 1" },
-      { id: 8, name: "JSS 2" },
-      { id: 9, name: "JSS 3" },
-      { id: 10, name: "SS 1" },
-      { id: 11, name: "SS 2" },
-      { id: 12, name: "SS 3" }
     ];
     const { classes } = this.props;
     const { open, loading, errorMessage, date_of_birth } = this.state;
@@ -397,9 +396,9 @@ class UpdateUser extends Component {
                       onChange={this.handleChange}
                       id=""
                     >
-                      {level.map(l => (
-                        <option key={l.id} value={l.id}>
-                          {l.name}
+                      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(l => (
+                        <option key={l} value={l}>
+                          {this.map_user_level(l)}
                         </option>
                       ))}
                     </select>

@@ -123,6 +123,19 @@ class Dashboard extends Component {
       });
   };
 
+  map_user_level = level => {
+    switch (true) {
+      case level <= 6:
+        return `Primary ${level}`;
+      case level > 6 && level <= 9:
+        return `JSS ${level - 6}`;
+      case level > 9 && level <= 12:
+        return `SS ${level - 9}`;
+      default:
+        return level;
+    }
+  };
+
   componentDidMount() {
     this.handleClick();
     this.fetchTest();
@@ -133,20 +146,6 @@ class Dashboard extends Component {
   render() {
     const { scores, wards, attendance } = this.state;
     const user = JSON.parse(localStorage.getItem("user"));
-    const user_class = [
-      { id: 1, name: "Primary 1" },
-      { id: 2, name: "Primary 2" },
-      { id: 3, name: "Primary 3" },
-      { id: 4, name: "Primary 4" },
-      { id: 5, name: "Primary 5" },
-      { id: 6, name: "Primary 6" },
-      { id: 7, name: "JSS 1" },
-      { id: 8, name: "JSS 2" },
-      { id: 9, name: "JSS 3" },
-      { id: 10, name: "SS 1" },
-      { id: 11, name: "SS 2" },
-      { id: 12, name: "SS 3" }
-    ];
     return (
       <React.Fragment>
         <Helmet>
@@ -185,11 +184,9 @@ class Dashboard extends Component {
                     <p className="profile_data">
                       <small>{this.Capitalize(user.sex || "")}</small>
                       <span className="p-divder-1">|</span>
-                      {user_class.map(cl => (
-                        <small key={cl.id}>
-                          {user.level === cl.id ? <small>{cl.name}</small> : ""}
-                        </small>
-                      ))}
+
+                      <small>{this.map_user_level(user.level)}</small>
+
                       <span className="p-divder-2">|</span>
                       <small>{this.getAge(user.date_of_birth)}YRS</small>
                     </p>
