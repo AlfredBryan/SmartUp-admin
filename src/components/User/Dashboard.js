@@ -44,7 +44,8 @@ class Dashboard extends Component {
       scores: [],
       open: false,
       wards: [],
-      attendance: []
+      attendance: [],
+      assessment: []
     };
   }
 
@@ -75,6 +76,21 @@ class Dashboard extends Component {
     return age;
   };
   //ends
+
+  fetchAssessments = () => {
+    const token = localStorage.getItem("token");
+    axios
+      .get(`${Url}/api/v1/assessments`, {
+        headers: {
+          Authorization: token
+        }
+      })
+      .then(res => {
+        this.setState({
+          assessment: res.data
+        });
+      });
+  };
 
   fetchTest = e => {
     const token = localStorage.getItem("token");
@@ -141,10 +157,11 @@ class Dashboard extends Component {
     this.fetchTest();
     this.fetchWards();
     this.fetchAttendance();
+    this.fetchAssessments();
   }
 
   render() {
-    const { scores, wards, attendance } = this.state;
+    const { scores, wards, attendance, assessment } = this.state;
     const user = JSON.parse(localStorage.getItem("user"));
     return (
       <React.Fragment>
@@ -211,6 +228,33 @@ class Dashboard extends Component {
                     if (user.status === "student") {
                       return (
                         <div>
+                          <h3>Assessments</h3>
+                          {assessment.length < 1 ? (
+                            <div id="no-assessment">
+                              <h3>No Assessment yet</h3>
+                            </div>
+                          ) : (
+                            <div className="row" id="assessments_home">
+                              {assessment.map(ass => (
+                                <div key={ass.id} className="col-md-6">
+                                  <div className="card">
+                                    <Link
+                                      to={`/assessment/${ass.id}`}
+                                      className="display-uni"
+                                    >
+                                      <i className="fa fa-vcard-o assessment_logo" />
+                                      <h6 className="assessment_name">
+                                        {ass.name}
+                                      </h6>
+                                      <p className="assessment_course_name">
+                                        Course: {ass.course.name}
+                                      </p>
+                                    </Link>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          )}
                           <h4 style={{ marginBottom: "20px" }}>Test Scores</h4>
                           {scores.length < 1 ? (
                             <div id="no-scores">
@@ -337,11 +381,11 @@ class Dashboard extends Component {
                   {(() => {
                     if (user.status === "guardian") {
                       return (
-                        <div className="container">
+                        <div>
                           <h3>Wards</h3>
                           <div className="row ward-list" id="assessments_home">
                             {wards.map(stud => (
-                              <div key={stud.id} className="col-md-4">
+                              <div key={stud.id} className="col-md-6">
                                 <div className="card">
                                   <Link
                                     to={`/display_user/${stud.id}`}

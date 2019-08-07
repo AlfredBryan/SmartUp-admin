@@ -33,6 +33,7 @@ class Assessment extends Component {
         });
       });
   };
+
   render() {
     const { assessment } = this.state;
     return (
@@ -46,24 +47,30 @@ class Assessment extends Component {
           <div className="container">
             <div className="row push-down">
               <h3>Assessments</h3>
-              <div className="row" id="assessments_home">
-                {assessment.map(ass => (
-                  <div key={ass.id} className="col-md-4">
-                    <div className="card">
-                      <Link
-                        to={`/assessment/${ass.id}`}
-                        className="display-uni"
-                      >
-                        <i className="fa fa-vcard-o assessment_logo" />
-                        <h6 className="assessment_name">{ass.name}</h6>
-                        <p className="assessment_course_name">
-                          Course: {ass.course.name}
-                        </p>
-                      </Link>
+              {assessment.length < 1 ? (
+                <div id="no-assessment">
+                  <h3>No Assessment yet</h3>
+                </div>
+              ) : (
+                <div className="row" id="assessments_home">
+                  {assessment.map(ass => (
+                    <div key={ass.id} className="col-md-4">
+                      <div className="card">
+                        <Link
+                          to={`/assessment/${ass.id}`}
+                          className="display-uni"
+                        >
+                          <i className="fa fa-vcard-o assessment_logo" />
+                          <h6 className="assessment_name">{ass.name}</h6>
+                          <p className="assessment_course_name">
+                            Course: {ass.course.name}
+                          </p>
+                        </Link>
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>

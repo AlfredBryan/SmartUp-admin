@@ -22,6 +22,14 @@
     border: 0.02em solid grey
 }
 
+#no-assessment {
+    text-align: center;
+    padding: 2em;
+    background-color: #FFFFFF;
+    box-shadow: 0 0.115px 0.115px 0 rgba(0, 0, 0, 0);
+    transition: 0.3s;
+}
+
 #user_details {
     color: grey;
     text-transform: capitalize;
