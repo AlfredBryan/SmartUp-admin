@@ -147,6 +147,12 @@ class Dashboard extends Component {
         return `JSS ${level - 6}`;
       case level > 9 && level <= 12:
         return `SS ${level - 9}`;
+      case level > 12 && level <= 13:
+        return "A Level";
+      case level > 13 && level <= 14:
+        return "100 Level";
+      case level > 14 && level <= 15:
+        return "200 Level";
       default:
         return level;
     }
