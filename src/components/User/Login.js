@@ -4,8 +4,11 @@ import axios from "axios";
 import "./style.css";
 import Spinner from "../hoc/spinner";
 import { Helmet } from "react-helmet";
+import { connect } from "react-redux";
 
-const Url = process.env.REACT_APP_BASE_URL;
+import { userLogin } from "../../actions/userActions";
+
+// const Url = process.env.REACT_APP_BASE_URL;
 
 class UserAuth extends Component {
   constructor(props) {
@@ -25,56 +28,63 @@ class UserAuth extends Component {
     });
   };
 
-  submitHandler = e => {
+  handleSubmit = e => {
+    let { email, password } = this.state;
     e.preventDefault();
-    const { email, password } = this.state;
-    if (email.length < 1 || password.length < 1) {
-      this.setState({
-        errorMessage: "Please Enter login details"
-      });
-    } else {
-      axios
-        .post(
-          `${Url}/api/v1/session`,
-          {
-            email,
-            password
-          },
-          this.setState({ loading: true })
-        )
-        .then(res => {
-          if (res.statusText === "Created" && res.data.completed_at !== null) {
-            localStorage.setItem("token", res.data.authentication_token);
-            localStorage.setItem("user", JSON.stringify(res.data));
-            this.props.history.replace("/profile");
-          } else if (res.data.completed_at === null) {
-            localStorage.setItem("token", res.data.authentication_token);
-            localStorage.setItem("user", JSON.stringify(res.data));
-            this.props.history.replace("/update_profile");
-          } else {
-            this.setState({
-              errorMessage: res.data.message,
-              loading: false
-            });
-          }
-        })
-        .catch(err => {
-          if (err) {
-            this.setState({
-              errorMessage: err.message,
-              loading: false
-            });
-          }
-        });
-    }
+    this.props.dispatch(userLogin({ email, password }));
   };
+
+  // submitHandler = e => {
+  //   e.preventDefault();
+  //   const { email, password } = this.state;
+  //   if (email.length < 1 || password.length < 1) {
+  //     this.setState({
+  //       errorMessage: "Please Enter login details"
+  //     });
+  //   } else {
+  //     axios
+  //       .post(
+  //         `${Url}/api/v1/session`,
+  //         {
+  //           email,
+  //           password
+  //         },
+  //         this.setState({ loading: true })
+  //       )
+  //       .then(res => {
+  //         if (res.statusText === "Created" && res.data.completed_at !== null) {
+  //           localStorage.setItem("token", res.data.authentication_token);
+  //           localStorage.setItem("user", JSON.stringify(res.data));
+  //           this.props.history.replace("/profile");
+  //         } else if (res.data.completed_at === null) {
+  //           localStorage.setItem("token", res.data.authentication_token);
+  //           localStorage.setItem("user", JSON.stringify(res.data));
+  //           this.props.history.replace("/update_profile");
+  //         } else {
+  //           this.setState({
+  //             errorMessage: res.data.message,
+  //             loading: false
+  //           });
+  //         }
+  //       })
+  //       .catch(err => {
+  //         if (err) {
+  //           this.setState({
+  //             errorMessage: err.message,
+  //             loading: false
+  //           });
+  //         }
+  //       });
+  //   }
+  // };
 
   handleTabChange = (event, value) => {
     this.setState({ value });
   };
 
   render() {
-    let { loading, errorMessage } = this.state;
+    // let { loading, errorMessage } = this.state;
+    let { loading, error } = this.props;
 
     const token = localStorage.getItem("token");
     if (token) {
@@ -139,12 +149,12 @@ class UserAuth extends Component {
                     fontSize: "18px"
                   }}
                 >
-                  {errorMessage}
+                  {/* {error} */}
                 </p>
                 <button
                   type="submit"
                   disabled={loading}
-                  onClick={this.submitHandler}
+                  onClick={this.handleSubmit}
                   className="login-button btn-block"
                   id="login-button"
                 >
@@ -154,12 +164,12 @@ class UserAuth extends Component {
               <p className="alt-login-text">You can also sign in via</p>
               <div className="login-footer">
                 <div className="login-footer1 social-icon">
-                  <i className="fa fa-facebook-square"/>
-                    <span>Facebook</span>
+                  <i className="fa fa-facebook-square" />
+                  <span>Facebook</span>
                 </div>
                 <div className="login-footer2 social-icon">
-                  <i className="fa fa-google"/>
-                    <span>Google</span>
+                  <i className="fa fa-google" />
+                  <span>Google</span>
                 </div>
               </div>
             </div>
@@ -170,4 +180,9 @@ class UserAuth extends Component {
   }
 }
 
-export default UserAuth;
+const mapStateToProps = state => ({
+  loading: state.users.loading,
+  error: state.users.error
+});
+
+export default connect(mapStateToProps)(UserAuth);
